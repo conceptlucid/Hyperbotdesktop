@@ -8,7 +8,7 @@ title: "Platforms"
 
 # Platforms
 
-HyperBot core is written in TypeScript. **Node is the recommended runtime**.
+Ancient Claw core is written in TypeScript. **Node is the recommended runtime**.
 Bun is not recommended for the Gateway (WhatsApp/Telegram bugs).
 
 Companion apps exist for macOS (menu bar app) and mobile nodes (iOS/Android). Windows and
@@ -37,18 +37,18 @@ Native companion apps for Windows are also planned; the Gateway is recommended v
 - Install guide: [Getting Started](/start/getting-started)
 - Gateway runbook: [Gateway](/gateway)
 - Gateway configuration: [Configuration](/gateway/configuration)
-- Service status: `hyperbot gateway status`
+- Service status: `ancient-claw gateway status`
 
 ## Gateway service install (CLI)
 
 Use one of these (all supported):
 
-- Wizard (recommended): `hyperbot onboard --install-daemon`
-- Direct: `hyperbot gateway install`
-- Configure flow: `hyperbot configure` → select **Gateway service**
-- Repair/migrate: `hyperbot doctor` (offers to install or fix the service)
+- Wizard (recommended): `ancient-claw onboard --install-daemon`
+- Direct: `ancient-claw gateway install`
+- Configure flow: `ancient-claw configure` → select **Gateway service**
+- Repair/migrate: `ancient-claw doctor` (offers to install or fix the service)
 
 The service target depends on OS:
 
-- macOS: LaunchAgent (`ai.hyperbot.gateway` or `ai.hyperbot.<profile>`; legacy `com.hyperbot.*`)
-- Linux/WSL2: systemd user service (`hyperbot-gateway[-<profile>].service`)
+- macOS: LaunchAgent (`ai.ancient-claw.gateway` or `ai.ancient-claw.<profile>`; legacy `com.ancient-claw.*`)
+- Linux/WSL2: systemd user service (`ancient-claw-gateway[-<profile>].service`)

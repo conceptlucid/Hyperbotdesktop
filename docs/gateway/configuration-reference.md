@@ -1,6 +1,6 @@
 ---
 title: "Configuration Reference"
-summary: "Complete reference for every HyperBot config key, defaults, and channel settings"
+summary: "Complete reference for every Ancient Claw config key, defaults, and channel settings"
 read_when:
   - You need exact field-level config semantics or defaults
   - You are validating channel, model, gateway, or tool config blocks
@@ -8,9 +8,9 @@ read_when:
 
 # Configuration Reference
 
-Every field available in `~/.hyperbot/hyperbot.json`. For a task-oriented overview, see [Configuration](/gateway/configuration).
+Every field available in `~/.ancient-claw/ancient-claw.json`. For a task-oriented overview, see [Configuration](/gateway/configuration).
 
-Config format is **JSON5** (comments + trailing commas allowed). All fields are optional — HyperBot uses safe defaults when omitted.
+Config format is **JSON5** (comments + trailing commas allowed). All fields are optional — Ancient Claw uses safe defaults when omitted.
 
 ---
 
@@ -133,7 +133,7 @@ WhatsApp runs through the gateway's web channel (Baileys Web). It starts automat
         default: {},
         personal: {},
         biz: {
-          // authDir: "~/.hyperbot/credentials/whatsapp/biz",
+          // authDir: "~/.ancient-claw/credentials/whatsapp/biz",
         },
       },
     },
@@ -143,7 +143,7 @@ WhatsApp runs through the gateway's web channel (Baileys Web). It starts automat
 
 - Outbound commands default to account `default` if present; otherwise the first configured account id (sorted).
 - Optional `channels.whatsapp.defaultAccount` overrides that fallback default account selection when it matches a configured account id.
-- Legacy single-account Baileys auth dir is migrated by `hyperbot doctor` into `whatsapp/default`.
+- Legacy single-account Baileys auth dir is migrated by `ancient-claw doctor` into `whatsapp/default`.
 - Per-account overrides: `channels.whatsapp.accounts.<id>.sendReadReceipts`, `channels.whatsapp.accounts.<id>.dmPolicy`, `channels.whatsapp.accounts.<id>.allowFrom`.
 
 </Accordion>
@@ -204,7 +204,7 @@ WhatsApp runs through the gateway's web channel (Baileys Web). It starts automat
 
 - Bot token: `channels.telegram.botToken` or `channels.telegram.tokenFile` (regular file only; symlinks rejected), with `TELEGRAM_BOT_TOKEN` as fallback for the default account.
 - Optional `channels.telegram.defaultAccount` overrides default account selection when it matches a configured account id.
-- In multi-account setups (2+ account ids), set an explicit default (`channels.telegram.defaultAccount` or `channels.telegram.accounts.default`) to avoid fallback routing; `hyperbot doctor` warns when this is missing or invalid.
+- In multi-account setups (2+ account ids), set an explicit default (`channels.telegram.defaultAccount` or `channels.telegram.accounts.default`) to avoid fallback routing; `ancient-claw doctor` warns when this is missing or invalid.
 - `configWrites: false` blocks Telegram-initiated config writes (supergroup ID migrations, `/config set|unset`).
 - Top-level `bindings[]` entries with `type: "acp"` configure persistent ACP bindings for forum topics (use canonical `chatId:topic:topicId` in `match.peer.id`). Field semantics are shared in [ACP Agents](/tools/acp-agents#channel-specific-settings).
 - Telegram stream previews use `sendMessage` + `editMessageText` (works in direct and group chats).
@@ -240,10 +240,10 @@ WhatsApp runs through the gateway's web channel (Baileys Web). It starts automat
       replyToMode: "off", // off | first | all
       dmPolicy: "pairing",
       allowFrom: ["1234567890", "123456789012345678"],
-      dm: { enabled: true, groupEnabled: false, groupChannels: ["hyperbot-dm"] },
+      dm: { enabled: true, groupEnabled: false, groupChannels: ["ancient-claw-dm"] },
       guilds: {
         "123456789012345678": {
-          slug: "friends-of-hyperbot",
+          slug: "friends-of-ancient-claw",
           requireMention: false,
           ignoreOtherMentions: true,
           reactionNotifications: "own",
@@ -319,7 +319,7 @@ WhatsApp runs through the gateway's web channel (Baileys Web). It starts automat
 - `channels.discord.ui.components.accentColor` sets the accent color for Discord components v2 containers.
 - `channels.discord.voice` enables Discord voice channel conversations and optional auto-join + TTS overrides.
 - `channels.discord.voice.daveEncryption` and `channels.discord.voice.decryptionFailureTolerance` pass through to `@discordjs/voice` DAVE options (`true` and `24` by default).
-- HyperBot additionally attempts voice receive recovery by leaving/rejoining a voice session after repeated decrypt failures.
+- Ancient Claw additionally attempts voice receive recovery by leaving/rejoining a voice session after repeated decrypt failures.
 - `channels.discord.streaming` is the canonical stream mode key. Legacy `streamMode` and boolean `streaming` values are auto-migrated.
 - `channels.discord.autoPresence` maps runtime availability to bot presence (healthy => online, degraded => idle, exhausted => dnd) and allows optional status text overrides.
 - `channels.discord.dangerouslyAllowNameMatching` re-enables mutable name/tag matching (break-glass compatibility mode).
@@ -402,7 +402,7 @@ WhatsApp runs through the gateway's web channel (Baileys Web). It starts automat
       },
       slashCommand: {
         enabled: true,
-        name: "hyperbot",
+        name: "ancient-claw",
         sessionPrefix: "slack:slash",
         ephemeral: true,
       },
@@ -440,7 +440,7 @@ WhatsApp runs through the gateway's web channel (Baileys Web). It starts automat
 
 ### Mattermost
 
-Mattermost ships as a plugin: `hyperbot plugins install @hyperbot/mattermost`.
+Mattermost ships as a plugin: `ancient-claw plugins install @ancient-claw/mattermost`.
 
 ```json5
 {
@@ -471,7 +471,7 @@ Chat modes: `oncall` (respond on @-mention, default), `onmessage` (every message
 When Mattermost native commands are enabled:
 
 - `commands.callbackPath` must be a path (for example `/api/channels/mattermost/command`), not a full URL.
-- `commands.callbackUrl` must resolve to the HyperBot gateway endpoint and be reachable from the Mattermost server.
+- `commands.callbackUrl` must resolve to the Ancient Claw gateway endpoint and be reachable from the Mattermost server.
 - For private/tailnet/internal callback hosts, Mattermost may require
   `ServiceSettings.AllowedUntrustedInternalConnections` to include the callback host/domain.
   Use host/domain values, not full URLs.
@@ -527,7 +527,7 @@ BlueBubbles is the recommended iMessage path (plugin-backed, configured under `c
 
 ### iMessage
 
-HyperBot spawns `imsg rpc` (JSON-RPC over stdio). No daemon or port required.
+Ancient Claw spawns `imsg rpc` (JSON-RPC over stdio). No daemon or port required.
 
 ```json5
 {
@@ -643,9 +643,9 @@ Run multiple accounts per channel (each with its own `accountId`):
 - Env tokens only apply to the **default** account.
 - Base channel settings apply to all accounts unless overridden per account.
 - Use `bindings[].match.accountId` to route each account to a different agent.
-- If you add a non-default account via `hyperbot channels add` (or channel onboarding) while still on a single-account top-level channel config, HyperBot moves account-scoped top-level single-account values into `channels.<channel>.accounts.default` first so the original account keeps working.
+- If you add a non-default account via `ancient-claw channels add` (or channel onboarding) while still on a single-account top-level channel config, Ancient Claw moves account-scoped top-level single-account values into `channels.<channel>.accounts.default` first so the original account keeps working.
 - Existing channel-only bindings (no `accountId`) keep matching the default account; account-scoped bindings remain optional.
-- `hyperbot doctor --fix` also repairs mixed shapes by moving account-scoped top-level single-account values into `accounts.default` when named accounts exist but `default` is missing.
+- `ancient-claw doctor --fix` also repairs mixed shapes by moving account-scoped top-level single-account values into `accounts.default` when named accounts exist but `default` is missing.
 
 ### Other extension channels
 
@@ -668,7 +668,7 @@ Group messages default to **require mention** (metadata mention or safe regex pa
     groupChat: { historyLimit: 50 },
   },
   agents: {
-    list: [{ id: "main", groupChat: { mentionPatterns: ["@hyperbot", "hyperbot"] } }],
+    list: [{ id: "main", groupChat: { mentionPatterns: ["@ancient-claw", "ancient-claw"] } }],
   },
 }
 ```
@@ -710,7 +710,7 @@ Include your own number in `allowFrom` to enable self-chat mode (ignores native 
     list: [
       {
         id: "main",
-        groupChat: { mentionPatterns: ["reisponde", "@hyperbot"] },
+        groupChat: { mentionPatterns: ["reisponde", "@ancient-claw"] },
       },
     ],
   },
@@ -745,7 +745,7 @@ Include your own number in `allowFrom` to enable self-chat mode (ignores native 
 - Override per channel: `channels.discord.commands.native` (bool or `"auto"`). `false` clears previously registered commands.
 - `channels.telegram.customCommands` adds extra Telegram bot menu entries.
 - `bash: true` enables `! <cmd>` for host shell. Requires `tools.elevated.enabled` and sender in `tools.elevated.allowFrom.<channel>`.
-- `config: true` enables `/config` (reads/writes `hyperbot.json`). For gateway `chat.send` clients, persistent `/config set|unset` writes also require `operator.admin`; read-only `/config show` stays available to normal write-scoped operator clients.
+- `config: true` enables `/config` (reads/writes `ancient-claw.json`). For gateway `chat.send` clients, persistent `/config set|unset` writes also require `operator.admin`; read-only `/config show` stays available to normal write-scoped operator clients.
 - `channels.<provider>.configWrites` gates config mutations per channel (default: true).
 - For multi-account channels, `channels.<provider>.accounts.<id>.configWrites` also gates writes that target that account (for example `/allowlist --config --account <id>` or `/config set channels.<provider>.accounts.<id>...`).
 - `allowFrom` is per-provider. When set, it is the **only** authorization source (channel allowlists/pairing and `useAccessGroups` are ignored).
@@ -759,21 +759,21 @@ Include your own number in `allowFrom` to enable self-chat mode (ignores native 
 
 ### `agents.defaults.workspace`
 
-Default: `~/.hyperbot/workspace`.
+Default: `~/.ancient-claw/workspace`.
 
 ```json5
 {
-  agents: { defaults: { workspace: "~/.hyperbot/workspace" } },
+  agents: { defaults: { workspace: "~/.ancient-claw/workspace" } },
 }
 ```
 
 ### `agents.defaults.repoRoot`
 
-Optional repository root shown in the system prompt's Runtime line. If unset, HyperBot auto-detects by walking upward from the workspace.
+Optional repository root shown in the system prompt's Runtime line. If unset, Ancient Claw auto-detects by walking upward from the workspace.
 
 ```json5
 {
-  agents: { defaults: { repoRoot: "~/Projects/hyperbot" } },
+  agents: { defaults: { repoRoot: "~/Projects/ancient-claw" } },
 }
 ```
 
@@ -912,7 +912,7 @@ Time format in system prompt. Default: `auto` (OS preference).
   - If omitted, the PDF tool falls back to `imageModel`, then to best-effort provider defaults.
 - `pdfMaxBytesMb`: default PDF size limit for the `pdf` tool when `maxBytesMb` is not passed at call time.
 - `pdfMaxPages`: default maximum pages considered by extraction fallback mode in the `pdf` tool.
-- `model.primary`: format `provider/model` (e.g. `anthropic/claude-opus-4-6`). If you omit the provider, HyperBot assumes `anthropic` (deprecated).
+- `model.primary`: format `provider/model` (e.g. `anthropic/claude-opus-4-6`). If you omit the provider, Ancient Claw assumes `anthropic` (deprecated).
 - `models`: the configured model catalog and allowlist for `/model`. Each entry can include `alias` (shortcut) and `params` (provider-specific, for example `temperature`, `maxTokens`, `cacheRetention`, `context1m`).
 - `params` merge precedence (config): `agents.defaults.models["provider/model"].params` is the base, then `agents.list[].params` (matching agent id) overrides by key.
 - Config writers that mutate these fields (for example `/models set`, `/models set-image`, and fallback add/remove commands) save canonical object form and preserve existing fallback lists when possible.
@@ -1032,7 +1032,7 @@ Periodic heartbeat runs.
 ```
 
 - `mode`: `default` or `safeguard` (chunked summarization for long histories). See [Compaction](/concepts/compaction).
-- `timeoutSeconds`: maximum seconds allowed for a single compaction operation before HyperBot aborts it. Default: `900`.
+- `timeoutSeconds`: maximum seconds allowed for a single compaction operation before Ancient Claw aborts it. Default: `900`.
 - `identifierPolicy`: `strict` (default), `off`, or `custom`. `strict` prepends built-in opaque identifier retention guidance during compaction summarization.
 - `identifierInstructions`: optional custom identifier-preservation text used when `identifierPolicy=custom`.
 - `postCompactionSections`: optional AGENTS.md H2/H3 section names to re-inject after compaction. Defaults to `["Session Startup", "Red Lines"]`; set `[]` to disable reinjection. When unset or explicitly set to that default pair, older `Every Session`/`Safety` headings are also accepted as a legacy fallback.
@@ -1136,10 +1136,10 @@ Optional sandboxing for the embedded agent. See [Sandboxing](/gateway/sandboxing
         backend: "docker", // docker | ssh | openshell
         scope: "agent", // session | agent | shared
         workspaceAccess: "none", // none | ro | rw
-        workspaceRoot: "~/.hyperbot/sandboxes",
+        workspaceRoot: "~/.ancient-claw/sandboxes",
         docker: {
-          image: "hyperbot-sandbox:bookworm-slim",
-          containerPrefix: "hyperbot-sbx-",
+          image: "ancient-claw-sandbox:bookworm-slim",
+          containerPrefix: "ancient-claw-sbx-",
           workdir: "/workspace",
           readOnlyRoot: true,
           tmpfs: ["/tmp", "/var/tmp", "/run"],
@@ -1157,7 +1157,7 @@ Optional sandboxing for the embedded agent. See [Sandboxing](/gateway/sandboxing
             nproc: 256,
           },
           seccompProfile: "/path/to/seccomp.json",
-          apparmorProfile: "hyperbot-sandbox",
+          apparmorProfile: "ancient-claw-sandbox",
           dns: ["1.1.1.1", "8.8.8.8"],
           extraHosts: ["internal.service:10.0.0.5"],
           binds: ["/home/user/source:/source:rw"],
@@ -1165,7 +1165,7 @@ Optional sandboxing for the embedded agent. See [Sandboxing](/gateway/sandboxing
         ssh: {
           target: "user@gateway-host:22",
           command: "ssh",
-          workspaceRoot: "/tmp/hyperbot-sandboxes",
+          workspaceRoot: "/tmp/ancient-claw-sandboxes",
           strictHostKeyChecking: true,
           updateHostKeys: true,
           identityFile: "~/.ssh/id_ed25519",
@@ -1178,8 +1178,8 @@ Optional sandboxing for the embedded agent. See [Sandboxing](/gateway/sandboxing
         },
         browser: {
           enabled: false,
-          image: "hyperbot-sandbox-browser:bookworm-slim",
-          network: "hyperbot-sandbox-browser",
+          image: "ancient-claw-sandbox-browser:bookworm-slim",
+          network: "ancient-claw-sandbox-browser",
           cdpPort: 9222,
           cdpSourceRange: "172.21.0.1/32",
           vncPort: 5900,
@@ -1237,7 +1237,7 @@ When `backend: "openshell"` is selected, runtime-specific settings move to
 - `command`: SSH client command (default: `ssh`)
 - `workspaceRoot`: absolute remote root used for per-scope workspaces
 - `identityFile` / `certificateFile` / `knownHostsFile`: existing local files passed to OpenSSH
-- `identityData` / `certificateData` / `knownHostsData`: inline contents or SecretRefs that HyperBot materializes into temp files at runtime
+- `identityData` / `certificateData` / `knownHostsData`: inline contents or SecretRefs that Ancient Claw materializes into temp files at runtime
 - `strictHostKeyChecking` / `updateHostKeys`: OpenSSH host-key policy knobs
 
 **SSH auth precedence:**
@@ -1257,7 +1257,7 @@ When `backend: "openshell"` is selected, runtime-specific settings move to
 
 **Workspace access:**
 
-- `none`: per-scope sandbox workspace under `~/.hyperbot/sandboxes`
+- `none`: per-scope sandbox workspace under `~/.ancient-claw/sandboxes`
 - `ro`: sandbox workspace at `/workspace`, agent workspace mounted read-only at `/agent`
 - `rw`: agent workspace mounted read/write at `/workspace`
 
@@ -1277,7 +1277,7 @@ When `backend: "openshell"` is selected, runtime-specific settings move to
         enabled: true,
         config: {
           mode: "mirror", // mirror | remote
-          from: "hyperbot",
+          from: "ancient-claw",
           remoteWorkspaceDir: "/sandbox",
           remoteAgentWorkspaceDir: "/agent",
           gateway: "lab", // optional
@@ -1298,7 +1298,7 @@ When `backend: "openshell"` is selected, runtime-specific settings move to
 - `mirror`: seed remote from local before exec, sync back after exec; local workspace stays canonical
 - `remote`: seed remote once when the sandbox is created, then keep the remote workspace canonical
 
-In `remote` mode, host-local edits made outside HyperBot are not synced into the sandbox automatically after the seed step.
+In `remote` mode, host-local edits made outside Ancient Claw are not synced into the sandbox automatically after the seed step.
 Transport is SSH into the OpenShell sandbox, but the plugin owns sandbox lifecycle and optional mirror sync.
 
 **`setupCommand`** runs once after container creation (via `sh -lc`). Needs network egress, writable root, root user.
@@ -1311,11 +1311,11 @@ Transport is SSH into the OpenShell sandbox, but the plugin owns sandbox lifecyc
 
 **`docker.binds`** mounts additional host directories; global and per-agent binds are merged.
 
-**Sandboxed browser** (`sandbox.browser.enabled`): Chromium + CDP in a container. noVNC URL injected into system prompt. Does not require `browser.enabled` in `hyperbot.json`.
-noVNC observer access uses VNC auth by default and HyperBot emits a short-lived token URL (instead of exposing the password in the shared URL).
+**Sandboxed browser** (`sandbox.browser.enabled`): Chromium + CDP in a container. noVNC URL injected into system prompt. Does not require `browser.enabled` in `ancient-claw.json`.
+noVNC observer access uses VNC auth by default and Ancient Claw emits a short-lived token URL (instead of exposing the password in the shared URL).
 
 - `allowHostControl: false` (default) blocks sandboxed sessions from targeting the host browser.
-- `network` defaults to `hyperbot-sandbox-browser` (dedicated bridge network). Set to `bridge` only when you explicitly want global bridge connectivity.
+- `network` defaults to `ancient-claw-sandbox-browser` (dedicated bridge network). Set to `bridge` only when you explicitly want global bridge connectivity.
 - `cdpSourceRange` optionally restricts CDP ingress at the container edge to a CIDR range (for example `172.21.0.1/32`).
 - `sandbox.browser.binds` mounts additional host directories into the sandbox browser container only. When set (including `[]`), it replaces `docker.binds` for the browser container.
 - Launch defaults are defined in `scripts/sandbox-browser-entrypoint.sh` and tuned for container hosts:
@@ -1369,8 +1369,8 @@ scripts/sandbox-browser-setup.sh   # optional browser image
         id: "main",
         default: true,
         name: "Main Agent",
-        workspace: "~/.hyperbot/workspace",
-        agentDir: "~/.hyperbot/agents/main/agent",
+        workspace: "~/.ancient-claw/workspace",
+        agentDir: "~/.ancient-claw/agents/main/agent",
         model: "anthropic/claude-opus-4-6", // or { primary, fallbacks }
         thinkingDefault: "high", // per-agent thinking level override
         reasoningDefault: "on", // per-agent reasoning visibility override
@@ -1382,7 +1382,7 @@ scripts/sandbox-browser-setup.sh   # optional browser image
           emoji: "🦥",
           avatar: "avatars/samantha.png",
         },
-        groupChat: { mentionPatterns: ["@hyperbot"] },
+        groupChat: { mentionPatterns: ["@ancient-claw"] },
         sandbox: { mode: "off" },
         runtime: {
           type: "acp",
@@ -1390,7 +1390,7 @@ scripts/sandbox-browser-setup.sh   # optional browser image
             agent: "codex",
             backend: "acpx",
             mode: "persistent",
-            cwd: "/workspace/hyperbot",
+            cwd: "/workspace/ancient-claw",
           },
         },
         subagents: { allowAgents: ["*"] },
@@ -1429,8 +1429,8 @@ Run multiple isolated agents inside one Gateway. See [Multi-Agent](/concepts/mul
 {
   agents: {
     list: [
-      { id: "home", default: true, workspace: "~/.hyperbot/workspace-home" },
-      { id: "work", workspace: "~/.hyperbot/workspace-work" },
+      { id: "home", default: true, workspace: "~/.ancient-claw/workspace-home" },
+      { id: "work", workspace: "~/.ancient-claw/workspace-work" },
     ],
   },
   bindings: [
@@ -1460,7 +1460,7 @@ Run multiple isolated agents inside one Gateway. See [Multi-Agent](/concepts/mul
 
 Within each tier, the first matching `bindings` entry wins.
 
-For `type: "acp"` entries, HyperBot resolves by exact conversation identity (`match.channel` + account + `match.peer.id`) and does not use the route binding tier order above.
+For `type: "acp"` entries, Ancient Claw resolves by exact conversation identity (`match.channel` + account + `match.peer.id`) and does not use the route binding tier order above.
 
 ### Per-agent access profiles
 
@@ -1472,7 +1472,7 @@ For `type: "acp"` entries, HyperBot resolves by exact conversation identity (`ma
     list: [
       {
         id: "personal",
-        workspace: "~/.hyperbot/workspace-personal",
+        workspace: "~/.ancient-claw/workspace-personal",
         sandbox: { mode: "off" },
       },
     ],
@@ -1490,7 +1490,7 @@ For `type: "acp"` entries, HyperBot resolves by exact conversation identity (`ma
     list: [
       {
         id: "family",
-        workspace: "~/.hyperbot/workspace-family",
+        workspace: "~/.ancient-claw/workspace-family",
         sandbox: { mode: "all", scope: "agent", workspaceAccess: "ro" },
         tools: {
           allow: [
@@ -1519,7 +1519,7 @@ For `type: "acp"` entries, HyperBot resolves by exact conversation identity (`ma
     list: [
       {
         id: "public",
-        workspace: "~/.hyperbot/workspace-public",
+        workspace: "~/.ancient-claw/workspace-public",
         sandbox: { mode: "all", scope: "agent", workspaceAccess: "none" },
         tools: {
           allow: [
@@ -1582,7 +1582,7 @@ See [Multi-Agent Sandbox & Tools](/tools/multi-agent-sandbox-tools) for preceden
       group: { mode: "idle", idleMinutes: 120 },
     },
     resetTriggers: ["/new", "/reset"],
-    store: "~/.hyperbot/agents/{agentId}/sessions/sessions.json",
+    store: "~/.ancient-claw/agents/{agentId}/sessions/sessions.json",
     parentForkMaxTokens: 100000, // skip parent-thread fork above this token count (0 disables)
     maintenance: {
       mode: "warn", // warn | enforce
@@ -1619,7 +1619,7 @@ See [Multi-Agent Sandbox & Tools](/tools/multi-agent-sandbox-tools) for preceden
 - **`reset`**: primary reset policy. `daily` resets at `atHour` local time; `idle` resets after `idleMinutes`. When both configured, whichever expires first wins.
 - **`resetByType`**: per-type overrides (`direct`, `group`, `thread`). Legacy `dm` accepted as alias for `direct`.
 - **`parentForkMaxTokens`**: max parent-session `totalTokens` allowed when creating a forked thread session (default `100000`).
-  - If parent `totalTokens` is above this value, HyperBot starts a fresh thread session instead of inheriting parent transcript history.
+  - If parent `totalTokens` is above this value, Ancient Claw starts a fresh thread session instead of inheriting parent transcript history.
   - Set `0` to disable this guard and always allow parent forking.
 - **`mainKey`**: legacy field. Runtime now always uses `"main"` for the main direct-chat bucket.
 - **`sendPolicy`**: match by `channel`, `chatType` (`direct|group|channel`, with legacy `dm` alias), `keyPrefix`, or `rawKeyPrefix`. First deny wins.
@@ -1713,7 +1713,7 @@ Batches rapid text-only messages from the same sender into a single agent turn. 
       modelOverrides: { enabled: true },
       maxTextLength: 4000,
       timeoutMs: 30000,
-      prefsPath: "~/.hyperbot/settings/tts.json",
+      prefsPath: "~/.ancient-claw/settings/tts.json",
       elevenlabs: {
         apiKey: "elevenlabs_api_key",
         baseUrl: "https://api.elevenlabs.io",
@@ -1746,7 +1746,7 @@ Batches rapid text-only messages from the same sender into a single agent turn. 
 - `modelOverrides` is enabled by default; `modelOverrides.allowProvider` defaults to `false` (opt-in).
 - API keys fall back to `ELEVENLABS_API_KEY`/`XI_API_KEY` and `OPENAI_API_KEY`.
 - `openai.baseUrl` overrides the OpenAI TTS endpoint. Resolution order is config, then `OPENAI_TTS_BASE_URL`, then `https://api.openai.com/v1`.
-- When `openai.baseUrl` points to a non-OpenAI endpoint, HyperBot treats it as an OpenAI-compatible TTS server and relaxes model/voice validation.
+- When `openai.baseUrl` points to a non-OpenAI endpoint, Ancient Claw treats it as an OpenAI-compatible TTS server and relaxes model/voice validation.
 
 ---
 
@@ -1807,7 +1807,7 @@ Local onboarding defaults new local configs to `tools.profile: "coding"` when un
 | `group:automation` | `cron`, `gateway`                                                                        |
 | `group:messaging`  | `message`                                                                                |
 | `group:nodes`      | `nodes`                                                                                  |
-| `group:hyperbot`   | All built-in tools (excludes provider plugins)                                           |
+| `group:ancient-claw`   | All built-in tools (excludes provider plugins)                                           |
 
 ### `tools.allow` / `tools.deny`
 
@@ -2051,7 +2051,7 @@ Controls inline attachment support for `sessions_spawn`.
 Notes:
 
 - Attachments are only supported for `runtime: "subagent"`. ACP runtime rejects them.
-- Files are materialized into the child workspace at `.hyperbot/attachments/<uuid>/` with a `.manifest.json`.
+- Files are materialized into the child workspace at `.ancient-claw/attachments/<uuid>/` with a `.manifest.json`.
 - Attachment content is automatically redacted from transcript persistence.
 - Base64 inputs are validated with strict alphabet/padding checks and a pre-decode size guard.
 - File permissions are `0700` for directories and `0600` for files.
@@ -2082,7 +2082,7 @@ Notes:
 
 ## Custom providers and base URLs
 
-HyperBot uses the pi-coding-agent model catalog. Add custom providers via `models.providers` in config or `~/.hyperbot/agents/<agentId>/agent/models.json`.
+Ancient Claw uses the pi-coding-agent model catalog. Add custom providers via `models.providers` in config or `~/.ancient-claw/agents/<agentId>/agent/models.json`.
 
 ```json5
 {
@@ -2134,7 +2134,7 @@ HyperBot uses the pi-coding-agent model catalog. Add custom providers via `model
 - `models.providers.*.baseUrl`: upstream API base URL.
 - `models.providers.*.headers`: extra static headers for proxy/tenant routing.
 - `models.providers.*.models`: explicit provider model catalog entries.
-- `models.providers.*.models.*.compat.supportsDeveloperRole`: optional compatibility hint. For `api: "openai-completions"` with a non-empty non-native `baseUrl` (host not `api.openai.com`), HyperBot forces this to `false` at runtime. Empty/omitted `baseUrl` keeps default OpenAI behavior.
+- `models.providers.*.models.*.compat.supportsDeveloperRole`: optional compatibility hint. For `api: "openai-completions"` with a non-empty non-native `baseUrl` (host not `api.openai.com`), Ancient Claw forces this to `false` at runtime. Empty/omitted `baseUrl` keeps default OpenAI behavior.
 - `models.bedrockDiscovery`: Bedrock auto-discovery settings root.
 - `models.bedrockDiscovery.enabled`: turn discovery polling on/off.
 - `models.bedrockDiscovery.region`: AWS region for discovery.
@@ -2196,7 +2196,7 @@ Use `cerebras/zai-glm-4.7` for Cerebras; `zai/glm-4.7` for Z.AI direct.
 }
 ```
 
-Set `OPENCODE_API_KEY` (or `OPENCODE_ZEN_API_KEY`). Use `opencode/...` refs for the Zen catalog or `opencode-go/...` refs for the Go catalog. Shortcut: `hyperbot onboard --auth-choice opencode-zen` or `hyperbot onboard --auth-choice opencode-go`.
+Set `OPENCODE_API_KEY` (or `OPENCODE_ZEN_API_KEY`). Use `opencode/...` refs for the Zen catalog or `opencode-go/...` refs for the Go catalog. Shortcut: `ancient-claw onboard --auth-choice opencode-zen` or `ancient-claw onboard --auth-choice opencode-go`.
 
 </Accordion>
 
@@ -2213,7 +2213,7 @@ Set `OPENCODE_API_KEY` (or `OPENCODE_ZEN_API_KEY`). Use `opencode/...` refs for 
 }
 ```
 
-Set `ZAI_API_KEY`. `z.ai/*` and `z-ai/*` are accepted aliases. Shortcut: `hyperbot onboard --auth-choice zai-api-key`.
+Set `ZAI_API_KEY`. `z.ai/*` and `z-ai/*` are accepted aliases. Shortcut: `ancient-claw onboard --auth-choice zai-api-key`.
 
 - General endpoint: `https://api.z.ai/api/paas/v4`
 - Coding endpoint (default): `https://api.z.ai/api/coding/paas/v4`
@@ -2256,7 +2256,7 @@ Set `ZAI_API_KEY`. `z.ai/*` and `z-ai/*` are accepted aliases. Shortcut: `hyperb
 }
 ```
 
-For the China endpoint: `baseUrl: "https://api.moonshot.cn/v1"` or `hyperbot onboard --auth-choice moonshot-api-key-cn`.
+For the China endpoint: `baseUrl: "https://api.moonshot.cn/v1"` or `ancient-claw onboard --auth-choice moonshot-api-key-cn`.
 
 </Accordion>
 
@@ -2274,7 +2274,7 @@ For the China endpoint: `baseUrl: "https://api.moonshot.cn/v1"` or `hyperbot onb
 }
 ```
 
-Anthropic-compatible, built-in provider. Shortcut: `hyperbot onboard --auth-choice kimi-code-api-key`.
+Anthropic-compatible, built-in provider. Shortcut: `ancient-claw onboard --auth-choice kimi-code-api-key`.
 
 </Accordion>
 
@@ -2313,7 +2313,7 @@ Anthropic-compatible, built-in provider. Shortcut: `hyperbot onboard --auth-choi
 }
 ```
 
-Base URL should omit `/v1` (Anthropic client appends it). Shortcut: `hyperbot onboard --auth-choice synthetic-api-key`.
+Base URL should omit `/v1` (Anthropic client appends it). Shortcut: `ancient-claw onboard --auth-choice synthetic-api-key`.
 
 </Accordion>
 
@@ -2353,7 +2353,7 @@ Base URL should omit `/v1` (Anthropic client appends it). Shortcut: `hyperbot on
 }
 ```
 
-Set `MINIMAX_API_KEY`. Shortcut: `hyperbot onboard --auth-choice minimax-api`.
+Set `MINIMAX_API_KEY`. Shortcut: `ancient-claw onboard --auth-choice minimax-api`.
 `MiniMax-M2.5` and `MiniMax-M2.5-highspeed` remain available if you prefer the older text models.
 
 </Accordion>
@@ -2421,8 +2421,8 @@ See [Local Models](/gateway/local-models). TL;DR: run MiniMax M2.5 via LM Studio
 }
 ```
 
-- Loaded from `~/.hyperbot/extensions`, `<workspace>/.hyperbot/extensions`, plus `plugins.load.paths`.
-- Discovery accepts native HyperBot plugins plus compatible Codex bundles and Claude bundles, including manifestless Claude default-layout bundles.
+- Loaded from `~/.ancient-claw/extensions`, `<workspace>/.ancient-claw/extensions`, plus `plugins.load.paths`.
+- Discovery accepts native Ancient Claw plugins plus compatible Codex bundles and Claude bundles, including manifestless Claude default-layout bundles.
 - **Config changes require a gateway restart.**
 - `allow`: optional allowlist (only listed plugins load). `deny` wins.
 - `plugins.entries.<id>.apiKey`: plugin-level API key convenience field (when supported by the plugin).
@@ -2430,11 +2430,11 @@ See [Local Models](/gateway/local-models). TL;DR: run MiniMax M2.5 via LM Studio
 - `plugins.entries.<id>.hooks.allowPromptInjection`: when `false`, core blocks `before_prompt_build` and ignores prompt-mutating fields from legacy `before_agent_start`, while preserving legacy `modelOverride` and `providerOverride`. Applies to native plugin hooks and supported bundle-provided hook directories.
 - `plugins.entries.<id>.subagent.allowModelOverride`: explicitly trust this plugin to request per-run `provider` and `model` overrides for background subagent runs.
 - `plugins.entries.<id>.subagent.allowedModels`: optional allowlist of canonical `provider/model` targets for trusted subagent overrides. Use `"*"` only when you intentionally want to allow any model.
-- `plugins.entries.<id>.config`: plugin-defined config object (validated by native HyperBot plugin schema when available).
-- Enabled Claude bundle plugins can also contribute embedded Pi defaults from `settings.json`; HyperBot applies those as sanitized agent settings, not as raw HyperBot config patches.
+- `plugins.entries.<id>.config`: plugin-defined config object (validated by native Ancient Claw plugin schema when available).
+- Enabled Claude bundle plugins can also contribute embedded Pi defaults from `settings.json`; Ancient Claw applies those as sanitized agent settings, not as raw Ancient Claw config patches.
 - `plugins.slots.memory`: pick the active memory plugin id, or `"none"` to disable memory plugins.
 - `plugins.slots.contextEngine`: pick the active context engine plugin id; defaults to `"legacy"` unless you install and select another engine.
-- `plugins.installs`: CLI-managed install metadata used by `hyperbot plugins update`.
+- `plugins.installs`: CLI-managed install metadata used by `ancient-claw plugins update`.
   - Includes `source`, `spec`, `sourcePath`, `installPath`, `version`, `resolvedName`, `resolvedVersion`, `resolvedSpec`, `integrity`, `shasum`, `resolvedAt`, `installedAt`.
   - Treat `plugins.installs.*` as managed state; prefer CLI commands over manual edits.
 
@@ -2457,7 +2457,7 @@ See [Plugins](/tools/plugin).
       // allowedHostnames: ["localhost"],
     },
     profiles: {
-      hyperbot: { cdpPort: 18800, color: "#FF4500" },
+      ancient-claw: { cdpPort: 18800, color: "#FF4500" },
       work: { cdpPort: 18801, color: "#0066CC" },
       user: { driver: "existing-session", attachOnly: true, color: "#00AA00" },
       brave: {
@@ -2502,7 +2502,7 @@ See [Plugins](/tools/plugin).
   ui: {
     seamColor: "#FF4500",
     assistant: {
-      name: "HyperBot",
+      name: "Ancient Claw",
       avatar: "CB", // emoji, short text, image URL, or data URI
     },
   },
@@ -2541,7 +2541,7 @@ See [Plugins](/tools/plugin).
     },
     controlUi: {
       enabled: true,
-      basePath: "/hyperbot",
+      basePath: "/ancient-claw",
       // root: "dist/control-ui",
       // allowedOrigins: ["https://control.example.com"], // required for non-loopback Control UI
       // dangerouslyAllowHostHeaderOriginFallback: false, // dangerous Host-header origin fallback mode
@@ -2633,12 +2633,12 @@ See [Plugins](/tools/plugin).
 Run multiple gateways on one host with unique ports and state dirs:
 
 ```bash
-OPENCLAW_CONFIG_PATH=~/.hyperbot/a.json \
-OPENCLAW_STATE_DIR=~/.hyperbot-a \
-hyperbot gateway --port 19001
+OPENCLAW_CONFIG_PATH=~/.ancient-claw/a.json \
+OPENCLAW_STATE_DIR=~/.ancient-claw-a \
+ancient-claw gateway --port 19001
 ```
 
-Convenience flags: `--dev` (uses `~/.hyperbot-dev` + port `19001`), `--profile <name>` (uses `~/.hyperbot-<name>`).
+Convenience flags: `--dev` (uses `~/.ancient-claw-dev` + port `19001`), `--profile <name>` (uses `~/.ancient-claw-<name>`).
 
 See [Multiple Gateways](/gateway/multiple-gateways).
 
@@ -2658,7 +2658,7 @@ See [Multiple Gateways](/gateway/multiple-gateways).
     allowedSessionKeyPrefixes: ["hook:"],
     allowedAgentIds: ["hooks", "main"],
     presets: ["gmail"],
-    transformsDir: "~/.hyperbot/hooks/transforms",
+    transformsDir: "~/.ancient-claw/hooks/transforms",
     mappings: [
       {
         match: { path: "gmail" },
@@ -2677,7 +2677,7 @@ See [Multiple Gateways](/gateway/multiple-gateways).
 }
 ```
 
-Auth: `Authorization: Bearer <token>` or `x-hyperbot-token: <token>`.
+Auth: `Authorization: Bearer <token>` or `x-ancient-claw-token: <token>`.
 
 **Endpoints:**
 
@@ -2709,7 +2709,7 @@ Auth: `Authorization: Bearer <token>` or `x-hyperbot-token: <token>`.
 {
   hooks: {
     gmail: {
-      account: "hyperbot@gmail.com",
+      account: "ancient-claw@gmail.com",
       topic: "projects/<project-id>/topics/gog-gmail-watch",
       subscription: "gog-gmail-watch-push",
       pushToken: "shared-push-token",
@@ -2736,7 +2736,7 @@ Auth: `Authorization: Bearer <token>` or `x-hyperbot-token: <token>`.
 ```json5
 {
   canvasHost: {
-    root: "~/.hyperbot/workspace/canvas",
+    root: "~/.ancient-claw/workspace/canvas",
     liveReload: true,
     // enabled: false, // or OPENCLAW_SKIP_CANVAS_HOST=1
   },
@@ -2744,15 +2744,15 @@ Auth: `Authorization: Bearer <token>` or `x-hyperbot-token: <token>`.
 ```
 
 - Serves agent-editable HTML/CSS/JS and A2UI over HTTP under the Gateway port:
-  - `http://<gateway-host>:<gateway.port>/__hyperbot__/canvas/`
-  - `http://<gateway-host>:<gateway.port>/__hyperbot__/a2ui/`
+  - `http://<gateway-host>:<gateway.port>/__ancient-claw__/canvas/`
+  - `http://<gateway-host>:<gateway.port>/__ancient-claw__/a2ui/`
 - Local-only: keep `gateway.bind: "loopback"` (default).
 - Non-loopback binds: canvas routes require Gateway auth (token/password/trusted-proxy), same as other Gateway HTTP surfaces.
 - Node WebViews typically don't send auth headers; after a node is paired and connected, the Gateway advertises node-scoped capability URLs for canvas/A2UI access.
 - Capability URLs are bound to the active node WS session and expire quickly. IP-based fallback is not used.
 - Injects live-reload client into served HTML.
 - Auto-creates starter `index.html` when empty.
-- Also serves A2UI at `/__hyperbot__/a2ui/`.
+- Also serves A2UI at `/__ancient-claw__/a2ui/`.
 - Changes require a gateway restart.
 - Disable live reload for large directories or `EMFILE` errors.
 
@@ -2774,7 +2774,7 @@ Auth: `Authorization: Bearer <token>` or `x-hyperbot-token: <token>`.
 
 - `minimal` (default): omit `cliPath` + `sshPort` from TXT records.
 - `full`: include `cliPath` + `sshPort`.
-- Hostname defaults to `hyperbot`. Override with `OPENCLAW_MDNS_HOSTNAME`.
+- Hostname defaults to `ancient-claw`. Override with `OPENCLAW_MDNS_HOSTNAME`.
 
 ### Wide-area (DNS-SD)
 
@@ -2786,9 +2786,9 @@ Auth: `Authorization: Bearer <token>` or `x-hyperbot-token: <token>`.
 }
 ```
 
-Writes a unicast DNS-SD zone under `~/.hyperbot/dns/`. For cross-network discovery, pair with a DNS server (CoreDNS recommended) + Tailscale split DNS.
+Writes a unicast DNS-SD zone under `~/.ancient-claw/dns/`. For cross-network discovery, pair with a DNS server (CoreDNS recommended) + Tailscale split DNS.
 
-Setup: `hyperbot dns setup --apply`.
+Setup: `ancient-claw dns setup --apply`.
 
 ---
 
@@ -2812,7 +2812,7 @@ Setup: `hyperbot dns setup --apply`.
 ```
 
 - Inline env vars are only applied if the process env is missing the key.
-- `.env` files: CWD `.env` + `~/.hyperbot/.env` (neither overrides existing vars).
+- `.env` files: CWD `.env` + `~/.ancient-claw/.env` (neither overrides existing vars).
 - `shellEnv`: imports missing expected keys from your login shell profile.
 - See [Environment](/help/environment) for full precedence.
 
@@ -2858,7 +2858,7 @@ Validation:
 ### Supported credential surface
 
 - Canonical matrix: [SecretRef Credential Surface](/reference/secretref-credential-surface)
-- `secrets apply` targets supported `hyperbot.json` credential paths.
+- `secrets apply` targets supported `ancient-claw.json` credential paths.
 - `auth-profiles.json` refs are included in runtime resolution and audit coverage.
 
 ### Secret providers config
@@ -2870,13 +2870,13 @@ Validation:
       default: { source: "env" }, // optional explicit env provider
       filemain: {
         source: "file",
-        path: "~/.hyperbot/secrets.json",
+        path: "~/.ancient-claw/secrets.json",
         mode: "json",
         timeoutMs: 5000,
       },
       vault: {
         source: "exec",
-        command: "/usr/local/bin/hyperbot-vault-resolver",
+        command: "/usr/local/bin/ancient-claw-vault-resolver",
         passEnv: ["PATH", "VAULT_ADDR"],
       },
     },
@@ -2920,7 +2920,7 @@ Notes:
 - Per-agent profiles are stored at `<agentDir>/auth-profiles.json`.
 - `auth-profiles.json` supports value-level refs (`keyRef` for `api_key`, `tokenRef` for `token`).
 - Static runtime credentials come from in-memory resolved snapshots; legacy static `auth.json` entries are scrubbed when discovered.
-- Legacy OAuth imports from `~/.hyperbot/credentials/oauth.json`.
+- Legacy OAuth imports from `~/.ancient-claw/credentials/oauth.json`.
 - See [OAuth](/concepts/oauth).
 - Secrets runtime behavior and `audit/configure/apply` tooling: [Secrets Management](/gateway/secrets).
 
@@ -2932,7 +2932,7 @@ Notes:
 {
   logging: {
     level: "info",
-    file: "/tmp/hyperbot/hyperbot.log",
+    file: "/tmp/ancient-claw/ancient-claw.log",
     consoleLevel: "info",
     consoleStyle: "pretty", // pretty | compact | json
     redactSensitive: "tools", // off | tools
@@ -2941,7 +2941,7 @@ Notes:
 }
 ```
 
-- Default log file: `/tmp/hyperbot/hyperbot-YYYY-MM-DD.log`.
+- Default log file: `/tmp/ancient-claw/ancient-claw-YYYY-MM-DD.log`.
 - Set `logging.file` for a stable path.
 - `consoleLevel` bumps to `debug` when `--verbose`.
 
@@ -2961,7 +2961,7 @@ Notes:
 
 - `cli.banner.taglineMode` controls banner tagline style:
   - `"random"` (default): rotating funny/seasonal taglines.
-  - `"default"`: fixed neutral tagline (`All your chats, one HyperBot.`).
+  - `"default"`: fixed neutral tagline (`All your chats, one Ancient Claw.`).
   - `"off"`: no tagline text (banner title/version still shown).
 - To hide the entire banner (not just taglines), set env `OPENCLAW_HIDE_BANNER=1`.
 
@@ -3015,7 +3015,7 @@ Written by the macOS onboarding assistant. Derives defaults:
 
 ## Bridge (legacy, removed)
 
-Current builds no longer include the TCP bridge. Nodes connect over the Gateway WebSocket. `bridge.*` keys are no longer part of the config schema (validation fails until removed; `hyperbot doctor --fix` can strip unknown keys).
+Current builds no longer include the TCP bridge. Nodes connect over the Gateway WebSocket. `bridge.*` keys are no longer part of the config schema (validation fails until removed; `ancient-claw doctor --fix` can strip unknown keys).
 
 <Accordion title="Legacy bridge config (historical reference)">
 
@@ -3099,7 +3099,7 @@ Template placeholders expanded in `tools.media.models[].args`:
 Split config into multiple files:
 
 ```json5
-// ~/.hyperbot/hyperbot.json
+// ~/.ancient-claw/ancient-claw.json
 {
   gateway: { port: 18789 },
   agents: { $include: "./agents.json5" },
@@ -3115,7 +3115,7 @@ Split config into multiple files:
 - Array of files: deep-merged in order (later overrides earlier).
 - Sibling keys: merged after includes (override included values).
 - Nested includes: up to 10 levels deep.
-- Paths: resolved relative to the including file, but must stay inside the top-level config directory (`dirname` of `hyperbot.json`). Absolute/`../` forms are allowed only when they still resolve inside that boundary.
+- Paths: resolved relative to the including file, but must stay inside the top-level config directory (`dirname` of `ancient-claw.json`). Absolute/`../` forms are allowed only when they still resolve inside that boundary.
 - Errors: clear messages for missing files, parse errors, and circular includes.
 
 ---

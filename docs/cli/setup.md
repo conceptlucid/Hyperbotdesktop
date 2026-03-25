@@ -1,14 +1,14 @@
 ---
-summary: "CLI reference for `hyperbot setup` (initialize config + workspace)"
+summary: "CLI reference for `ancient-claw setup` (initialize config + workspace)"
 read_when:
   - You’re doing first-run setup without full CLI onboarding
   - You want to set the default workspace path
 title: "setup"
 ---
 
-# `hyperbot setup`
+# `ancient-claw setup`
 
-Initialize `~/.hyperbot/hyperbot.json` and the agent workspace.
+Initialize `~/.ancient-claw/ancient-claw.json` and the agent workspace.
 
 Related:
 
@@ -18,12 +18,12 @@ Related:
 ## Examples
 
 ```bash
-hyperbot setup
-hyperbot setup --workspace ~/.hyperbot/workspace
+ancient-claw setup
+ancient-claw setup --workspace ~/.ancient-claw/workspace
 ```
 
 To run onboarding via setup:
 
 ```bash
-hyperbot setup --wizard
+ancient-claw setup --wizard
 ```

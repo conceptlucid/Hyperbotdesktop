@@ -15,11 +15,11 @@ Use this page when a channel connects but behavior is wrong.
 Run these in order first:
 
 ```bash
-hyperbot status
-hyperbot gateway status
-hyperbot logs --follow
-hyperbot doctor
-hyperbot channels status --probe
+ancient-claw status
+ancient-claw gateway status
+ancient-claw logs --follow
+ancient-claw doctor
+ancient-claw channels status --probe
 ```
 
 Healthy baseline:
@@ -34,9 +34,9 @@ Healthy baseline:
 
 | Symptom                         | Fastest check                                       | Fix                                                     |
 | ------------------------------- | --------------------------------------------------- | ------------------------------------------------------- |
-| Connected but no DM replies     | `hyperbot pairing list whatsapp`                    | Approve sender or switch DM policy/allowlist.           |
+| Connected but no DM replies     | `ancient-claw pairing list whatsapp`                    | Approve sender or switch DM policy/allowlist.           |
 | Group messages ignored          | Check `requireMention` + mention patterns in config | Mention the bot or relax mention policy for that group. |
-| Random disconnect/relogin loops | `hyperbot channels status --probe` + logs           | Re-login and verify credentials directory is healthy.   |
+| Random disconnect/relogin loops | `ancient-claw channels status --probe` + logs           | Re-login and verify credentials directory is healthy.   |
 
 Full troubleshooting: [/channels/whatsapp#troubleshooting](/channels/whatsapp#troubleshooting)
 
@@ -46,11 +46,11 @@ Full troubleshooting: [/channels/whatsapp#troubleshooting](/channels/whatsapp#tr
 
 | Symptom                             | Fastest check                                   | Fix                                                                         |
 | ----------------------------------- | ----------------------------------------------- | --------------------------------------------------------------------------- |
-| `/start` but no usable reply flow   | `hyperbot pairing list telegram`                | Approve pairing or change DM policy.                                        |
+| `/start` but no usable reply flow   | `ancient-claw pairing list telegram`                | Approve pairing or change DM policy.                                        |
 | Bot online but group stays silent   | Verify mention requirement and bot privacy mode | Disable privacy mode for group visibility or mention bot.                   |
 | Send failures with network errors   | Inspect logs for Telegram API call failures     | Fix DNS/IPv6/proxy routing to `api.telegram.org`.                           |
 | `setMyCommands` rejected at startup | Inspect logs for `BOT_COMMANDS_TOO_MUCH`        | Reduce plugin/skill/custom Telegram commands or disable native menus.       |
-| Upgraded and allowlist blocks you   | `hyperbot security audit` and config allowlists | Run `hyperbot doctor --fix` or replace `@username` with numeric sender IDs. |
+| Upgraded and allowlist blocks you   | `ancient-claw security audit` and config allowlists | Run `ancient-claw doctor --fix` or replace `@username` with numeric sender IDs. |
 
 Full troubleshooting: [/channels/telegram#troubleshooting](/channels/telegram#troubleshooting)
 
@@ -60,9 +60,9 @@ Full troubleshooting: [/channels/telegram#troubleshooting](/channels/telegram#tr
 
 | Symptom                         | Fastest check                       | Fix                                                       |
 | ------------------------------- | ----------------------------------- | --------------------------------------------------------- |
-| Bot online but no guild replies | `hyperbot channels status --probe`  | Allow guild/channel and verify message content intent.    |
+| Bot online but no guild replies | `ancient-claw channels status --probe`  | Allow guild/channel and verify message content intent.    |
 | Group messages ignored          | Check logs for mention gating drops | Mention bot or set guild/channel `requireMention: false`. |
-| DM replies missing              | `hyperbot pairing list discord`     | Approve DM pairing or adjust DM policy.                   |
+| DM replies missing              | `ancient-claw pairing list discord`     | Approve DM pairing or adjust DM policy.                   |
 
 Full troubleshooting: [/channels/discord#troubleshooting](/channels/discord#troubleshooting)
 
@@ -72,8 +72,8 @@ Full troubleshooting: [/channels/discord#troubleshooting](/channels/discord#trou
 
 | Symptom                                | Fastest check                             | Fix                                               |
 | -------------------------------------- | ----------------------------------------- | ------------------------------------------------- |
-| Socket mode connected but no responses | `hyperbot channels status --probe`        | Verify app token + bot token and required scopes. |
-| DMs blocked                            | `hyperbot pairing list slack`             | Approve pairing or relax DM policy.               |
+| Socket mode connected but no responses | `ancient-claw channels status --probe`        | Verify app token + bot token and required scopes. |
+| DMs blocked                            | `ancient-claw pairing list slack`             | Approve pairing or relax DM policy.               |
 | Channel message ignored                | Check `groupPolicy` and channel allowlist | Allow the channel or switch policy to `open`.     |
 
 Full troubleshooting: [/channels/slack#troubleshooting](/channels/slack#troubleshooting)
@@ -86,7 +86,7 @@ Full troubleshooting: [/channels/slack#troubleshooting](/channels/slack#troubles
 | -------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------- |
 | No inbound events                | Verify webhook/server reachability and app permissions                  | Fix webhook URL or BlueBubbles server state.          |
 | Can send but no receive on macOS | Check macOS privacy permissions for Messages automation                 | Re-grant TCC permissions and restart channel process. |
-| DM sender blocked                | `hyperbot pairing list imessage` or `hyperbot pairing list bluebubbles` | Approve pairing or update allowlist.                  |
+| DM sender blocked                | `ancient-claw pairing list imessage` or `ancient-claw pairing list bluebubbles` | Approve pairing or update allowlist.                  |
 
 Full troubleshooting:
 
@@ -99,8 +99,8 @@ Full troubleshooting:
 
 | Symptom                         | Fastest check                              | Fix                                                      |
 | ------------------------------- | ------------------------------------------ | -------------------------------------------------------- |
-| Daemon reachable but bot silent | `hyperbot channels status --probe`         | Verify `signal-cli` daemon URL/account and receive mode. |
-| DM blocked                      | `hyperbot pairing list signal`             | Approve sender or adjust DM policy.                      |
+| Daemon reachable but bot silent | `ancient-claw channels status --probe`         | Verify `signal-cli` daemon URL/account and receive mode. |
+| DM blocked                      | `ancient-claw pairing list signal`             | Approve sender or adjust DM policy.                      |
 | Group replies do not trigger    | Check group allowlist and mention patterns | Add sender/group or loosen gating.                       |
 
 Full troubleshooting: [/channels/signal#troubleshooting](/channels/signal#troubleshooting)
@@ -111,8 +111,8 @@ Full troubleshooting: [/channels/signal#troubleshooting](/channels/signal#troubl
 
 | Symptom                             | Fastest check                                | Fix                                             |
 | ----------------------------------- | -------------------------------------------- | ----------------------------------------------- |
-| Logged in but ignores room messages | `hyperbot channels status --probe`           | Check `groupPolicy` and room allowlist.         |
-| DMs do not process                  | `hyperbot pairing list matrix`               | Approve sender or adjust DM policy.             |
+| Logged in but ignores room messages | `ancient-claw channels status --probe`           | Check `groupPolicy` and room allowlist.         |
+| DMs do not process                  | `ancient-claw pairing list matrix`               | Approve sender or adjust DM policy.             |
 | Encrypted rooms fail                | Verify crypto module and encryption settings | Enable encryption support and rejoin/sync room. |
 
 Full setup and config: [Matrix](/channels/matrix)

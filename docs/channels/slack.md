@@ -34,7 +34,7 @@ Status: production-ready for DMs + channels via Slack app integrations. Default 
         - install app and copy **Bot Token** (`xoxb-...`)
       </Step>
 
-      <Step title="Configure HyperBot">
+      <Step title="Configure Ancient Claw">
 
 ```json5
 {
@@ -74,7 +74,7 @@ SLACK_BOT_TOKEN=xoxb-...
       <Step title="Start gateway">
 
 ```bash
-hyperbot gateway
+ancient-claw gateway
 ```
 
       </Step>
@@ -92,7 +92,7 @@ hyperbot gateway
 
       </Step>
 
-      <Step title="Configure HyperBot HTTP mode">
+      <Step title="Configure Ancient Claw HTTP mode">
 
 ```json5
 {
@@ -158,7 +158,7 @@ For actions/directory reads, user token can be preferred when configured. For wr
     - Named accounts inherit `channels.slack.allowFrom` when their own `allowFrom` is unset.
     - Named accounts do not inherit `channels.slack.accounts.default.allowFrom`.
 
-    Pairing in DMs uses `hyperbot pairing approve slack <code>`.
+    Pairing in DMs uses `ancient-claw pairing approve slack <code>`.
 
   </Tab>
 
@@ -264,13 +264,13 @@ These directives compile into Slack Block Kit and route clicks or selections bac
 Notes:
 
 - This is Slack-specific UI. Other channels do not translate Slack Block Kit directives into their own button systems.
-- The interactive callback values are HyperBot-generated opaque tokens, not raw agent-authored values.
-- If generated interactive blocks would exceed Slack Block Kit limits, HyperBot falls back to the original text reply instead of sending an invalid blocks payload.
+- The interactive callback values are Ancient Claw-generated opaque tokens, not raw agent-authored values.
+- If generated interactive blocks would exceed Slack Block Kit limits, Ancient Claw falls back to the original text reply instead of sending an invalid blocks payload.
 
 Default slash command settings:
 
 - `enabled: false`
-- `name: "hyperbot"`
+- `name: "ancient-claw"`
 - `sessionPrefix: "slack:slash"`
 - `ephemeral: true`
 
@@ -358,7 +358,7 @@ Available action groups in current Slack tooling:
 
 ## Ack reactions
 
-`ackReaction` sends an acknowledgement emoji while HyperBot is processing an inbound message.
+`ackReaction` sends an acknowledgement emoji while Ancient Claw is processing an inbound message.
 
 Resolution order:
 
@@ -374,7 +374,7 @@ Notes:
 
 ## Typing reaction fallback
 
-`typingReaction` adds a temporary reaction to the inbound Slack message while HyperBot is processing a reply, then removes it when the run finishes. This is a useful fallback when Slack native assistant typing is unavailable, especially in DMs.
+`typingReaction` adds a temporary reaction to the inbound Slack message while Ancient Claw is processing a reply, then removes it when the run finishes. This is a useful fallback when Slack native assistant typing is unavailable, especially in DMs.
 
 Resolution order:
 
@@ -394,12 +394,12 @@ Notes:
 ```json
 {
   "display_information": {
-    "name": "HyperBot",
-    "description": "Slack connector for HyperBot"
+    "name": "Ancient Claw",
+    "description": "Slack connector for Ancient Claw"
   },
   "features": {
     "bot_user": {
-      "display_name": "HyperBot",
+      "display_name": "Ancient Claw",
       "always_online": false
     },
     "app_home": {
@@ -408,8 +408,8 @@ Notes:
     },
     "slash_commands": [
       {
-        "command": "/hyperbot",
-        "description": "Send a message to HyperBot",
+        "command": "/ancient-claw",
+        "description": "Send a message to Ancient Claw",
         "should_escape": false
       }
     ]
@@ -493,9 +493,9 @@ Notes:
     Useful commands:
 
 ```bash
-hyperbot channels status --probe
-hyperbot logs --follow
-hyperbot doctor
+ancient-claw channels status --probe
+ancient-claw logs --follow
+ancient-claw doctor
 ```
 
   </Accordion>
@@ -508,7 +508,7 @@ hyperbot doctor
     - pairing approvals / allowlist entries
 
 ```bash
-hyperbot pairing list slack
+ancient-claw pairing list slack
 ```
 
   </Accordion>
@@ -540,7 +540,7 @@ hyperbot pairing list slack
 
 ## Text streaming
 
-HyperBot supports Slack native text streaming via the Agents and AI Apps API.
+Ancient Claw supports Slack native text streaming via the Agents and AI Apps API.
 
 `channels.slack.streaming` controls live preview behavior:
 
@@ -577,7 +577,7 @@ Legacy keys:
 - Later text chunks append to the same stream (`chat.appendStream`).
 - End of reply finalizes stream (`chat.stopStream`).
 - Media and non-text payloads fall back to normal delivery.
-- If streaming fails mid-reply, HyperBot falls back to normal delivery for remaining payloads.
+- If streaming fails mid-reply, Ancient Claw falls back to normal delivery for remaining payloads.
 
 ## Configuration reference pointers
 

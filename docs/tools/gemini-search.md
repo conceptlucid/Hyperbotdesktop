@@ -9,7 +9,7 @@ title: "Gemini Search"
 
 # Gemini Search
 
-HyperBot supports Gemini models with built-in
+Ancient Claw supports Gemini models with built-in
 [Google Search grounding](https://ai.google.dev/gemini-api/docs/grounding),
 which returns AI-synthesized answers backed by live Google Search results with
 citations.
@@ -25,7 +25,7 @@ citations.
     Set `GEMINI_API_KEY` in the Gateway environment, or configure via:
 
     ```bash
-    hyperbot configure --section web
+    ancient-claw configure --section web
     ```
 
   </Step>
@@ -58,7 +58,7 @@ citations.
 ```
 
 **Environment alternative:** set `GEMINI_API_KEY` in the Gateway environment.
-For a gateway install, put it in `~/.hyperbot/.env`.
+For a gateway install, put it in `~/.ancient-claw/.env`.
 
 ## How it works
 

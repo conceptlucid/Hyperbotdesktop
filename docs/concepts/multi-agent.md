@@ -15,12 +15,12 @@ An **agent** is a fully scoped brain with its own:
 
 - **Workspace** (files, AGENTS.md/SOUL.md/USER.md, local notes, persona rules).
 - **State directory** (`agentDir`) for auth profiles, model registry, and per-agent config.
-- **Session store** (chat history + routing state) under `~/.hyperbot/agents/<agentId>/sessions`.
+- **Session store** (chat history + routing state) under `~/.ancient-claw/agents/<agentId>/sessions`.
 
 Auth profiles are **per-agent**. Each agent reads from its own:
 
 ```text
-~/.hyperbot/agents/<agentId>/agent/auth-profiles.json
+~/.ancient-claw/agents/<agentId>/agent/auth-profiles.json
 ```
 
 Main agent credentials are **not** shared automatically. Never reuse `agentDir`
@@ -28,7 +28,7 @@ across agents (it causes auth/session collisions). If you want to share creds,
 copy `auth-profiles.json` into the other agent's `agentDir`.
 
 Skills are per-agent via each workspace’s `skills/` folder, with shared skills
-available from `~/.hyperbot/skills`. See [Skills: per-agent vs shared](/tools/skills#per-agent-vs-shared-skills).
+available from `~/.ancient-claw/skills`. See [Skills: per-agent vs shared](/tools/skills#per-agent-vs-shared-skills).
 
 The Gateway can host **one agent** (default) or **many agents** side-by-side.
 
@@ -39,27 +39,27 @@ reach other host locations unless sandboxing is enabled. See
 
 ## Paths (quick map)
 
-- Config: `~/.hyperbot/hyperbot.json` (or `OPENCLAW_CONFIG_PATH`)
-- State dir: `~/.hyperbot` (or `OPENCLAW_STATE_DIR`)
-- Workspace: `~/.hyperbot/workspace` (or `~/.hyperbot/workspace-<agentId>`)
-- Agent dir: `~/.hyperbot/agents/<agentId>/agent` (or `agents.list[].agentDir`)
-- Sessions: `~/.hyperbot/agents/<agentId>/sessions`
+- Config: `~/.ancient-claw/ancient-claw.json` (or `OPENCLAW_CONFIG_PATH`)
+- State dir: `~/.ancient-claw` (or `OPENCLAW_STATE_DIR`)
+- Workspace: `~/.ancient-claw/workspace` (or `~/.ancient-claw/workspace-<agentId>`)
+- Agent dir: `~/.ancient-claw/agents/<agentId>/agent` (or `agents.list[].agentDir`)
+- Sessions: `~/.ancient-claw/agents/<agentId>/sessions`
 
 ### Single-agent mode (default)
 
-If you do nothing, HyperBot runs a single agent:
+If you do nothing, Ancient Claw runs a single agent:
 
 - `agentId` defaults to **`main`**.
 - Sessions are keyed as `agent:main:<mainKey>`.
-- Workspace defaults to `~/.hyperbot/workspace` (or `~/.hyperbot/workspace-<profile>` when `OPENCLAW_PROFILE` is set).
-- State defaults to `~/.hyperbot/agents/main/agent`.
+- Workspace defaults to `~/.ancient-claw/workspace` (or `~/.ancient-claw/workspace-<profile>` when `OPENCLAW_PROFILE` is set).
+- State defaults to `~/.ancient-claw/agents/main/agent`.
 
 ## Agent helper
 
 Use the agent wizard to add a new isolated agent:
 
 ```bash
-hyperbot agents add work
+ancient-claw agents add work
 ```
 
 Then add `bindings` (or let the wizard do it) to route inbound messages.
@@ -67,7 +67,7 @@ Then add `bindings` (or let the wizard do it) to route inbound messages.
 Verify with:
 
 ```bash
-hyperbot agents list --bindings
+ancient-claw agents list --bindings
 ```
 
 ## Quick start
@@ -78,11 +78,11 @@ hyperbot agents list --bindings
 Use the wizard or create workspaces manually:
 
 ```bash
-hyperbot agents add coding
-hyperbot agents add social
+ancient-claw agents add coding
+ancient-claw agents add social
 ```
 
-Each agent gets its own workspace with `SOUL.md`, `AGENTS.md`, and optional `USER.md`, plus a dedicated `agentDir` and session store under `~/.hyperbot/agents/<agentId>`.
+Each agent gets its own workspace with `SOUL.md`, `AGENTS.md`, and optional `USER.md`, plus a dedicated `agentDir` and session store under `~/.ancient-claw/agents/<agentId>`.
 
   </Step>
 
@@ -95,7 +95,7 @@ Create one account per agent on your preferred channels:
 - WhatsApp: link each phone number per account.
 
 ```bash
-hyperbot channels login --channel whatsapp --account work
+ancient-claw channels login --channel whatsapp --account work
 ```
 
 See channel guides: [Discord](/channels/discord), [Telegram](/channels/telegram), [WhatsApp](/channels/whatsapp).
@@ -111,9 +111,9 @@ Add agents under `agents.list`, channel accounts under `channels.<channel>.accou
   <Step title="Restart and verify">
 
 ```bash
-hyperbot gateway restart
-hyperbot agents list --bindings
-hyperbot channels status --probe
+ancient-claw gateway restart
+ancient-claw agents list --bindings
+ancient-claw channels status --probe
 ```
 
   </Step>
@@ -141,8 +141,8 @@ Example:
 {
   agents: {
     list: [
-      { id: "alex", workspace: "~/.hyperbot/workspace-alex" },
-      { id: "mia", workspace: "~/.hyperbot/workspace-mia" },
+      { id: "alex", workspace: "~/.ancient-claw/workspace-alex" },
+      { id: "mia", workspace: "~/.ancient-claw/workspace-mia" },
     ],
   },
   bindings: [
@@ -189,7 +189,7 @@ Important account-scope detail:
 
 - A binding that omits `accountId` matches the default account only.
 - Use `accountId: "*"` for a channel-wide fallback across all accounts.
-- If you later add the same binding for the same agent with an explicit account id, HyperBot upgrades the existing channel-only binding to account-scoped instead of duplicating it.
+- If you later add the same binding for the same agent with an explicit account id, Ancient Claw upgrades the existing channel-only binding to account-scoped instead of duplicating it.
 
 ## Multiple accounts / phone numbers
 
@@ -198,7 +198,7 @@ each login. Each `accountId` can be routed to a different agent, so one server c
 multiple phone numbers without mixing sessions.
 
 If you want a channel-wide default account when `accountId` is omitted, set
-`channels.<channel>.defaultAccount` (optional). When unset, HyperBot falls back
+`channels.<channel>.defaultAccount` (optional). When unset, Ancient Claw falls back
 to `default` if present, otherwise the first configured account id (sorted).
 
 Common channels supporting this pattern include:
@@ -224,8 +224,8 @@ Each Discord bot account maps to a unique `accountId`. Bind each account to an a
 {
   agents: {
     list: [
-      { id: "main", workspace: "~/.hyperbot/workspace-main" },
-      { id: "coding", workspace: "~/.hyperbot/workspace-coding" },
+      { id: "main", workspace: "~/.ancient-claw/workspace-main" },
+      { id: "coding", workspace: "~/.ancient-claw/workspace-coding" },
     ],
   },
   bindings: [
@@ -273,8 +273,8 @@ Notes:
 {
   agents: {
     list: [
-      { id: "main", workspace: "~/.hyperbot/workspace-main" },
-      { id: "alerts", workspace: "~/.hyperbot/workspace-alerts" },
+      { id: "main", workspace: "~/.ancient-claw/workspace-main" },
+      { id: "alerts", workspace: "~/.ancient-claw/workspace-alerts" },
     ],
   },
   bindings: [
@@ -309,11 +309,11 @@ Notes:
 Link each account before starting the gateway:
 
 ```bash
-hyperbot channels login --channel whatsapp --account personal
-hyperbot channels login --channel whatsapp --account biz
+ancient-claw channels login --channel whatsapp --account personal
+ancient-claw channels login --channel whatsapp --account biz
 ```
 
-`~/.hyperbot/hyperbot.json` (JSON5):
+`~/.ancient-claw/ancient-claw.json` (JSON5):
 
 ```js
 {
@@ -323,14 +323,14 @@ hyperbot channels login --channel whatsapp --account biz
         id: "home",
         default: true,
         name: "Home",
-        workspace: "~/.hyperbot/workspace-home",
-        agentDir: "~/.hyperbot/agents/home/agent",
+        workspace: "~/.ancient-claw/workspace-home",
+        agentDir: "~/.ancient-claw/agents/home/agent",
       },
       {
         id: "work",
         name: "Work",
-        workspace: "~/.hyperbot/workspace-work",
-        agentDir: "~/.hyperbot/agents/work/agent",
+        workspace: "~/.ancient-claw/workspace-work",
+        agentDir: "~/.ancient-claw/agents/work/agent",
       },
     ],
   },
@@ -363,12 +363,12 @@ hyperbot channels login --channel whatsapp --account biz
     whatsapp: {
       accounts: {
         personal: {
-          // Optional override. Default: ~/.hyperbot/credentials/whatsapp/personal
-          // authDir: "~/.hyperbot/credentials/whatsapp/personal",
+          // Optional override. Default: ~/.ancient-claw/credentials/whatsapp/personal
+          // authDir: "~/.ancient-claw/credentials/whatsapp/personal",
         },
         biz: {
-          // Optional override. Default: ~/.hyperbot/credentials/whatsapp/biz
-          // authDir: "~/.hyperbot/credentials/whatsapp/biz",
+          // Optional override. Default: ~/.ancient-claw/credentials/whatsapp/biz
+          // authDir: "~/.ancient-claw/credentials/whatsapp/biz",
         },
       },
     },
@@ -387,13 +387,13 @@ Split by channel: route WhatsApp to a fast everyday agent and Telegram to an Opu
       {
         id: "chat",
         name: "Everyday",
-        workspace: "~/.hyperbot/workspace-chat",
+        workspace: "~/.ancient-claw/workspace-chat",
         model: "anthropic/claude-sonnet-4-6",
       },
       {
         id: "opus",
         name: "Deep Work",
-        workspace: "~/.hyperbot/workspace-opus",
+        workspace: "~/.ancient-claw/workspace-opus",
         model: "anthropic/claude-opus-4-6",
       },
     ],
@@ -421,13 +421,13 @@ Keep WhatsApp on the fast agent, but route one DM to Opus:
       {
         id: "chat",
         name: "Everyday",
-        workspace: "~/.hyperbot/workspace-chat",
+        workspace: "~/.ancient-claw/workspace-chat",
         model: "anthropic/claude-sonnet-4-6",
       },
       {
         id: "opus",
         name: "Deep Work",
-        workspace: "~/.hyperbot/workspace-opus",
+        workspace: "~/.ancient-claw/workspace-opus",
         model: "anthropic/claude-opus-4-6",
       },
     ],
@@ -456,7 +456,7 @@ and a tighter tool policy:
       {
         id: "family",
         name: "Family",
-        workspace: "~/.hyperbot/workspace-family",
+        workspace: "~/.ancient-claw/workspace-family",
         identity: { name: "Family Bot" },
         groupChat: {
           mentionPatterns: ["@family", "@familybot", "@Family Bot"],
@@ -509,7 +509,7 @@ Each agent can have its own sandbox and tool restrictions:
     list: [
       {
         id: "personal",
-        workspace: "~/.hyperbot/workspace-personal",
+        workspace: "~/.ancient-claw/workspace-personal",
         sandbox: {
           mode: "off",  // No sandbox for personal agent
         },
@@ -517,7 +517,7 @@ Each agent can have its own sandbox and tool restrictions:
       },
       {
         id: "family",
-        workspace: "~/.hyperbot/workspace-family",
+        workspace: "~/.ancient-claw/workspace-family",
         sandbox: {
           mode: "all",     // Always sandboxed
           scope: "agent",  // One container per agent

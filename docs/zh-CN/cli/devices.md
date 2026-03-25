@@ -2,7 +2,7 @@
 read_when:
   - 你正在批准设备配对请求
   - 你需要轮换或撤销设备 token
-summary: "`hyperbot devices` 的 CLI 参考（设备配对 + token 轮换/撤销）"
+summary: "`ancient-claw devices` 的 CLI 参考（设备配对 + token 轮换/撤销）"
 title: devices
 x-i18n:
   generated_at: "2026-02-03T07:44:52Z"
@@ -13,51 +13,51 @@ x-i18n:
   workflow: 15
 ---
 
-# `hyperbot devices`
+# `ancient-claw devices`
 
 管理设备配对请求和设备范围的 token。
 
 ## 命令
 
-### `hyperbot devices list`
+### `ancient-claw devices list`
 
 列出待处理的配对请求和已配对的设备。
 
 ```
-hyperbot devices list
-hyperbot devices list --json
+ancient-claw devices list
+ancient-claw devices list --json
 ```
 
-### `hyperbot devices approve <requestId>`
+### `ancient-claw devices approve <requestId>`
 
 批准待处理的设备配对请求。
 
 ```
-hyperbot devices approve <requestId>
+ancient-claw devices approve <requestId>
 ```
 
-### `hyperbot devices reject <requestId>`
+### `ancient-claw devices reject <requestId>`
 
 拒绝待处理的设备配对请求。
 
 ```
-hyperbot devices reject <requestId>
+ancient-claw devices reject <requestId>
 ```
 
-### `hyperbot devices rotate --device <id> --role <role> [--scope <scope...>]`
+### `ancient-claw devices rotate --device <id> --role <role> [--scope <scope...>]`
 
 为特定角色轮换设备 token（可选更新 scope）。
 
 ```
-hyperbot devices rotate --device <deviceId> --role operator --scope operator.read --scope operator.write
+ancient-claw devices rotate --device <deviceId> --role operator --scope operator.read --scope operator.write
 ```
 
-### `hyperbot devices revoke --device <id> --role <role>`
+### `ancient-claw devices revoke --device <id> --role <role>`
 
 为特定角色撤销设备 token。
 
 ```
-hyperbot devices revoke --device <deviceId> --role node
+ancient-claw devices revoke --device <deviceId> --role node
 ```
 
 ## 通用选项

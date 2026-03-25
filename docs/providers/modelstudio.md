@@ -2,7 +2,7 @@
 title: "Model Studio"
 summary: "Alibaba Cloud Model Studio setup (Coding Plan, dual region endpoints)"
 read_when:
-  - You want to use Alibaba Cloud Model Studio with HyperBot
+  - You want to use Alibaba Cloud Model Studio with Ancient Claw
   - You need the API key env var for Model Studio
 ---
 
@@ -20,7 +20,7 @@ including Qwen and third-party models hosted on the platform.
 1. Set the API key:
 
 ```bash
-hyperbot onboard --auth-choice modelstudio-api-key
+ancient-claw onboard --auth-choice modelstudio-api-key
 ```
 
 2. Set a default model:
@@ -63,4 +63,4 @@ Most models support image input. Context windows range from 200K to 1M tokens.
 
 If the Gateway runs as a daemon (launchd/systemd), make sure
 `MODELSTUDIO_API_KEY` is available to that process (for example, in
-`~/.hyperbot/.env` or via `env.shellEnv`).
+`~/.ancient-claw/.env` or via `env.shellEnv`).

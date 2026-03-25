@@ -1,7 +1,7 @@
 ---
-summary: "OAuth in HyperBot: token exchange, storage, and multi-account patterns"
+summary: "OAuth in Ancient Claw: token exchange, storage, and multi-account patterns"
 read_when:
-  - You want to understand HyperBot OAuth end-to-end
+  - You want to understand Ancient Claw OAuth end-to-end
   - You hit token invalidation / logout issues
   - You want setup-token or OAuth auth flows
   - You want multiple accounts or profile routing
@@ -10,7 +10,7 @@ title: "OAuth"
 
 # OAuth
 
-HyperBot supports “subscription auth” via OAuth for providers that offer it (notably **OpenAI Codex (ChatGPT OAuth)**). For Anthropic subscriptions, use the **setup-token** flow. Anthropic subscription use outside Claude Code has been restricted for some users in the past, so treat it as a user-choice risk and verify current Anthropic policy yourself. OpenAI Codex OAuth is explicitly supported for use in external tools like HyperBot. This page explains:
+Ancient Claw supports “subscription auth” via OAuth for providers that offer it (notably **OpenAI Codex (ChatGPT OAuth)**). For Anthropic subscriptions, use the **setup-token** flow. Anthropic subscription use outside Claude Code has been restricted for some users in the past, so treat it as a user-choice risk and verify current Anthropic policy yourself. OpenAI Codex OAuth is explicitly supported for use in external tools like Ancient Claw. This page explains:
 
 For Anthropic in production, API key auth is the safer recommended path over subscription setup-token auth.
 
@@ -18,11 +18,11 @@ For Anthropic in production, API key auth is the safer recommended path over sub
 - where tokens are **stored** (and why)
 - how to handle **multiple accounts** (profiles + per-session overrides)
 
-HyperBot also supports **provider plugins** that ship their own OAuth or API‑key
+Ancient Claw also supports **provider plugins** that ship their own OAuth or API‑key
 flows. Run them via:
 
 ```bash
-hyperbot models auth login --provider <id>
+ancient-claw models auth login --provider <id>
 ```
 
 ## The token sink (why it exists)
@@ -31,9 +31,9 @@ OAuth providers commonly mint a **new refresh token** during login/refresh flows
 
 Practical symptom:
 
-- you log in via HyperBot _and_ via Claude Code / Codex CLI → one of them randomly gets “logged out” later
+- you log in via Ancient Claw _and_ via Claude Code / Codex CLI → one of them randomly gets “logged out” later
 
-To reduce that, HyperBot treats `auth-profiles.json` as a **token sink**:
+To reduce that, Ancient Claw treats `auth-profiles.json` as a **token sink**:
 
 - the runtime reads credentials from **one place**
 - we can keep multiple profiles and route them deterministically
@@ -42,13 +42,13 @@ To reduce that, HyperBot treats `auth-profiles.json` as a **token sink**:
 
 Secrets are stored **per-agent**:
 
-- Auth profiles (OAuth + API keys + optional value-level refs): `~/.hyperbot/agents/<agentId>/agent/auth-profiles.json`
-- Legacy compatibility file: `~/.hyperbot/agents/<agentId>/agent/auth.json`
+- Auth profiles (OAuth + API keys + optional value-level refs): `~/.ancient-claw/agents/<agentId>/agent/auth-profiles.json`
+- Legacy compatibility file: `~/.ancient-claw/agents/<agentId>/agent/auth.json`
   (static `api_key` entries are scrubbed when discovered)
 
 Legacy import-only file (still supported, but not the main store):
 
-- `~/.hyperbot/credentials/oauth.json` (imported into `auth-profiles.json` on first use)
+- `~/.ancient-claw/credentials/oauth.json` (imported into `auth-profiles.json` on first use)
 
 All of the above also respect `$OPENCLAW_STATE_DIR` (state dir override). Full reference: [/gateway/configuration](/gateway/configuration-reference#auth-storage)
 
@@ -62,41 +62,41 @@ Anthropic has blocked some subscription usage outside Claude Code in the past.
 Decide for yourself whether to use subscription auth, and verify Anthropic's current terms.
 </Warning>
 
-Run `claude setup-token` on any machine, then paste it into HyperBot:
+Run `claude setup-token` on any machine, then paste it into Ancient Claw:
 
 ```bash
-hyperbot models auth setup-token --provider anthropic
+ancient-claw models auth setup-token --provider anthropic
 ```
 
 If you generated the token elsewhere, paste it manually:
 
 ```bash
-hyperbot models auth paste-token --provider anthropic
+ancient-claw models auth paste-token --provider anthropic
 ```
 
 Verify:
 
 ```bash
-hyperbot models status
+ancient-claw models status
 ```
 
 ## OAuth exchange (how login works)
 
-HyperBot’s interactive login flows are implemented in `@mariozechner/pi-ai` and wired into the wizards/commands.
+Ancient Claw’s interactive login flows are implemented in `@mariozechner/pi-ai` and wired into the wizards/commands.
 
 ### Anthropic setup-token
 
 Flow shape:
 
 1. run `claude setup-token`
-2. paste the token into HyperBot
+2. paste the token into Ancient Claw
 3. store as a token auth profile (no refresh)
 
-The wizard path is `hyperbot onboard` → auth choice `setup-token` (Anthropic).
+The wizard path is `ancient-claw onboard` → auth choice `setup-token` (Anthropic).
 
 ### OpenAI Codex (ChatGPT OAuth)
 
-OpenAI Codex OAuth is explicitly supported for use outside the Codex CLI, including HyperBot workflows.
+OpenAI Codex OAuth is explicitly supported for use outside the Codex CLI, including Ancient Claw workflows.
 
 Flow shape (PKCE):
 
@@ -107,7 +107,7 @@ Flow shape (PKCE):
 5. exchange at `https://auth.openai.com/oauth/token`
 6. extract `accountId` from the access token and store `{ access, refresh, expires, accountId }`
 
-Wizard path is `hyperbot onboard` → auth choice `openai-codex`.
+Wizard path is `ancient-claw onboard` → auth choice `openai-codex`.
 
 ## Refresh + expiry
 
@@ -129,8 +129,8 @@ Two patterns:
 If you want “personal” and “work” to never interact, use isolated agents (separate sessions + credentials + workspace):
 
 ```bash
-hyperbot agents add work
-hyperbot agents add personal
+ancient-claw agents add work
+ancient-claw agents add personal
 ```
 
 Then configure auth per-agent (wizard) and route chats to the right agent.
@@ -150,7 +150,7 @@ Example (session override):
 
 How to see what profile IDs exist:
 
-- `hyperbot channels list --json` (shows `auth[]`)
+- `ancient-claw channels list --json` (shows `auth[]`)
 
 Related docs:
 

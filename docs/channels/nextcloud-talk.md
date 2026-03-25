@@ -16,17 +16,17 @@ Nextcloud Talk ships as a plugin and is not bundled with the core install.
 Install via CLI (npm registry):
 
 ```bash
-hyperbot plugins install @hyperbot/nextcloud-talk
+ancient-claw plugins install @ancient-claw/nextcloud-talk
 ```
 
 Local checkout (when running from a git repo):
 
 ```bash
-hyperbot plugins install ./extensions/nextcloud-talk
+ancient-claw plugins install ./extensions/nextcloud-talk
 ```
 
 If you choose Nextcloud Talk during setup and a git checkout is detected,
-HyperBot will offer the local install path automatically.
+Ancient Claw will offer the local install path automatically.
 
 Details: [Plugins](/tools/plugin)
 
@@ -36,11 +36,11 @@ Details: [Plugins](/tools/plugin)
 2. On your Nextcloud server, create a bot:
 
    ```bash
-   ./occ talk:bot:install "HyperBot" "<shared-secret>" "<webhook-url>" --feature reaction
+   ./occ talk:bot:install "Ancient Claw" "<shared-secret>" "<webhook-url>" --feature reaction
    ```
 
 3. Enable the bot in the target room settings.
-4. Configure HyperBot:
+4. Configure Ancient Claw:
    - Config: `channels.nextcloud-talk.baseUrl` + `channels.nextcloud-talk.botSecret`
    - Or env: `NEXTCLOUD_TALK_BOT_SECRET` (default account only)
 5. Restart the gateway (or finish setup).
@@ -71,8 +71,8 @@ Minimal config:
 
 - Default: `channels.nextcloud-talk.dmPolicy = "pairing"`. Unknown senders get a pairing code.
 - Approve via:
-  - `hyperbot pairing list nextcloud-talk`
-  - `hyperbot pairing approve nextcloud-talk <CODE>`
+  - `ancient-claw pairing list nextcloud-talk`
+  - `ancient-claw pairing approve nextcloud-talk <CODE>`
 - Public DMs: `channels.nextcloud-talk.dmPolicy="open"` plus `channels.nextcloud-talk.allowFrom=["*"]`.
 - `allowFrom` matches Nextcloud user IDs only; display names are ignored.
 

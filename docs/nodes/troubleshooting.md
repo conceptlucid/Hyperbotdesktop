@@ -13,19 +13,19 @@ Use this page when a node is visible in status but node tools fail.
 ## Command ladder
 
 ```bash
-hyperbot status
-hyperbot gateway status
-hyperbot logs --follow
-hyperbot doctor
-hyperbot channels status --probe
+ancient-claw status
+ancient-claw gateway status
+ancient-claw logs --follow
+ancient-claw doctor
+ancient-claw channels status --probe
 ```
 
 Then run node specific checks:
 
 ```bash
-hyperbot nodes status
-hyperbot nodes describe --node <idOrNameOrIp>
-hyperbot approvals get --node <idOrNameOrIp>
+ancient-claw nodes status
+ancient-claw nodes describe --node <idOrNameOrIp>
+ancient-claw approvals get --node <idOrNameOrIp>
 ```
 
 Healthy signals:
@@ -41,9 +41,9 @@ Healthy signals:
 Quick check and fix:
 
 ```bash
-hyperbot nodes describe --node <idOrNameOrIp>
-hyperbot nodes canvas snapshot --node <idOrNameOrIp>
-hyperbot logs --follow
+ancient-claw nodes describe --node <idOrNameOrIp>
+ancient-claw nodes canvas snapshot --node <idOrNameOrIp>
+ancient-claw logs --follow
 ```
 
 If you see `NODE_BACKGROUND_UNAVAILABLE`, bring the node app to the foreground and retry.
@@ -67,10 +67,10 @@ These are different gates:
 Quick checks:
 
 ```bash
-hyperbot devices list
-hyperbot nodes status
-hyperbot approvals get --node <idOrNameOrIp>
-hyperbot approvals allowlist add --node <idOrNameOrIp> "/usr/bin/uname"
+ancient-claw devices list
+ancient-claw nodes status
+ancient-claw approvals get --node <idOrNameOrIp>
+ancient-claw approvals allowlist add --node <idOrNameOrIp> "/usr/bin/uname"
 ```
 
 If pairing is missing, approve the node device first.
@@ -92,10 +92,10 @@ If pairing is fine but `system.run` fails, fix exec approvals/allowlist.
 ## Fast recovery loop
 
 ```bash
-hyperbot nodes status
-hyperbot nodes describe --node <idOrNameOrIp>
-hyperbot approvals get --node <idOrNameOrIp>
-hyperbot logs --follow
+ancient-claw nodes status
+ancient-claw nodes describe --node <idOrNameOrIp>
+ancient-claw approvals get --node <idOrNameOrIp>
+ancient-claw logs --follow
 ```
 
 If still stuck:

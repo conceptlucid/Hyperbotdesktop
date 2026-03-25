@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `hyperbot dns` (wide-area discovery helpers)"
+summary: "CLI reference for `ancient-claw dns` (wide-area discovery helpers)"
 read_when:
   - You want wide-area discovery (DNS-SD) via Tailscale + CoreDNS
-  - You’re setting up split DNS for a custom discovery domain (example: hyperbot.internal)
+  - You’re setting up split DNS for a custom discovery domain (example: ancient-claw.internal)
 title: "dns"
 ---
 
-# `hyperbot dns`
+# `ancient-claw dns`
 
 DNS helpers for wide-area discovery (Tailscale + CoreDNS). Currently focused on macOS + Homebrew CoreDNS.
 
@@ -18,6 +18,6 @@ Related:
 ## Setup
 
 ```bash
-hyperbot dns setup
-hyperbot dns setup --apply
+ancient-claw dns setup
+ancient-claw dns setup --apply
 ```

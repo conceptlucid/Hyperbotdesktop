@@ -1,8 +1,8 @@
 ---
 read_when:
-  - 你想在 HyperBot 中使用 Xiaomi MiMo 模型
+  - 你想在 Ancient Claw 中使用 Xiaomi MiMo 模型
   - 你需要设置 `XIAOMI_API_KEY`
-summary: 在 HyperBot 中使用 Xiaomi MiMo 模型
+summary: 在 Ancient Claw 中使用 Xiaomi MiMo 模型
 title: Xiaomi MiMo
 x-i18n:
   generated_at: "2026-03-20T01:18:00Z"
@@ -15,7 +15,7 @@ x-i18n:
 
 # Xiaomi MiMo
 
-Xiaomi MiMo 是 **MiMo** 模型的 API 平台。HyperBot 使用 Xiaomi 提供的
+Xiaomi MiMo 是 **MiMo** 模型的 API 平台。Ancient Claw 使用 Xiaomi 提供的
 OpenAI 兼容端点，并通过 API key 认证。请在
 [Xiaomi MiMo console](https://platform.xiaomimimo.com/#/console/api-keys) 中创建你的 API key，然后用它配置内置的
 `xiaomi` 提供商。
@@ -32,9 +32,9 @@ OpenAI 兼容端点，并通过 API key 认证。请在
 ## CLI 设置
 
 ```bash
-hyperbot onboard --auth-choice xiaomi-api-key
+ancient-claw onboard --auth-choice xiaomi-api-key
 # 或非交互式
-hyperbot onboard --auth-choice xiaomi-api-key --xiaomi-api-key "$XIAOMI_API_KEY"
+ancient-claw onboard --auth-choice xiaomi-api-key --xiaomi-api-key "$XIAOMI_API_KEY"
 ```
 
 ## 配置片段

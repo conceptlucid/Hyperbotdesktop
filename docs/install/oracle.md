@@ -1,15 +1,15 @@
 ---
-summary: "Host HyperBot on Oracle Cloud's Always Free ARM tier"
+summary: "Host Ancient Claw on Oracle Cloud's Always Free ARM tier"
 read_when:
-  - Setting up HyperBot on Oracle Cloud
-  - Looking for free VPS hosting for HyperBot
-  - Want 24/7 HyperBot on a small server
+  - Setting up Ancient Claw on Oracle Cloud
+  - Looking for free VPS hosting for Ancient Claw
+  - Want 24/7 Ancient Claw on a small server
 title: "Oracle Cloud"
 ---
 
 # Oracle Cloud
 
-Run a persistent HyperBot Gateway on Oracle Cloud's **Always Free** ARM tier (up to 4 OCPU, 24 GB RAM, 200 GB storage) at no cost.
+Run a persistent Ancient Claw Gateway on Oracle Cloud's **Always Free** ARM tier (up to 4 OCPU, 24 GB RAM, 200 GB storage) at no cost.
 
 ## Prerequisites
 
@@ -25,7 +25,7 @@ Run a persistent HyperBot Gateway on Oracle Cloud's **Always Free** ARM tier (up
     1. Log into [Oracle Cloud Console](https://cloud.oracle.com/).
     2. Navigate to **Compute > Instances > Create Instance**.
     3. Configure:
-       - **Name:** `hyperbot`
+       - **Name:** `ancient-claw`
        - **Image:** Ubuntu 24.04 (aarch64)
        - **Shape:** `VM.Standard.A1.Flex` (Ampere ARM)
        - **OCPUs:** 2 (or up to 4)
@@ -54,7 +54,7 @@ Run a persistent HyperBot Gateway on Oracle Cloud's **Always Free** ARM tier (up
 
   <Step title="Configure user and hostname">
     ```bash
-    sudo hostnamectl set-hostname hyperbot
+    sudo hostnamectl set-hostname ancient-claw
     sudo passwd ubuntu
     sudo loginctl enable-linger ubuntu
     ```
@@ -66,16 +66,16 @@ Run a persistent HyperBot Gateway on Oracle Cloud's **Always Free** ARM tier (up
   <Step title="Install Tailscale">
     ```bash
     curl -fsSL https://tailscale.com/install.sh | sh
-    sudo tailscale up --ssh --hostname=hyperbot
+    sudo tailscale up --ssh --hostname=ancient-claw
     ```
 
-    From now on, connect via Tailscale: `ssh ubuntu@hyperbot`.
+    From now on, connect via Tailscale: `ssh ubuntu@ancient-claw`.
 
   </Step>
 
-  <Step title="Install HyperBot">
+  <Step title="Install Ancient Claw">
     ```bash
-    curl -fsSL https://hyperbot.ai/install.sh | bash
+    curl -fsSL https://ancient-claw.ai/install.sh | bash
     source ~/.bashrc
     ```
 
@@ -87,13 +87,13 @@ Run a persistent HyperBot Gateway on Oracle Cloud's **Always Free** ARM tier (up
     Use token auth with Tailscale Serve for secure remote access.
 
     ```bash
-    hyperbot config set gateway.bind loopback
-    hyperbot config set gateway.auth.mode token
-    hyperbot doctor --generate-gateway-token
-    hyperbot config set gateway.tailscale.mode serve
-    hyperbot config set gateway.trustedProxies '["127.0.0.1"]'
+    ancient-claw config set gateway.bind loopback
+    ancient-claw config set gateway.auth.mode token
+    ancient-claw doctor --generate-gateway-token
+    ancient-claw config set gateway.tailscale.mode serve
+    ancient-claw config set gateway.trustedProxies '["127.0.0.1"]'
 
-    systemctl --user restart hyperbot-gateway
+    systemctl --user restart ancient-claw-gateway
     ```
 
   </Step>
@@ -112,8 +112,8 @@ Run a persistent HyperBot Gateway on Oracle Cloud's **Always Free** ARM tier (up
 
   <Step title="Verify">
     ```bash
-    hyperbot --version
-    systemctl --user status hyperbot-gateway
+    ancient-claw --version
+    systemctl --user status ancient-claw-gateway
     tailscale serve status
     curl http://localhost:18789
     ```
@@ -121,7 +121,7 @@ Run a persistent HyperBot Gateway on Oracle Cloud's **Always Free** ARM tier (up
     Access the Control UI from any device on your tailnet:
 
     ```
-    https://hyperbot.<tailnet-name>.ts.net/
+    https://ancient-claw.<tailnet-name>.ts.net/
     ```
 
     Replace `<tailnet-name>` with your tailnet name (visible in `tailscale status`).
@@ -134,7 +134,7 @@ Run a persistent HyperBot Gateway on Oracle Cloud's **Always Free** ARM tier (up
 If Tailscale Serve is not working, use an SSH tunnel from your local machine:
 
 ```bash
-ssh -L 18789:127.0.0.1:18789 ubuntu@hyperbot
+ssh -L 18789:127.0.0.1:18789 ubuntu@ancient-claw
 ```
 
 Then open `http://localhost:18789`.
@@ -143,9 +143,9 @@ Then open `http://localhost:18789`.
 
 **Instance creation fails ("Out of capacity")** -- Free tier ARM instances are popular. Try a different availability domain or retry during off-peak hours.
 
-**Tailscale will not connect** -- Run `sudo tailscale up --ssh --hostname=hyperbot --reset` to re-authenticate.
+**Tailscale will not connect** -- Run `sudo tailscale up --ssh --hostname=ancient-claw --reset` to re-authenticate.
 
-**Gateway will not start** -- Run `hyperbot doctor --non-interactive` and check logs with `journalctl --user -u hyperbot-gateway -n 50`.
+**Gateway will not start** -- Run `ancient-claw doctor --non-interactive` and check logs with `journalctl --user -u ancient-claw-gateway -n 50`.
 
 **ARM binary issues** -- Most npm packages work on ARM64. For native binaries, look for `linux-arm64` or `aarch64` releases. Verify architecture with `uname -m`.
 
@@ -153,4 +153,4 @@ Then open `http://localhost:18789`.
 
 - [Channels](/channels) -- connect Telegram, WhatsApp, Discord, and more
 - [Gateway configuration](/gateway/configuration) -- all config options
-- [Updating](/install/updating) -- keep HyperBot up to date
+- [Updating](/install/updating) -- keep Ancient Claw up to date

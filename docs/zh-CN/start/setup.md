@@ -2,7 +2,7 @@
 read_when:
   - 设置新机器
   - 你想要"最新最好的"而不破坏你的个人设置
-summary: 设置指南：在保持最新的同时保持你的 HyperBot 设置个性化
+summary: 设置指南：在保持最新的同时保持你的 Ancient Claw 设置个性化
 title: 设置
 x-i18n:
   generated_at: "2026-02-03T07:54:27Z"
@@ -19,7 +19,7 @@ x-i18n:
 
 ## 太长不看
 
-- **个性化设置存放在仓库之外：** `~/.hyperbot/workspace`（工作区）+ `~/.hyperbot/hyperbot.json`（配置）。
+- **个性化设置存放在仓库之外：** `~/.ancient-claw/workspace`（工作区）+ `~/.ancient-claw/ancient-claw.json`（配置）。
 - **稳定工作流：** 安装 macOS 应用；让它运行内置的 Gateway 网关。
 - **前沿工作流：** 通过 `pnpm gateway:watch` 自己运行 Gateway 网关，然后让 macOS 应用以本地模式连接。
 
@@ -33,43 +33,43 @@ x-i18n:
 
 如果你想要"100% 为我定制"*并且*易于更新，将你的自定义内容保存在：
 
-- **配置：** `~/.hyperbot/hyperbot.json`（JSON/JSON5 格式）
-- **工作区：** `~/.hyperbot/workspace`（Skills、提示、记忆；将其设为私有 git 仓库）
+- **配置：** `~/.ancient-claw/ancient-claw.json`（JSON/JSON5 格式）
+- **工作区：** `~/.ancient-claw/workspace`（Skills、提示、记忆；将其设为私有 git 仓库）
 
 引导一次：
 
 ```bash
-hyperbot setup
+ancient-claw setup
 ```
 
 在此仓库内部，使用本地 CLI 入口：
 
 ```bash
-hyperbot setup
+ancient-claw setup
 ```
 
-如果你还没有全局安装，通过 `pnpm hyperbot setup` 运行它。
+如果你还没有全局安装，通过 `pnpm ancient-claw setup` 运行它。
 
 ## 稳定工作流（macOS 应用优先）
 
-1. 安装并启动 **HyperBot.app**（菜单栏）。
+1. 安装并启动 **Ancient Claw.app**（菜单栏）。
 2. 完成新手引导/权限检查清单（TCC 提示）。
 3. 确保 Gateway 网关是**本地**并正在运行（应用管理它）。
 4. 链接表面（示例：WhatsApp）：
 
 ```bash
-hyperbot channels login
+ancient-claw channels login
 ```
 
 5. 完整性检查：
 
 ```bash
-hyperbot health
+ancient-claw health
 ```
 
 如果你的构建版本中没有新手引导：
 
-- 运行 `hyperbot setup`，然后 `hyperbot channels login`，然后手动启动 Gateway 网关（`hyperbot gateway`）。
+- 运行 `ancient-claw setup`，然后 `ancient-claw channels login`，然后手动启动 Gateway 网关（`ancient-claw gateway`）。
 
 ## 前沿工作流（在终端中运行 Gateway 网关）
 
@@ -94,7 +94,7 @@ pnpm gateway:watch
 
 ### 2) 将 macOS 应用指向你正在运行的 Gateway 网关
 
-在 **HyperBot.app** 中：
+在 **Ancient Claw.app** 中：
 
 - 连接模式：**本地**
   应用将连接到在配置端口上运行的 Gateway 网关。
@@ -105,33 +105,33 @@ pnpm gateway:watch
 - 或通过 CLI：
 
 ```bash
-hyperbot health
+ancient-claw health
 ```
 
 ### 常见陷阱
 
 - **端口错误：** Gateway 网关 WS 默认为 `ws://127.0.0.1:18789`；保持应用 + CLI 在同一端口上。
 - **状态存储位置：**
-  - 凭证：`~/.hyperbot/credentials/`
-  - 会话：`~/.hyperbot/agents/<agentId>/sessions/`
-  - 日志：`/tmp/hyperbot/`
+  - 凭证：`~/.ancient-claw/credentials/`
+  - 会话：`~/.ancient-claw/agents/<agentId>/sessions/`
+  - 日志：`/tmp/ancient-claw/`
 
 ## 凭证存储映射
 
 在调试认证或决定备份什么时使用此映射：
 
-- **WhatsApp**：`~/.hyperbot/credentials/whatsapp/<accountId>/creds.json`
+- **WhatsApp**：`~/.ancient-claw/credentials/whatsapp/<accountId>/creds.json`
 - **Telegram bot token**：配置/环境变量或 `channels.telegram.tokenFile`
 - **Discord bot token**：配置/环境变量（尚不支持令牌文件）
 - **Slack tokens**：配置/环境变量（`channels.slack.*`）
-- **配对允许列表**：`~/.hyperbot/credentials/<channel>-allowFrom.json`
-- **模型认证配置文件**：`~/.hyperbot/agents/<agentId>/agent/auth-profiles.json`
-- **旧版 OAuth 导入**：`~/.hyperbot/credentials/oauth.json`
+- **配对允许列表**：`~/.ancient-claw/credentials/<channel>-allowFrom.json`
+- **模型认证配置文件**：`~/.ancient-claw/agents/<agentId>/agent/auth-profiles.json`
+- **旧版 OAuth 导入**：`~/.ancient-claw/credentials/oauth.json`
   更多详情：[安全](/gateway/security#credential-storage-map)。
 
 ## 更新（不破坏你的设置）
 
-- 将 `~/.hyperbot/workspace` 和 `~/.hyperbot/` 保持为"你的东西"；不要将个人提示/配置放入 `hyperbot` 仓库。
+- 将 `~/.ancient-claw/workspace` 和 `~/.ancient-claw/` 保持为"你的东西"；不要将个人提示/配置放入 `ancient-claw` 仓库。
 - 更新源码：`git pull` + `pnpm install`（当锁文件更改时）+ 继续使用 `pnpm gateway:watch`。
 
 ## Linux（systemd 用户服务）
@@ -149,5 +149,5 @@ sudo loginctl enable-linger $USER
 - [Gateway 网关运行手册](/gateway)（标志、监督、端口）
 - [Gateway 网关配置](/gateway/configuration)（配置模式 + 示例）
 - [Discord](/channels/discord) 和 [Telegram](/channels/telegram)（回复标签 + replyToMode 设置）
-- [HyperBot 助手设置](/start/hyperbot)
+- [Ancient Claw 助手设置](/start/ancient-claw)
 - [macOS 应用](/platforms/macos)（Gateway 网关生命周期）

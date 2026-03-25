@@ -2,7 +2,7 @@
 read_when:
   - 你想使用 OpenCode 托管的模型访问
   - 你想在 Zen 和 Go 目录之间进行选择
-summary: 在 HyperBot 中使用 OpenCode Zen 和 Go 目录
+summary: 在 Ancient Claw 中使用 OpenCode Zen 和 Go 目录
 title: OpenCode
 x-i18n:
   generated_at: "2026-03-16T06:26:52Z"
@@ -15,12 +15,12 @@ x-i18n:
 
 # OpenCode
 
-OpenCode 在 HyperBot 中提供两个托管目录：
+OpenCode 在 Ancient Claw 中提供两个托管目录：
 
 - `opencode/...` 用于 **Zen** 目录
 - `opencode-go/...` 用于 **Go** 目录
 
-两个目录都使用相同的 OpenCode API 密钥。HyperBot 会将运行时提供商 ID
+两个目录都使用相同的 OpenCode API 密钥。Ancient Claw 会将运行时提供商 ID
 保持拆分，以便上游按模型路由保持正确，但新手引导和文档将它们视为
 同一个 OpenCode 设置。
 
@@ -29,15 +29,15 @@ OpenCode 在 HyperBot 中提供两个托管目录：
 ### Zen 目录
 
 ```bash
-hyperbot onboard --auth-choice opencode-zen
-hyperbot onboard --opencode-zen-api-key "$OPENCODE_API_KEY"
+ancient-claw onboard --auth-choice opencode-zen
+ancient-claw onboard --opencode-zen-api-key "$OPENCODE_API_KEY"
 ```
 
 ### Go 目录
 
 ```bash
-hyperbot onboard --auth-choice opencode-go
-hyperbot onboard --opencode-go-api-key "$OPENCODE_API_KEY"
+ancient-claw onboard --auth-choice opencode-go
+ancient-claw onboard --opencode-go-api-key "$OPENCODE_API_KEY"
 ```
 
 ## 配置片段

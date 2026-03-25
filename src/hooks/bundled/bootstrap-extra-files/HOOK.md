@@ -1,15 +1,15 @@
 ---
 name: bootstrap-extra-files
 description: "Inject additional workspace bootstrap files via glob/path patterns"
-homepage: https://docs.hyperbot.ai/automation/hooks#bootstrap-extra-files
+homepage: https://docs.ancient-claw.ai/automation/hooks#bootstrap-extra-files
 metadata:
   {
-    "hyperbot":
+    "ancient-claw":
       {
         "emoji": "📎",
         "events": ["agent:bootstrap"],
         "requires": { "config": ["workspace.dir"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with HyperBot" }],
+        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with Ancient Claw" }],
       },
   }
 ---

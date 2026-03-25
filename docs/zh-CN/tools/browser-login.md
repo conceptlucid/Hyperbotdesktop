@@ -17,7 +17,7 @@ x-i18n:
 
 ## 手动登录（推荐）
 
-当网站需要登录时，请在**主机**浏览器配置文件（hyperbot 浏览器）中**手动登录**。
+当网站需要登录时，请在**主机**浏览器配置文件（ancient-claw 浏览器）中**手动登录**。
 
 **不要**将你的凭证提供给模型。自动登录通常会触发反机器人防御并可能锁定账户。
 
@@ -25,7 +25,7 @@ x-i18n:
 
 ## 使用哪个 Chrome 配置文件？
 
-HyperBot 控制一个**专用的 Chrome 配置文件**（名为 `hyperbot`，橙色调 UI）。这与你的日常浏览器配置文件是分开的。
+Ancient Claw 控制一个**专用的 Chrome 配置文件**（名为 `ancient-claw`，橙色调 UI）。这与你的日常浏览器配置文件是分开的。
 
 两种简单的访问方式：
 
@@ -33,11 +33,11 @@ HyperBot 控制一个**专用的 Chrome 配置文件**（名为 `hyperbot`，橙
 2. **通过 CLI 打开**：
 
 ```bash
-hyperbot browser start
-hyperbot browser open https://x.com
+ancient-claw browser start
+ancient-claw browser open https://x.com
 ```
 
-如果你有多个配置文件，传入 `--browser-profile <name>`（默认是 `hyperbot`）。
+如果你有多个配置文件，传入 `--browser-profile <name>`（默认是 `ancient-claw`）。
 
 ## X/Twitter：推荐流程
 
@@ -69,7 +69,7 @@ hyperbot browser open https://x.com
 然后定位主机浏览器：
 
 ```bash
-hyperbot browser open https://x.com --browser-profile hyperbot --target host
+ancient-claw browser open https://x.com --browser-profile ancient-claw --target host
 ```
 
 或者为发布更新的智能体禁用沙箱隔离。

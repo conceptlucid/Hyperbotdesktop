@@ -1,38 +1,38 @@
 ---
-summary: "CLI reference for `hyperbot update` (safe-ish source update + gateway auto-restart)"
+summary: "CLI reference for `ancient-claw update` (safe-ish source update + gateway auto-restart)"
 read_when:
   - You want to update a source checkout safely
   - You need to understand `--update` shorthand behavior
 title: "update"
 ---
 
-# `hyperbot update`
+# `ancient-claw update`
 
-Safely update HyperBot and switch between stable/beta/dev channels.
+Safely update Ancient Claw and switch between stable/beta/dev channels.
 
 If you installed via **npm/pnpm** (global install, no git metadata), updates happen via the package manager flow in [Updating](/install/updating).
 
 ## Usage
 
 ```bash
-hyperbot update
-hyperbot update status
-hyperbot update wizard
-hyperbot update --channel beta
-hyperbot update --channel dev
-hyperbot update --tag beta
-hyperbot update --tag main
-hyperbot update --dry-run
-hyperbot update --no-restart
-hyperbot update --json
-hyperbot --update
+ancient-claw update
+ancient-claw update status
+ancient-claw update wizard
+ancient-claw update --channel beta
+ancient-claw update --channel dev
+ancient-claw update --tag beta
+ancient-claw update --tag main
+ancient-claw update --dry-run
+ancient-claw update --no-restart
+ancient-claw update --json
+ancient-claw --update
 ```
 
 ## Options
 
 - `--no-restart`: skip restarting the Gateway service after a successful update.
 - `--channel <stable|beta|dev>`: set the update channel (git + npm; persisted in config).
-- `--tag <dist-tag|version|spec>`: override the package target for this update only. For package installs, `main` maps to `github:hyperbot/hyperbot#main`.
+- `--tag <dist-tag|version|spec>`: override the package target for this update only. For package installs, `main` maps to `github:ancient-claw/ancient-claw#main`.
 - `--dry-run`: preview planned update actions (channel/tag/target/restart flow) without writing config, installing, syncing plugins, or restarting.
 - `--json`: print machine-readable `UpdateRunResult` JSON.
 - `--timeout <seconds>`: per-step timeout (default is 1200s).
@@ -44,9 +44,9 @@ Note: downgrades require confirmation because older versions can break configura
 Show the active update channel + git tag/branch/SHA (for source checkouts), plus update availability.
 
 ```bash
-hyperbot update status
-hyperbot update status --json
-hyperbot update status --timeout 10
+ancient-claw update status
+ancient-claw update status --json
+ancient-claw update status --timeout 10
 ```
 
 Options:
@@ -62,10 +62,10 @@ offers to create one.
 
 ## What it does
 
-When you switch channels explicitly (`--channel ...`), HyperBot also keeps the
+When you switch channels explicitly (`--channel ...`), Ancient Claw also keeps the
 install method aligned:
 
-- `dev` → ensures a git checkout (default: `~/hyperbot`, override with `OPENCLAW_GIT_DIR`),
+- `dev` → ensures a git checkout (default: `~/ancient-claw`, override with `OPENCLAW_GIT_DIR`),
   updates it, and installs the global CLI from that checkout.
 - `stable`/`beta` → installs from npm using the matching dist-tag.
 
@@ -88,16 +88,16 @@ High-level:
 5. Rebases onto the selected commit (dev only).
 6. Installs deps (pnpm preferred; npm fallback).
 7. Builds + builds the Control UI.
-8. Runs `hyperbot doctor` as the final “safe update” check.
+8. Runs `ancient-claw doctor` as the final “safe update” check.
 9. Syncs plugins to the active channel (dev uses bundled extensions; stable/beta uses npm) and updates npm-installed plugins.
 
 ## `--update` shorthand
 
-`hyperbot --update` rewrites to `hyperbot update` (useful for shells and launcher scripts).
+`ancient-claw --update` rewrites to `ancient-claw update` (useful for shells and launcher scripts).
 
 ## See also
 
-- `hyperbot doctor` (offers to run update first on git checkouts)
+- `ancient-claw doctor` (offers to run update first on git checkouts)
 - [Development channels](/install/development-channels)
 - [Updating](/install/updating)
 - [CLI reference](/cli)

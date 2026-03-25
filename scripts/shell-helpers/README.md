@@ -2,7 +2,7 @@
 
 Stop typing `docker-compose` commands. Just type `clawdock-start`.
 
-Inspired by Simon Willison's [Running HyperBot in Docker](https://til.simonwillison.net/llms/hyperbot-docker).
+Inspired by Simon Willison's [Running Ancient Claw in Docker](https://til.simonwillison.net/llms/ancient-claw-docker).
 
 - [Quickstart](#quickstart)
 - [Available Commands](#available-commands)
@@ -25,7 +25,7 @@ Inspired by Simon Willison's [Running HyperBot in Docker](https://til.simonwilli
 **Install:**
 
 ```bash
-mkdir -p ~/.clawdock && curl -sL https://raw.githubusercontent.com/hyperbot/hyperbot/main/scripts/shell-helpers/clawdock-helpers.sh -o ~/.clawdock/clawdock-helpers.sh
+mkdir -p ~/.clawdock && curl -sL https://raw.githubusercontent.com/ancient-claw/ancient-claw/main/scripts/shell-helpers/clawdock-helpers.sh -o ~/.clawdock/clawdock-helpers.sh
 ```
 
 ```bash
@@ -38,9 +38,9 @@ echo 'source ~/.clawdock/clawdock-helpers.sh' >> ~/.zshrc && source ~/.zshrc
 clawdock-help
 ```
 
-On first command, ClawDock auto-detects your HyperBot directory:
+On first command, ClawDock auto-detects your Ancient Claw directory:
 
-- Checks common paths (`~/hyperbot`, `~/workspace/hyperbot`, etc.)
+- Checks common paths (`~/ancient-claw`, `~/workspace/ancient-claw`, etc.)
 - If found, asks you to confirm
 - Saves to `~/.clawdock/config`
 
@@ -87,7 +87,7 @@ clawdock-approve <request-id>
 | Command                   | Description                                    |
 | ------------------------- | ---------------------------------------------- |
 | `clawdock-shell`          | Interactive shell inside the gateway container |
-| `clawdock-cli <command>`  | Run HyperBot CLI commands                      |
+| `clawdock-cli <command>`  | Run Ancient Claw CLI commands                      |
 | `clawdock-exec <command>` | Execute arbitrary commands in the container    |
 
 ### Web UI & Devices
@@ -117,8 +117,8 @@ clawdock-approve <request-id>
 | -------------------- | ----------------------------------------- |
 | `clawdock-health`    | Run gateway health check                  |
 | `clawdock-token`     | Display the gateway authentication token  |
-| `clawdock-cd`        | Jump to the HyperBot project directory    |
-| `clawdock-config`    | Open the HyperBot config directory        |
+| `clawdock-cd`        | Jump to the Ancient Claw project directory    |
+| `clawdock-config`    | Open the Ancient Claw config directory        |
 | `clawdock-workspace` | Open the workspace directory              |
 | `clawdock-help`      | Show all available commands with examples |
 
@@ -155,7 +155,7 @@ clawdock-shell
 **Inside the container, login to WhatsApp:**
 
 ```bash
-hyperbot channels login --channel whatsapp --verbose
+ancient-claw channels login --channel whatsapp --verbose
 ```
 
 Scan the QR code with WhatsApp on your phone.
@@ -163,7 +163,7 @@ Scan the QR code with WhatsApp on your phone.
 **Verify connection:**
 
 ```bash
-hyperbot status
+ancient-claw status
 ```
 
 ### Troubleshooting Device Pairing
@@ -193,7 +193,7 @@ clawdock-fix-token
 This will:
 
 1. Read the token from your `.env` file
-2. Configure it in the HyperBot config
+2. Configure it in the Ancient Claw config
 3. Restart the gateway
 4. Verify the configuration
 
@@ -209,7 +209,7 @@ docker ps
 
 - Docker and Docker Compose installed
 - Bash or Zsh shell
-- HyperBot project (run `scripts/docker/setup.sh`)
+- Ancient Claw project (run `scripts/docker/setup.sh`)
 
 ## Development
 

@@ -5,13 +5,13 @@ summary: "Setup wizards, setup-entry.ts, config schemas, and package.json metada
 read_when:
   - You are adding a setup wizard to a plugin
   - You need to understand setup-entry.ts vs index.ts
-  - You are defining plugin config schemas or package.json hyperbot metadata
+  - You are defining plugin config schemas or package.json ancient-claw metadata
 ---
 
 # Plugin Setup and Config
 
 Reference for plugin packaging (`package.json` metadata), manifests
-(`hyperbot.plugin.json`), setup entries, and config schemas.
+(`ancient-claw.plugin.json`), setup entries, and config schemas.
 
 <Tip>
   **Looking for a walkthrough?** The how-to guides cover packaging in context:
@@ -21,17 +21,17 @@ Reference for plugin packaging (`package.json` metadata), manifests
 
 ## Package metadata
 
-Your `package.json` needs an `hyperbot` field that tells the plugin system what
+Your `package.json` needs an `ancient-claw` field that tells the plugin system what
 your plugin provides:
 
 **Channel plugin:**
 
 ```json
 {
-  "name": "@myorg/hyperbot-my-channel",
+  "name": "@myorg/ancient-claw-my-channel",
   "version": "1.0.0",
   "type": "module",
-  "hyperbot": {
+  "ancient-claw": {
     "extensions": ["./index.ts"],
     "setupEntry": "./setup-entry.ts",
     "channel": {
@@ -47,17 +47,17 @@ your plugin provides:
 
 ```json
 {
-  "name": "@myorg/hyperbot-my-provider",
+  "name": "@myorg/ancient-claw-my-provider",
   "version": "1.0.0",
   "type": "module",
-  "hyperbot": {
+  "ancient-claw": {
     "extensions": ["./index.ts"],
     "providers": ["my-provider"]
   }
 }
 ```
 
-### `hyperbot` fields
+### `ancient-claw` fields
 
 | Field        | Type       | Description                                                                                |
 | ------------ | ---------- | ------------------------------------------------------------------------------------------ |
@@ -74,7 +74,7 @@ Channel plugins can opt into deferred loading with:
 
 ```json
 {
-  "hyperbot": {
+  "ancient-claw": {
     "extensions": ["./index.ts"],
     "setupEntry": "./setup-entry.ts",
     "startup": {
@@ -84,7 +84,7 @@ Channel plugins can opt into deferred loading with:
 }
 ```
 
-When enabled, HyperBot loads only `setupEntry` during the pre-listen startup
+When enabled, Ancient Claw loads only `setupEntry` during the pre-listen startup
 phase, even for already-configured channels. The full entry loads after the
 gateway starts listening.
 
@@ -97,14 +97,14 @@ gateway starts listening.
 
 ## Plugin manifest
 
-Every native plugin must ship an `hyperbot.plugin.json` in the package root.
-HyperBot uses this to validate config without executing plugin code.
+Every native plugin must ship an `ancient-claw.plugin.json` in the package root.
+Ancient Claw uses this to validate config without executing plugin code.
 
 ```json
 {
   "id": "my-plugin",
   "name": "My Plugin",
-  "description": "Adds My Plugin capabilities to HyperBot",
+  "description": "Adds My Plugin capabilities to Ancient Claw",
   "configSchema": {
     "type": "object",
     "additionalProperties": false,
@@ -150,12 +150,12 @@ See [Plugin Manifest](/plugins/manifest) for the full schema reference.
 ## Setup entry
 
 The `setup-entry.ts` file is a lightweight alternative to `index.ts` that
-HyperBot loads when it only needs setup surfaces (onboarding, config repair,
+Ancient Claw loads when it only needs setup surfaces (onboarding, config repair,
 disabled channel inspection).
 
 ```typescript
 // setup-entry.ts
-import { defineSetupPluginEntry } from "hyperbot/plugin-sdk/core";
+import { defineSetupPluginEntry } from "ancient-claw/plugin-sdk/core";
 import { myChannelPlugin } from "./src/channel.js";
 
 export default defineSetupPluginEntry(myChannelPlugin);
@@ -164,7 +164,7 @@ export default defineSetupPluginEntry(myChannelPlugin);
 This avoids loading heavy runtime code (crypto libraries, CLI registrations,
 background services) during setup flows.
 
-**When HyperBot uses `setupEntry` instead of the full entry:**
+**When Ancient Claw uses `setupEntry` instead of the full entry:**
 
 - The channel is disabled but needs setup/onboarding surfaces
 - The channel is enabled but unconfigured
@@ -219,12 +219,12 @@ For channel-specific config, use the channel config section instead:
 
 ### Building channel config schemas
 
-Use `buildChannelConfigSchema` from `hyperbot/plugin-sdk/core` to convert a
-Zod schema into the `ChannelConfigSchema` wrapper that HyperBot validates:
+Use `buildChannelConfigSchema` from `ancient-claw/plugin-sdk/core` to convert a
+Zod schema into the `ChannelConfigSchema` wrapper that Ancient Claw validates:
 
 ```typescript
 import { z } from "zod";
-import { buildChannelConfigSchema } from "hyperbot/plugin-sdk/core";
+import { buildChannelConfigSchema } from "ancient-claw/plugin-sdk/core";
 
 const accountSchema = z.object({
   token: z.string().optional(),
@@ -238,11 +238,11 @@ const configSchema = buildChannelConfigSchema(accountSchema);
 
 ## Setup wizards
 
-Channel plugins can provide interactive setup wizards for `hyperbot onboard`.
+Channel plugins can provide interactive setup wizards for `ancient-claw onboard`.
 The wizard is a `ChannelSetupWizard` object on the `ChannelPlugin`:
 
 ```typescript
-import type { ChannelSetupWizard } from "hyperbot/plugin-sdk/channel-setup";
+import type { ChannelSetupWizard } from "ancient-claw/plugin-sdk/channel-setup";
 
 const setupWizard: ChannelSetupWizard = {
   channel: "my-channel",
@@ -279,25 +279,25 @@ full examples.
 
 For DM allowlist prompts that only need the standard
 `note -> prompt -> parse -> merge -> patch` flow, prefer the shared setup
-helpers from `hyperbot/plugin-sdk/setup`: `createPromptParsedAllowFromForAccount(...)`,
+helpers from `ancient-claw/plugin-sdk/setup`: `createPromptParsedAllowFromForAccount(...)`,
 `createTopLevelChannelParsedAllowFromPrompt(...)`, and
 `createNestedChannelParsedAllowFromPrompt(...)`.
 
 For channel setup status blocks that only vary by labels, scores, and optional
 extra lines, prefer `createStandardChannelSetupStatus(...)` from
-`hyperbot/plugin-sdk/setup` instead of hand-rolling the same `status` object in
+`ancient-claw/plugin-sdk/setup` instead of hand-rolling the same `status` object in
 each plugin.
 
 For optional setup surfaces that should only appear in certain contexts, use
-`createOptionalChannelSetupSurface` from `hyperbot/plugin-sdk/channel-setup`:
+`createOptionalChannelSetupSurface` from `ancient-claw/plugin-sdk/channel-setup`:
 
 ```typescript
-import { createOptionalChannelSetupSurface } from "hyperbot/plugin-sdk/channel-setup";
+import { createOptionalChannelSetupSurface } from "ancient-claw/plugin-sdk/channel-setup";
 
 const setupSurface = createOptionalChannelSetupSurface({
   channel: "my-channel",
   label: "My Channel",
-  npmSpec: "@myorg/hyperbot-my-channel",
+  npmSpec: "@myorg/ancient-claw-my-channel",
   docsPath: "/channels/my-channel",
 });
 // Returns { setupAdapter, setupWizard }
@@ -308,15 +308,15 @@ const setupSurface = createOptionalChannelSetupSurface({
 **External plugins:** publish to [ClawHub](/tools/clawhub) or npm, then install:
 
 ```bash
-hyperbot plugins install @myorg/hyperbot-my-plugin
+ancient-claw plugins install @myorg/ancient-claw-my-plugin
 ```
 
-HyperBot tries ClawHub first and falls back to npm automatically. You can also
+Ancient Claw tries ClawHub first and falls back to npm automatically. You can also
 force a specific source:
 
 ```bash
-hyperbot plugins install clawhub:@myorg/hyperbot-my-plugin   # ClawHub only
-hyperbot plugins install npm:@myorg/hyperbot-my-plugin       # npm only
+ancient-claw plugins install clawhub:@myorg/ancient-claw-my-plugin   # ClawHub only
+ancient-claw plugins install npm:@myorg/ancient-claw-my-plugin       # npm only
 ```
 
 **In-repo plugins:** place under `extensions/` and they are automatically
@@ -325,12 +325,12 @@ discovered during build.
 **Users can browse and install:**
 
 ```bash
-hyperbot plugins search <query>
-hyperbot plugins install <package-name>
+ancient-claw plugins search <query>
+ancient-claw plugins install <package-name>
 ```
 
 <Info>
-  For npm-sourced installs, `hyperbot plugins install` runs
+  For npm-sourced installs, `ancient-claw plugins install` runs
   `npm install --ignore-scripts` (no lifecycle scripts). Keep plugin dependency
   trees pure JS/TS and avoid packages that require `postinstall` builds.
 </Info>

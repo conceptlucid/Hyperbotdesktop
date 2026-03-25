@@ -26,9 +26,9 @@ How to see whether the linked channel is healthy from the menu bar app.
 
 ## How the probe works
 
-- App runs `hyperbot health --json` via `ShellExecutor` every ~60s and on demand. The probe loads creds and reports status without sending messages.
+- App runs `ancient-claw health --json` via `ShellExecutor` every ~60s and on demand. The probe loads creds and reports status without sending messages.
 - Cache the last good snapshot and the last error separately to avoid flicker; show the timestamp of each.
 
 ## When in doubt
 
-- You can still use the CLI flow in [Gateway health](/gateway/health) (`hyperbot status`, `hyperbot status --deep`, `hyperbot health --json`) and tail `/tmp/hyperbot/hyperbot-*.log` for `web-heartbeat` / `web-reconnect`.
+- You can still use the CLI flow in [Gateway health](/gateway/health) (`ancient-claw status`, `ancient-claw status --deep`, `ancient-claw health --json`) and tail `/tmp/ancient-claw/ancient-claw-*.log` for `web-heartbeat` / `web-reconnect`.

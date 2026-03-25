@@ -1,14 +1,14 @@
 ---
 summary: "Zalo personal account support via native zca-js (QR login), capabilities, and configuration"
 read_when:
-  - Setting up Zalo Personal for HyperBot
+  - Setting up Zalo Personal for Ancient Claw
   - Debugging Zalo Personal login or message flow
 title: "Zalo Personal"
 ---
 
 # Zalo Personal (unofficial)
 
-Status: experimental. This integration automates a **personal Zalo account** via native `zca-js` inside HyperBot.
+Status: experimental. This integration automates a **personal Zalo account** via native `zca-js` inside Ancient Claw.
 
 > **Warning:** This is an unofficial integration and may result in account suspension/ban. Use at your own risk.
 
@@ -16,8 +16,8 @@ Status: experimental. This integration automates a **personal Zalo account** via
 
 Zalo Personal ships as a plugin and is not bundled with the core install.
 
-- Install via CLI: `hyperbot plugins install @hyperbot/zalouser`
-- Or from a source checkout: `hyperbot plugins install ./extensions/zalouser`
+- Install via CLI: `ancient-claw plugins install @ancient-claw/zalouser`
+- Or from a source checkout: `ancient-claw plugins install ./extensions/zalouser`
 - Details: [Plugins](/tools/plugin)
 
 No external `zca`/`openzca` CLI binary is required.
@@ -26,7 +26,7 @@ No external `zca`/`openzca` CLI binary is required.
 
 1. Install the plugin (see above).
 2. Login (QR, on the Gateway machine):
-   - `hyperbot channels login --channel zalouser`
+   - `ancient-claw channels login --channel zalouser`
    - Scan the QR code with the Zalo mobile app.
 3. Enable the channel:
 
@@ -60,9 +60,9 @@ Channel id is `zalouser` to make it explicit this automates a **personal Zalo us
 Use the directory CLI to discover peers/groups and their IDs:
 
 ```bash
-hyperbot directory self --channel zalouser
-hyperbot directory peers list --channel zalouser --query "name"
-hyperbot directory groups list --channel zalouser --query "work"
+ancient-claw directory self --channel zalouser
+ancient-claw directory peers list --channel zalouser --query "name"
+ancient-claw directory groups list --channel zalouser --query "work"
 ```
 
 ## Limits
@@ -78,8 +78,8 @@ hyperbot directory groups list --channel zalouser --query "work"
 
 Approve via:
 
-- `hyperbot pairing list zalouser`
-- `hyperbot pairing approve zalouser <code>`
+- `ancient-claw pairing list zalouser`
+- `ancient-claw pairing approve zalouser <code>`
 
 ## Group access (optional)
 
@@ -90,7 +90,7 @@ Approve via:
   - `channels.zalouser.groupAllowFrom` (controls which senders in allowed groups can trigger the bot)
 - Block all groups: `channels.zalouser.groupPolicy = "disabled"`.
 - The configure wizard can prompt for group allowlists.
-- On startup, HyperBot resolves group/user names in allowlists to IDs and logs the mapping.
+- On startup, Ancient Claw resolves group/user names in allowlists to IDs and logs the mapping.
 - Group allowlist matching is ID-only by default. Unresolved names are ignored for auth unless `channels.zalouser.dangerouslyAllowNameMatching: true` is enabled.
 - `channels.zalouser.dangerouslyAllowNameMatching: true` is a break-glass compatibility mode that re-enables mutable group-name matching.
 - If `groupAllowFrom` is unset, runtime falls back to `allowFrom` for group sender checks.
@@ -119,7 +119,7 @@ Example:
 - Resolution order: exact group id/name -> normalized group slug -> `*` -> default (`true`).
 - This applies both to allowlisted groups and open group mode.
 - Authorized control commands (for example `/new`) can bypass mention gating.
-- When a group message is skipped because mention is required, HyperBot stores it as pending group history and includes it on the next processed group message.
+- When a group message is skipped because mention is required, Ancient Claw stores it as pending group history and includes it on the next processed group message.
 - Group history limit defaults to `messages.groupChat.historyLimit` (fallback `50`). You can override per account with `channels.zalouser.historyLimit`.
 
 Example:
@@ -140,7 +140,7 @@ Example:
 
 ## Multi-account
 
-Accounts map to `zalouser` profiles in HyperBot state. Example:
+Accounts map to `zalouser` profiles in Ancient Claw state. Example:
 
 ```json5
 {
@@ -158,18 +158,18 @@ Accounts map to `zalouser` profiles in HyperBot state. Example:
 
 ## Typing, reactions, and delivery acknowledgements
 
-- HyperBot sends a typing event before dispatching a reply (best-effort).
+- Ancient Claw sends a typing event before dispatching a reply (best-effort).
 - Message reaction action `react` is supported for `zalouser` in channel actions.
   - Use `remove: true` to remove a specific reaction emoji from a message.
   - Reaction semantics: [Reactions](/tools/reactions)
-- For inbound messages that include event metadata, HyperBot sends delivered + seen acknowledgements (best-effort).
+- For inbound messages that include event metadata, Ancient Claw sends delivered + seen acknowledgements (best-effort).
 
 ## Troubleshooting
 
 **Login doesn't stick:**
 
-- `hyperbot channels status --probe`
-- Re-login: `hyperbot channels logout --channel zalouser && hyperbot channels login --channel zalouser`
+- `ancient-claw channels status --probe`
+- Re-login: `ancient-claw channels logout --channel zalouser && ancient-claw channels login --channel zalouser`
 
 **Allowlist/group name didn't resolve:**
 
@@ -178,4 +178,4 @@ Accounts map to `zalouser` profiles in HyperBot state. Example:
 **Upgraded from old CLI-based setup:**
 
 - Remove any old external `zca` process assumptions.
-- The channel now runs fully in HyperBot without external CLI binaries.
+- The channel now runs fully in Ancient Claw without external CLI binaries.

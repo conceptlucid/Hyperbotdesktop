@@ -1,4 +1,4 @@
-# HyperBot docs i18n assets
+# Ancient Claw docs i18n assets
 
 This folder stores **generated** and **config** files for documentation translations.
 

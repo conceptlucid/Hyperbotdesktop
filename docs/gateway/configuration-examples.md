@@ -1,9 +1,9 @@
 ---
-summary: "Schema-accurate configuration examples for common HyperBot setups"
+summary: "Schema-accurate configuration examples for common Ancient Claw setups"
 read_when:
-  - Learning how to configure HyperBot
+  - Learning how to configure Ancient Claw
   - Looking for configuration examples
-  - Setting up HyperBot for the first time
+  - Setting up Ancient Claw for the first time
 title: "Configuration Examples"
 ---
 
@@ -17,12 +17,12 @@ Examples below are aligned with the current config schema. For the exhaustive re
 
 ```json5
 {
-  agent: { workspace: "~/.hyperbot/workspace" },
+  agent: { workspace: "~/.ancient-claw/workspace" },
   channels: { whatsapp: { allowFrom: ["+15555550123"] } },
 }
 ```
 
-Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
+Save to `~/.ancient-claw/ancient-claw.json` and you can DM the bot from that number.
 
 ### Recommended starter
 
@@ -34,7 +34,7 @@ Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
     emoji: "🦞",
   },
   agent: {
-    workspace: "~/.hyperbot/workspace",
+    workspace: "~/.ancient-claw/workspace",
     model: { primary: "anthropic/claude-sonnet-4-6" },
   },
   channels: {
@@ -93,7 +93,7 @@ Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
   // Logging
   logging: {
     level: "info",
-    file: "/tmp/hyperbot/hyperbot.log",
+    file: "/tmp/ancient-claw/ancient-claw.log",
     consoleLevel: "info",
     consoleStyle: "pretty",
     redactSensitive: "tools",
@@ -101,7 +101,7 @@ Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
 
   // Message formatting
   messages: {
-    messagePrefix: "[hyperbot]",
+    messagePrefix: "[ancient-claw]",
     responsePrefix: ">",
     ackReaction: "👀",
     ackReactionScope: "group-mentions",
@@ -110,7 +110,7 @@ Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
   // Routing + queue
   routing: {
     groupChat: {
-      mentionPatterns: ["@hyperbot", "hyperbot"],
+      mentionPatterns: ["@ancient-claw", "ancient-claw"],
       historyLimit: 50,
     },
     queue: {
@@ -163,7 +163,7 @@ Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
       discord: { mode: "idle", idleMinutes: 10080 },
     },
     resetTriggers: ["/new", "/reset"],
-    store: "~/.hyperbot/agents/default/sessions/sessions.json",
+    store: "~/.ancient-claw/agents/default/sessions/sessions.json",
     maintenance: {
       mode: "warn",
       pruneAfter: "30d",
@@ -205,7 +205,7 @@ Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
       dm: { enabled: true, allowFrom: ["123456789012345678"] },
       guilds: {
         "123456789012345678": {
-          slug: "friends-of-hyperbot",
+          slug: "friends-of-ancient-claw",
           requireMention: false,
           channels: {
             general: { allow: true },
@@ -225,7 +225,7 @@ Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
       dm: { enabled: true, allowFrom: ["U123"] },
       slashCommand: {
         enabled: true,
-        name: "hyperbot",
+        name: "ancient-claw",
         sessionPrefix: "slack:slash",
         ephemeral: true,
       },
@@ -235,7 +235,7 @@ Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
   // Agent runtime
   agents: {
     defaults: {
-      workspace: "~/.hyperbot/workspace",
+      workspace: "~/.ancient-claw/workspace",
       userTimezone: "America/Chicago",
       model: {
         primary: "anthropic/claude-sonnet-4-6",
@@ -289,9 +289,9 @@ Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
       sandbox: {
         mode: "non-main",
         perSession: true,
-        workspaceRoot: "~/.hyperbot/sandboxes",
+        workspaceRoot: "~/.ancient-claw/sandboxes",
         docker: {
-          image: "hyperbot-sandbox:bookworm-slim",
+          image: "ancient-claw-sandbox:bookworm-slim",
           workdir: "/workspace",
           readOnlyRoot: true,
           tmpfs: ["/tmp", "/var/tmp", "/run"],
@@ -370,7 +370,7 @@ Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
   // Cron jobs
   cron: {
     enabled: true,
-    store: "~/.hyperbot/cron/cron.json",
+    store: "~/.ancient-claw/cron/cron.json",
     maxConcurrentRuns: 2,
     sessionRetention: "24h",
     runLog: {
@@ -385,7 +385,7 @@ Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
     path: "/hooks",
     token: "shared-secret",
     presets: ["gmail"],
-    transformsDir: "~/.hyperbot/hooks/transforms",
+    transformsDir: "~/.ancient-claw/hooks/transforms",
     mappings: [
       {
         id: "gmail-hook",
@@ -408,7 +408,7 @@ Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
       },
     ],
     gmail: {
-      account: "hyperbot@gmail.com",
+      account: "ancient-claw@gmail.com",
       label: "INBOX",
       topic: "projects/<project-id>/topics/gog-gmail-watch",
       subscription: "gog-gmail-watch-push",
@@ -427,7 +427,7 @@ Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
     mode: "local",
     port: 18789,
     bind: "loopback",
-    controlUi: { enabled: true, basePath: "/hyperbot" },
+    controlUi: { enabled: true, basePath: "/ancient-claw" },
     auth: {
       mode: "token",
       token: "gateway-token",
@@ -465,7 +465,7 @@ Save to `~/.hyperbot/hyperbot.json` and you can DM the bot from that number.
 
 ```json5
 {
-  agent: { workspace: "~/.hyperbot/workspace" },
+  agent: { workspace: "~/.ancient-claw/workspace" },
   channels: {
     whatsapp: { allowFrom: ["+15555550123"] },
     telegram: {
@@ -532,7 +532,7 @@ Only enable direct mutable name/email/nick matching with each channel's `dangero
     },
   },
   agent: {
-    workspace: "~/.hyperbot/workspace",
+    workspace: "~/.ancient-claw/workspace",
     model: {
       primary: "anthropic/claude-sonnet-4-6",
       fallbacks: ["anthropic/claude-opus-4-6"],
@@ -577,7 +577,7 @@ terms before depending on subscription auth.
     },
   },
   agent: {
-    workspace: "~/.hyperbot/workspace",
+    workspace: "~/.ancient-claw/workspace",
     model: {
       primary: "anthropic/claude-opus-4-6",
       fallbacks: ["minimax/MiniMax-M2.7"],
@@ -595,7 +595,7 @@ terms before depending on subscription auth.
     theme: "professional assistant",
   },
   agent: {
-    workspace: "~/work-hyperbot",
+    workspace: "~/work-ancient-claw",
     elevated: { enabled: false },
   },
   channels: {
@@ -616,7 +616,7 @@ terms before depending on subscription auth.
 ```json5
 {
   agent: {
-    workspace: "~/.hyperbot/workspace",
+    workspace: "~/.ancient-claw/workspace",
     model: { primary: "lmstudio/minimax-m2.5-gs32" },
   },
   models: {

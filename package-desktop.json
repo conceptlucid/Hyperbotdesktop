@@ -1,18 +1,18 @@
 {
-  "name": "hyperbot-desktop",
-  "productName": "HyperBot",
+  "name": "ancient-claw-desktop",
+  "productName": "Ancient Claw",
   "version": "1.0.0",
   "description": "AI assistant for desktop - works on any Mac",
-  "main": "dist/hyperbot.js",
-  "author": "HyperBot Team",
+  "main": "dist/ancient-claw.js",
+  "author": "Ancient Claw Team",
   "license": "MIT",
   "scripts": {
     "build:mac": "npm run build && electron-builder --mac",
     "package:mac": "electron-builder --mac --x64"
   },
   "build": {
-    "appId": "com.hyperbot.desktop",
-    "productName": "HyperBot",
+    "appId": "com.ancient-claw.desktop",
+    "productName": "Ancient Claw",
     "mac": {
       "category": "public.app-category.productivity",
       "target": ["dmg"],

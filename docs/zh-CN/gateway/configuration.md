@@ -1,6 +1,6 @@
 ---
 read_when:
-  - 首次设置 HyperBot
+  - 首次设置 Ancient Claw
   - 查找常见配置模式
   - 导航到特定配置部分
 summary: 配置概览：常见任务、快速设置，以及完整参考的链接
@@ -16,9 +16,9 @@ x-i18n:
 
 # 配置
 
-HyperBot 会从 `~/.hyperbot/hyperbot.json` 读取可选的 <Tooltip tip="JSON5 supports comments and trailing commas">**JSON5**</Tooltip> 配置。
+Ancient Claw 会从 `~/.ancient-claw/ancient-claw.json` 读取可选的 <Tooltip tip="JSON5 supports comments and trailing commas">**JSON5**</Tooltip> 配置。
 
-如果该文件缺失，HyperBot 会使用安全的默认值。添加配置的常见原因包括：
+如果该文件缺失，Ancient Claw 会使用安全的默认值。添加配置的常见原因包括：
 
 - 连接渠道并控制谁可以向 bot 发消息
 - 设置模型、工具、沙箱隔离或自动化（cron、hooks）
@@ -27,15 +27,15 @@ HyperBot 会从 `~/.hyperbot/hyperbot.json` 读取可选的 <Tooltip tip="JSON5 
 所有可用字段请参阅 [完整参考](/gateway/configuration-reference)。
 
 <Tip>
-**刚接触配置？** 从 `hyperbot onboard` 开始进行交互式设置，或者查看 [Configuration Examples](/gateway/configuration-examples) 指南，获取完整的可复制粘贴配置。
+**刚接触配置？** 从 `ancient-claw onboard` 开始进行交互式设置，或者查看 [Configuration Examples](/gateway/configuration-examples) 指南，获取完整的可复制粘贴配置。
 </Tip>
 
 ## 最小配置
 
 ```json5
-// ~/.hyperbot/hyperbot.json
+// ~/.ancient-claw/ancient-claw.json
 {
-  agents: { defaults: { workspace: "~/.hyperbot/workspace" } },
+  agents: { defaults: { workspace: "~/.ancient-claw/workspace" } },
   channels: { whatsapp: { allowFrom: ["+15555550123"] } },
 }
 ```
@@ -45,15 +45,15 @@ HyperBot 会从 `~/.hyperbot/hyperbot.json` 读取可选的 <Tooltip tip="JSON5 
 <Tabs>
   <Tab title="Interactive wizard">
     ```bash
-    hyperbot onboard       # 完整设置向导
-    hyperbot configure     # 配置向导
+    ancient-claw onboard       # 完整设置向导
+    ancient-claw configure     # 配置向导
     ```
   </Tab>
   <Tab title="CLI (one-liners)">
     ```bash
-    hyperbot config get agents.defaults.workspace
-    hyperbot config set agents.defaults.heartbeat.every "2h"
-    hyperbot config unset plugins.entries.brave.config.webSearch.apiKey
+    ancient-claw config get agents.defaults.workspace
+    ancient-claw config set agents.defaults.heartbeat.every "2h"
+    ancient-claw config unset plugins.entries.brave.config.webSearch.apiKey
     ```
   </Tab>
   <Tab title="Control UI">
@@ -61,22 +61,22 @@ HyperBot 会从 `~/.hyperbot/hyperbot.json` 读取可选的 <Tooltip tip="JSON5 
     Control UI 会根据配置 schema 渲染表单，并提供 **Raw JSON** 编辑器作为后备方式。
   </Tab>
   <Tab title="Direct edit">
-    直接编辑 `~/.hyperbot/hyperbot.json`。Gateway 网关会监视该文件并自动应用更改（参见[热重载](#config-hot-reload)）。
+    直接编辑 `~/.ancient-claw/ancient-claw.json`。Gateway 网关会监视该文件并自动应用更改（参见[热重载](#config-hot-reload)）。
   </Tab>
 </Tabs>
 
 ## 严格校验
 
 <Warning>
-HyperBot 只接受完全符合 schema 的配置。未知键、类型格式错误或无效值都会导致 Gateway 网关**拒绝启动**。唯一的根级例外是 `$schema`（字符串），这样编辑器就可以附加 JSON Schema 元数据。
+Ancient Claw 只接受完全符合 schema 的配置。未知键、类型格式错误或无效值都会导致 Gateway 网关**拒绝启动**。唯一的根级例外是 `$schema`（字符串），这样编辑器就可以附加 JSON Schema 元数据。
 </Warning>
 
 当校验失败时：
 
 - Gateway 网关不会启动
-- 只有诊断命令可用（`hyperbot doctor`、`hyperbot logs`、`hyperbot health`、`hyperbot status`）
-- 运行 `hyperbot doctor` 以查看具体问题
-- 运行 `hyperbot doctor --fix`（或 `--yes`）以应用修复
+- 只有诊断命令可用（`ancient-claw doctor`、`ancient-claw logs`、`ancient-claw health`、`ancient-claw status`）
+- 运行 `ancient-claw doctor` 以查看具体问题
+- 运行 `ancient-claw doctor --fix`（或 `--yes`）以应用修复
 
 ## 常见任务
 
@@ -163,7 +163,7 @@ HyperBot 只接受完全符合 schema 的配置。未知键、类型格式错误
           {
             id: "main",
             groupChat: {
-              mentionPatterns: ["@hyperbot", "hyperbot"],
+              mentionPatterns: ["@ancient-claw", "ancient-claw"],
             },
           },
         ],
@@ -263,7 +263,7 @@ HyperBot 只接受完全符合 schema 的配置。未知键、类型格式错误
   </Accordion>
 
   <Accordion title="为官方 iOS 构建启用基于 relay 的推送">
-    基于 relay 的推送在 `hyperbot.json` 中配置。
+    基于 relay 的推送在 `ancient-claw.json` 中配置。
 
     在 Gateway 网关配置中设置：
 
@@ -286,7 +286,7 @@ HyperBot 只接受完全符合 schema 的配置。未知键、类型格式错误
     等价 CLI：
 
     ```bash
-    hyperbot config set gateway.push.apns.relay.baseUrl https://relay.example.com
+    ancient-claw config set gateway.push.apns.relay.baseUrl https://relay.example.com
     ```
 
     这会带来以下效果：
@@ -401,8 +401,8 @@ HyperBot 只接受完全符合 schema 的配置。未知键、类型格式错误
     {
       agents: {
         list: [
-          { id: "home", default: true, workspace: "~/.hyperbot/workspace-home" },
-          { id: "work", workspace: "~/.hyperbot/workspace-work" },
+          { id: "home", default: true, workspace: "~/.ancient-claw/workspace-home" },
+          { id: "work", workspace: "~/.ancient-claw/workspace-work" },
         ],
       },
       bindings: [
@@ -420,7 +420,7 @@ HyperBot 只接受完全符合 schema 的配置。未知键、类型格式错误
     使用 `$include` 组织大型配置：
 
     ```json5
-    // ~/.hyperbot/hyperbot.json
+    // ~/.ancient-claw/ancient-claw.json
     {
       gateway: { port: 18789 },
       agents: { $include: "./agents.json5" },
@@ -442,7 +442,7 @@ HyperBot 只接受完全符合 schema 的配置。未知键、类型格式错误
 
 ## 配置热重载
 
-Gateway 网关会监视 `~/.hyperbot/hyperbot.json` 并自动应用更改 —— 对于大多数设置，无需手动重启。
+Gateway 网关会监视 `~/.ancient-claw/ancient-claw.json` 并自动应用更改 —— 对于大多数设置，无需手动重启。
 
 ### 重载模式
 
@@ -491,7 +491,7 @@ Gateway 网关会监视 `~/.hyperbot/hyperbot.json` 并自动应用更改 ——
     校验 + 写入完整配置，并在一步中重启 Gateway 网关。
 
     <Warning>
-    `config.apply` 会替换**整个配置**。部分更新请使用 `config.patch`，单个键请使用 `hyperbot config set`。
+    `config.apply` 会替换**整个配置**。部分更新请使用 `config.patch`，单个键请使用 `ancient-claw config set`。
     </Warning>
 
     参数：
@@ -505,9 +505,9 @@ Gateway 网关会监视 `~/.hyperbot/hyperbot.json` 并自动应用更改 ——
     当已有重启处于待处理/进行中时，重启请求会被合并，并且两次重启周期之间会应用 30 秒冷却。
 
     ```bash
-    hyperbot gateway call config.get --params '{}'  # 捕获 payload.hash
-    hyperbot gateway call config.apply --params '{
-      "raw": "{ agents: { defaults: { workspace: \"~/.hyperbot/workspace\" } } }",
+    ancient-claw gateway call config.get --params '{}'  # 捕获 payload.hash
+    ancient-claw gateway call config.apply --params '{
+      "raw": "{ agents: { defaults: { workspace: \"~/.ancient-claw/workspace\" } } }",
       "baseHash": "<hash>",
       "sessionKey": "agent:main:whatsapp:direct:+15555550123"
     }'
@@ -531,7 +531,7 @@ Gateway 网关会监视 `~/.hyperbot/hyperbot.json` 并自动应用更改 ——
     重启行为与 `config.apply` 一致：合并待处理重启，并在两次重启周期之间应用 30 秒冷却。
 
     ```bash
-    hyperbot gateway call config.patch --params '{
+    ancient-claw gateway call config.patch --params '{
       "raw": "{ channels: { telegram: { groups: { \"*\": { requireMention: false } } } } }",
       "baseHash": "<hash>"
     }'
@@ -542,10 +542,10 @@ Gateway 网关会监视 `~/.hyperbot/hyperbot.json` 并自动应用更改 ——
 
 ## 环境变量
 
-HyperBot 会从父进程读取环境变量，另外还会读取：
+Ancient Claw 会从父进程读取环境变量，另外还会读取：
 
 - 当前工作目录中的 `.env`（如果存在）
-- `~/.hyperbot/.env`（全局回退）
+- `~/.ancient-claw/.env`（全局回退）
 
 这两个文件都不会覆盖现有环境变量。你也可以在配置中设置内联环境变量：
 
@@ -559,7 +559,7 @@ HyperBot 会从父进程读取环境变量，另外还会读取：
 ```
 
 <Accordion title="Shell 环境变量导入（可选）">
-  如果启用，并且预期键名尚未设置，HyperBot 会运行你的登录 shell，并且只导入缺失的键：
+  如果启用，并且预期键名尚未设置，Ancient Claw 会运行你的登录 shell，并且只导入缺失的键：
 
 ```json5
 {

@@ -1,20 +1,20 @@
 ---
-summary: "Install and use Codex, Claude, and Cursor bundles as HyperBot plugins"
+summary: "Install and use Codex, Claude, and Cursor bundles as Ancient Claw plugins"
 read_when:
   - You want to install a Codex, Claude, or Cursor-compatible bundle
-  - You need to understand how HyperBot maps bundle content into native features
+  - You need to understand how Ancient Claw maps bundle content into native features
   - You are debugging bundle detection or missing capabilities
 title: "Plugin Bundles"
 ---
 
 # Plugin Bundles
 
-HyperBot can install plugins from three external ecosystems: **Codex**, **Claude**,
+Ancient Claw can install plugins from three external ecosystems: **Codex**, **Claude**,
 and **Cursor**. These are called **bundles** — content and metadata packs that
-HyperBot maps into native features like skills, hooks, and MCP tools.
+Ancient Claw maps into native features like skills, hooks, and MCP tools.
 
 <Info>
-  Bundles are **not** the same as native HyperBot plugins. Native plugins run
+  Bundles are **not** the same as native Ancient Claw plugins. Native plugins run
   in-process and can register any capability. Bundles are content packs with
   selective feature mapping and a narrower trust boundary.
 </Info>
@@ -22,7 +22,7 @@ HyperBot maps into native features like skills, hooks, and MCP tools.
 ## Why bundles exist
 
 Many useful plugins are published in Codex, Claude, or Cursor format. Instead
-of requiring authors to rewrite them as native HyperBot plugins, HyperBot
+of requiring authors to rewrite them as native Ancient Claw plugins, Ancient Claw
 detects these formats and maps their supported content into the native feature
 set. This means you can install a Claude command pack or a Codex skill bundle
 and use it immediately.
@@ -33,22 +33,22 @@ and use it immediately.
   <Step title="Install from a directory, archive, or marketplace">
     ```bash
     # Local directory
-    hyperbot plugins install ./my-bundle
+    ancient-claw plugins install ./my-bundle
 
     # Archive
-    hyperbot plugins install ./my-bundle.tgz
+    ancient-claw plugins install ./my-bundle.tgz
 
     # Claude marketplace
-    hyperbot plugins marketplace list <marketplace-name>
-    hyperbot plugins install <plugin-name>@<marketplace-name>
+    ancient-claw plugins marketplace list <marketplace-name>
+    ancient-claw plugins install <plugin-name>@<marketplace-name>
     ```
 
   </Step>
 
   <Step title="Verify detection">
     ```bash
-    hyperbot plugins list
-    hyperbot plugins inspect <id>
+    ancient-claw plugins list
+    ancient-claw plugins inspect <id>
     ```
 
     Bundles show as `Format: bundle` with a subtype of `codex`, `claude`, or `cursor`.
@@ -57,7 +57,7 @@ and use it immediately.
 
   <Step title="Restart and use">
     ```bash
-    hyperbot gateway restart
+    ancient-claw gateway restart
     ```
 
     Mapped features (skills, hooks, MCP tools) are available in the next session.
@@ -65,24 +65,24 @@ and use it immediately.
   </Step>
 </Steps>
 
-## What HyperBot maps from bundles
+## What Ancient Claw maps from bundles
 
-Not every bundle feature runs in HyperBot today. Here is what works and what
+Not every bundle feature runs in Ancient Claw today. Here is what works and what
 is detected but not yet wired.
 
 ### Supported now
 
 | Feature       | How it maps                                                                                          | Applies to     |
 | ------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
-| Skill content | Bundle skill roots load as normal HyperBot skills                                                    | All formats    |
+| Skill content | Bundle skill roots load as normal Ancient Claw skills                                                    | All formats    |
 | Commands      | `commands/` and `.cursor/commands/` treated as skill roots                                           | Claude, Cursor |
-| Hook packs    | HyperBot-style `HOOK.md` + `handler.ts` layouts                                                      | Codex          |
+| Hook packs    | Ancient Claw-style `HOOK.md` + `handler.ts` layouts                                                      | Codex          |
 | MCP tools     | Bundle MCP config merged into embedded Pi settings; supported stdio servers launched as subprocesses | All formats    |
 | Settings      | Claude `settings.json` imported as embedded Pi defaults                                              | Claude         |
 
 ### Detected but not executed
 
-These are recognized and shown in diagnostics, but HyperBot does not run them:
+These are recognized and shown in diagnostics, but Ancient Claw does not run them:
 
 - Claude `agents`, `hooks.json` automation, `lspServers`, `outputStyles`
 - Cursor `.cursor/agents`, `.cursor/hooks.json`, `.cursor/rules`
@@ -96,7 +96,7 @@ These are recognized and shown in diagnostics, but HyperBot does not run them:
 
     Optional content: `skills/`, `hooks/`, `.mcp.json`, `.app.json`
 
-    Codex bundles fit HyperBot best when they use skill roots and HyperBot-style
+    Codex bundles fit Ancient Claw best when they use skill roots and Ancient Claw-style
     hook-pack directories (`HOOK.md` + `handler.ts`).
 
   </Accordion>
@@ -130,19 +130,19 @@ These are recognized and shown in diagnostics, but HyperBot does not run them:
 
 ## Detection precedence
 
-HyperBot checks for native plugin format first:
+Ancient Claw checks for native plugin format first:
 
-1. `hyperbot.plugin.json` or valid `package.json` with `hyperbot.extensions` — treated as **native plugin**
+1. `ancient-claw.plugin.json` or valid `package.json` with `ancient-claw.extensions` — treated as **native plugin**
 2. Bundle markers (`.codex-plugin/`, `.claude-plugin/`, or default Claude/Cursor layout) — treated as **bundle**
 
-If a directory contains both, HyperBot uses the native path. This prevents
+If a directory contains both, Ancient Claw uses the native path. This prevents
 dual-format packages from being partially installed as bundles.
 
 ## Security
 
 Bundles have a narrower trust boundary than native plugins:
 
-- HyperBot does **not** load arbitrary bundle runtime modules in-process
+- Ancient Claw does **not** load arbitrary bundle runtime modules in-process
 - Skills and hook-pack paths must stay inside the plugin root (boundary-checked)
 - Settings files are read with the same boundary checks
 - Supported stdio MCP servers may be launched as subprocesses
@@ -154,7 +154,7 @@ bundles as trusted content for the features they do expose.
 
 <AccordionGroup>
   <Accordion title="Bundle is detected but capabilities do not run">
-    Run `hyperbot plugins inspect <id>`. If a capability is listed but marked as
+    Run `ancient-claw plugins inspect <id>`. If a capability is listed but marked as
     not wired, that is a product limit — not a broken install.
   </Accordion>
 
@@ -164,13 +164,13 @@ bundles as trusted content for the features they do expose.
   </Accordion>
 
   <Accordion title="Claude settings do not apply">
-    Only embedded Pi settings from `settings.json` are supported. HyperBot does
+    Only embedded Pi settings from `settings.json` are supported. Ancient Claw does
     not treat bundle settings as raw config patches.
   </Accordion>
 
   <Accordion title="Claude hooks do not execute">
     `hooks/hooks.json` is detect-only. If you need runnable hooks, use the
-    HyperBot hook-pack layout or ship a native plugin.
+    Ancient Claw hook-pack layout or ship a native plugin.
   </Accordion>
 </AccordionGroup>
 

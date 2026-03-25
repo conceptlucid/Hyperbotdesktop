@@ -1,15 +1,15 @@
 ---
-summary: "CLI reference for `hyperbot docs` (search the live docs index)"
+summary: "CLI reference for `ancient-claw docs` (search the live docs index)"
 read_when:
-  - You want to search the live HyperBot docs from the terminal
+  - You want to search the live Ancient Claw docs from the terminal
 title: "docs"
 ---
 
-# `hyperbot docs`
+# `ancient-claw docs`
 
 Search the live docs index.
 
 ```bash
-hyperbot docs browser existing-session
-hyperbot docs sandbox allowHostControl
+ancient-claw docs browser existing-session
+ancient-claw docs sandbox allowHostControl
 ```

@@ -8,7 +8,7 @@ title: "Camera Capture"
 
 # Camera capture (agent)
 
-HyperBot supports **camera capture** for agent workflows:
+Ancient Claw supports **camera capture** for agent workflows:
 
 - **iOS node** (paired via Gateway): capture a **photo** (`jpg`) or **short video clip** (`mp4`, with optional audio) via `node.invoke`.
 - **Android node** (paired via Gateway): capture a **photo** (`jpg`) or **short video clip** (`mp4`, with optional audio) via `node.invoke`.
@@ -68,10 +68,10 @@ The easiest way to get attachments is via the CLI helper, which writes decoded m
 Examples:
 
 ```bash
-hyperbot nodes camera snap --node <id>               # default: both front + back (2 MEDIA lines)
-hyperbot nodes camera snap --node <id> --facing front
-hyperbot nodes camera clip --node <id> --duration 3000
-hyperbot nodes camera clip --node <id> --no-audio
+ancient-claw nodes camera snap --node <id>               # default: both front + back (2 MEDIA lines)
+ancient-claw nodes camera snap --node <id> --facing front
+ancient-claw nodes camera clip --node <id> --duration 3000
+ancient-claw nodes camera clip --node <id> --no-audio
 ```
 
 Notes:
@@ -116,31 +116,31 @@ Photos are recompressed to keep the base64 payload under 5 MB.
 
 The macOS companion app exposes a checkbox:
 
-- **Settings → General → Allow Camera** (`hyperbot.cameraEnabled`)
+- **Settings → General → Allow Camera** (`ancient-claw.cameraEnabled`)
   - Default: **off**
   - When off: camera requests return “Camera disabled by user”.
 
 ### CLI helper (node invoke)
 
-Use the main `hyperbot` CLI to invoke camera commands on the macOS node.
+Use the main `ancient-claw` CLI to invoke camera commands on the macOS node.
 
 Examples:
 
 ```bash
-hyperbot nodes camera list --node <id>            # list camera ids
-hyperbot nodes camera snap --node <id>            # prints MEDIA:<path>
-hyperbot nodes camera snap --node <id> --max-width 1280
-hyperbot nodes camera snap --node <id> --delay-ms 2000
-hyperbot nodes camera snap --node <id> --device-id <id>
-hyperbot nodes camera clip --node <id> --duration 10s          # prints MEDIA:<path>
-hyperbot nodes camera clip --node <id> --duration-ms 3000      # prints MEDIA:<path> (legacy flag)
-hyperbot nodes camera clip --node <id> --device-id <id>
-hyperbot nodes camera clip --node <id> --no-audio
+ancient-claw nodes camera list --node <id>            # list camera ids
+ancient-claw nodes camera snap --node <id>            # prints MEDIA:<path>
+ancient-claw nodes camera snap --node <id> --max-width 1280
+ancient-claw nodes camera snap --node <id> --delay-ms 2000
+ancient-claw nodes camera snap --node <id> --device-id <id>
+ancient-claw nodes camera clip --node <id> --duration 10s          # prints MEDIA:<path>
+ancient-claw nodes camera clip --node <id> --duration-ms 3000      # prints MEDIA:<path> (legacy flag)
+ancient-claw nodes camera clip --node <id> --device-id <id>
+ancient-claw nodes camera clip --node <id> --no-audio
 ```
 
 Notes:
 
-- `hyperbot nodes camera snap` defaults to `maxWidth=1600` unless overridden.
+- `ancient-claw nodes camera snap` defaults to `maxWidth=1600` unless overridden.
 - On macOS, `camera.snap` waits `delayMs` (default 2000ms) after warm-up/exposure settle before capturing.
 - Photo payloads are recompressed to keep base64 under 5 MB.
 
@@ -154,7 +154,7 @@ Notes:
 For _screen_ video (not camera), use the macOS companion:
 
 ```bash
-hyperbot nodes screen record --node <id> --duration 10s --fps 15   # prints MEDIA:<path>
+ancient-claw nodes screen record --node <id> --duration 10s --fps 15   # prints MEDIA:<path>
 ```
 
 Notes:

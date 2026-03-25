@@ -1,5 +1,5 @@
 ---
-summary: "Install HyperBot declaratively with Nix"
+summary: "Install Ancient Claw declaratively with Nix"
 read_when:
   - You want reproducible, rollback-able installs
   - You're already using Nix/NixOS/Home Manager
@@ -9,10 +9,10 @@ title: "Nix"
 
 # Nix Installation
 
-Install HyperBot declaratively with **[nix-hyperbot](https://github.com/hyperbot/nix-hyperbot)** -- a batteries-included Home Manager module.
+Install Ancient Claw declaratively with **[nix-ancient-claw](https://github.com/ancient-claw/nix-ancient-claw)** -- a batteries-included Home Manager module.
 
 <Info>
-The [nix-hyperbot](https://github.com/hyperbot/nix-hyperbot) repo is the source of truth for Nix installation. This page is a quick overview.
+The [nix-ancient-claw](https://github.com/ancient-claw/nix-ancient-claw) repo is the source of truth for Nix installation. This page is a quick overview.
 </Info>
 
 ## What You Get
@@ -29,10 +29,10 @@ The [nix-hyperbot](https://github.com/hyperbot/nix-hyperbot) repo is the source 
     If Nix is not already installed, follow the [Determinate Nix installer](https://github.com/DeterminateSystems/nix-installer) instructions.
   </Step>
   <Step title="Create a local flake">
-    Use the agent-first template from the nix-hyperbot repo:
+    Use the agent-first template from the nix-ancient-claw repo:
     ```bash
-    mkdir -p ~/code/hyperbot-local
-    # Copy templates/agent-first/flake.nix from the nix-hyperbot repo
+    mkdir -p ~/code/ancient-claw-local
+    # Copy templates/agent-first/flake.nix from the nix-ancient-claw repo
     ```
   </Step>
   <Step title="Configure secrets">
@@ -48,11 +48,11 @@ The [nix-hyperbot](https://github.com/hyperbot/nix-hyperbot) repo is the source 
   </Step>
 </Steps>
 
-See the [nix-hyperbot README](https://github.com/hyperbot/nix-hyperbot) for full module options and examples.
+See the [nix-ancient-claw README](https://github.com/ancient-claw/nix-ancient-claw) for full module options and examples.
 
 ## Nix Mode Runtime Behavior
 
-When `OPENCLAW_NIX_MODE=1` is set (automatic with nix-hyperbot), HyperBot enters a deterministic mode that disables auto-install flows.
+When `OPENCLAW_NIX_MODE=1` is set (automatic with nix-ancient-claw), Ancient Claw enters a deterministic mode that disables auto-install flows.
 
 You can also set it manually:
 
@@ -63,7 +63,7 @@ export OPENCLAW_NIX_MODE=1
 On macOS, the GUI app does not automatically inherit shell environment variables. Enable Nix mode via defaults instead:
 
 ```bash
-defaults write ai.hyperbot.mac hyperbot.nixMode -bool true
+defaults write ai.ancient-claw.mac ancient-claw.nixMode -bool true
 ```
 
 ### What changes in Nix mode
@@ -74,16 +74,16 @@ defaults write ai.hyperbot.mac hyperbot.nixMode -bool true
 
 ### Config and state paths
 
-HyperBot reads JSON5 config from `OPENCLAW_CONFIG_PATH` and stores mutable data in `OPENCLAW_STATE_DIR`. When running under Nix, set these explicitly to Nix-managed locations so runtime state and config stay out of the immutable store.
+Ancient Claw reads JSON5 config from `OPENCLAW_CONFIG_PATH` and stores mutable data in `OPENCLAW_STATE_DIR`. When running under Nix, set these explicitly to Nix-managed locations so runtime state and config stay out of the immutable store.
 
 | Variable               | Default                                 |
 | ---------------------- | --------------------------------------- |
 | `OPENCLAW_HOME`        | `HOME` / `USERPROFILE` / `os.homedir()` |
-| `OPENCLAW_STATE_DIR`   | `~/.hyperbot`                           |
-| `OPENCLAW_CONFIG_PATH` | `$OPENCLAW_STATE_DIR/hyperbot.json`     |
+| `OPENCLAW_STATE_DIR`   | `~/.ancient-claw`                           |
+| `OPENCLAW_CONFIG_PATH` | `$OPENCLAW_STATE_DIR/ancient-claw.json`     |
 
 ## Related
 
-- [nix-hyperbot](https://github.com/hyperbot/nix-hyperbot) -- full setup guide
+- [nix-ancient-claw](https://github.com/ancient-claw/nix-ancient-claw) -- full setup guide
 - [Wizard](/start/wizard) -- non-Nix CLI setup
 - [Docker](/install/docker) -- containerized setup

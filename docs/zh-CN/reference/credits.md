@@ -14,7 +14,7 @@ x-i18n:
 
 ## 名称由来
 
-HyperBot = CLAW + TARDIS，因为每只太空龙虾都需要一台时空机器。
+Ancient Claw = CLAW + TARDIS，因为每只太空龙虾都需要一台时空机器。
 
 ## 致谢
 

@@ -6,7 +6,7 @@ read_when:
   - Updating the default dev agent identity
 ---
 
-# AGENTS.md - HyperBot Workspace
+# AGENTS.md - Ancient Claw Workspace
 
 This folder is the assistant's working directory.
 

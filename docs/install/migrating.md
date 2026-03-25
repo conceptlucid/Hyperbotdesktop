@@ -1,28 +1,28 @@
 ---
-summary: "Move (migrate) an HyperBot install from one machine to another"
+summary: "Move (migrate) an Ancient Claw install from one machine to another"
 read_when:
-  - You are moving HyperBot to a new laptop/server
+  - You are moving Ancient Claw to a new laptop/server
   - You want to preserve sessions, auth, and channel logins (WhatsApp, etc.)
 title: "Migration Guide"
 ---
 
-# Migrating HyperBot to a New Machine
+# Migrating Ancient Claw to a New Machine
 
-This guide moves an HyperBot gateway to a new machine without redoing onboarding.
+This guide moves an Ancient Claw gateway to a new machine without redoing onboarding.
 
 ## What Gets Migrated
 
-When you copy the **state directory** (`~/.hyperbot/` by default) and your **workspace**, you preserve:
+When you copy the **state directory** (`~/.ancient-claw/` by default) and your **workspace**, you preserve:
 
-- **Config** -- `hyperbot.json` and all gateway settings
+- **Config** -- `ancient-claw.json` and all gateway settings
 - **Auth** -- API keys, OAuth tokens, credential profiles
 - **Sessions** -- conversation history and agent state
 - **Channel state** -- WhatsApp login, Telegram session, etc.
 - **Workspace files** -- `MEMORY.md`, `USER.md`, skills, and prompts
 
 <Tip>
-Run `hyperbot status` on the old machine to confirm your state directory path.
-Custom profiles use `~/.hyperbot-<profile>/` or a path set via `OPENCLAW_STATE_DIR`.
+Run `ancient-claw status` on the old machine to confirm your state directory path.
+Custom profiles use `~/.ancient-claw-<profile>/` or a path set via `OPENCLAW_STATE_DIR`.
 </Tip>
 
 ## Migration Steps
@@ -32,18 +32,18 @@ Custom profiles use `~/.hyperbot-<profile>/` or a path set via `OPENCLAW_STATE_D
     On the **old** machine, stop the gateway so files are not changing mid-copy, then archive:
 
     ```bash
-    hyperbot gateway stop
+    ancient-claw gateway stop
     cd ~
-    tar -czf hyperbot-state.tgz .hyperbot
+    tar -czf ancient-claw-state.tgz .ancient-claw
     ```
 
-    If you use multiple profiles (e.g. `~/.hyperbot-work`), archive each separately.
+    If you use multiple profiles (e.g. `~/.ancient-claw-work`), archive each separately.
 
   </Step>
 
-  <Step title="Install HyperBot on the new machine">
+  <Step title="Install Ancient Claw on the new machine">
     [Install](/install) the CLI (and Node if needed) on the new machine.
-    It is fine if onboarding creates a fresh `~/.hyperbot/` -- you will overwrite it next.
+    It is fine if onboarding creates a fresh `~/.ancient-claw/` -- you will overwrite it next.
   </Step>
 
   <Step title="Copy state directory and workspace">
@@ -51,7 +51,7 @@ Custom profiles use `~/.hyperbot-<profile>/` or a path set via `OPENCLAW_STATE_D
 
     ```bash
     cd ~
-    tar -xzf hyperbot-state.tgz
+    tar -xzf ancient-claw-state.tgz
     ```
 
     Ensure hidden directories were included and file ownership matches the user that will run the gateway.
@@ -62,9 +62,9 @@ Custom profiles use `~/.hyperbot-<profile>/` or a path set via `OPENCLAW_STATE_D
     On the new machine, run [Doctor](/gateway/doctor) to apply config migrations and repair services:
 
     ```bash
-    hyperbot doctor
-    hyperbot gateway restart
-    hyperbot status
+    ancient-claw doctor
+    ancient-claw gateway restart
+    ancient-claw status
     ```
 
   </Step>
@@ -76,10 +76,10 @@ Custom profiles use `~/.hyperbot-<profile>/` or a path set via `OPENCLAW_STATE_D
   <Accordion title="Profile or state-dir mismatch">
     If the old gateway used `--profile` or `OPENCLAW_STATE_DIR` and the new one does not,
     channels will appear logged out and sessions will be empty.
-    Launch the gateway with the **same** profile or state-dir you migrated, then rerun `hyperbot doctor`.
+    Launch the gateway with the **same** profile or state-dir you migrated, then rerun `ancient-claw doctor`.
   </Accordion>
 
-  <Accordion title="Copying only hyperbot.json">
+  <Accordion title="Copying only ancient-claw.json">
     The config file alone is not enough. Credentials live under `credentials/`, and agent
     state lives under `agents/`. Always migrate the **entire** state directory.
   </Accordion>
@@ -91,7 +91,7 @@ Custom profiles use `~/.hyperbot-<profile>/` or a path set via `OPENCLAW_STATE_D
 
   <Accordion title="Remote mode">
     If your UI points at a **remote** gateway, the remote host owns sessions and workspace.
-    Migrate the gateway host itself, not your local laptop. See [FAQ](/help/faq#where-does-hyperbot-store-its-data).
+    Migrate the gateway host itself, not your local laptop. See [FAQ](/help/faq#where-does-ancient-claw-store-its-data).
   </Accordion>
 
   <Accordion title="Secrets in backups">
@@ -104,7 +104,7 @@ Custom profiles use `~/.hyperbot-<profile>/` or a path set via `OPENCLAW_STATE_D
 
 On the new machine, confirm:
 
-- [ ] `hyperbot status` shows the gateway running
+- [ ] `ancient-claw status` shows the gateway running
 - [ ] Channels are still connected (no re-pairing needed)
 - [ ] The dashboard opens and shows existing sessions
 - [ ] Workspace files (memory, configs) are present

@@ -1,7 +1,7 @@
 ---
 read_when:
-  - 你想从终端搜索实时 HyperBot 文档
-summary: "`hyperbot docs` 的 CLI 参考（搜索实时文档索引）"
+  - 你想从终端搜索实时 Ancient Claw 文档
+summary: "`ancient-claw docs` 的 CLI 参考（搜索实时文档索引）"
 title: docs
 x-i18n:
   generated_at: "2026-02-03T07:44:50Z"
@@ -12,11 +12,11 @@ x-i18n:
   workflow: 15
 ---
 
-# `hyperbot docs`
+# `ancient-claw docs`
 
 搜索实时文档索引。
 
 ```bash
-hyperbot docs browser extension
-hyperbot docs sandbox allowHostControl
+ancient-claw docs browser extension
+ancient-claw docs sandbox allowHostControl
 ```

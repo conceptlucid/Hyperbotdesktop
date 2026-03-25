@@ -1,30 +1,30 @@
 ---
-summary: "CLI reference for `hyperbot config` (get/set/unset/file/validate)"
+summary: "CLI reference for `ancient-claw config` (get/set/unset/file/validate)"
 read_when:
   - You want to read or edit config non-interactively
 title: "config"
 ---
 
-# `hyperbot config`
+# `ancient-claw config`
 
-Config helpers for non-interactive edits in `hyperbot.json`: get/set/unset/validate
+Config helpers for non-interactive edits in `ancient-claw.json`: get/set/unset/validate
 values by path and print the active config file. Run without a subcommand to
-open the configure wizard (same as `hyperbot configure`).
+open the configure wizard (same as `ancient-claw configure`).
 
 ## Examples
 
 ```bash
-hyperbot config file
-hyperbot config get browser.executablePath
-hyperbot config set browser.executablePath "/usr/bin/google-chrome"
-hyperbot config set agents.defaults.heartbeat.every "2h"
-hyperbot config set agents.list[0].tools.exec.node "node-id-or-name"
-hyperbot config set channels.discord.token --ref-provider default --ref-source env --ref-id DISCORD_BOT_TOKEN
-hyperbot config set secrets.providers.vaultfile --provider-source file --provider-path /etc/hyperbot/secrets.json --provider-mode json
-hyperbot config unset plugins.entries.brave.config.webSearch.apiKey
-hyperbot config set channels.discord.token --ref-provider default --ref-source env --ref-id DISCORD_BOT_TOKEN --dry-run
-hyperbot config validate
-hyperbot config validate --json
+ancient-claw config file
+ancient-claw config get browser.executablePath
+ancient-claw config set browser.executablePath "/usr/bin/google-chrome"
+ancient-claw config set agents.defaults.heartbeat.every "2h"
+ancient-claw config set agents.list[0].tools.exec.node "node-id-or-name"
+ancient-claw config set channels.discord.token --ref-provider default --ref-source env --ref-id DISCORD_BOT_TOKEN
+ancient-claw config set secrets.providers.vaultfile --provider-source file --provider-path /etc/ancient-claw/secrets.json --provider-mode json
+ancient-claw config unset plugins.entries.brave.config.webSearch.apiKey
+ancient-claw config set channels.discord.token --ref-provider default --ref-source env --ref-id DISCORD_BOT_TOKEN --dry-run
+ancient-claw config validate
+ancient-claw config validate --json
 ```
 
 ## Paths
@@ -32,15 +32,15 @@ hyperbot config validate --json
 Paths use dot or bracket notation:
 
 ```bash
-hyperbot config get agents.defaults.workspace
-hyperbot config get agents.list[0].id
+ancient-claw config get agents.defaults.workspace
+ancient-claw config get agents.list[0].id
 ```
 
 Use the agent list index to target a specific agent:
 
 ```bash
-hyperbot config get agents.list
-hyperbot config set agents.list[1].tools.exec.node "node-id-or-name"
+ancient-claw config get agents.list
+ancient-claw config set agents.list[1].tools.exec.node "node-id-or-name"
 ```
 
 ## Values
@@ -49,20 +49,20 @@ Values are parsed as JSON5 when possible; otherwise they are treated as strings.
 Use `--strict-json` to require JSON5 parsing. `--json` remains supported as a legacy alias.
 
 ```bash
-hyperbot config set agents.defaults.heartbeat.every "0m"
-hyperbot config set gateway.port 19001 --strict-json
-hyperbot config set channels.whatsapp.groups '["*"]' --strict-json
+ancient-claw config set agents.defaults.heartbeat.every "0m"
+ancient-claw config set gateway.port 19001 --strict-json
+ancient-claw config set channels.whatsapp.groups '["*"]' --strict-json
 ```
 
 ## `config set` modes
 
-`hyperbot config set` supports four assignment styles:
+`ancient-claw config set` supports four assignment styles:
 
-1. Value mode: `hyperbot config set <path> <value>`
+1. Value mode: `ancient-claw config set <path> <value>`
 2. SecretRef builder mode:
 
 ```bash
-hyperbot config set channels.discord.token \
+ancient-claw config set channels.discord.token \
   --ref-provider default \
   --ref-source env \
   --ref-id DISCORD_BOT_TOKEN
@@ -71,9 +71,9 @@ hyperbot config set channels.discord.token \
 3. Provider builder mode (`secrets.providers.<alias>` path only):
 
 ```bash
-hyperbot config set secrets.providers.vault \
+ancient-claw config set secrets.providers.vault \
   --provider-source exec \
-  --provider-command /usr/local/bin/hyperbot-vault \
+  --provider-command /usr/local/bin/ancient-claw-vault \
   --provider-arg read \
   --provider-arg openai/api-key \
   --provider-timeout-ms 5000
@@ -82,7 +82,7 @@ hyperbot config set secrets.providers.vault \
 4. Batch mode (`--batch-json` or `--batch-file`):
 
 ```bash
-hyperbot config set --batch-json '[
+ancient-claw config set --batch-json '[
   {
     "path": "secrets.providers.default",
     "provider": { "source": "env" }
@@ -95,7 +95,7 @@ hyperbot config set --batch-json '[
 ```
 
 ```bash
-hyperbot config set --batch-file ./config-set.batch.json --dry-run
+ancient-claw config set --batch-file ./config-set.batch.json --dry-run
 ```
 
 Batch parsing always uses the batch payload (`--batch-json`/`--batch-file`) as the source of truth.
@@ -104,12 +104,12 @@ Batch parsing always uses the batch payload (`--batch-json`/`--batch-file`) as t
 JSON path/value mode remains supported for both SecretRefs and providers:
 
 ```bash
-hyperbot config set channels.discord.token \
+ancient-claw config set channels.discord.token \
   '{"source":"env","provider":"default","id":"DISCORD_BOT_TOKEN"}' \
   --strict-json
 
-hyperbot config set secrets.providers.vaultfile \
-  '{"source":"file","path":"/etc/hyperbot/secrets.json","mode":"json"}' \
+ancient-claw config set secrets.providers.vaultfile \
+  '{"source":"file","path":"/etc/ancient-claw/secrets.json","mode":"json"}' \
   --strict-json
 ```
 
@@ -148,9 +148,9 @@ Exec provider (`--provider-source exec`):
 Hardened exec provider example:
 
 ```bash
-hyperbot config set secrets.providers.vault \
+ancient-claw config set secrets.providers.vault \
   --provider-source exec \
-  --provider-command /usr/local/bin/hyperbot-vault \
+  --provider-command /usr/local/bin/ancient-claw-vault \
   --provider-arg read \
   --provider-arg openai/api-key \
   --provider-json-only \
@@ -161,23 +161,23 @@ hyperbot config set secrets.providers.vault \
 
 ## Dry run
 
-Use `--dry-run` to validate changes without writing `hyperbot.json`.
+Use `--dry-run` to validate changes without writing `ancient-claw.json`.
 
 ```bash
-hyperbot config set channels.discord.token \
+ancient-claw config set channels.discord.token \
   --ref-provider default \
   --ref-source env \
   --ref-id DISCORD_BOT_TOKEN \
   --dry-run
 
-hyperbot config set channels.discord.token \
+ancient-claw config set channels.discord.token \
   --ref-provider default \
   --ref-source env \
   --ref-id DISCORD_BOT_TOKEN \
   --dry-run \
   --json
 
-hyperbot config set channels.discord.token \
+ancient-claw config set channels.discord.token \
   --ref-provider vault \
   --ref-source exec \
   --ref-id discord/token \
@@ -234,7 +234,7 @@ Success example:
 {
   "ok": true,
   "operations": 1,
-  "configPath": "~/.hyperbot/hyperbot.json",
+  "configPath": "~/.ancient-claw/ancient-claw.json",
   "inputModes": ["builder"],
   "checks": {
     "schema": false,
@@ -252,7 +252,7 @@ Failure example:
 {
   "ok": false,
   "operations": 1,
-  "configPath": "~/.hyperbot/hyperbot.json",
+  "configPath": "~/.ancient-claw/ancient-claw.json",
   "inputModes": ["builder"],
   "checks": {
     "schema": false,
@@ -290,6 +290,6 @@ Validate the current config against the active schema without starting the
 gateway.
 
 ```bash
-hyperbot config validate
-hyperbot config validate --json
+ancient-claw config validate
+ancient-claw config validate --json
 ```

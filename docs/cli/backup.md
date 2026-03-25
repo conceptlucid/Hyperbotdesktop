@@ -1,59 +1,59 @@
 ---
-summary: "CLI reference for `hyperbot backup` (create local backup archives)"
+summary: "CLI reference for `ancient-claw backup` (create local backup archives)"
 read_when:
-  - You want a first-class backup archive for local HyperBot state
+  - You want a first-class backup archive for local Ancient Claw state
   - You want to preview which paths would be included before reset or uninstall
 title: "backup"
 ---
 
-# `hyperbot backup`
+# `ancient-claw backup`
 
-Create a local backup archive for HyperBot state, config, credentials, sessions, and optionally workspaces.
+Create a local backup archive for Ancient Claw state, config, credentials, sessions, and optionally workspaces.
 
 ```bash
-hyperbot backup create
-hyperbot backup create --output ~/Backups
-hyperbot backup create --dry-run --json
-hyperbot backup create --verify
-hyperbot backup create --no-include-workspace
-hyperbot backup create --only-config
-hyperbot backup verify ./2026-03-09T00-00-00.000Z-hyperbot-backup.tar.gz
+ancient-claw backup create
+ancient-claw backup create --output ~/Backups
+ancient-claw backup create --dry-run --json
+ancient-claw backup create --verify
+ancient-claw backup create --no-include-workspace
+ancient-claw backup create --only-config
+ancient-claw backup verify ./2026-03-09T00-00-00.000Z-ancient-claw-backup.tar.gz
 ```
 
 ## Notes
 
 - The archive includes a `manifest.json` file with the resolved source paths and archive layout.
 - Default output is a timestamped `.tar.gz` archive in the current working directory.
-- If the current working directory is inside a backed-up source tree, HyperBot falls back to your home directory for the default archive location.
+- If the current working directory is inside a backed-up source tree, Ancient Claw falls back to your home directory for the default archive location.
 - Existing archive files are never overwritten.
 - Output paths inside the source state/workspace trees are rejected to avoid self-inclusion.
-- `hyperbot backup verify <archive>` validates that the archive contains exactly one root manifest, rejects traversal-style archive paths, and checks that every manifest-declared payload exists in the tarball.
-- `hyperbot backup create --verify` runs that validation immediately after writing the archive.
-- `hyperbot backup create --only-config` backs up just the active JSON config file.
+- `ancient-claw backup verify <archive>` validates that the archive contains exactly one root manifest, rejects traversal-style archive paths, and checks that every manifest-declared payload exists in the tarball.
+- `ancient-claw backup create --verify` runs that validation immediately after writing the archive.
+- `ancient-claw backup create --only-config` backs up just the active JSON config file.
 
 ## What gets backed up
 
-`hyperbot backup create` plans backup sources from your local HyperBot install:
+`ancient-claw backup create` plans backup sources from your local Ancient Claw install:
 
-- The state directory returned by HyperBot's local state resolver, usually `~/.hyperbot`
+- The state directory returned by Ancient Claw's local state resolver, usually `~/.ancient-claw`
 - The active config file path
 - The OAuth / credentials directory
 - Workspace directories discovered from the current config, unless you pass `--no-include-workspace`
 
-If you use `--only-config`, HyperBot skips state, credentials, and workspace discovery and archives only the active config file path.
+If you use `--only-config`, Ancient Claw skips state, credentials, and workspace discovery and archives only the active config file path.
 
-HyperBot canonicalizes paths before building the archive. If config, credentials, or a workspace already live inside the state directory, they are not duplicated as separate top-level backup sources. Missing paths are skipped.
+Ancient Claw canonicalizes paths before building the archive. If config, credentials, or a workspace already live inside the state directory, they are not duplicated as separate top-level backup sources. Missing paths are skipped.
 
 The archive payload stores file contents from those source trees, and the embedded `manifest.json` records the resolved absolute source paths plus the archive layout used for each asset.
 
 ## Invalid config behavior
 
-`hyperbot backup` intentionally bypasses the normal config preflight so it can still help during recovery. Because workspace discovery depends on a valid config, `hyperbot backup create` now fails fast when the config file exists but is invalid and workspace backup is still enabled.
+`ancient-claw backup` intentionally bypasses the normal config preflight so it can still help during recovery. Because workspace discovery depends on a valid config, `ancient-claw backup create` now fails fast when the config file exists but is invalid and workspace backup is still enabled.
 
 If you still want a partial backup in that situation, rerun:
 
 ```bash
-hyperbot backup create --no-include-workspace
+ancient-claw backup create --no-include-workspace
 ```
 
 That keeps state, config, and credentials in scope while skipping workspace discovery entirely.
@@ -62,14 +62,14 @@ If you only need a copy of the config file itself, `--only-config` also works wh
 
 ## Size and performance
 
-HyperBot does not enforce a built-in maximum backup size or per-file size limit.
+Ancient Claw does not enforce a built-in maximum backup size or per-file size limit.
 
 Practical limits come from the local machine and destination filesystem:
 
 - Available space for the temporary archive write plus the final archive
 - Time to walk large workspace trees and compress them into a `.tar.gz`
-- Time to rescan the archive if you use `hyperbot backup create --verify` or run `hyperbot backup verify`
-- Filesystem behavior at the destination path. HyperBot prefers a no-overwrite hard-link publish step and falls back to exclusive copy when hard links are unsupported
+- Time to rescan the archive if you use `ancient-claw backup create --verify` or run `ancient-claw backup verify`
+- Filesystem behavior at the destination path. Ancient Claw prefers a no-overwrite hard-link publish step and falls back to exclusive copy when hard links are unsupported
 
 Large workspaces are usually the main driver of archive size. If you want a smaller or faster backup, use `--no-include-workspace`.
 

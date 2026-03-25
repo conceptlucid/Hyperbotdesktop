@@ -1,14 +1,14 @@
 ---
-summary: "Use xAI Grok models in HyperBot"
+summary: "Use xAI Grok models in Ancient Claw"
 read_when:
-  - You want to use Grok models in HyperBot
+  - You want to use Grok models in Ancient Claw
   - You are configuring xAI auth or model ids
 title: "xAI"
 ---
 
 # xAI
 
-HyperBot ships a bundled `xai` provider plugin for Grok models.
+Ancient Claw ships a bundled `xai` provider plugin for Grok models.
 
 ## Setup
 
@@ -16,7 +16,7 @@ HyperBot ships a bundled `xai` provider plugin for Grok models.
 2. Set `XAI_API_KEY`, or run:
 
 ```bash
-hyperbot onboard --auth-choice xai-api-key
+ancient-claw onboard --auth-choice xai-api-key
 ```
 
 3. Pick a model such as:
@@ -29,7 +29,7 @@ hyperbot onboard --auth-choice xai-api-key
 
 ## Current bundled model catalog
 
-HyperBot now includes these xAI model families out of the box:
+Ancient Claw now includes these xAI model families out of the box:
 
 - `grok-4`, `grok-4-0709`
 - `grok-4-fast-reasoning`, `grok-4-fast-non-reasoning`
@@ -45,16 +45,16 @@ they follow the same API shape.
 The bundled `grok` web-search provider uses `XAI_API_KEY` too:
 
 ```bash
-hyperbot config set tools.web.search.provider grok
+ancient-claw config set tools.web.search.provider grok
 ```
 
 ## Known limits
 
-- Auth is API-key only today. There is no xAI OAuth/device-code flow in HyperBot yet.
-- `grok-4.20-multi-agent-experimental-beta-0304` is not supported on the normal xAI provider path because it requires a different upstream API surface than the standard HyperBot xAI transport.
+- Auth is API-key only today. There is no xAI OAuth/device-code flow in Ancient Claw yet.
+- `grok-4.20-multi-agent-experimental-beta-0304` is not supported on the normal xAI provider path because it requires a different upstream API surface than the standard Ancient Claw xAI transport.
 - Native xAI server-side tools such as `x_search` and `code_execution` are not yet first-class model-provider features in the bundled plugin.
 
 ## Notes
 
-- HyperBot applies xAI-specific tool-schema and tool-call compatibility fixes automatically on the shared runner path.
+- Ancient Claw applies xAI-specific tool-schema and tool-call compatibility fixes automatically on the shared runner path.
 - For the broader provider overview, see [Model providers](/providers/index).

@@ -2,7 +2,7 @@
 read_when:
   - 你想管理智能体钩子
   - 你想安装或更新钩子
-summary: CLI 参考：`hyperbot hooks`（智能体钩子）
+summary: CLI 参考：`ancient-claw hooks`（智能体钩子）
 title: hooks
 x-i18n:
   generated_at: "2026-02-03T10:04:32Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 15
 ---
 
-# `hyperbot hooks`
+# `ancient-claw hooks`
 
 管理智能体钩子（针对 `/new`、`/reset` 等命令以及 Gateway 网关启动的事件驱动自动化）。
 
@@ -25,7 +25,7 @@ x-i18n:
 ## 列出所有钩子
 
 ```bash
-hyperbot hooks list
+ancient-claw hooks list
 ```
 
 列出从工作区、托管目录和内置目录中发现的所有钩子。
@@ -50,7 +50,7 @@ Ready:
 **示例（详细模式）：**
 
 ```bash
-hyperbot hooks list --verbose
+ancient-claw hooks list --verbose
 ```
 
 显示不符合条件的钩子缺失的要求。
@@ -58,7 +58,7 @@ hyperbot hooks list --verbose
 **示例（JSON）：**
 
 ```bash
-hyperbot hooks list --json
+ancient-claw hooks list --json
 ```
 
 返回结构化 JSON，供程序化使用。
@@ -66,7 +66,7 @@ hyperbot hooks list --json
 ## 获取钩子信息
 
 ```bash
-hyperbot hooks info <name>
+ancient-claw hooks info <name>
 ```
 
 显示特定钩子的详细信息。
@@ -82,7 +82,7 @@ hyperbot hooks info <name>
 **示例：**
 
 ```bash
-hyperbot hooks info session-memory
+ancient-claw hooks info session-memory
 ```
 
 **输出：**
@@ -93,10 +93,10 @@ hyperbot hooks info session-memory
 Save session context to memory when /new command is issued
 
 Details:
-  Source: hyperbot-bundled
-  Path: /path/to/hyperbot/hooks/bundled/session-memory/HOOK.md
-  Handler: /path/to/hyperbot/hooks/bundled/session-memory/handler.ts
-  Homepage: https://docs.hyperbot.ai/automation/hooks#session-memory
+  Source: ancient-claw-bundled
+  Path: /path/to/ancient-claw/hooks/bundled/session-memory/HOOK.md
+  Handler: /path/to/ancient-claw/hooks/bundled/session-memory/handler.ts
+  Homepage: https://docs.ancient-claw.ai/automation/hooks#session-memory
   Events: command:new
 
 Requirements:
@@ -106,7 +106,7 @@ Requirements:
 ## 检查钩子资格
 
 ```bash
-hyperbot hooks check
+ancient-claw hooks check
 ```
 
 显示钩子资格状态摘要（有多少已就绪，有多少未就绪）。
@@ -128,12 +128,12 @@ Not ready: 0
 ## 启用钩子
 
 ```bash
-hyperbot hooks enable <name>
+ancient-claw hooks enable <name>
 ```
 
-通过将特定钩子添加到配置（`~/.hyperbot/config.json`）来启用它。
+通过将特定钩子添加到配置（`~/.ancient-claw/config.json`）来启用它。
 
-**注意：** 由插件管理的钩子在 `hyperbot hooks list` 中显示 `plugin:<id>`，
+**注意：** 由插件管理的钩子在 `ancient-claw hooks list` 中显示 `plugin:<id>`，
 无法在此处启用/禁用。请改为启用/禁用该插件。
 
 **参数：**
@@ -143,7 +143,7 @@ hyperbot hooks enable <name>
 **示例：**
 
 ```bash
-hyperbot hooks enable session-memory
+ancient-claw hooks enable session-memory
 ```
 
 **输出：**
@@ -165,7 +165,7 @@ hyperbot hooks enable session-memory
 ## 禁用钩子
 
 ```bash
-hyperbot hooks disable <name>
+ancient-claw hooks disable <name>
 ```
 
 通过更新配置来禁用特定钩子。
@@ -177,7 +177,7 @@ hyperbot hooks disable <name>
 **示例：**
 
 ```bash
-hyperbot hooks disable command-logger
+ancient-claw hooks disable command-logger
 ```
 
 **输出：**
@@ -193,14 +193,14 @@ hyperbot hooks disable command-logger
 ## 安装钩子
 
 ```bash
-hyperbot hooks install <path-or-spec>
+ancient-claw hooks install <path-or-spec>
 ```
 
 从本地文件夹/压缩包或 npm 安装钩子包。
 
 **执行操作：**
 
-- 将钩子包复制到 `~/.hyperbot/hooks/<id>`
+- 将钩子包复制到 `~/.ancient-claw/hooks/<id>`
 - 在 `hooks.internal.entries.*` 中启用已安装的钩子
 - 在 `hooks.internal.installs` 下记录安装信息
 
@@ -214,23 +214,23 @@ hyperbot hooks install <path-or-spec>
 
 ```bash
 # 本地目录
-hyperbot hooks install ./my-hook-pack
+ancient-claw hooks install ./my-hook-pack
 
 # 本地压缩包
-hyperbot hooks install ./my-hook-pack.zip
+ancient-claw hooks install ./my-hook-pack.zip
 
 # NPM 包
-hyperbot hooks install @hyperbot/my-hook-pack
+ancient-claw hooks install @ancient-claw/my-hook-pack
 
 # 链接本地目录而不复制
-hyperbot hooks install -l ./my-hook-pack
+ancient-claw hooks install -l ./my-hook-pack
 ```
 
 ## 更新钩子
 
 ```bash
-hyperbot hooks update <id>
-hyperbot hooks update --all
+ancient-claw hooks update <id>
+ancient-claw hooks update --all
 ```
 
 更新已安装的钩子包（仅限 npm 安装）。
@@ -249,10 +249,10 @@ hyperbot hooks update --all
 **启用：**
 
 ```bash
-hyperbot hooks enable session-memory
+ancient-claw hooks enable session-memory
 ```
 
-**输出：** `~/.hyperbot/workspace/memory/YYYY-MM-DD-slug.md`
+**输出：** `~/.ancient-claw/workspace/memory/YYYY-MM-DD-slug.md`
 
 **参见：** [session-memory 文档](/automation/hooks#session-memory)
 
@@ -263,22 +263,22 @@ hyperbot hooks enable session-memory
 **启用：**
 
 ```bash
-hyperbot hooks enable command-logger
+ancient-claw hooks enable command-logger
 ```
 
-**输出：** `~/.hyperbot/logs/commands.log`
+**输出：** `~/.ancient-claw/logs/commands.log`
 
 **查看日志：**
 
 ```bash
 # 最近的命令
-tail -n 20 ~/.hyperbot/logs/commands.log
+tail -n 20 ~/.ancient-claw/logs/commands.log
 
 # 格式化输出
-cat ~/.hyperbot/logs/commands.log | jq .
+cat ~/.ancient-claw/logs/commands.log | jq .
 
 # 按操作过滤
-grep '"action":"new"' ~/.hyperbot/logs/commands.log | jq .
+grep '"action":"new"' ~/.ancient-claw/logs/commands.log | jq .
 ```
 
 **参见：** [command-logger 文档](/automation/hooks#command-logger)
@@ -292,7 +292,7 @@ grep '"action":"new"' ~/.hyperbot/logs/commands.log | jq .
 **启用**：
 
 ```bash
-hyperbot hooks enable boot-md
+ancient-claw hooks enable boot-md
 ```
 
 **参见：** [boot-md 文档](/automation/hooks#boot-md)

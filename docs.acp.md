@@ -1,12 +1,12 @@
-# HyperBot ACP Bridge
+# Ancient Claw ACP Bridge
 
-This document describes how the HyperBot ACP (Agent Client Protocol) bridge works,
+This document describes how the Ancient Claw ACP (Agent Client Protocol) bridge works,
 how it maps ACP sessions to Gateway sessions, and how IDEs should invoke it.
 
 ## Overview
 
-`hyperbot acp` exposes an ACP agent over stdio and forwards prompts to a running
-HyperBot Gateway over WebSocket. It keeps ACP session ids mapped to Gateway
+`ancient-claw acp` exposes an ACP agent over stdio and forwards prompts to a running
+Ancient Claw Gateway over WebSocket. It keeps ACP session ids mapped to Gateway
 session keys so IDEs can reconnect to the same agent transcript or reset it on
 request.
 
@@ -19,8 +19,8 @@ Key goals:
 
 ## Bridge Scope
 
-`hyperbot acp` is a Gateway-backed ACP bridge, not a full ACP-native editor
-runtime. It is designed to route IDE prompts into an existing HyperBot Gateway
+`ancient-claw acp` is a Gateway-backed ACP bridge, not a full ACP-native editor
+runtime. It is designed to route IDE prompts into an existing Ancient Claw Gateway
 session with predictable session mapping and basic streaming updates.
 
 ## Compatibility Matrix
@@ -34,7 +34,7 @@ session with predictable session mapping and basic streaming updates.
 | Session modes                                                         | Partial     | `session/set_mode` is supported and the bridge exposes initial Gateway-backed session controls for thought level, tool verbosity, reasoning, usage detail, and elevated actions. Broader ACP-native mode/config surfaces are still out of scope. |
 | Session info and usage updates                                        | Partial     | The bridge emits `session_info_update` and best-effort `usage_update` notifications from cached Gateway session snapshots. Usage is approximate and only sent when Gateway token totals are marked fresh.                                        |
 | Tool streaming                                                        | Partial     | `tool_call` / `tool_call_update` events include raw I/O, text content, and best-effort file locations when Gateway tool args/results expose them. Embedded terminals and richer diff-native output are still not exposed.                        |
-| Per-session MCP servers (`mcpServers`)                                | Unsupported | Bridge mode rejects per-session MCP server requests. Configure MCP on the HyperBot gateway or agent instead.                                                                                                                                     |
+| Per-session MCP servers (`mcpServers`)                                | Unsupported | Bridge mode rejects per-session MCP server requests. Configure MCP on the Ancient Claw gateway or agent instead.                                                                                                                                     |
 | Client filesystem methods (`fs/read_text_file`, `fs/write_text_file`) | Unsupported | The bridge does not call ACP client filesystem methods.                                                                                                                                                                                          |
 | Client terminal methods (`terminal/*`)                                | Unsupported | The bridge does not create ACP client terminals or stream terminal ids through tool calls.                                                                                                                                                       |
 | Session plans / thought streaming                                     | Unsupported | The bridge currently emits output text and tool status, not ACP plan or thought updates.                                                                                                                                                         |
@@ -65,25 +65,25 @@ session with predictable session mapping and basic streaming updates.
 ## How can I use this
 
 Use ACP when an IDE or tooling speaks Agent Client Protocol and you want it to
-drive a HyperBot Gateway session.
+drive a Ancient Claw Gateway session.
 
 Quick steps:
 
 1. Run a Gateway (local or remote).
 2. Configure the Gateway target (`gateway.remote.url` + auth) or pass flags.
-3. Point the IDE to run `hyperbot acp` over stdio.
+3. Point the IDE to run `ancient-claw acp` over stdio.
 
 Example config:
 
 ```bash
-hyperbot config set gateway.remote.url wss://gateway-host:18789
-hyperbot config set gateway.remote.token <token>
+ancient-claw config set gateway.remote.url wss://gateway-host:18789
+ancient-claw config set gateway.remote.token <token>
 ```
 
 Example run:
 
 ```bash
-hyperbot acp --url wss://gateway-host:18789 --token <token>
+ancient-claw acp --url wss://gateway-host:18789 --token <token>
 ```
 
 ## Selecting agents
@@ -93,9 +93,9 @@ ACP does not pick agents directly. It routes by the Gateway session key.
 Use agent-scoped session keys to target a specific agent:
 
 ```bash
-hyperbot acp --session agent:main:main
-hyperbot acp --session agent:design:main
-hyperbot acp --session agent:qa:bug-123
+ancient-claw acp --session agent:main:main
+ancient-claw acp --session agent:design:main
+ancient-claw acp --session agent:qa:bug-123
 ```
 
 Each ACP session maps to a single Gateway session key. One agent can have many
@@ -109,9 +109,9 @@ Add a custom ACP agent in `~/.config/zed/settings.json`:
 ```json
 {
   "agent_servers": {
-    "HyperBot ACP": {
+    "Ancient Claw ACP": {
       "type": "custom",
-      "command": "hyperbot",
+      "command": "ancient-claw",
       "args": ["acp"],
       "env": {}
     }
@@ -124,9 +124,9 @@ To target a specific Gateway or agent:
 ```json
 {
   "agent_servers": {
-    "HyperBot ACP": {
+    "Ancient Claw ACP": {
       "type": "custom",
-      "command": "hyperbot",
+      "command": "ancient-claw",
       "args": [
         "acp",
         "--url",
@@ -142,11 +142,11 @@ To target a specific Gateway or agent:
 }
 ```
 
-In Zed, open the Agent panel and select “HyperBot ACP” to start a thread.
+In Zed, open the Agent panel and select “Ancient Claw ACP” to start a thread.
 
 ## Execution Model
 
-- ACP client spawns `hyperbot acp` and speaks ACP messages over stdio.
+- ACP client spawns `ancient-claw acp` and speaks ACP messages over stdio.
 - The bridge connects to the Gateway using existing auth config (or CLI flags).
 - ACP `prompt` translates to Gateway `chat.send`.
 - Gateway streaming events are translated back into ACP streaming events.
@@ -163,9 +163,9 @@ You can override or reuse sessions in two ways:
 1. CLI defaults
 
 ```bash
-hyperbot acp --session agent:main:main
-hyperbot acp --session-label "support inbox"
-hyperbot acp --reset-session
+ancient-claw acp --session agent:main:main
+ancient-claw acp --session-label "support inbox"
+ancient-claw acp --reset-session
 ```
 
 2. ACP metadata per session
@@ -212,7 +212,7 @@ updates. Terminal Gateway states map to ACP `done` with stop reasons:
 
 ## Auth + Gateway Discovery
 
-`hyperbot acp` resolves the Gateway URL and auth from CLI flags or config:
+`ancient-claw acp` resolves the Gateway URL and auth from CLI flags or config:
 
 - `--url` / `--token` / `--password` take precedence.
 - Otherwise use configured `gateway.remote.*` settings.

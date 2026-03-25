@@ -2,7 +2,7 @@
 read_when:
   - 你正在管理已配对的节点（摄像头、屏幕、画布）
   - 你需要批准请求或调用节点命令
-summary: "`hyperbot nodes` 的 CLI 参考（列表/状态/批准/调用，摄像头/画布/屏幕）"
+summary: "`ancient-claw nodes` 的 CLI 参考（列表/状态/批准/调用，摄像头/画布/屏幕）"
 title: nodes
 x-i18n:
   generated_at: "2026-02-03T10:04:26Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 15
 ---
 
-# `hyperbot nodes`
+# `ancient-claw nodes`
 
 管理已配对的节点（设备）并调用节点功能。
 
@@ -30,14 +30,14 @@ x-i18n:
 ## 常用命令
 
 ```bash
-hyperbot nodes list
-hyperbot nodes list --connected
-hyperbot nodes list --last-connected 24h
-hyperbot nodes pending
-hyperbot nodes approve <requestId>
-hyperbot nodes status
-hyperbot nodes status --connected
-hyperbot nodes status --last-connected 24h
+ancient-claw nodes list
+ancient-claw nodes list --connected
+ancient-claw nodes list --last-connected 24h
+ancient-claw nodes pending
+ancient-claw nodes approve <requestId>
+ancient-claw nodes status
+ancient-claw nodes status --connected
+ancient-claw nodes status --last-connected 24h
 ```
 
 `nodes list` 打印待处理/已配对表格。已配对行包含最近连接时长（Last Connect）。
@@ -47,10 +47,10 @@ hyperbot nodes status --last-connected 24h
 ## 调用 / 运行
 
 ```bash
-hyperbot nodes invoke --node <id|name|ip> --command <command> --params <json>
-hyperbot nodes run --node <id|name|ip> <command...>
-hyperbot nodes run --raw "git status"
-hyperbot nodes run --agent main --node <id|name|ip> --raw "git status"
+ancient-claw nodes invoke --node <id|name|ip> --command <command> --params <json>
+ancient-claw nodes run --node <id|name|ip> <command...>
+ancient-claw nodes run --raw "git status"
+ancient-claw nodes run --agent main --node <id|name|ip> --raw "git status"
 ```
 
 调用标志：

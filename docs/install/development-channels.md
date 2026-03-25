@@ -10,7 +10,7 @@ sidebarTitle: "Release Channels"
 
 # Development channels
 
-HyperBot ships three update channels:
+Ancient Claw ships three update channels:
 
 - **stable**: npm dist-tag `latest`. Recommended for most users.
 - **beta**: npm dist-tag `beta` (builds under test).
@@ -24,9 +24,9 @@ without changing the version number -- dist-tags are the source of truth for npm
 ## Switching channels
 
 ```bash
-hyperbot update --channel stable
-hyperbot update --channel beta
-hyperbot update --channel dev
+ancient-claw update --channel stable
+ancient-claw update --channel beta
+ancient-claw update --channel dev
 ```
 
 `--channel` persists your choice in config (`update.channel`) and aligns the
@@ -34,7 +34,7 @@ install method:
 
 - **`stable`/`beta`** (package installs): updates via the matching npm dist-tag.
 - **`stable`/`beta`** (git installs): checks out the latest matching git tag.
-- **`dev`**: ensures a git checkout (default `~/hyperbot`, override with
+- **`dev`**: ensures a git checkout (default `~/ancient-claw`, override with
   `OPENCLAW_GIT_DIR`), switches to `main`, rebases on upstream, builds, and
   installs the global CLI from that checkout.
 
@@ -48,35 +48,35 @@ update **without** changing your persisted channel:
 
 ```bash
 # Install a specific version
-hyperbot update --tag 2026.3.22
+ancient-claw update --tag 2026.3.22
 
 # Install from the beta dist-tag (one-off, does not persist)
-hyperbot update --tag beta
+ancient-claw update --tag beta
 
 # Install from GitHub main branch (npm tarball)
-hyperbot update --tag main
+ancient-claw update --tag main
 
 # Install a specific npm package spec
-hyperbot update --tag hyperbot@2026.3.22
+ancient-claw update --tag ancient-claw@2026.3.22
 ```
 
 Notes:
 
 - `--tag` applies to **package (npm) installs only**. Git installs ignore it.
-- The tag is not persisted. Your next `hyperbot update` uses your configured
+- The tag is not persisted. Your next `ancient-claw update` uses your configured
   channel as usual.
 - Downgrade protection: if the target version is older than your current version,
-  HyperBot prompts for confirmation (skip with `--yes`).
+  Ancient Claw prompts for confirmation (skip with `--yes`).
 
 ## Dry run
 
-Preview what `hyperbot update` would do without making changes:
+Preview what `ancient-claw update` would do without making changes:
 
 ```bash
-hyperbot update --dry-run
-hyperbot update --channel beta --dry-run
-hyperbot update --tag 2026.3.22 --dry-run
-hyperbot update --dry-run --json
+ancient-claw update --dry-run
+ancient-claw update --channel beta --dry-run
+ancient-claw update --tag 2026.3.22 --dry-run
+ancient-claw update --dry-run --json
 ```
 
 The dry run shows the effective channel, target version, planned actions, and
@@ -84,7 +84,7 @@ whether a downgrade confirmation would be required.
 
 ## Plugins and channels
 
-When you switch channels with `hyperbot update`, HyperBot also syncs plugin
+When you switch channels with `ancient-claw update`, Ancient Claw also syncs plugin
 sources:
 
 - `dev` prefers bundled plugins from the git checkout.
@@ -94,7 +94,7 @@ sources:
 ## Checking current status
 
 ```bash
-hyperbot update status
+ancient-claw update status
 ```
 
 Shows the active channel, install kind (git or package), current version, and

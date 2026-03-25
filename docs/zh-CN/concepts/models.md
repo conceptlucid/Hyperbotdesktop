@@ -21,7 +21,7 @@ x-i18n:
 
 ## 模型选择的工作方式
 
-HyperBot 按以下顺序选择模型：
+Ancient Claw 按以下顺序选择模型：
 
 1. **主模型**（`agents.defaults.model.primary` 或 `agents.defaults.model`）。
 2. `agents.defaults.model.fallbacks` 中的 **回退模型**（按顺序）。
@@ -29,7 +29,7 @@ HyperBot 按以下顺序选择模型：
 
 相关内容：
 
-- `agents.defaults.models` 是 HyperBot 可使用的模型允许列表/目录（以及别名）。
+- `agents.defaults.models` 是 Ancient Claw 可使用的模型允许列表/目录（以及别名）。
 - `agents.defaults.imageModel` **仅在** 主模型无法接受图像时使用。
 - 每个智能体的默认值可以通过 `agents.list[].model` 加上绑定来覆盖 `agents.defaults.model`（见 [/concepts/multi-agent](/concepts/multi-agent)）。
 
@@ -44,7 +44,7 @@ HyperBot 按以下顺序选择模型：
 如果你不想手动编辑配置，请运行设置向导：
 
 ```bash
-hyperbot onboard
+ancient-claw onboard
 ```
 
 它可以为常见提供商设置模型 + 凭证，包括 **OpenAI Code (Codex)**
@@ -66,7 +66,7 @@ hyperbot onboard
 ## “Model is not allowed”（以及为什么回复会停止）
 
 如果设置了 `agents.defaults.models`，它就会成为 `/model` 和会话覆盖的 **允许列表**。当用户选择了不在该允许列表中的模型时，
-HyperBot 会返回：
+Ancient Claw 会返回：
 
 ```
 Model "provider/model" is not allowed. Use /model to list available models.
@@ -113,34 +113,34 @@ Model "provider/model" is not allowed. Use /model to list available models.
 - `/model status` 是详细视图（凭证候选项，以及在已配置时显示提供商端点 `baseUrl` + `api` 模式）。
 - 模型引用是通过按 **第一个** `/` 进行分割来解析的。输入 `/model <ref>` 时请使用 `provider/model`。
 - 如果模型 ID 本身包含 `/`（OpenRouter 风格），你必须包含提供商前缀（示例：`/model openrouter/moonshotai/kimi-k2`）。
-- 如果你省略提供商，HyperBot 会将输入视为别名或 **默认提供商** 的模型（仅在模型 ID 中没有 `/` 时有效）。
+- 如果你省略提供商，Ancient Claw 会将输入视为别名或 **默认提供商** 的模型（仅在模型 ID 中没有 `/` 时有效）。
 
 完整命令行为/配置： [Slash commands](/tools/slash-commands)。
 
 ## CLI 命令
 
 ```bash
-hyperbot models list
-hyperbot models status
-hyperbot models set <provider/model>
-hyperbot models set-image <provider/model>
+ancient-claw models list
+ancient-claw models status
+ancient-claw models set <provider/model>
+ancient-claw models set-image <provider/model>
 
-hyperbot models aliases list
-hyperbot models aliases add <alias> <provider/model>
-hyperbot models aliases remove <alias>
+ancient-claw models aliases list
+ancient-claw models aliases add <alias> <provider/model>
+ancient-claw models aliases remove <alias>
 
-hyperbot models fallbacks list
-hyperbot models fallbacks add <provider/model>
-hyperbot models fallbacks remove <provider/model>
-hyperbot models fallbacks clear
+ancient-claw models fallbacks list
+ancient-claw models fallbacks add <provider/model>
+ancient-claw models fallbacks remove <provider/model>
+ancient-claw models fallbacks clear
 
-hyperbot models image-fallbacks list
-hyperbot models image-fallbacks add <provider/model>
-hyperbot models image-fallbacks remove <provider/model>
-hyperbot models image-fallbacks clear
+ancient-claw models image-fallbacks list
+ancient-claw models image-fallbacks add <provider/model>
+ancient-claw models image-fallbacks remove <provider/model>
+ancient-claw models image-fallbacks clear
 ```
 
-`hyperbot models`（无子命令）是 `models status` 的快捷方式。
+`ancient-claw models`（无子命令）是 `models status` 的快捷方式。
 
 ### `models list`
 
@@ -169,12 +169,12 @@ JSON 包含 `auth.oauth`（警告窗口 + 配置文件）和 `auth.providers`
 
 ```bash
 claude setup-token
-hyperbot models status
+ancient-claw models status
 ```
 
 ## 扫描（OpenRouter 免费模型）
 
-`hyperbot models scan` 会检查 OpenRouter 的 **免费模型目录**，并且可以
+`ancient-claw models scan` 会检查 OpenRouter 的 **免费模型目录**，并且可以
 选择性地探测模型对工具和图像的支持。
 
 关键标志：
@@ -210,7 +210,7 @@ hyperbot models status
 ## 模型注册表（`models.json`）
 
 `models.providers` 中的自定义提供商会写入
-智能体目录下的 `models.json`（默认是 `~/.hyperbot/agents/<agentId>/agent/models.json`）。默认会合并此文件，除非将 `models.mode` 设置为 `replace`。
+智能体目录下的 `models.json`（默认是 `~/.ancient-claw/agents/<agentId>/agent/models.json`）。默认会合并此文件，除非将 `models.mode` 设置为 `replace`。
 
 匹配提供商 ID 时的合并模式优先级：
 
@@ -221,5 +221,5 @@ hyperbot models status
 - 智能体中为空或缺失的 `apiKey`/`baseUrl` 会回退到配置中的 `models.providers`。
 - 其他提供商字段会从配置和规范化后的目录数据中刷新。
 
-标记持久化以源为准：HyperBot 会根据活动源配置快照（预解析）写入标记，而不是根据运行时已解析的 secret 值写入。
-这适用于 HyperBot 重新生成 `models.json` 的所有情况，包括像 `hyperbot agent` 这样的命令驱动路径。
+标记持久化以源为准：Ancient Claw 会根据活动源配置快照（预解析）写入标记，而不是根据运行时已解析的 secret 值写入。
+这适用于 Ancient Claw 重新生成 `models.json` 的所有情况，包括像 `ancient-claw agent` 这样的命令驱动路径。

@@ -1,23 +1,23 @@
 ---
-summary: "CLI reference for `hyperbot qr` (generate iOS pairing QR + setup code)"
+summary: "CLI reference for `ancient-claw qr` (generate iOS pairing QR + setup code)"
 read_when:
   - You want to pair the iOS app with a gateway quickly
   - You need setup-code output for remote/manual sharing
 title: "qr"
 ---
 
-# `hyperbot qr`
+# `ancient-claw qr`
 
 Generate an iOS pairing QR and setup code from your current Gateway configuration.
 
 ## Usage
 
 ```bash
-hyperbot qr
-hyperbot qr --setup-code-only
-hyperbot qr --json
-hyperbot qr --remote
-hyperbot qr --url wss://gateway.example/ws
+ancient-claw qr
+ancient-claw qr --setup-code-only
+ancient-claw qr --json
+ancient-claw qr --remote
+ancient-claw qr --url wss://gateway.example/ws
 ```
 
 ## Options
@@ -42,5 +42,5 @@ hyperbot qr --url wss://gateway.example/ws
 - If both `gateway.auth.token` and `gateway.auth.password` are configured (including SecretRefs) and `gateway.auth.mode` is unset, setup-code resolution fails until mode is set explicitly.
 - Gateway version skew note: this command path requires a gateway that supports `secrets.resolve`; older gateways return an unknown-method error.
 - After scanning, approve device pairing with:
-  - `hyperbot devices list`
-  - `hyperbot devices approve <requestId>`
+  - `ancient-claw devices list`
+  - `ancient-claw devices approve <requestId>`

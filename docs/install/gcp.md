@@ -1,19 +1,19 @@
 ---
-summary: "Run HyperBot Gateway 24/7 on a GCP Compute Engine VM (Docker) with durable state"
+summary: "Run Ancient Claw Gateway 24/7 on a GCP Compute Engine VM (Docker) with durable state"
 read_when:
-  - You want HyperBot running 24/7 on GCP
+  - You want Ancient Claw running 24/7 on GCP
   - You want a production-grade, always-on Gateway on your own VM
   - You want full control over persistence, binaries, and restart behavior
 title: "GCP"
 ---
 
-# HyperBot on GCP Compute Engine (Docker, Production VPS Guide)
+# Ancient Claw on GCP Compute Engine (Docker, Production VPS Guide)
 
 ## Goal
 
-Run a persistent HyperBot Gateway on a GCP Compute Engine VM using Docker, with durable state, baked-in binaries, and safe restart behavior.
+Run a persistent Ancient Claw Gateway on a GCP Compute Engine VM using Docker, with durable state, baked-in binaries, and safe restart behavior.
 
-If you want "HyperBot 24/7 for ~$5-12/mo", this is a reliable setup on Google Cloud.
+If you want "Ancient Claw 24/7 for ~$5-12/mo", this is a reliable setup on Google Cloud.
 Pricing varies by machine type and region; pick the smallest VM that fits your workload and scale up if you hit OOMs.
 
 ## What are we doing (simple terms)?
@@ -21,8 +21,8 @@ Pricing varies by machine type and region; pick the smallest VM that fits your w
 - Create a GCP project and enable billing
 - Create a Compute Engine VM
 - Install Docker (isolated app runtime)
-- Start the HyperBot Gateway in Docker
-- Persist `~/.hyperbot` + `~/.hyperbot/workspace` on the host (survives restarts/rebuilds)
+- Start the Ancient Claw Gateway in Docker
+- Persist `~/.ancient-claw` + `~/.ancient-claw/workspace` on the host (survives restarts/rebuilds)
 - Access the Control UI from your laptop via an SSH tunnel
 
 The Gateway can be accessed via:
@@ -42,7 +42,7 @@ For the generic Docker flow, see [Docker](/install/docker).
 2. Create Compute Engine VM (e2-small, Debian 12, 20GB)
 3. SSH into the VM
 4. Install Docker
-5. Clone HyperBot repository
+5. Clone Ancient Claw repository
 6. Create persistent host directories
 7. Configure `.env` and `docker-compose.yml`
 8. Bake required binaries, build, and launch
@@ -88,8 +88,8 @@ For the generic Docker flow, see [Docker](/install/docker).
     **CLI:**
 
     ```bash
-    gcloud projects create my-hyperbot-project --name="HyperBot Gateway"
-    gcloud config set project my-hyperbot-project
+    gcloud projects create my-ancient-claw-project --name="Ancient Claw Gateway"
+    gcloud config set project my-ancient-claw-project
     ```
 
     Enable billing at [https://console.cloud.google.com/billing](https://console.cloud.google.com/billing) (required for Compute Engine).
@@ -121,7 +121,7 @@ For the generic Docker flow, see [Docker](/install/docker).
     **CLI:**
 
     ```bash
-    gcloud compute instances create hyperbot-gateway \
+    gcloud compute instances create ancient-claw-gateway \
       --zone=us-central1-a \
       --machine-type=e2-small \
       --boot-disk-size=20GB \
@@ -132,7 +132,7 @@ For the generic Docker flow, see [Docker](/install/docker).
     **Console:**
 
     1. Go to Compute Engine > VM instances > Create instance
-    2. Name: `hyperbot-gateway`
+    2. Name: `ancient-claw-gateway`
     3. Region: `us-central1`, Zone: `us-central1-a`
     4. Machine type: `e2-small`
     5. Boot disk: Debian 12, 20GB
@@ -144,7 +144,7 @@ For the generic Docker flow, see [Docker](/install/docker).
     **CLI:**
 
     ```bash
-    gcloud compute ssh hyperbot-gateway --zone=us-central1-a
+    gcloud compute ssh ancient-claw-gateway --zone=us-central1-a
     ```
 
     **Console:**
@@ -172,7 +172,7 @@ For the generic Docker flow, see [Docker](/install/docker).
     Then SSH back in:
 
     ```bash
-    gcloud compute ssh hyperbot-gateway --zone=us-central1-a
+    gcloud compute ssh ancient-claw-gateway --zone=us-central1-a
     ```
 
     Verify:
@@ -184,10 +184,10 @@ For the generic Docker flow, see [Docker](/install/docker).
 
   </Step>
 
-  <Step title="Clone the HyperBot repository">
+  <Step title="Clone the Ancient Claw repository">
     ```bash
-    git clone https://github.com/hyperbot/hyperbot.git
-    cd hyperbot
+    git clone https://github.com/ancient-claw/ancient-claw.git
+    cd ancient-claw
     ```
 
     This guide assumes you will build a custom image to guarantee binary persistence.
@@ -199,8 +199,8 @@ For the generic Docker flow, see [Docker](/install/docker).
     All long-lived state must live on the host.
 
     ```bash
-    mkdir -p ~/.hyperbot
-    mkdir -p ~/.hyperbot/workspace
+    mkdir -p ~/.ancient-claw
+    mkdir -p ~/.ancient-claw/workspace
     ```
 
   </Step>
@@ -209,16 +209,16 @@ For the generic Docker flow, see [Docker](/install/docker).
     Create `.env` in the repository root.
 
     ```bash
-    OPENCLAW_IMAGE=hyperbot:latest
+    OPENCLAW_IMAGE=ancient-claw:latest
     OPENCLAW_GATEWAY_TOKEN=change-me-now
     OPENCLAW_GATEWAY_BIND=lan
     OPENCLAW_GATEWAY_PORT=18789
 
-    OPENCLAW_CONFIG_DIR=/home/$USER/.hyperbot
-    OPENCLAW_WORKSPACE_DIR=/home/$USER/.hyperbot/workspace
+    OPENCLAW_CONFIG_DIR=/home/$USER/.ancient-claw
+    OPENCLAW_WORKSPACE_DIR=/home/$USER/.ancient-claw/workspace
 
     GOG_KEYRING_PASSWORD=change-me-now
-    XDG_CONFIG_HOME=/home/node/.hyperbot
+    XDG_CONFIG_HOME=/home/node/.ancient-claw
     ```
 
     Generate strong secrets:
@@ -236,7 +236,7 @@ For the generic Docker flow, see [Docker](/install/docker).
 
     ```yaml
     services:
-      hyperbot-gateway:
+      ancient-claw-gateway:
         image: ${OPENCLAW_IMAGE}
         build: .
         restart: unless-stopped
@@ -253,8 +253,8 @@ For the generic Docker flow, see [Docker](/install/docker).
           - XDG_CONFIG_HOME=${XDG_CONFIG_HOME}
           - PATH=/home/linuxbrew/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
         volumes:
-          - ${OPENCLAW_CONFIG_DIR}:/home/node/.hyperbot
-          - ${OPENCLAW_WORKSPACE_DIR}:/home/node/.hyperbot/workspace
+          - ${OPENCLAW_CONFIG_DIR}:/home/node/.ancient-claw
+          - ${OPENCLAW_WORKSPACE_DIR}:/home/node/.ancient-claw/workspace
         ports:
           # Recommended: keep the Gateway loopback-only on the VM; access via SSH tunnel.
           # To expose it publicly, remove the `127.0.0.1:` prefix and firewall accordingly.
@@ -292,7 +292,7 @@ For the generic Docker flow, see [Docker](/install/docker).
     When binding to LAN (`OPENCLAW_GATEWAY_BIND=lan`), configure a trusted browser origin before continuing:
 
     ```bash
-    docker compose run --rm hyperbot-cli config set gateway.controlUi.allowedOrigins '["http://127.0.0.1:18789"]' --strict-json
+    docker compose run --rm ancient-claw-cli config set gateway.controlUi.allowedOrigins '["http://127.0.0.1:18789"]' --strict-json
     ```
 
     If you changed the gateway port, replace `18789` with your configured port.
@@ -303,7 +303,7 @@ For the generic Docker flow, see [Docker](/install/docker).
     Create an SSH tunnel to forward the Gateway port:
 
     ```bash
-    gcloud compute ssh hyperbot-gateway --zone=us-central1-a -- -L 18789:127.0.0.1:18789
+    gcloud compute ssh ancient-claw-gateway --zone=us-central1-a -- -L 18789:127.0.0.1:18789
     ```
 
     Open in your browser:
@@ -313,7 +313,7 @@ For the generic Docker flow, see [Docker](/install/docker).
     Fetch a fresh tokenized dashboard link:
 
     ```bash
-    docker compose run --rm hyperbot-cli dashboard --no-open
+    docker compose run --rm ancient-claw-cli dashboard --no-open
     ```
 
     Paste the token from that URL.
@@ -321,8 +321,8 @@ For the generic Docker flow, see [Docker](/install/docker).
     If Control UI shows `unauthorized` or `disconnected (1008): pairing required`, approve the browser device:
 
     ```bash
-    docker compose run --rm hyperbot-cli devices list
-    docker compose run --rm hyperbot-cli devices approve <requestId>
+    docker compose run --rm ancient-claw-cli devices list
+    docker compose run --rm ancient-claw-cli devices approve <requestId>
     ```
 
     Need the shared persistence and update reference again?
@@ -355,15 +355,15 @@ If Docker build fails with `Killed` and `exit code 137`, the VM was OOM-killed. 
 
 ```bash
 # Stop the VM first
-gcloud compute instances stop hyperbot-gateway --zone=us-central1-a
+gcloud compute instances stop ancient-claw-gateway --zone=us-central1-a
 
 # Change machine type
-gcloud compute instances set-machine-type hyperbot-gateway \
+gcloud compute instances set-machine-type ancient-claw-gateway \
   --zone=us-central1-a \
   --machine-type=e2-small
 
 # Start the VM
-gcloud compute instances start hyperbot-gateway --zone=us-central1-a
+gcloud compute instances start ancient-claw-gateway --zone=us-central1-a
 ```
 
 ---
@@ -377,15 +377,15 @@ For automation or CI/CD pipelines, create a dedicated service account with minim
 1. Create a service account:
 
    ```bash
-   gcloud iam service-accounts create hyperbot-deploy \
-     --display-name="HyperBot Deployment"
+   gcloud iam service-accounts create ancient-claw-deploy \
+     --display-name="Ancient Claw Deployment"
    ```
 
 2. Grant Compute Instance Admin role (or narrower custom role):
 
    ```bash
-   gcloud projects add-iam-policy-binding my-hyperbot-project \
-     --member="serviceAccount:hyperbot-deploy@my-hyperbot-project.iam.gserviceaccount.com" \
+   gcloud projects add-iam-policy-binding my-ancient-claw-project \
+     --member="serviceAccount:ancient-claw-deploy@my-ancient-claw-project.iam.gserviceaccount.com" \
      --role="roles/compute.instanceAdmin.v1"
    ```
 

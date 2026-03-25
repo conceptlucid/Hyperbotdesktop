@@ -1,5 +1,5 @@
 ---
-summary: "How HyperBot presence entries are produced, merged, and displayed"
+summary: "How Ancient Claw presence entries are produced, merged, and displayed"
 read_when:
   - Debugging the Instances tab
   - Investigating duplicate or stale instance rows
@@ -9,7 +9,7 @@ title: "Presence"
 
 # Presence
 
-HyperBot “presence” is a lightweight, best‑effort view of:
+Ancient Claw “presence” is a lightweight, best‑effort view of:
 
 - the **Gateway** itself, and
 - **clients connected to the Gateway** (mac app, WebChat, CLI, etc.)

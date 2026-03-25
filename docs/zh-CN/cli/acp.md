@@ -15,26 +15,26 @@ x-i18n:
 
 # acp
 
-运行与 HyperBot Gateway 网关通信的 ACP（Agent Client Protocol）桥接器。
+运行与 Ancient Claw Gateway 网关通信的 ACP（Agent Client Protocol）桥接器。
 
 此命令通过 stdio 使用 ACP 协议与 IDE 通信，并通过 WebSocket 将提示转发到 Gateway 网关。它将 ACP 会话映射到 Gateway 网关会话键。
 
 ## 用法
 
 ```bash
-hyperbot acp
+ancient-claw acp
 
 # Remote Gateway
-hyperbot acp --url wss://gateway-host:18789 --token <token>
+ancient-claw acp --url wss://gateway-host:18789 --token <token>
 
 # Attach to an existing session key
-hyperbot acp --session agent:main:main
+ancient-claw acp --session agent:main:main
 
 # Attach by label (must already exist)
-hyperbot acp --session-label "support inbox"
+ancient-claw acp --session-label "support inbox"
 
 # Reset the session key before the first prompt
-hyperbot acp --session agent:main:main --reset-session
+ancient-claw acp --session agent:main:main --reset-session
 ```
 
 ## ACP 客户端（调试）
@@ -43,34 +43,34 @@ hyperbot acp --session agent:main:main --reset-session
 它会启动 ACP 桥接器并让你交互式输入提示。
 
 ```bash
-hyperbot acp client
+ancient-claw acp client
 
 # Point the spawned bridge at a remote Gateway
-hyperbot acp client --server-args --url wss://gateway-host:18789 --token <token>
+ancient-claw acp client --server-args --url wss://gateway-host:18789 --token <token>
 
-# Override the server command (default: hyperbot)
-hyperbot acp client --server "node" --server-args hyperbot.mjs acp --url ws://127.0.0.1:19001
+# Override the server command (default: ancient-claw)
+ancient-claw acp client --server "node" --server-args ancient-claw.mjs acp --url ws://127.0.0.1:19001
 ```
 
 ## 如何使用
 
-当 IDE（或其他客户端）使用 Agent Client Protocol 并且你希望它驱动 HyperBot Gateway 网关会话时，请使用 ACP。
+当 IDE（或其他客户端）使用 Agent Client Protocol 并且你希望它驱动 Ancient Claw Gateway 网关会话时，请使用 ACP。
 
 1. 确保 Gateway 网关正在运行（本地或远程）。
 2. 配置 Gateway 网关目标（配置或标志）。
-3. 将你的 IDE 配置为通过 stdio 运行 `hyperbot acp`。
+3. 将你的 IDE 配置为通过 stdio 运行 `ancient-claw acp`。
 
 示例配置（持久化）：
 
 ```bash
-hyperbot config set gateway.remote.url wss://gateway-host:18789
-hyperbot config set gateway.remote.token <token>
+ancient-claw config set gateway.remote.url wss://gateway-host:18789
+ancient-claw config set gateway.remote.token <token>
 ```
 
 示例直接运行（不写入配置）：
 
 ```bash
-hyperbot acp --url wss://gateway-host:18789 --token <token>
+ancient-claw acp --url wss://gateway-host:18789 --token <token>
 ```
 
 ## 选择智能体
@@ -80,9 +80,9 @@ ACP 不直接选择智能体。它通过 Gateway 网关会话键进行路由。
 使用智能体作用域的会话键来定位特定智能体：
 
 ```bash
-hyperbot acp --session agent:main:main
-hyperbot acp --session agent:design:main
-hyperbot acp --session agent:qa:bug-123
+ancient-claw acp --session agent:main:main
+ancient-claw acp --session agent:design:main
+ancient-claw acp --session agent:qa:bug-123
 ```
 
 每个 ACP 会话映射到单个 Gateway 网关会话键。一个智能体可以有多个会话；除非你覆盖键或标签，否则 ACP 默认使用隔离的 `acp:<uuid>` 会话。
@@ -94,9 +94,9 @@ hyperbot acp --session agent:qa:bug-123
 ```json
 {
   "agent_servers": {
-    "HyperBot ACP": {
+    "Ancient Claw ACP": {
       "type": "custom",
-      "command": "hyperbot",
+      "command": "ancient-claw",
       "args": ["acp"],
       "env": {}
     }
@@ -109,9 +109,9 @@ hyperbot acp --session agent:qa:bug-123
 ```json
 {
   "agent_servers": {
-    "HyperBot ACP": {
+    "Ancient Claw ACP": {
       "type": "custom",
-      "command": "hyperbot",
+      "command": "ancient-claw",
       "args": [
         "acp",
         "--url",
@@ -127,7 +127,7 @@ hyperbot acp --session agent:qa:bug-123
 }
 ```
 
-在 Zed 中，打开 Agent 面板并选择"HyperBot ACP"来开始一个会话。
+在 Zed 中，打开 Agent 面板并选择"Ancient Claw ACP"来开始一个会话。
 
 ## 会话映射
 
@@ -167,7 +167,7 @@ hyperbot acp --session agent:qa:bug-123
 ### `acp client` 选项
 
 - `--cwd <dir>`：ACP 会话的工作目录。
-- `--server <command>`：ACP 服务器命令（默认：`hyperbot`）。
+- `--server <command>`：ACP 服务器命令（默认：`ancient-claw`）。
 - `--server-args <args...>`：传递给 ACP 服务器的额外参数。
 - `--server-verbose`：启用 ACP 服务器的详细日志。
 - `--verbose, -v`：详细客户端日志。

@@ -1,5 +1,5 @@
 ---
-summary: "HyperBot CLI reference for `hyperbot` commands, subcommands, and options"
+summary: "Ancient Claw CLI reference for `ancient-claw` commands, subcommands, and options"
 read_when:
   - Adding or modifying CLI commands or options
   - Documenting new command surfaces
@@ -61,10 +61,10 @@ This page describes the current CLI behavior. If commands change, update this do
 
 ## Global flags
 
-- `--dev`: isolate state under `~/.hyperbot-dev` and shift default ports.
-- `--profile <name>`: isolate state under `~/.hyperbot-<name>`.
+- `--dev`: isolate state under `~/.ancient-claw-dev` and shift default ports.
+- `--profile <name>`: isolate state under `~/.ancient-claw-<name>`.
 - `--no-color`: disable ANSI colors.
-- `--update`: shorthand for `hyperbot update` (source installs only).
+- `--update`: shorthand for `ancient-claw update` (source installs only).
 - `-V`, `--version`, `-v`: print version and exit.
 
 ## Output styling
@@ -77,7 +77,7 @@ This page describes the current CLI behavior. If commands change, update this do
 
 ## Color palette
 
-HyperBot uses a lobster palette for CLI output.
+Ancient Claw uses a lobster palette for CLI output.
 
 - `accent` (#FF5A2D): headings, labels, primary highlights.
 - `accentBright` (#FF7A3D): command names, emphasis.
@@ -93,7 +93,7 @@ Palette source of truth: `src/terminal/palette.ts` (the “lobster palette”).
 ## Command tree
 
 ```
-hyperbot [--dev] [--profile <name>] <command>
+ancient-claw [--dev] [--profile <name>] <command>
   setup
   onboard
   configure
@@ -272,31 +272,31 @@ hyperbot [--dev] [--profile <name>] <command>
   tui
 ```
 
-Note: plugins can add additional top-level commands (for example `hyperbot voicecall`).
+Note: plugins can add additional top-level commands (for example `ancient-claw voicecall`).
 
 ## Security
 
-- `hyperbot security audit` — audit config + local state for common security foot-guns.
-- `hyperbot security audit --deep` — best-effort live Gateway probe.
-- `hyperbot security audit --fix` — tighten safe defaults and chmod state/config.
+- `ancient-claw security audit` — audit config + local state for common security foot-guns.
+- `ancient-claw security audit --deep` — best-effort live Gateway probe.
+- `ancient-claw security audit --fix` — tighten safe defaults and chmod state/config.
 
 ## Secrets
 
-- `hyperbot secrets reload` — re-resolve refs and atomically swap the runtime snapshot.
-- `hyperbot secrets audit` — scan for plaintext residues, unresolved refs, and precedence drift (`--allow-exec` to execute exec providers during audit).
-- `hyperbot secrets configure` — interactive helper for provider setup + SecretRef mapping + preflight/apply (`--allow-exec` to execute exec providers during preflight and exec-containing apply flows).
-- `hyperbot secrets apply --from <plan.json>` — apply a previously generated plan (`--dry-run` supported; use `--allow-exec` to permit exec providers in dry-run and exec-containing write plans).
+- `ancient-claw secrets reload` — re-resolve refs and atomically swap the runtime snapshot.
+- `ancient-claw secrets audit` — scan for plaintext residues, unresolved refs, and precedence drift (`--allow-exec` to execute exec providers during audit).
+- `ancient-claw secrets configure` — interactive helper for provider setup + SecretRef mapping + preflight/apply (`--allow-exec` to execute exec providers during preflight and exec-containing apply flows).
+- `ancient-claw secrets apply --from <plan.json>` — apply a previously generated plan (`--dry-run` supported; use `--allow-exec` to permit exec providers in dry-run and exec-containing write plans).
 
 ## Plugins
 
 Manage extensions and their config:
 
-- `hyperbot plugins list` — discover plugins (use `--json` for machine output).
-- `hyperbot plugins inspect <id>` — show details for a plugin (`info` is an alias).
-- `hyperbot plugins install <path|.tgz|npm-spec|plugin@marketplace>` — install a plugin (or add a plugin path to `plugins.load.paths`).
-- `hyperbot plugins marketplace list <marketplace>` — list marketplace entries before install.
-- `hyperbot plugins enable <id>` / `disable <id>` — toggle `plugins.entries.<id>.enabled`.
-- `hyperbot plugins doctor` — report plugin load errors.
+- `ancient-claw plugins list` — discover plugins (use `--json` for machine output).
+- `ancient-claw plugins inspect <id>` — show details for a plugin (`info` is an alias).
+- `ancient-claw plugins install <path|.tgz|npm-spec|plugin@marketplace>` — install a plugin (or add a plugin path to `plugins.load.paths`).
+- `ancient-claw plugins marketplace list <marketplace>` — list marketplace entries before install.
+- `ancient-claw plugins enable <id>` / `disable <id>` — toggle `plugins.entries.<id>.enabled`.
+- `ancient-claw plugins doctor` — report plugin load errors.
 
 Most plugin changes require a gateway restart. See [/plugin](/tools/plugin).
 
@@ -304,9 +304,9 @@ Most plugin changes require a gateway restart. See [/plugin](/tools/plugin).
 
 Vector search over `MEMORY.md` + `memory/*.md`:
 
-- `hyperbot memory status` — show index stats.
-- `hyperbot memory index` — reindex memory files.
-- `hyperbot memory search "<query>"` (or `--query "<query>"`) — semantic search over memory.
+- `ancient-claw memory status` — show index stats.
+- `ancient-claw memory index` — reindex memory files.
+- `ancient-claw memory search "<query>"` (or `--query "<query>"`) — semantic search over memory.
 
 ## Chat slash commands
 
@@ -326,7 +326,7 @@ Initialize config + workspace.
 
 Options:
 
-- `--workspace <dir>`: agent workspace path (default `~/.hyperbot/workspace`).
+- `--workspace <dir>`: agent workspace path (default `~/.ancient-claw/workspace`).
 - `--wizard`: run onboarding.
 - `--non-interactive`: run onboarding without prompts.
 - `--mode <local|remote>`: onboard mode.
@@ -396,7 +396,7 @@ Interactive configuration wizard (models, channels, skills, gateway).
 
 ### `config`
 
-Non-interactive config helpers (get/set/unset/file/validate). Running `hyperbot config` with no
+Non-interactive config helpers (get/set/unset/file/validate). Running `ancient-claw config` with no
 subcommand launches the wizard.
 
 Subcommands:
@@ -407,7 +407,7 @@ Subcommands:
   - SecretRef builder mode: `config set <path> --ref-provider <provider> --ref-source <source> --ref-id <id>`
   - provider builder mode: `config set secrets.providers.<alias> --provider-source <env|file|exec> ...`
   - batch mode: `config set --batch-json '<json>'` or `config set --batch-file <path>`
-- `config set --dry-run`: validate assignments without writing `hyperbot.json` (exec SecretRef checks are skipped by default).
+- `config set --dry-run`: validate assignments without writing `ancient-claw.json` (exec SecretRef checks are skipped by default).
 - `config set --allow-exec --dry-run`: opt in to exec SecretRef dry-run checks (may execute provider commands).
 - `config set --dry-run --json`: emit machine-readable dry-run output (checks + completeness signal, operations, refs checked/skipped, errors).
 - `config set --strict-json`: require JSON5 parsing for path/value input. `--json` remains a legacy alias for strict parsing outside dry-run output mode.
@@ -436,11 +436,11 @@ Manage chat channel accounts (WhatsApp/Telegram/Discord/Google Chat/Slack/Matter
 Subcommands:
 
 - `channels list`: show configured channels and auth profiles.
-- `channels status`: check gateway reachability and channel health (`--probe` runs extra checks; use `hyperbot health` or `hyperbot status --deep` for gateway health probes).
-- Tip: `channels status` prints warnings with suggested fixes when it can detect common misconfigurations (then points you to `hyperbot doctor`).
+- `channels status`: check gateway reachability and channel health (`--probe` runs extra checks; use `ancient-claw health` or `ancient-claw status --deep` for gateway health probes).
+- Tip: `channels status` prints warnings with suggested fixes when it can detect common misconfigurations (then points you to `ancient-claw doctor`).
 - `channels logs`: show recent channel logs from the gateway log file.
 - `channels add`: wizard-style setup when no flags are passed; flags switch to non-interactive mode.
-  - When adding a non-default account to a channel still using single-account top-level config, HyperBot moves account-scoped values into `channels.<channel>.accounts.default` before writing the new account.
+  - When adding a non-default account to a channel still using single-account top-level config, Ancient Claw moves account-scoped values into `channels.<channel>.accounts.default` before writing the new account.
   - Non-interactive `channels add` does not auto-create/upgrade bindings; channel-only bindings continue to match the default account.
 - `channels remove`: disable by default; pass `--delete` to remove config entries without prompts.
 - `channels login`: interactive channel login (WhatsApp Web only).
@@ -479,11 +479,11 @@ More detail: [/concepts/oauth](/concepts/oauth)
 Examples:
 
 ```bash
-hyperbot channels add --channel telegram --account alerts --name "Alerts Bot" --token $TELEGRAM_BOT_TOKEN
-hyperbot channels add --channel discord --account work --name "Work Bot" --token $DISCORD_BOT_TOKEN
-hyperbot channels remove --channel discord --account work --delete
-hyperbot channels status --probe
-hyperbot status --deep
+ancient-claw channels add --channel telegram --account alerts --name "Alerts Bot" --token $TELEGRAM_BOT_TOKEN
+ancient-claw channels add --channel discord --account work --name "Work Bot" --token $DISCORD_BOT_TOKEN
+ancient-claw channels remove --channel discord --account work --delete
+ancient-claw channels status --probe
+ancient-claw status --deep
 ```
 
 ### `skills`
@@ -505,7 +505,7 @@ Options:
 - `--json`: output JSON (no styling).
 - `-v`, `--verbose`: include missing requirements detail.
 
-Tip: use `hyperbot skills search`, `hyperbot skills install`, and `hyperbot skills update` for ClawHub-backed skills.
+Tip: use `ancient-claw skills search`, `ancient-claw skills install`, and `ancient-claw skills update` for ClawHub-backed skills.
 
 ### `pairing`
 
@@ -570,8 +570,8 @@ Subcommands:
 
 Examples:
 
-- `hyperbot message send --target +15555550123 --message "Hi"`
-- `hyperbot message poll --channel discord --target channel:123 --poll-question "Snack?" --poll-option Pizza --poll-option Sushi`
+- `ancient-claw message send --target +15555550123 --message "Hi"`
+- `ancient-claw message poll --channel discord --target channel:123 --poll-question "Snack?" --poll-option Pizza --poll-option Sushi`
 
 ### `agent`
 
@@ -619,7 +619,7 @@ Options:
 - `--non-interactive`
 - `--json`
 
-Binding specs use `channel[:accountId]`. When `accountId` is omitted, HyperBot may resolve account scope via channel defaults/plugin hooks; otherwise it is a channel binding without explicit account scope.
+Binding specs use `channel[:accountId]`. When `accountId` is omitted, Ancient Claw may resolve account scope via channel defaults/plugin hooks; otherwise it is a channel binding without explicit account scope.
 
 #### `agents bindings`
 
@@ -686,12 +686,12 @@ Notes:
 
 ### Usage tracking
 
-HyperBot can surface provider usage/quota when OAuth/API creds are available.
+Ancient Claw can surface provider usage/quota when OAuth/API creds are available.
 
 Surfaces:
 
 - `/status` (adds a short provider usage line when available)
-- `hyperbot status --usage` (prints full provider breakdown)
+- `ancient-claw status --usage` (prints full provider breakdown)
 - macOS menu bar (Usage section under Context)
 
 Notes:
@@ -802,7 +802,7 @@ Notes:
 
 - `gateway status` probes the Gateway RPC by default using the service’s resolved port/config (override with `--url/--token/--password`).
 - `gateway status` supports `--no-probe`, `--deep`, `--require-rpc`, and `--json` for scripting.
-- `gateway status` also surfaces legacy or extra gateway services when it can detect them (`--deep` adds system-level scans). Profile-named HyperBot services are treated as first-class and aren't flagged as "extra".
+- `gateway status` also surfaces legacy or extra gateway services when it can detect them (`--deep` adds system-level scans). Profile-named Ancient Claw services are treated as first-class and aren't flagged as "extra".
 - `gateway status` prints which config path the CLI uses vs which config the service likely uses (service env), plus the resolved probe target URL.
 - If gateway auth SecretRefs are unresolved in the current command path, `gateway status --json` reports `rpc.authWarning` only when probe connectivity/auth fails (warnings are suppressed when probe succeeds).
 - On Linux systemd installs, status token-drift checks include both `Environment=` and `EnvironmentFile=` unit sources.
@@ -822,11 +822,11 @@ Notes:
 Examples:
 
 ```bash
-hyperbot logs --follow
-hyperbot logs --limit 200
-hyperbot logs --plain
-hyperbot logs --json
-hyperbot logs --no-color
+ancient-claw logs --follow
+ancient-claw logs --limit 200
+ancient-claw logs --plain
+ancient-claw logs --json
+ancient-claw logs --no-color
 ```
 
 ### `gateway <subcommand>`
@@ -862,8 +862,8 @@ Anthropic setup-token (supported):
 
 ```bash
 claude setup-token
-hyperbot models auth setup-token --provider anthropic
-hyperbot models status
+ancient-claw models auth setup-token --provider anthropic
+ancient-claw models status
 ```
 
 Policy note: this is technical compatibility. Anthropic has blocked some
@@ -872,7 +872,7 @@ terms before relying on setup-token in production.
 
 ### `models` (root)
 
-`hyperbot models` is an alias for `models status`.
+`ancient-claw models` is an alias for `models status`.
 
 Root options:
 
@@ -1028,7 +1028,7 @@ All `cron` commands accept `--url`, `--token`, `--timeout`, `--expect-final`.
 ## Node host
 
 `node` runs a **headless node host** or manages it as a background service. See
-[`hyperbot node`](/cli/node).
+[`ancient-claw node`](/cli/node).
 
 Subcommands:
 
@@ -1088,7 +1088,7 @@ Location:
 
 ## Browser
 
-Browser control CLI (dedicated Chrome/Brave/Edge/Chromium). See [`hyperbot browser`](/cli/browser) and the [Browser tool](/tools/browser).
+Browser control CLI (dedicated Chrome/Brave/Edge/Chromium). See [`ancient-claw browser`](/cli/browser) and the [Browser tool](/tools/browser).
 
 Common options:
 

@@ -2,7 +2,7 @@
 read_when:
   - 你想要索引或搜索语义记忆
   - 你正在调试记忆可用性或索引问题
-summary: "`hyperbot memory`（status/index/search）的 CLI 参考"
+summary: "`ancient-claw memory`（status/index/search）的 CLI 参考"
 title: memory
 x-i18n:
   generated_at: "2026-02-01T20:21:11Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 14
 ---
 
-# `hyperbot memory`
+# `ancient-claw memory`
 
 管理语义记忆的索引和搜索。
 由活跃的记忆插件提供（默认：`memory-core`；设置 `plugins.slots.memory = "none"` 可禁用）。
@@ -26,15 +26,15 @@ x-i18n:
 ## 示例
 
 ```bash
-hyperbot memory status
-hyperbot memory status --deep
-hyperbot memory status --deep --index
-hyperbot memory status --deep --index --verbose
-hyperbot memory index
-hyperbot memory index --verbose
-hyperbot memory search "release checklist"
-hyperbot memory status --agent main
-hyperbot memory index --agent main --verbose
+ancient-claw memory status
+ancient-claw memory status --deep
+ancient-claw memory status --deep --index
+ancient-claw memory status --deep --index --verbose
+ancient-claw memory index
+ancient-claw memory index --verbose
+ancient-claw memory search "release checklist"
+ancient-claw memory status --agent main
+ancient-claw memory index --agent main --verbose
 ```
 
 ## 选项

@@ -1,18 +1,18 @@
 ---
-summary: "CLI reference for `hyperbot dashboard` (open the Control UI)"
+summary: "CLI reference for `ancient-claw dashboard` (open the Control UI)"
 read_when:
   - You want to open the Control UI with your current token
   - You want to print the URL without launching a browser
 title: "dashboard"
 ---
 
-# `hyperbot dashboard`
+# `ancient-claw dashboard`
 
 Open the Control UI using your current auth.
 
 ```bash
-hyperbot dashboard
-hyperbot dashboard --no-open
+ancient-claw dashboard
+ancient-claw dashboard --no-open
 ```
 
 Notes:

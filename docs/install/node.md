@@ -1,15 +1,15 @@
 ---
 title: "Node.js"
-summary: "Install and configure Node.js for HyperBot — version requirements, install options, and PATH troubleshooting"
+summary: "Install and configure Node.js for Ancient Claw — version requirements, install options, and PATH troubleshooting"
 read_when:
-  - "You need to install Node.js before installing HyperBot"
-  - "You installed HyperBot but `hyperbot` is command not found"
+  - "You need to install Node.js before installing Ancient Claw"
+  - "You installed Ancient Claw but `ancient-claw` is command not found"
   - "npm install -g fails with permissions or PATH issues"
 ---
 
 # Node.js
 
-HyperBot requires **Node 22.14 or newer**. **Node 24 is the default and recommended runtime** for installs, CI, and release workflows. Node 22 remains supported via the active LTS line. The [installer script](/install#alternative-install-methods) will detect and install Node automatically — this page is for when you want to set up Node yourself and make sure everything is wired up correctly (versions, PATH, global installs).
+Ancient Claw requires **Node 22.14 or newer**. **Node 24 is the default and recommended runtime** for installs, CI, and release workflows. Node 22 remains supported via the active LTS line. The [installer script](/install#alternative-install-methods) will detect and install Node automatically — this page is for when you want to set up Node yourself and make sure everything is wired up correctly (versions, PATH, global installs).
 
 ## Check your version
 
@@ -82,13 +82,13 @@ fnm use 24
 ```
 
   <Warning>
-  Make sure your version manager is initialized in your shell startup file (`~/.zshrc` or `~/.bashrc`). If it isn't, `hyperbot` may not be found in new terminal sessions because the PATH won't include Node's bin directory.
+  Make sure your version manager is initialized in your shell startup file (`~/.zshrc` or `~/.bashrc`). If it isn't, `ancient-claw` may not be found in new terminal sessions because the PATH won't include Node's bin directory.
   </Warning>
 </Accordion>
 
 ## Troubleshooting
 
-### `hyperbot: command not found`
+### `ancient-claw: command not found`
 
 This almost always means npm's global bin directory isn't on your PATH.
 

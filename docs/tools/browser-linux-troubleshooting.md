@@ -1,5 +1,5 @@
 ---
-summary: "Fix Chrome/Brave/Edge/Chromium CDP startup issues for HyperBot browser control on Linux"
+summary: "Fix Chrome/Brave/Edge/Chromium CDP startup issues for Ancient Claw browser control on Linux"
 read_when: "Browser control fails on Linux, especially with snap Chromium"
 title: "Browser Troubleshooting"
 ---
@@ -8,15 +8,15 @@ title: "Browser Troubleshooting"
 
 ## Problem: "Failed to start Chrome CDP on port 18800"
 
-HyperBot's browser control server fails to launch Chrome/Brave/Edge/Chromium with the error:
+Ancient Claw's browser control server fails to launch Chrome/Brave/Edge/Chromium with the error:
 
 ```
-{"error":"Error: Failed to start Chrome CDP on port 18800 for profile \"hyperbot\"."}
+{"error":"Error: Failed to start Chrome CDP on port 18800 for profile \"ancient-claw\"."}
 ```
 
 ### Root Cause
 
-On Ubuntu (and many Linux distros), the default Chromium installation is a **snap package**. Snap's AppArmor confinement interferes with how HyperBot spawns and monitors the browser process.
+On Ubuntu (and many Linux distros), the default Chromium installation is a **snap package**. Snap's AppArmor confinement interferes with how Ancient Claw spawns and monitors the browser process.
 
 The `apt install chromium` command installs a stub package that redirects to snap:
 
@@ -37,7 +37,7 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt --fix-broken install -y  # if there are dependency errors
 ```
 
-Then update your HyperBot config (`~/.hyperbot/hyperbot.json`):
+Then update your Ancient Claw config (`~/.ancient-claw/ancient-claw.json`):
 
 ```json
 {
@@ -52,7 +52,7 @@ Then update your HyperBot config (`~/.hyperbot/hyperbot.json`):
 
 ### Solution 2: Use Snap Chromium with Attach-Only Mode
 
-If you must use snap Chromium, configure HyperBot to attach to a manually-started browser:
+If you must use snap Chromium, configure Ancient Claw to attach to a manually-started browser:
 
 1. Update config:
 
@@ -72,20 +72,20 @@ If you must use snap Chromium, configure HyperBot to attach to a manually-starte
 ```bash
 chromium-browser --headless --no-sandbox --disable-gpu \
   --remote-debugging-port=18800 \
-  --user-data-dir=$HOME/.hyperbot/browser/hyperbot/user-data \
+  --user-data-dir=$HOME/.ancient-claw/browser/ancient-claw/user-data \
   about:blank &
 ```
 
 3. Optionally create a systemd user service to auto-start Chrome:
 
 ```ini
-# ~/.config/systemd/user/hyperbot-browser.service
+# ~/.config/systemd/user/ancient-claw-browser.service
 [Unit]
-Description=HyperBot Browser (Chrome CDP)
+Description=Ancient Claw Browser (Chrome CDP)
 After=network.target
 
 [Service]
-ExecStart=/snap/bin/chromium --headless --no-sandbox --disable-gpu --remote-debugging-port=18800 --user-data-dir=%h/.hyperbot/browser/hyperbot/user-data about:blank
+ExecStart=/snap/bin/chromium --headless --no-sandbox --disable-gpu --remote-debugging-port=18800 --user-data-dir=%h/.ancient-claw/browser/ancient-claw/user-data about:blank
 Restart=on-failure
 RestartSec=5
 
@@ -93,7 +93,7 @@ RestartSec=5
 WantedBy=default.target
 ```
 
-Enable with: `systemctl --user enable --now hyperbot-browser.service`
+Enable with: `systemctl --user enable --now ancient-claw-browser.service`
 
 ### Verifying the Browser Works
 
@@ -123,16 +123,16 @@ curl -s http://127.0.0.1:18791/tabs
 
 ### Problem: "No Chrome tabs found for profile=\"user\""
 
-You're using an `existing-session` / Chrome MCP profile. HyperBot can see local Chrome,
+You're using an `existing-session` / Chrome MCP profile. Ancient Claw can see local Chrome,
 but there are no open tabs available to attach to.
 
 Fix options:
 
-1. **Use the managed browser:** `hyperbot browser start --browser-profile hyperbot`
-   (or set `browser.defaultProfile: "hyperbot"`).
+1. **Use the managed browser:** `ancient-claw browser start --browser-profile ancient-claw`
+   (or set `browser.defaultProfile: "ancient-claw"`).
 2. **Use Chrome MCP:** make sure local Chrome is running with at least one open tab, then retry with `--browser-profile user`.
 
 Notes:
 
 - `user` is host-only. For Linux servers, containers, or remote hosts, prefer CDP profiles.
-- Local `hyperbot` profiles auto-assign `cdpPort`/`cdpUrl`; only set those for remote CDP.
+- Local `ancient-claw` profiles auto-assign `cdpPort`/`cdpUrl`; only set those for remote CDP.

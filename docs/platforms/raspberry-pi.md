@@ -1,17 +1,17 @@
 ---
-summary: "HyperBot on Raspberry Pi (budget self-hosted setup)"
+summary: "Ancient Claw on Raspberry Pi (budget self-hosted setup)"
 read_when:
-  - Setting up HyperBot on a Raspberry Pi
-  - Running HyperBot on ARM devices
+  - Setting up Ancient Claw on a Raspberry Pi
+  - Running Ancient Claw on ARM devices
   - Building a cheap always-on personal AI
 title: "Raspberry Pi (Platform)"
 ---
 
-# HyperBot on Raspberry Pi
+# Ancient Claw on Raspberry Pi
 
 ## Goal
 
-Run a persistent, always-on HyperBot Gateway on a Raspberry Pi for **~$35-80** one-time cost (no monthly fees).
+Run a persistent, always-on Ancient Claw Gateway on a Raspberry Pi for **~$35-80** one-time cost (no monthly fees).
 
 Perfect for:
 
@@ -107,19 +107,19 @@ echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
 
-## 6) Install HyperBot
+## 6) Install Ancient Claw
 
 ### Option A: Standard Install (Recommended)
 
 ```bash
-curl -fsSL https://hyperbot.ai/install.sh | bash
+curl -fsSL https://ancient-claw.ai/install.sh | bash
 ```
 
 ### Option B: Hackable Install (For tinkering)
 
 ```bash
-git clone https://github.com/hyperbot/hyperbot.git
-cd hyperbot
+git clone https://github.com/ancient-claw/ancient-claw.git
+cd ancient-claw
 npm install
 npm run build
 npm link
@@ -130,7 +130,7 @@ The hackable install gives you direct access to logs and code — useful for deb
 ## 7) Run Onboarding
 
 ```bash
-hyperbot onboard --install-daemon
+ancient-claw onboard --install-daemon
 ```
 
 Follow the wizard:
@@ -144,23 +144,23 @@ Follow the wizard:
 
 ```bash
 # Check status
-hyperbot status
+ancient-claw status
 
 # Check service
-sudo systemctl status hyperbot
+sudo systemctl status ancient-claw
 
 # View logs
-journalctl -u hyperbot -f
+journalctl -u ancient-claw -f
 ```
 
-## 9) Access the HyperBot Dashboard
+## 9) Access the Ancient Claw Dashboard
 
 Replace `user@gateway-host` with your Pi username and hostname or IP address.
 
 On your computer, ask the Pi to print a fresh dashboard URL:
 
 ```bash
-ssh user@gateway-host 'hyperbot dashboard --no-open'
+ssh user@gateway-host 'ancient-claw dashboard --no-open'
 ```
 
 The command prints `Dashboard URL:`. Depending on how `gateway.auth.token`
@@ -200,9 +200,9 @@ See [Pi USB boot guide](https://www.raspberrypi.com/documentation/computers/rasp
 On lower-power Pi hosts, enable Node's module compile cache so repeated CLI runs are faster:
 
 ```bash
-grep -q 'NODE_COMPILE_CACHE=/var/tmp/hyperbot-compile-cache' ~/.bashrc || cat >> ~/.bashrc <<'EOF' # pragma: allowlist secret
-export NODE_COMPILE_CACHE=/var/tmp/hyperbot-compile-cache
-mkdir -p /var/tmp/hyperbot-compile-cache
+grep -q 'NODE_COMPILE_CACHE=/var/tmp/ancient-claw-compile-cache' ~/.bashrc || cat >> ~/.bashrc <<'EOF' # pragma: allowlist secret
+export NODE_COMPILE_CACHE=/var/tmp/ancient-claw-compile-cache
+mkdir -p /var/tmp/ancient-claw-compile-cache
 export OPENCLAW_NO_RESPAWN=1
 EOF
 source ~/.bashrc
@@ -217,17 +217,17 @@ Notes:
 
 ### systemd startup tuning (optional)
 
-If this Pi is mostly running HyperBot, add a service drop-in to reduce restart
+If this Pi is mostly running Ancient Claw, add a service drop-in to reduce restart
 jitter and keep startup env stable:
 
 ```bash
-sudo systemctl edit hyperbot
+sudo systemctl edit ancient-claw
 ```
 
 ```ini
 [Service]
 Environment=OPENCLAW_NO_RESPAWN=1
-Environment=NODE_COMPILE_CACHE=/var/tmp/hyperbot-compile-cache
+Environment=NODE_COMPILE_CACHE=/var/tmp/ancient-claw-compile-cache
 Restart=always
 RestartSec=2
 TimeoutStartSec=90
@@ -237,10 +237,10 @@ Then apply:
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl restart hyperbot
+sudo systemctl restart ancient-claw
 ```
 
-If possible, keep HyperBot state/cache on SSD-backed storage to avoid SD-card
+If possible, keep Ancient Claw state/cache on SSD-backed storage to avoid SD-card
 random-I/O bottlenecks during cold starts.
 
 How `Restart=` policies help automated recovery:
@@ -275,7 +275,7 @@ htop
 
 ### Binary Compatibility
 
-Most HyperBot features work on ARM64, but some external binaries may need ARM builds:
+Most Ancient Claw features work on ARM64, but some external binaries may need ARM builds:
 
 | Tool               | ARM64 Status | Notes                               |
 | ------------------ | ------------ | ----------------------------------- |
@@ -325,13 +325,13 @@ Onboarding sets this up, but to verify:
 
 ```bash
 # Check service is enabled
-sudo systemctl is-enabled hyperbot
+sudo systemctl is-enabled ancient-claw
 
 # Enable if not
-sudo systemctl enable hyperbot
+sudo systemctl enable ancient-claw
 
 # Start on boot
-sudo systemctl start hyperbot
+sudo systemctl start ancient-claw
 ```
 
 ---
@@ -358,12 +358,12 @@ free -h
 
 ```bash
 # Check logs
-journalctl -u hyperbot --no-pager -n 100
+journalctl -u ancient-claw --no-pager -n 100
 
 # Common fix: rebuild
-cd ~/hyperbot  # if using hackable install
+cd ~/ancient-claw  # if using hackable install
 npm run build
-sudo systemctl restart hyperbot
+sudo systemctl restart ancient-claw
 ```
 
 ### ARM Binary Issues

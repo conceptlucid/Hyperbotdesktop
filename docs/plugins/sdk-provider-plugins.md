@@ -1,21 +1,21 @@
 ---
 title: "Building Provider Plugins"
 sidebarTitle: "Provider Plugins"
-summary: "Step-by-step guide to building a model provider plugin for HyperBot"
+summary: "Step-by-step guide to building a model provider plugin for Ancient Claw"
 read_when:
   - You are building a new model provider plugin
-  - You want to add an OpenAI-compatible proxy or custom LLM to HyperBot
+  - You want to add an OpenAI-compatible proxy or custom LLM to Ancient Claw
   - You need to understand provider auth, catalogs, and runtime hooks
 ---
 
 # Building Provider Plugins
 
 This guide walks through building a provider plugin that adds a model provider
-(LLM) to HyperBot. By the end you will have a provider with a model catalog,
+(LLM) to Ancient Claw. By the end you will have a provider with a model catalog,
 API key auth, and dynamic model resolution.
 
 <Info>
-  If you have not built any HyperBot plugin before, read
+  If you have not built any Ancient Claw plugin before, read
   [Getting Started](/plugins/building-plugins) first for the basic package
   structure and manifest setup.
 </Info>
@@ -27,17 +27,17 @@ API key auth, and dynamic model resolution.
     <CodeGroup>
     ```json package.json
     {
-      "name": "@myorg/hyperbot-acme-ai",
+      "name": "@myorg/ancient-claw-acme-ai",
       "version": "1.0.0",
       "type": "module",
-      "hyperbot": {
+      "ancient-claw": {
         "extensions": ["./index.ts"],
         "providers": ["acme-ai"]
       }
     }
     ```
 
-    ```json hyperbot.plugin.json
+    ```json ancient-claw.plugin.json
     {
       "id": "acme-ai",
       "name": "Acme AI",
@@ -67,7 +67,7 @@ API key auth, and dynamic model resolution.
     ```
     </CodeGroup>
 
-    The manifest declares `providerAuthEnvVars` so HyperBot can detect
+    The manifest declares `providerAuthEnvVars` so Ancient Claw can detect
     credentials without loading your plugin runtime.
 
   </Step>
@@ -76,8 +76,8 @@ API key auth, and dynamic model resolution.
     A minimal provider needs an `id`, `label`, `auth`, and `catalog`:
 
     ```typescript index.ts
-    import { definePluginEntry } from "hyperbot/plugin-sdk/plugin-entry";
-    import { createProviderApiKeyAuthMethod } from "hyperbot/plugin-sdk/provider-auth";
+    import { definePluginEntry } from "ancient-claw/plugin-sdk/plugin-entry";
+    import { createProviderApiKeyAuthMethod } from "ancient-claw/plugin-sdk/provider-auth";
 
     export default definePluginEntry({
       id: "acme-ai",
@@ -145,7 +145,7 @@ API key auth, and dynamic model resolution.
     ```
 
     That is a working provider. Users can now
-    `hyperbot onboard --acme-ai-api-key <key>` and select
+    `ancient-claw onboard --acme-ai-api-key <key>` and select
     `acme-ai/acme-large` as their model.
 
     For bundled providers that only register one text provider with API-key
@@ -153,7 +153,7 @@ API key auth, and dynamic model resolution.
     `defineSingleProviderPluginEntry(...)` helper:
 
     ```typescript
-    import { defineSingleProviderPluginEntry } from "hyperbot/plugin-sdk/provider-entry";
+    import { defineSingleProviderPluginEntry } from "ancient-claw/plugin-sdk/provider-entry";
 
     export default defineSingleProviderPluginEntry({
       id: "acme-ai",
@@ -187,7 +187,7 @@ API key auth, and dynamic model resolution.
 
     If your auth flow also needs to patch `models.providers.*`, aliases, and
     the agent default model during onboarding, use the preset helpers from
-    `hyperbot/plugin-sdk/provider-onboard`. The narrowest helpers are
+    `ancient-claw/plugin-sdk/provider-onboard`. The narrowest helpers are
     `createDefaultModelPresetAppliers(...)`,
     `createDefaultModelsPresetAppliers(...)`, and
     `createModelCatalogPresetAppliers(...)`.
@@ -275,7 +275,7 @@ API key auth, and dynamic model resolution.
     </Tabs>
 
     <Accordion title="All available provider hooks">
-      HyperBot calls hooks in this order. Most providers only use 2-3:
+      Ancient Claw calls hooks in this order. Most providers only use 2-3:
 
       | # | Hook | When to use |
       | --- | --- | --- |
@@ -343,7 +343,7 @@ API key auth, and dynamic model resolution.
     }
     ```
 
-    HyperBot classifies this as a **hybrid-capability** plugin. This is the
+    Ancient Claw classifies this as a **hybrid-capability** plugin. This is the
     recommended pattern for company plugins (one plugin per vendor). See
     [Internals: Capability Ownership](/plugins/architecture#capability-ownership-model).
 
@@ -387,8 +387,8 @@ API key auth, and dynamic model resolution.
 
 ```
 extensions/acme-ai/
-├── package.json              # hyperbot.providers metadata
-├── hyperbot.plugin.json      # Manifest with providerAuthEnvVars
+├── package.json              # ancient-claw.providers metadata
+├── ancient-claw.plugin.json      # Manifest with providerAuthEnvVars
 ├── index.ts                  # definePluginEntry + registerProvider
 └── src/
     ├── provider.test.ts      # Tests

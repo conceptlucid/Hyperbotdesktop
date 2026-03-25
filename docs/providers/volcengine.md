@@ -2,7 +2,7 @@
 title: "Volcengine (Doubao)"
 summary: "Volcano Engine setup (Doubao models, general + coding endpoints)"
 read_when:
-  - You want to use Volcano Engine or Doubao models with HyperBot
+  - You want to use Volcano Engine or Doubao models with Ancient Claw
   - You need the Volcengine API key setup
 ---
 
@@ -21,7 +21,7 @@ workloads.
 1. Set the API key:
 
 ```bash
-hyperbot onboard --auth-choice volcengine-api-key
+ancient-claw onboard --auth-choice volcengine-api-key
 ```
 
 2. Set a default model:
@@ -39,7 +39,7 @@ hyperbot onboard --auth-choice volcengine-api-key
 ## Non-interactive example
 
 ```bash
-hyperbot onboard --non-interactive \
+ancient-claw onboard --non-interactive \
   --mode local \
   --auth-choice volcengine-api-key \
   --volcengine-api-key "$VOLCANO_ENGINE_API_KEY"
@@ -71,4 +71,4 @@ tokens.
 
 If the Gateway runs as a daemon (launchd/systemd), make sure
 `VOLCANO_ENGINE_API_KEY` is available to that process (for example, in
-`~/.hyperbot/.env` or via `env.shellEnv`).
+`~/.ancient-claw/.env` or via `env.shellEnv`).

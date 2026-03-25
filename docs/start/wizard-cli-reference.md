@@ -1,7 +1,7 @@
 ---
 summary: "Complete reference for CLI setup flow, auth/model setup, outputs, and internals"
 read_when:
-  - You need detailed behavior for hyperbot onboard
+  - You need detailed behavior for ancient-claw onboard
   - You are debugging onboarding results or integrating onboarding clients
 title: "CLI Setup Reference"
 sidebarTitle: "CLI reference"
@@ -9,7 +9,7 @@ sidebarTitle: "CLI reference"
 
 # CLI Setup Reference
 
-This page is the full reference for `hyperbot onboard`.
+This page is the full reference for `ancient-claw onboard`.
 For the short guide, see [Onboarding (CLI)](/start/wizard).
 
 ## What the wizard does
@@ -31,10 +31,10 @@ It does not install or modify anything on the remote host.
 
 <Steps>
   <Step title="Existing config detection">
-    - If `~/.hyperbot/hyperbot.json` exists, choose Keep, Modify, or Reset.
+    - If `~/.ancient-claw/ancient-claw.json` exists, choose Keep, Modify, or Reset.
     - Re-running the wizard does not wipe anything unless you explicitly choose Reset (or pass `--reset`).
     - CLI `--reset` defaults to `config+creds+sessions`; use `--reset-scope full` to also remove workspace.
-    - If config is invalid or contains legacy keys, the wizard stops and asks you to run `hyperbot doctor` before continuing.
+    - If config is invalid or contains legacy keys, the wizard stops and asks you to run `ancient-claw doctor` before continuing.
     - Reset uses `trash` and offers scopes:
       - Config only
       - Config + credentials + sessions
@@ -44,7 +44,7 @@ It does not install or modify anything on the remote host.
     - Full option matrix is in [Auth and model options](#auth-and-model-options).
   </Step>
   <Step title="Workspace">
-    - Default `~/.hyperbot/workspace` (configurable).
+    - Default `~/.ancient-claw/workspace` (configurable).
     - Seeds workspace files needed for first-run bootstrap ritual.
     - Workspace layout: [Agent workspace](/concepts/agent-workspace).
   </Step>
@@ -71,7 +71,7 @@ It does not install or modify anything on the remote host.
     - [BlueBubbles](/channels/bluebubbles): recommended for iMessage; server URL + password + webhook
     - [iMessage](/channels/imessage): legacy `imsg` CLI path + DB access
     - DM security: default is pairing. First DM sends a code; approve via
-      `hyperbot pairing approve <channel> <code>` or use allowlists.
+      `ancient-claw pairing approve <channel> <code>` or use allowlists.
   </Step>
   <Step title="Daemon install">
     - macOS: LaunchAgent
@@ -82,8 +82,8 @@ It does not install or modify anything on the remote host.
     - Runtime selection: Node (recommended; required for WhatsApp and Telegram). Bun is not recommended.
   </Step>
   <Step title="Health check">
-    - Starts gateway (if needed) and runs `hyperbot health`.
-    - `hyperbot status --deep` adds gateway health probes to status output.
+    - Starts gateway (if needed) and runs `ancient-claw health`.
+    - `ancient-claw status --deep` adds gateway health probes to status output.
   </Step>
   <Step title="Skills">
     - Reads available skills and checks requirements.
@@ -215,8 +215,8 @@ Model behavior:
 
 Credential and profile paths:
 
-- OAuth credentials: `~/.hyperbot/credentials/oauth.json`
-- Auth profiles (API keys + OAuth): `~/.hyperbot/agents/<agentId>/agent/auth-profiles.json`
+- OAuth credentials: `~/.ancient-claw/credentials/oauth.json`
+- Auth profiles (API keys + OAuth): `~/.ancient-claw/agents/<agentId>/agent/auth-profiles.json`
 
 Credential storage mode:
 
@@ -242,13 +242,13 @@ Credential storage mode:
 
 <Note>
 Headless and server tip: complete OAuth on a machine with a browser, then copy
-`~/.hyperbot/credentials/oauth.json` (or `$OPENCLAW_STATE_DIR/credentials/oauth.json`)
+`~/.ancient-claw/credentials/oauth.json` (or `$OPENCLAW_STATE_DIR/credentials/oauth.json`)
 to the gateway host.
 </Note>
 
 ## Outputs and internals
 
-Typical fields in `~/.hyperbot/hyperbot.json`:
+Typical fields in `~/.ancient-claw/ancient-claw.json`:
 
 - `agents.defaults.workspace`
 - `agents.defaults.model` / `models.providers` (if Minimax chosen)
@@ -264,10 +264,10 @@ Typical fields in `~/.hyperbot/hyperbot.json`:
 - `wizard.lastRunCommand`
 - `wizard.lastRunMode`
 
-`hyperbot agents add` writes `agents.list[]` and optional `bindings`.
+`ancient-claw agents add` writes `agents.list[]` and optional `bindings`.
 
-WhatsApp credentials go under `~/.hyperbot/credentials/whatsapp/<accountId>/`.
-Sessions are stored under `~/.hyperbot/agents/<agentId>/sessions/`.
+WhatsApp credentials go under `~/.ancient-claw/credentials/whatsapp/<accountId>/`.
+Sessions are stored under `~/.ancient-claw/agents/<agentId>/sessions/`.
 
 <Note>
 Some channels are delivered as plugins. When selected during setup, the wizard
@@ -286,7 +286,7 @@ Clients (macOS app and Control UI) can render steps without re-implementing onbo
 Signal setup behavior:
 
 - Downloads the appropriate release asset
-- Stores it under `~/.hyperbot/tools/signal-cli/<version>/`
+- Stores it under `~/.ancient-claw/tools/signal-cli/<version>/`
 - Writes `channels.signal.cliPath` in config
 - JVM builds require Java 21
 - Native builds are used when available
@@ -296,4 +296,4 @@ Signal setup behavior:
 
 - Onboarding hub: [Onboarding (CLI)](/start/wizard)
 - Automation and scripts: [CLI Automation](/start/wizard-cli-automation)
-- Command reference: [`hyperbot onboard`](/cli/onboard)
+- Command reference: [`ancient-claw onboard`](/cli/onboard)

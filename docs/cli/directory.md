@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `hyperbot directory` (self, peers, groups)"
+summary: "CLI reference for `ancient-claw directory` (self, peers, groups)"
 read_when:
   - You want to look up contacts/groups/self ids for a channel
   - You are developing a channel directory adapter
 title: "directory"
 ---
 
-# `hyperbot directory`
+# `ancient-claw directory`
 
 Directory lookups for channels that support it (contacts/peers, groups, and “me”).
 
@@ -18,15 +18,15 @@ Directory lookups for channels that support it (contacts/peers, groups, and “m
 
 ## Notes
 
-- `directory` is meant to help you find IDs you can paste into other commands (especially `hyperbot message send --target ...`).
+- `directory` is meant to help you find IDs you can paste into other commands (especially `ancient-claw message send --target ...`).
 - For many channels, results are config-backed (allowlists / configured groups) rather than a live provider directory.
 - Default output is `id` (and sometimes `name`) separated by a tab; use `--json` for scripting.
 
 ## Using results with `message send`
 
 ```bash
-hyperbot directory peers list --channel slack --query "U0"
-hyperbot message send --channel slack --target user:U012ABCDEF --message "hello"
+ancient-claw directory peers list --channel slack --query "U0"
+ancient-claw message send --channel slack --target user:U012ABCDEF --message "hello"
 ```
 
 ## ID formats (by channel)
@@ -43,21 +43,21 @@ hyperbot message send --channel slack --target user:U012ABCDEF --message "hello"
 ## Self ("me")
 
 ```bash
-hyperbot directory self --channel zalouser
+ancient-claw directory self --channel zalouser
 ```
 
 ## Peers (contacts/users)
 
 ```bash
-hyperbot directory peers list --channel zalouser
-hyperbot directory peers list --channel zalouser --query "name"
-hyperbot directory peers list --channel zalouser --limit 50
+ancient-claw directory peers list --channel zalouser
+ancient-claw directory peers list --channel zalouser --query "name"
+ancient-claw directory peers list --channel zalouser --limit 50
 ```
 
 ## Groups
 
 ```bash
-hyperbot directory groups list --channel zalouser
-hyperbot directory groups list --channel zalouser --query "work"
-hyperbot directory groups members --channel zalouser --group-id <id>
+ancient-claw directory groups list --channel zalouser
+ancient-claw directory groups list --channel zalouser --query "work"
+ancient-claw directory groups members --channel zalouser --group-id <id>
 ```

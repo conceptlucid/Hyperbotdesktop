@@ -9,7 +9,7 @@ title: "Credits"
 
 ## The name
 
-HyperBot = CLAW + TARDIS, because every space lobster needs a time and space machine.
+Ancient Claw = CLAW + TARDIS, because every space lobster needs a time and space machine.
 
 ## Credits
 

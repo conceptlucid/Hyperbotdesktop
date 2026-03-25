@@ -1,14 +1,14 @@
 ---
 summary: "Zalo Personal plugin: QR login + messaging via native zca-js (plugin install + channel config + tool)"
 read_when:
-  - You want Zalo Personal (unofficial) support in HyperBot
+  - You want Zalo Personal (unofficial) support in Ancient Claw
   - You are configuring or developing the zalouser plugin
 title: "Zalo Personal Plugin"
 ---
 
 # Zalo Personal (plugin)
 
-Zalo Personal support for HyperBot via a plugin, using native `zca-js` to automate a normal Zalo user account.
+Zalo Personal support for Ancient Claw via a plugin, using native `zca-js` to automate a normal Zalo user account.
 
 > **Warning:** Unofficial automation may lead to account suspension/ban. Use at your own risk.
 
@@ -29,7 +29,7 @@ No external `zca`/`openzca` CLI binary is required.
 ### Option A: install from npm
 
 ```bash
-hyperbot plugins install @hyperbot/zalouser
+ancient-claw plugins install @ancient-claw/zalouser
 ```
 
 Restart the Gateway afterwards.
@@ -37,7 +37,7 @@ Restart the Gateway afterwards.
 ### Option B: install from a local folder (dev)
 
 ```bash
-hyperbot plugins install ./extensions/zalouser
+ancient-claw plugins install ./extensions/zalouser
 cd ./extensions/zalouser && pnpm install
 ```
 
@@ -61,11 +61,11 @@ Channel config lives under `channels.zalouser` (not `plugins.entries.*`):
 ## CLI
 
 ```bash
-hyperbot channels login --channel zalouser
-hyperbot channels logout --channel zalouser
-hyperbot channels status --probe
-hyperbot message send --channel zalouser --target <threadId> --message "Hello from HyperBot"
-hyperbot directory peers list --channel zalouser --query "name"
+ancient-claw channels login --channel zalouser
+ancient-claw channels logout --channel zalouser
+ancient-claw channels status --probe
+ancient-claw message send --channel zalouser --target <threadId> --message "Hello from Ancient Claw"
+ancient-claw directory peers list --channel zalouser --query "name"
 ```
 
 ## Agent tool

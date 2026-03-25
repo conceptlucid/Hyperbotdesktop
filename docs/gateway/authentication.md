@@ -8,7 +8,7 @@ title: "Authentication"
 
 # Authentication
 
-HyperBot supports OAuth and API keys for model providers. For always-on gateway
+Ancient Claw supports OAuth and API keys for model providers. For always-on gateway
 hosts, API keys are usually the most predictable option. Subscription/OAuth
 flows are also supported when they match your provider account model.
 
@@ -26,18 +26,18 @@ For Anthropic specifically, API key auth is the safe path and is recommended
 over subscription setup-token auth.
 
 1. Create an API key in your provider console.
-2. Put it on the **gateway host** (the machine running `hyperbot gateway`).
+2. Put it on the **gateway host** (the machine running `ancient-claw gateway`).
 
 ```bash
 export <PROVIDER>_API_KEY="..."
-hyperbot models status
+ancient-claw models status
 ```
 
 3. If the Gateway runs under systemd/launchd, prefer putting the key in
-   `~/.hyperbot/.env` so the daemon can read it:
+   `~/.ancient-claw/.env` so the daemon can read it:
 
 ```bash
-cat >> ~/.hyperbot/.env <<'EOF'
+cat >> ~/.ancient-claw/.env <<'EOF'
 <PROVIDER>_API_KEY=...
 EOF
 ```
@@ -45,15 +45,15 @@ EOF
 Then restart the daemon (or restart your Gateway process) and re-check:
 
 ```bash
-hyperbot models status
-hyperbot doctor
+ancient-claw models status
+ancient-claw doctor
 ```
 
 If you’d rather not manage env vars yourself, onboarding can store
-API keys for daemon use: `hyperbot onboard`.
+API keys for daemon use: `ancient-claw onboard`.
 
 See [Help](/help) for details on env inheritance (`env.shellEnv`,
-`~/.hyperbot/.env`, systemd/launchd).
+`~/.ancient-claw/.env`, systemd/launchd).
 
 ## Anthropic: setup-token (subscription auth)
 
@@ -64,16 +64,16 @@ it on the **gateway host**:
 claude setup-token
 ```
 
-Then paste it into HyperBot:
+Then paste it into Ancient Claw:
 
 ```bash
-hyperbot models auth setup-token --provider anthropic
+ancient-claw models auth setup-token --provider anthropic
 ```
 
 If the token was created on another machine, paste it manually:
 
 ```bash
-hyperbot models auth paste-token --provider anthropic
+ancient-claw models auth paste-token --provider anthropic
 ```
 
 If you see an Anthropic error like:
@@ -93,8 +93,8 @@ the policy risk is acceptable, and verify Anthropic's current terms yourself.
 Manual token entry (any provider; writes `auth-profiles.json` + updates config):
 
 ```bash
-hyperbot models auth paste-token --provider anthropic
-hyperbot models auth paste-token --provider openrouter
+ancient-claw models auth paste-token --provider anthropic
+ancient-claw models auth paste-token --provider openrouter
 ```
 
 Auth profile refs are also supported for static credentials:
@@ -105,7 +105,7 @@ Auth profile refs are also supported for static credentials:
 Automation-friendly check (exit `1` when expired/missing, `2` when expiring):
 
 ```bash
-hyperbot models status --check
+ancient-claw models status --check
 ```
 
 Optional ops scripts (systemd/Termux) are documented here:
@@ -116,8 +116,8 @@ Optional ops scripts (systemd/Termux) are documented here:
 ## Checking model auth status
 
 ```bash
-hyperbot models status
-hyperbot doctor
+ancient-claw models status
+ancient-claw doctor
 ```
 
 ## API key rotation behavior (gateway)
@@ -132,7 +132,7 @@ hits a provider rate limit.
   - `<PROVIDER>_API_KEY_*`
 - Google providers also include `GOOGLE_API_KEY` as an additional fallback.
 - The same key list is deduplicated before use.
-- HyperBot retries with the next key only for rate-limit errors (for example
+- Ancient Claw retries with the next key only for rate-limit errors (for example
   `429`, `rate_limit`, `quota`, `resource exhausted`).
 - Non-rate-limit errors are not retried with alternate keys.
 - If all keys fail, the final error from the last attempt is returned.
@@ -150,9 +150,9 @@ Use `/model` (or `/model list`) for a compact picker; use `/model status` for th
 Set an explicit auth profile order override for an agent (stored in that agent’s `auth-profiles.json`):
 
 ```bash
-hyperbot models auth order get --provider anthropic
-hyperbot models auth order set --provider anthropic anthropic:default
-hyperbot models auth order clear --provider anthropic
+ancient-claw models auth order get --provider anthropic
+ancient-claw models auth order set --provider anthropic anthropic:default
+ancient-claw models auth order clear --provider anthropic
 ```
 
 Use `--agent <id>` to target a specific agent; omit it to use the configured default agent.
@@ -165,12 +165,12 @@ If the Anthropic token profile is missing, run `claude setup-token` on the
 **gateway host**, then re-check:
 
 ```bash
-hyperbot models status
+ancient-claw models status
 ```
 
 ### Token expiring/expired
 
-Run `hyperbot models status` to confirm which profile is expiring. If the profile
+Run `ancient-claw models status` to confirm which profile is expiring. If the profile
 is missing, rerun `claude setup-token` and paste the token again.
 
 ## Requirements

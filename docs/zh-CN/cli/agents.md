@@ -1,7 +1,7 @@
 ---
 read_when:
   - 你需要多个隔离的智能体（工作区 + 路由 + 认证）
-summary: "`hyperbot agents` 的 CLI 参考（列出/添加/删除/设置身份）"
+summary: "`ancient-claw agents` 的 CLI 参考（列出/添加/删除/设置身份）"
 title: agents
 x-i18n:
   generated_at: "2026-02-01T19:58:38Z"
@@ -12,7 +12,7 @@ x-i18n:
   workflow: 14
 ---
 
-# `hyperbot agents`
+# `ancient-claw agents`
 
 管理隔离的智能体（工作区 + 认证 + 路由）。
 
@@ -24,18 +24,18 @@ x-i18n:
 ## 示例
 
 ```bash
-hyperbot agents list
-hyperbot agents add work --workspace ~/.hyperbot/workspace-work
-hyperbot agents set-identity --workspace ~/.hyperbot/workspace --from-identity
-hyperbot agents set-identity --agent main --avatar avatars/hyperbot.png
-hyperbot agents delete work
+ancient-claw agents list
+ancient-claw agents add work --workspace ~/.ancient-claw/workspace-work
+ancient-claw agents set-identity --workspace ~/.ancient-claw/workspace --from-identity
+ancient-claw agents set-identity --agent main --avatar avatars/ancient-claw.png
+ancient-claw agents delete work
 ```
 
 ## 身份文件
 
 每个智能体工作区可以在工作区根目录包含一个 `IDENTITY.md`：
 
-- 示例路径：`~/.hyperbot/workspace/IDENTITY.md`
+- 示例路径：`~/.ancient-claw/workspace/IDENTITY.md`
 - `set-identity --from-identity` 从工作区根目录读取（或从显式指定的 `--identity-file` 读取）
 
 头像路径相对于工作区根目录解析。
@@ -52,13 +52,13 @@ hyperbot agents delete work
 从 `IDENTITY.md` 加载：
 
 ```bash
-hyperbot agents set-identity --workspace ~/.hyperbot/workspace --from-identity
+ancient-claw agents set-identity --workspace ~/.ancient-claw/workspace --from-identity
 ```
 
 显式覆盖字段：
 
 ```bash
-hyperbot agents set-identity --agent main --name "HyperBot" --emoji "🦞" --avatar avatars/hyperbot.png
+ancient-claw agents set-identity --agent main --name "Ancient Claw" --emoji "🦞" --avatar avatars/ancient-claw.png
 ```
 
 配置示例：
@@ -70,10 +70,10 @@ hyperbot agents set-identity --agent main --name "HyperBot" --emoji "🦞" --ava
       {
         id: "main",
         identity: {
-          name: "HyperBot",
+          name: "Ancient Claw",
           theme: "space lobster",
           emoji: "🦞",
-          avatar: "avatars/hyperbot.png",
+          avatar: "avatars/ancient-claw.png",
         },
       },
     ],

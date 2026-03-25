@@ -8,7 +8,7 @@ title: "Tools Invoke API"
 
 # Tools Invoke (HTTP)
 
-HyperBot’s Gateway exposes a simple HTTP endpoint for invoking a single tool directly. It is always enabled and uses Gateway auth plus tool policy, but callers that pass Gateway bearer auth are treated as trusted operators for that gateway.
+Ancient Claw’s Gateway exposes a simple HTTP endpoint for invoking a single tool directly. It is always enabled and uses Gateway auth plus tool policy, but callers that pass Gateway bearer auth are treated as trusted operators for that gateway.
 
 - `POST /tools/invoke`
 - Same port as the Gateway (WS + HTTP multiplex): `http://<gateway-host>:<port>/tools/invoke`
@@ -91,8 +91,8 @@ You can customize this deny list via `gateway.tools`:
 
 To help group policies resolve context, you can optionally set:
 
-- `x-hyperbot-message-channel: <channel>` (example: `slack`, `telegram`)
-- `x-hyperbot-account-id: <accountId>` (when multiple accounts exist)
+- `x-ancient-claw-message-channel: <channel>` (example: `slack`, `telegram`)
+- `x-ancient-claw-account-id: <accountId>` (when multiple accounts exist)
 
 ## Responses
 

@@ -1,7 +1,7 @@
 ---
 summary: "Nostr DM channel via NIP-04 encrypted messages"
 read_when:
-  - You want HyperBot to receive DMs via Nostr
+  - You want Ancient Claw to receive DMs via Nostr
   - You're setting up decentralized messaging
 title: "Nostr"
 ---
@@ -10,13 +10,13 @@ title: "Nostr"
 
 **Status:** Optional plugin (disabled by default).
 
-Nostr is a decentralized protocol for social networking. This channel enables HyperBot to receive and respond to encrypted direct messages (DMs) via NIP-04.
+Nostr is a decentralized protocol for social networking. This channel enables Ancient Claw to receive and respond to encrypted direct messages (DMs) via NIP-04.
 
 ## Install (on demand)
 
 ### Onboarding (recommended)
 
-- Onboarding (`hyperbot onboard`) and `hyperbot channels add` list optional channel plugins.
+- Onboarding (`ancient-claw onboard`) and `ancient-claw channels add` list optional channel plugins.
 - Selecting Nostr prompts you to install the plugin on demand.
 
 Install defaults:
@@ -29,13 +29,13 @@ You can always override the choice in the prompt.
 ### Manual install
 
 ```bash
-hyperbot plugins install @hyperbot/nostr
+ancient-claw plugins install @ancient-claw/nostr
 ```
 
 Use a local checkout (dev workflows):
 
 ```bash
-hyperbot plugins install --link <path-to-hyperbot>/extensions/nostr
+ancient-claw plugins install --link <path-to-ancient-claw>/extensions/nostr
 ```
 
 Restart the Gateway after installing or enabling plugins.
@@ -43,8 +43,8 @@ Restart the Gateway after installing or enabling plugins.
 ### Non-interactive setup
 
 ```bash
-hyperbot channels add --channel nostr --private-key "$NOSTR_PRIVATE_KEY"
-hyperbot channels add --channel nostr --private-key "$NOSTR_PRIVATE_KEY" --relay-urls "wss://relay.damus.io,wss://relay.primal.net"
+ancient-claw channels add --channel nostr --private-key "$NOSTR_PRIVATE_KEY"
+ancient-claw channels add --channel nostr --private-key "$NOSTR_PRIVATE_KEY" --relay-urls "wss://relay.damus.io,wss://relay.primal.net"
 ```
 
 Use `--use-env` to keep `NOSTR_PRIVATE_KEY` in the environment instead of storing the key in config.
@@ -102,14 +102,14 @@ Example:
     nostr: {
       privateKey: "${NOSTR_PRIVATE_KEY}",
       profile: {
-        name: "hyperbot",
-        displayName: "HyperBot",
+        name: "ancient-claw",
+        displayName: "Ancient Claw",
         about: "Personal assistant DM bot",
         picture: "https://example.com/avatar.png",
         banner: "https://example.com/banner.png",
         website: "https://example.com",
-        nip05: "hyperbot@example.com",
-        lud16: "hyperbot@example.com",
+        nip05: "ancient-claw@example.com",
+        lud16: "ancient-claw@example.com",
       },
     },
   },

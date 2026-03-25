@@ -2,7 +2,7 @@
 title: "Google (Gemini)"
 summary: "Google Gemini setup (API key + OAuth, image generation, media understanding, web search)"
 read_when:
-  - You want to use Google Gemini models with HyperBot
+  - You want to use Google Gemini models with Ancient Claw
   - You need the API key or OAuth auth flow
 ---
 
@@ -22,7 +22,7 @@ Gemini Grounding.
 1. Set the API key:
 
 ```bash
-hyperbot onboard --auth-choice google-api-key
+ancient-claw onboard --auth-choice google-api-key
 ```
 
 2. Set a default model:
@@ -40,7 +40,7 @@ hyperbot onboard --auth-choice google-api-key
 ## Non-interactive example
 
 ```bash
-hyperbot onboard --non-interactive \
+ancient-claw onboard --non-interactive \
   --mode local \
   --auth-choice google-api-key \
   --gemini-api-key "$GEMINI_API_KEY"
@@ -74,5 +74,5 @@ Environment variables:
 ## Environment note
 
 If the Gateway runs as a daemon (launchd/systemd), make sure `GEMINI_API_KEY`
-is available to that process (for example, in `~/.hyperbot/.env` or via
+is available to that process (for example, in `~/.ancient-claw/.env` or via
 `env.shellEnv`).

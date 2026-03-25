@@ -1,7 +1,7 @@
 ---
 title: "Plugin Testing"
 sidebarTitle: "Testing"
-summary: "Testing utilities and patterns for HyperBot plugins"
+summary: "Testing utilities and patterns for Ancient Claw plugins"
 read_when:
   - You are writing tests for a plugin
   - You need test utilities from the plugin SDK
@@ -10,7 +10,7 @@ read_when:
 
 # Plugin Testing
 
-Reference for test utilities, patterns, and lint enforcement for HyperBot
+Reference for test utilities, patterns, and lint enforcement for Ancient Claw
 plugins.
 
 <Tip>
@@ -21,7 +21,7 @@ plugins.
 
 ## Test utilities
 
-**Import:** `hyperbot/plugin-sdk/testing`
+**Import:** `ancient-claw/plugin-sdk/testing`
 
 The testing subpath exports a narrow set of helpers for plugin authors:
 
@@ -30,7 +30,7 @@ import {
   installCommonResolveTargetErrorCases,
   shouldAckReaction,
   removeAckReactionAfterReply,
-} from "hyperbot/plugin-sdk/testing";
+} from "ancient-claw/plugin-sdk/testing";
 ```
 
 ### Available exports
@@ -49,11 +49,11 @@ The testing subpath also re-exports types useful in test files:
 import type {
   ChannelAccountSnapshot,
   ChannelGatewayContext,
-  HyperBotConfig,
+  Ancient ClawConfig,
   PluginRuntime,
   RuntimeEnv,
   MockFn,
-} from "hyperbot/plugin-sdk/testing";
+} from "ancient-claw/plugin-sdk/testing";
 ```
 
 ## Testing target resolution
@@ -63,7 +63,7 @@ channel target resolution:
 
 ```typescript
 import { describe } from "vitest";
-import { installCommonResolveTargetErrorCases } from "hyperbot/plugin-sdk/testing";
+import { installCommonResolveTargetErrorCases } from "ancient-claw/plugin-sdk/testing";
 
 describe("my-channel target resolution", () => {
   installCommonResolveTargetErrorCases({
@@ -152,8 +152,8 @@ describe("my-provider plugin", () => {
 For code that uses `createPluginRuntimeStore`, mock the runtime in tests:
 
 ```typescript
-import { createPluginRuntimeStore } from "hyperbot/plugin-sdk/runtime-store";
-import type { PluginRuntime } from "hyperbot/plugin-sdk/runtime-store";
+import { createPluginRuntimeStore } from "ancient-claw/plugin-sdk/runtime-store";
+import type { PluginRuntime } from "ancient-claw/plugin-sdk/runtime-store";
 
 const store = createPluginRuntimeStore<PluginRuntime>("test runtime not set");
 
@@ -224,7 +224,7 @@ pnpm test -- src/plugins/contracts/runtime.contract.test.ts
 
 Three rules are enforced by `pnpm check` for in-repo plugins:
 
-1. **No monolithic root imports** -- `hyperbot/plugin-sdk` root barrel is rejected
+1. **No monolithic root imports** -- `ancient-claw/plugin-sdk` root barrel is rejected
 2. **No direct `src/` imports** -- plugins cannot import `../../src/` directly
 3. **No self-imports** -- plugins cannot import their own `plugin-sdk/<name>` subpath
 
@@ -233,7 +233,7 @@ patterns is recommended.
 
 ## Test configuration
 
-HyperBot uses Vitest with V8 coverage thresholds. For plugin tests:
+Ancient Claw uses Vitest with V8 coverage thresholds. For plugin tests:
 
 ```bash
 # Run all tests

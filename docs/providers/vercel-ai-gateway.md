@@ -2,7 +2,7 @@
 title: "Vercel AI Gateway"
 summary: "Vercel AI Gateway setup (auth + model selection)"
 read_when:
-  - You want to use Vercel AI Gateway with HyperBot
+  - You want to use Vercel AI Gateway with Ancient Claw
   - You need the API key env var or CLI auth choice
 ---
 
@@ -13,7 +13,7 @@ The [Vercel AI Gateway](https://vercel.com/ai-gateway) provides a unified API to
 - Provider: `vercel-ai-gateway`
 - Auth: `AI_GATEWAY_API_KEY`
 - API: Anthropic Messages compatible
-- HyperBot auto-discovers the Gateway `/v1/models` catalog, so `/models vercel-ai-gateway`
+- Ancient Claw auto-discovers the Gateway `/v1/models` catalog, so `/models vercel-ai-gateway`
   includes current model refs such as `vercel-ai-gateway/openai/gpt-5.4`.
 
 ## Quick start
@@ -21,7 +21,7 @@ The [Vercel AI Gateway](https://vercel.com/ai-gateway) provides a unified API to
 1. Set the API key (recommended: store it for the Gateway):
 
 ```bash
-hyperbot onboard --auth-choice ai-gateway-api-key
+ancient-claw onboard --auth-choice ai-gateway-api-key
 ```
 
 2. Set a default model:
@@ -39,7 +39,7 @@ hyperbot onboard --auth-choice ai-gateway-api-key
 ## Non-interactive example
 
 ```bash
-hyperbot onboard --non-interactive \
+ancient-claw onboard --non-interactive \
   --mode local \
   --auth-choice ai-gateway-api-key \
   --ai-gateway-api-key "$AI_GATEWAY_API_KEY"
@@ -48,12 +48,12 @@ hyperbot onboard --non-interactive \
 ## Environment note
 
 If the Gateway runs as a daemon (launchd/systemd), make sure `AI_GATEWAY_API_KEY`
-is available to that process (for example, in `~/.hyperbot/.env` or via
+is available to that process (for example, in `~/.ancient-claw/.env` or via
 `env.shellEnv`).
 
 ## Model ID shorthand
 
-HyperBot accepts Vercel Claude shorthand model refs and normalizes them at
+Ancient Claw accepts Vercel Claude shorthand model refs and normalizes them at
 runtime:
 
 - `vercel-ai-gateway/claude-opus-4.6` -> `vercel-ai-gateway/anthropic/claude-opus-4.6`

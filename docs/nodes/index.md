@@ -13,7 +13,7 @@ A **node** is a companion device (macOS/iOS/Android/headless) that connects to t
 
 Legacy transport: [Bridge protocol](/gateway/bridge-protocol) (TCP JSONL; deprecated/removed for current nodes).
 
-macOS can also run in **node mode**: the menubar app connects to the Gateway’s WS server and exposes its local canvas/camera commands as a node (so `hyperbot nodes …` works against this Mac).
+macOS can also run in **node mode**: the menubar app connects to the Gateway’s WS server and exposes its local canvas/camera commands as a node (so `ancient-claw nodes …` works against this Mac).
 
 Notes:
 
@@ -29,21 +29,21 @@ creates a device pairing request for `role: node`. Approve via the devices CLI (
 Quick CLI:
 
 ```bash
-hyperbot devices list
-hyperbot devices approve <requestId>
-hyperbot devices reject <requestId>
-hyperbot nodes status
-hyperbot nodes describe --node <idOrNameOrIp>
+ancient-claw devices list
+ancient-claw devices approve <requestId>
+ancient-claw devices reject <requestId>
+ancient-claw nodes status
+ancient-claw nodes describe --node <idOrNameOrIp>
 ```
 
 If a node retries with changed auth details (role/scopes/public key), the prior
 pending request is superseded and a new `requestId` is created. Re-run
-`hyperbot devices list` before approving.
+`ancient-claw devices list` before approving.
 
 Notes:
 
 - `nodes status` marks a node as **paired** when its device pairing role includes `node`.
-- `node.pair.*` (CLI: `hyperbot nodes pending/approve/reject`) is a separate gateway-owned
+- `node.pair.*` (CLI: `ancient-claw nodes pending/approve/reject`) is a separate gateway-owned
   node pairing store; it does **not** gate the WS `connect` handshake.
 
 ## Remote node host (system.run)
@@ -56,14 +56,14 @@ forwards `exec` calls to the **node host** when `host=node` is selected.
 
 - **Gateway host**: receives messages, runs the model, routes tool calls.
 - **Node host**: executes `system.run`/`system.which` on the node machine.
-- **Approvals**: enforced on the node host via `~/.hyperbot/exec-approvals.json`.
+- **Approvals**: enforced on the node host via `~/.ancient-claw/exec-approvals.json`.
 
 Approval note:
 
 - Approval-backed node runs bind exact request context.
-- For direct shell/runtime file executions, HyperBot also best-effort binds one concrete local
+- For direct shell/runtime file executions, Ancient Claw also best-effort binds one concrete local
   file operand and denies the run if that file changes before execution.
-- If HyperBot cannot identify exactly one concrete local file for an interpreter/runtime command,
+- If Ancient Claw cannot identify exactly one concrete local file for an interpreter/runtime command,
   approval-backed execution is denied instead of pretending full runtime coverage. Use sandboxing,
   separate hosts, or an explicit trusted allowlist/full workflow for broader interpreter semantics.
 
@@ -72,7 +72,7 @@ Approval note:
 On the node machine:
 
 ```bash
-hyperbot node run --host <gateway-host> --port 18789 --display-name "Build Node"
+ancient-claw node run --host <gateway-host> --port 18789 --display-name "Build Node"
 ```
 
 ### Remote gateway via SSH tunnel (loopback bind)
@@ -89,12 +89,12 @@ ssh -N -L 18790:127.0.0.1:18789 user@gateway-host
 
 # Terminal B: export the gateway token and connect through the tunnel
 export OPENCLAW_GATEWAY_TOKEN="<gateway-token>"
-hyperbot node run --host 127.0.0.1 --port 18790 --display-name "Build Node"
+ancient-claw node run --host 127.0.0.1 --port 18790 --display-name "Build Node"
 ```
 
 Notes:
 
-- `hyperbot node run` supports token or password auth.
+- `ancient-claw node run` supports token or password auth.
 - Env vars are preferred: `OPENCLAW_GATEWAY_TOKEN` / `OPENCLAW_GATEWAY_PASSWORD`.
 - Config fallback is `gateway.auth.token` / `gateway.auth.password`.
 - In local mode, node host intentionally ignores `gateway.remote.token` / `gateway.remote.password`.
@@ -105,8 +105,8 @@ Notes:
 ### Start a node host (service)
 
 ```bash
-hyperbot node install --host <gateway-host> --port 18789 --display-name "Build Node"
-hyperbot node restart
+ancient-claw node install --host <gateway-host> --port 18789 --display-name "Build Node"
+ancient-claw node restart
 ```
 
 ### Pair + name
@@ -114,38 +114,38 @@ hyperbot node restart
 On the gateway host:
 
 ```bash
-hyperbot devices list
-hyperbot devices approve <requestId>
-hyperbot nodes status
+ancient-claw devices list
+ancient-claw devices approve <requestId>
+ancient-claw nodes status
 ```
 
-If the node retries with changed auth details, re-run `hyperbot devices list`
+If the node retries with changed auth details, re-run `ancient-claw devices list`
 and approve the current `requestId`.
 
 Naming options:
 
-- `--display-name` on `hyperbot node run` / `hyperbot node install` (persists in `~/.hyperbot/node.json` on the node).
-- `hyperbot nodes rename --node <id|name|ip> --name "Build Node"` (gateway override).
+- `--display-name` on `ancient-claw node run` / `ancient-claw node install` (persists in `~/.ancient-claw/node.json` on the node).
+- `ancient-claw nodes rename --node <id|name|ip> --name "Build Node"` (gateway override).
 
 ### Allowlist the commands
 
 Exec approvals are **per node host**. Add allowlist entries from the gateway:
 
 ```bash
-hyperbot approvals allowlist add --node <id|name|ip> "/usr/bin/uname"
-hyperbot approvals allowlist add --node <id|name|ip> "/usr/bin/sw_vers"
+ancient-claw approvals allowlist add --node <id|name|ip> "/usr/bin/uname"
+ancient-claw approvals allowlist add --node <id|name|ip> "/usr/bin/sw_vers"
 ```
 
-Approvals live on the node host at `~/.hyperbot/exec-approvals.json`.
+Approvals live on the node host at `~/.ancient-claw/exec-approvals.json`.
 
 ### Point exec at the node
 
 Configure defaults (gateway config):
 
 ```bash
-hyperbot config set tools.exec.host node
-hyperbot config set tools.exec.security allowlist
-hyperbot config set tools.exec.node "<id-or-name>"
+ancient-claw config set tools.exec.host node
+ancient-claw config set tools.exec.security allowlist
+ancient-claw config set tools.exec.node "<id-or-name>"
 ```
 
 Or per session:
@@ -168,7 +168,7 @@ Related:
 Low-level (raw RPC):
 
 ```bash
-hyperbot nodes invoke --node <idOrNameOrIp> --command canvas.eval --params '{"javaScript":"location.href"}'
+ancient-claw nodes invoke --node <idOrNameOrIp> --command canvas.eval --params '{"javaScript":"location.href"}'
 ```
 
 Higher-level helpers exist for the common “give the agent a MEDIA attachment” workflows.
@@ -180,17 +180,17 @@ If the node is showing the Canvas (WebView), `canvas.snapshot` returns `{ format
 CLI helper (writes to a temp file and prints `MEDIA:<path>`):
 
 ```bash
-hyperbot nodes canvas snapshot --node <idOrNameOrIp> --format png
-hyperbot nodes canvas snapshot --node <idOrNameOrIp> --format jpg --max-width 1200 --quality 0.9
+ancient-claw nodes canvas snapshot --node <idOrNameOrIp> --format png
+ancient-claw nodes canvas snapshot --node <idOrNameOrIp> --format jpg --max-width 1200 --quality 0.9
 ```
 
 ### Canvas controls
 
 ```bash
-hyperbot nodes canvas present --node <idOrNameOrIp> --target https://example.com
-hyperbot nodes canvas hide --node <idOrNameOrIp>
-hyperbot nodes canvas navigate https://example.com --node <idOrNameOrIp>
-hyperbot nodes canvas eval --node <idOrNameOrIp> --js "document.title"
+ancient-claw nodes canvas present --node <idOrNameOrIp> --target https://example.com
+ancient-claw nodes canvas hide --node <idOrNameOrIp>
+ancient-claw nodes canvas navigate https://example.com --node <idOrNameOrIp>
+ancient-claw nodes canvas eval --node <idOrNameOrIp> --js "document.title"
 ```
 
 Notes:
@@ -201,9 +201,9 @@ Notes:
 ### A2UI (Canvas)
 
 ```bash
-hyperbot nodes canvas a2ui push --node <idOrNameOrIp> --text "Hello"
-hyperbot nodes canvas a2ui push --node <idOrNameOrIp> --jsonl ./payload.jsonl
-hyperbot nodes canvas a2ui reset --node <idOrNameOrIp>
+ancient-claw nodes canvas a2ui push --node <idOrNameOrIp> --text "Hello"
+ancient-claw nodes canvas a2ui push --node <idOrNameOrIp> --jsonl ./payload.jsonl
+ancient-claw nodes canvas a2ui reset --node <idOrNameOrIp>
 ```
 
 Notes:
@@ -215,16 +215,16 @@ Notes:
 Photos (`jpg`):
 
 ```bash
-hyperbot nodes camera list --node <idOrNameOrIp>
-hyperbot nodes camera snap --node <idOrNameOrIp>            # default: both facings (2 MEDIA lines)
-hyperbot nodes camera snap --node <idOrNameOrIp> --facing front
+ancient-claw nodes camera list --node <idOrNameOrIp>
+ancient-claw nodes camera snap --node <idOrNameOrIp>            # default: both facings (2 MEDIA lines)
+ancient-claw nodes camera snap --node <idOrNameOrIp> --facing front
 ```
 
 Video clips (`mp4`):
 
 ```bash
-hyperbot nodes camera clip --node <idOrNameOrIp> --duration 10s
-hyperbot nodes camera clip --node <idOrNameOrIp> --duration 3000 --no-audio
+ancient-claw nodes camera clip --node <idOrNameOrIp> --duration 10s
+ancient-claw nodes camera clip --node <idOrNameOrIp> --duration 3000 --no-audio
 ```
 
 Notes:
@@ -238,8 +238,8 @@ Notes:
 Supported nodes expose `screen.record` (mp4). Example:
 
 ```bash
-hyperbot nodes screen record --node <idOrNameOrIp> --duration 10s --fps 10
-hyperbot nodes screen record --node <idOrNameOrIp> --duration 10s --fps 10 --no-audio
+ancient-claw nodes screen record --node <idOrNameOrIp> --duration 10s --fps 10
+ancient-claw nodes screen record --node <idOrNameOrIp> --duration 10s --fps 10 --no-audio
 ```
 
 Notes:
@@ -256,8 +256,8 @@ Nodes expose `location.get` when Location is enabled in settings.
 CLI helper:
 
 ```bash
-hyperbot nodes location get --node <idOrNameOrIp>
-hyperbot nodes location get --node <idOrNameOrIp> --accuracy precise --max-age 15000 --location-timeout 10000
+ancient-claw nodes location get --node <idOrNameOrIp>
+ancient-claw nodes location get --node <idOrNameOrIp> --accuracy precise --max-age 15000 --location-timeout 10000
 ```
 
 Notes:
@@ -273,7 +273,7 @@ Android nodes can expose `sms.send` when the user grants **SMS** permission and 
 Low-level invoke:
 
 ```bash
-hyperbot nodes invoke --node <idOrNameOrIp> --command sms.send --params '{"to":"+15555550123","message":"Hello from HyperBot"}'
+ancient-claw nodes invoke --node <idOrNameOrIp> --command sms.send --params '{"to":"+15555550123","message":"Hello from Ancient Claw"}'
 ```
 
 Notes:
@@ -299,9 +299,9 @@ Available families:
 Example invokes:
 
 ```bash
-hyperbot nodes invoke --node <idOrNameOrIp> --command device.status --params '{}'
-hyperbot nodes invoke --node <idOrNameOrIp> --command notifications.list --params '{}'
-hyperbot nodes invoke --node <idOrNameOrIp> --command photos.latest --params '{"limit":1}'
+ancient-claw nodes invoke --node <idOrNameOrIp> --command device.status --params '{}'
+ancient-claw nodes invoke --node <idOrNameOrIp> --command notifications.list --params '{}'
+ancient-claw nodes invoke --node <idOrNameOrIp> --command photos.latest --params '{"limit":1}'
 ```
 
 Notes:
@@ -316,8 +316,8 @@ The headless node host exposes `system.run`, `system.which`, and `system.execApp
 Examples:
 
 ```bash
-hyperbot nodes run --node <idOrNameOrIp> -- echo "Hello from mac node"
-hyperbot nodes notify --node <idOrNameOrIp> --title "Ping" --body "Gateway ready"
+ancient-claw nodes run --node <idOrNameOrIp> -- echo "Hello from mac node"
+ancient-claw nodes notify --node <idOrNameOrIp> --title "Ping" --body "Gateway ready"
 ```
 
 Notes:
@@ -333,7 +333,7 @@ Notes:
 - Node hosts ignore `PATH` overrides and strip dangerous startup/shell keys (`DYLD_*`, `LD_*`, `NODE_OPTIONS`, `PYTHON*`, `PERL*`, `RUBYOPT`, `SHELLOPTS`, `PS4`). If you need extra PATH entries, configure the node host service environment (or install tools in standard locations) instead of passing `PATH` via `--env`.
 - On macOS node mode, `system.run` is gated by exec approvals in the macOS app (Settings → Exec approvals).
   Ask/allowlist/full behave the same as the headless node host; denied prompts return `SYSTEM_RUN_DENIED`.
-- On headless node host, `system.run` is gated by exec approvals (`~/.hyperbot/exec-approvals.json`).
+- On headless node host, `system.run` is gated by exec approvals (`~/.ancient-claw/exec-approvals.json`).
 
 ## Exec node binding
 
@@ -343,21 +343,21 @@ This sets the default node for `exec host=node` (and can be overridden per agent
 Global default:
 
 ```bash
-hyperbot config set tools.exec.node "node-id-or-name"
+ancient-claw config set tools.exec.node "node-id-or-name"
 ```
 
 Per-agent override:
 
 ```bash
-hyperbot config get agents.list
-hyperbot config set agents.list[0].tools.exec.node "node-id-or-name"
+ancient-claw config get agents.list
+ancient-claw config set agents.list[0].tools.exec.node "node-id-or-name"
 ```
 
 Unset to allow any node:
 
 ```bash
-hyperbot config unset tools.exec.node
-hyperbot config unset agents.list[0].tools.exec.node
+ancient-claw config unset tools.exec.node
+ancient-claw config unset agents.list[0].tools.exec.node
 ```
 
 ## Permissions map
@@ -366,21 +366,21 @@ Nodes may include a `permissions` map in `node.list` / `node.describe`, keyed by
 
 ## Headless node host (cross-platform)
 
-HyperBot can run a **headless node host** (no UI) that connects to the Gateway
+Ancient Claw can run a **headless node host** (no UI) that connects to the Gateway
 WebSocket and exposes `system.run` / `system.which`. This is useful on Linux/Windows
 or for running a minimal node alongside a server.
 
 Start it:
 
 ```bash
-hyperbot node run --host <gateway-host> --port 18789
+ancient-claw node run --host <gateway-host> --port 18789
 ```
 
 Notes:
 
 - Pairing is still required (the Gateway will show a device pairing prompt).
-- The node host stores its node id, token, display name, and gateway connection info in `~/.hyperbot/node.json`.
-- Exec approvals are enforced locally via `~/.hyperbot/exec-approvals.json`
+- The node host stores its node id, token, display name, and gateway connection info in `~/.ancient-claw/node.json`.
+- Exec approvals are enforced locally via `~/.ancient-claw/exec-approvals.json`
   (see [Exec approvals](/tools/exec-approvals)).
 - On macOS, the headless node host executes `system.run` locally by default. Set
   `OPENCLAW_NODE_EXEC_HOST=app` to route `system.run` through the companion app exec host; add
@@ -389,5 +389,5 @@ Notes:
 
 ## Mac node mode
 
-- The macOS menubar app connects to the Gateway WS server as a node (so `hyperbot nodes …` works against this Mac).
+- The macOS menubar app connects to the Gateway WS server as a node (so `ancient-claw nodes …` works against this Mac).
 - In remote mode, the app opens an SSH tunnel for the Gateway port and connects to `localhost`.

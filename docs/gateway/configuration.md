@@ -1,7 +1,7 @@
 ---
 summary: "Configuration overview: common tasks, quick setup, and links to the full reference"
 read_when:
-  - Setting up HyperBot for the first time
+  - Setting up Ancient Claw for the first time
   - Looking for common configuration patterns
   - Navigating to specific config sections
 title: "Configuration"
@@ -9,9 +9,9 @@ title: "Configuration"
 
 # Configuration
 
-HyperBot reads an optional <Tooltip tip="JSON5 supports comments and trailing commas">**JSON5**</Tooltip> config from `~/.hyperbot/hyperbot.json`.
+Ancient Claw reads an optional <Tooltip tip="JSON5 supports comments and trailing commas">**JSON5**</Tooltip> config from `~/.ancient-claw/ancient-claw.json`.
 
-If the file is missing, HyperBot uses safe defaults. Common reasons to add a config:
+If the file is missing, Ancient Claw uses safe defaults. Common reasons to add a config:
 
 - Connect channels and control who can message the bot
 - Set models, tools, sandboxing, or automation (cron, hooks)
@@ -20,15 +20,15 @@ If the file is missing, HyperBot uses safe defaults. Common reasons to add a con
 See the [full reference](/gateway/configuration-reference) for every available field.
 
 <Tip>
-**New to configuration?** Start with `hyperbot onboard` for interactive setup, or check out the [Configuration Examples](/gateway/configuration-examples) guide for complete copy-paste configs.
+**New to configuration?** Start with `ancient-claw onboard` for interactive setup, or check out the [Configuration Examples](/gateway/configuration-examples) guide for complete copy-paste configs.
 </Tip>
 
 ## Minimal config
 
 ```json5
-// ~/.hyperbot/hyperbot.json
+// ~/.ancient-claw/ancient-claw.json
 {
-  agents: { defaults: { workspace: "~/.hyperbot/workspace" } },
+  agents: { defaults: { workspace: "~/.ancient-claw/workspace" } },
   channels: { whatsapp: { allowFrom: ["+15555550123"] } },
 }
 ```
@@ -38,15 +38,15 @@ See the [full reference](/gateway/configuration-reference) for every available f
 <Tabs>
   <Tab title="Interactive wizard">
     ```bash
-    hyperbot onboard       # full onboarding flow
-    hyperbot configure     # config wizard
+    ancient-claw onboard       # full onboarding flow
+    ancient-claw configure     # config wizard
     ```
   </Tab>
   <Tab title="CLI (one-liners)">
     ```bash
-    hyperbot config get agents.defaults.workspace
-    hyperbot config set agents.defaults.heartbeat.every "2h"
-    hyperbot config unset plugins.entries.brave.config.webSearch.apiKey
+    ancient-claw config get agents.defaults.workspace
+    ancient-claw config set agents.defaults.heartbeat.every "2h"
+    ancient-claw config unset plugins.entries.brave.config.webSearch.apiKey
     ```
   </Tab>
   <Tab title="Control UI">
@@ -54,22 +54,22 @@ See the [full reference](/gateway/configuration-reference) for every available f
     The Control UI renders a form from the config schema, with a **Raw JSON** editor as an escape hatch.
   </Tab>
   <Tab title="Direct edit">
-    Edit `~/.hyperbot/hyperbot.json` directly. The Gateway watches the file and applies changes automatically (see [hot reload](#config-hot-reload)).
+    Edit `~/.ancient-claw/ancient-claw.json` directly. The Gateway watches the file and applies changes automatically (see [hot reload](#config-hot-reload)).
   </Tab>
 </Tabs>
 
 ## Strict validation
 
 <Warning>
-HyperBot only accepts configurations that fully match the schema. Unknown keys, malformed types, or invalid values cause the Gateway to **refuse to start**. The only root-level exception is `$schema` (string), so editors can attach JSON Schema metadata.
+Ancient Claw only accepts configurations that fully match the schema. Unknown keys, malformed types, or invalid values cause the Gateway to **refuse to start**. The only root-level exception is `$schema` (string), so editors can attach JSON Schema metadata.
 </Warning>
 
 When validation fails:
 
 - The Gateway does not boot
-- Only diagnostic commands work (`hyperbot doctor`, `hyperbot logs`, `hyperbot health`, `hyperbot status`)
-- Run `hyperbot doctor` to see exact issues
-- Run `hyperbot doctor --fix` (or `--yes`) to apply repairs
+- Only diagnostic commands work (`ancient-claw doctor`, `ancient-claw logs`, `ancient-claw health`, `ancient-claw status`)
+- Run `ancient-claw doctor` to see exact issues
+- Run `ancient-claw doctor --fix` (or `--yes`) to apply repairs
 
 ## Common tasks
 
@@ -156,7 +156,7 @@ When validation fails:
           {
             id: "main",
             groupChat: {
-              mentionPatterns: ["@hyperbot", "hyperbot"],
+              mentionPatterns: ["@ancient-claw", "ancient-claw"],
             },
           },
         ],
@@ -256,7 +256,7 @@ When validation fails:
   </Accordion>
 
   <Accordion title="Enable relay-backed push for official iOS builds">
-    Relay-backed push is configured in `hyperbot.json`.
+    Relay-backed push is configured in `ancient-claw.json`.
 
     Set this in gateway config:
 
@@ -279,7 +279,7 @@ When validation fails:
     CLI equivalent:
 
     ```bash
-    hyperbot config set gateway.push.apns.relay.baseUrl https://relay.example.com
+    ancient-claw config set gateway.push.apns.relay.baseUrl https://relay.example.com
     ```
 
     What this does:
@@ -394,8 +394,8 @@ When validation fails:
     {
       agents: {
         list: [
-          { id: "home", default: true, workspace: "~/.hyperbot/workspace-home" },
-          { id: "work", workspace: "~/.hyperbot/workspace-work" },
+          { id: "home", default: true, workspace: "~/.ancient-claw/workspace-home" },
+          { id: "work", workspace: "~/.ancient-claw/workspace-work" },
         ],
       },
       bindings: [
@@ -413,7 +413,7 @@ When validation fails:
     Use `$include` to organize large configs:
 
     ```json5
-    // ~/.hyperbot/hyperbot.json
+    // ~/.ancient-claw/ancient-claw.json
     {
       gateway: { port: 18789 },
       agents: { $include: "./agents.json5" },
@@ -435,7 +435,7 @@ When validation fails:
 
 ## Config hot reload
 
-The Gateway watches `~/.hyperbot/hyperbot.json` and applies changes automatically — no manual restart needed for most settings.
+The Gateway watches `~/.ancient-claw/ancient-claw.json` and applies changes automatically — no manual restart needed for most settings.
 
 ### Reload modes
 
@@ -484,7 +484,7 @@ Control-plane write RPCs (`config.apply`, `config.patch`, `update.run`) are rate
     Validates + writes the full config and restarts the Gateway in one step.
 
     <Warning>
-    `config.apply` replaces the **entire config**. Use `config.patch` for partial updates, or `hyperbot config set` for single keys.
+    `config.apply` replaces the **entire config**. Use `config.patch` for partial updates, or `ancient-claw config set` for single keys.
     </Warning>
 
     Params:
@@ -498,9 +498,9 @@ Control-plane write RPCs (`config.apply`, `config.patch`, `update.run`) are rate
     Restart requests are coalesced while one is already pending/in-flight, and a 30-second cooldown applies between restart cycles.
 
     ```bash
-    hyperbot gateway call config.get --params '{}'  # capture payload.hash
-    hyperbot gateway call config.apply --params '{
-      "raw": "{ agents: { defaults: { workspace: \"~/.hyperbot/workspace\" } } }",
+    ancient-claw gateway call config.get --params '{}'  # capture payload.hash
+    ancient-claw gateway call config.apply --params '{
+      "raw": "{ agents: { defaults: { workspace: \"~/.ancient-claw/workspace\" } } }",
       "baseHash": "<hash>",
       "sessionKey": "agent:main:whatsapp:direct:+15555550123"
     }'
@@ -524,7 +524,7 @@ Control-plane write RPCs (`config.apply`, `config.patch`, `update.run`) are rate
     Restart behavior matches `config.apply`: coalesced pending restarts plus a 30-second cooldown between restart cycles.
 
     ```bash
-    hyperbot gateway call config.patch --params '{
+    ancient-claw gateway call config.patch --params '{
       "raw": "{ channels: { telegram: { groups: { \"*\": { requireMention: false } } } } }",
       "baseHash": "<hash>"
     }'
@@ -535,10 +535,10 @@ Control-plane write RPCs (`config.apply`, `config.patch`, `update.run`) are rate
 
 ## Environment variables
 
-HyperBot reads env vars from the parent process plus:
+Ancient Claw reads env vars from the parent process plus:
 
 - `.env` from the current working directory (if present)
-- `~/.hyperbot/.env` (global fallback)
+- `~/.ancient-claw/.env` (global fallback)
 
 Neither file overrides existing env vars. You can also set inline env vars in config:
 
@@ -552,7 +552,7 @@ Neither file overrides existing env vars. You can also set inline env vars in co
 ```
 
 <Accordion title="Shell env import (optional)">
-  If enabled and expected keys aren't set, HyperBot runs your login shell and imports only the missing keys:
+  If enabled and expected keys aren't set, Ancient Claw runs your login shell and imports only the missing keys:
 
 ```json5
 {

@@ -1,7 +1,7 @@
 ---
-summary: "Use Venice AI privacy-focused models in HyperBot"
+summary: "Use Venice AI privacy-focused models in Ancient Claw"
 read_when:
-  - You want privacy-focused inference in HyperBot
+  - You want privacy-focused inference in Ancient Claw
   - You want Venice AI setup guidance
 title: "Venice AI"
 ---
@@ -12,7 +12,7 @@ title: "Venice AI"
 
 Venice AI provides privacy-focused AI inference with support for uncensored models and access to major proprietary models through their anonymized proxy. All inference is private by default—no training on your data, no logging.
 
-## Why Venice in HyperBot
+## Why Venice in Ancient Claw
 
 - **Private inference** for open-source models (no logging).
 - **Uncensored models** when you need them.
@@ -47,7 +47,7 @@ Venice offers two privacy levels — understanding this is key to choosing your 
 2. Go to **Settings → API Keys → Create new key**
 3. Copy your API key (format: `vapi_xxxxxxxxxxxx`)
 
-### 2. Configure HyperBot
+### 2. Configure Ancient Claw
 
 **Option A: Environment Variable**
 
@@ -58,7 +58,7 @@ export VENICE_API_KEY="vapi_xxxxxxxxxxxx"
 **Option B: Interactive Setup (Recommended)**
 
 ```bash
-hyperbot onboard --auth-choice venice-api-key
+ancient-claw onboard --auth-choice venice-api-key
 ```
 
 This will:
@@ -71,7 +71,7 @@ This will:
 **Option C: Non-interactive**
 
 ```bash
-hyperbot onboard --non-interactive \
+ancient-claw onboard --non-interactive \
   --auth-choice venice-api-key \
   --venice-api-key "vapi_xxxxxxxxxxxx"
 ```
@@ -79,12 +79,12 @@ hyperbot onboard --non-interactive \
 ### 3. Verify Setup
 
 ```bash
-hyperbot agent --model venice/kimi-k2-5 --message "Hello, are you working?"
+ancient-claw agent --model venice/kimi-k2-5 --message "Hello, are you working?"
 ```
 
 ## Model Selection
 
-After setup, HyperBot shows all available Venice models. Pick based on your needs:
+After setup, Ancient Claw shows all available Venice models. Pick based on your needs:
 
 - **Default model**: `venice/kimi-k2-5` for strong private reasoning plus vision.
 - **High-capability option**: `venice/claude-opus-4-6` for the strongest anonymized Venice path.
@@ -94,19 +94,19 @@ After setup, HyperBot shows all available Venice models. Pick based on your need
 Change your default model anytime:
 
 ```bash
-hyperbot models set venice/kimi-k2-5
-hyperbot models set venice/claude-opus-4-6
+ancient-claw models set venice/kimi-k2-5
+ancient-claw models set venice/claude-opus-4-6
 ```
 
 List all available models:
 
 ```bash
-hyperbot models list | grep venice
+ancient-claw models list | grep venice
 ```
 
-## Configure via `hyperbot configure`
+## Configure via `ancient-claw configure`
 
-1. Run `hyperbot configure`
+1. Run `ancient-claw configure`
 2. Select **Model/auth**
 3. Choose **Venice AI**
 
@@ -177,7 +177,7 @@ hyperbot models list | grep venice
 
 ## Model Discovery
 
-HyperBot automatically discovers models from the Venice API when `VENICE_API_KEY` is set. If the API is unreachable, it falls back to a static catalog.
+Ancient Claw automatically discovers models from the Venice API when `VENICE_API_KEY` is set. If the API is unreachable, it falls back to a static catalog.
 
 The `/models` endpoint is public (no auth needed for listing), but inference requires a valid API key.
 
@@ -210,19 +210,19 @@ Venice uses a credit-based system. Check [venice.ai/pricing](https://venice.ai/p
 
 ```bash
 # Use the default private model
-hyperbot agent --model venice/kimi-k2-5 --message "Quick health check"
+ancient-claw agent --model venice/kimi-k2-5 --message "Quick health check"
 
 # Use Claude Opus via Venice (anonymized)
-hyperbot agent --model venice/claude-opus-4-6 --message "Summarize this task"
+ancient-claw agent --model venice/claude-opus-4-6 --message "Summarize this task"
 
 # Use uncensored model
-hyperbot agent --model venice/venice-uncensored --message "Draft options"
+ancient-claw agent --model venice/venice-uncensored --message "Draft options"
 
 # Use vision model with image
-hyperbot agent --model venice/qwen3-vl-235b-a22b --message "Review attached image"
+ancient-claw agent --model venice/qwen3-vl-235b-a22b --message "Review attached image"
 
 # Use coding model
-hyperbot agent --model venice/qwen3-coder-480b-a35b-instruct --message "Refactor this function"
+ancient-claw agent --model venice/qwen3-coder-480b-a35b-instruct --message "Refactor this function"
 ```
 
 ## Troubleshooting
@@ -231,14 +231,14 @@ hyperbot agent --model venice/qwen3-coder-480b-a35b-instruct --message "Refactor
 
 ```bash
 echo $VENICE_API_KEY
-hyperbot models list | grep venice
+ancient-claw models list | grep venice
 ```
 
 Ensure the key starts with `vapi_`.
 
 ### Model not available
 
-The Venice model catalog updates dynamically. Run `hyperbot models list` to see currently available models. Some models may be temporarily offline.
+The Venice model catalog updates dynamically. Run `ancient-claw models list` to see currently available models. Some models may be temporarily offline.
 
 ### Connection issues
 

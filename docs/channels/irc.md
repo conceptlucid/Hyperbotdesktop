@@ -2,18 +2,18 @@
 title: IRC
 summary: "IRC plugin setup, access controls, and troubleshooting"
 read_when:
-  - You want to connect HyperBot to IRC channels or DMs
+  - You want to connect Ancient Claw to IRC channels or DMs
   - You are configuring IRC allowlists, group policy, or mention gating
 ---
 
 # IRC
 
-Use IRC when you want HyperBot in classic channels (`#room`) and direct messages.
+Use IRC when you want Ancient Claw in classic channels (`#room`) and direct messages.
 IRC ships as an extension plugin, but it is configured in the main config under `channels.irc`.
 
 ## Quick start
 
-1. Enable IRC config in `~/.hyperbot/hyperbot.json`.
+1. Enable IRC config in `~/.ancient-claw/ancient-claw.json`.
 2. Set at least:
 
 ```json5
@@ -24,8 +24,8 @@ IRC ships as an extension plugin, but it is configured in the main config under 
       host: "irc.libera.chat",
       port: 6697,
       tls: true,
-      nick: "hyperbot-bot",
-      channels: ["#hyperbot"],
+      nick: "ancient-claw-bot",
+      channels: ["#ancient-claw"],
     },
   },
 }
@@ -34,7 +34,7 @@ IRC ships as an extension plugin, but it is configured in the main config under 
 3. Start/restart gateway:
 
 ```bash
-hyperbot gateway run
+ancient-claw gateway run
 ```
 
 ## Security defaults
@@ -89,7 +89,7 @@ Example (allow anyone in `#tuirc-dev` to talk to the bot):
 
 ## Reply triggering (mentions)
 
-Even if a channel is allowed (via `groupPolicy` + `groups`) and the sender is allowed, HyperBot defaults to **mention-gating** in group contexts.
+Even if a channel is allowed (via `groupPolicy` + `groups`) and the sender is allowed, Ancient Claw defaults to **mention-gating** in group contexts.
 
 That means you may see logs like `drop channel … (missing-mention)` unless the message includes a mention pattern that matches the bot.
 

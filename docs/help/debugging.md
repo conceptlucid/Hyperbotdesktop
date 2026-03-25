@@ -16,13 +16,13 @@ provider mixes reasoning into normal text.
 
 Use `/debug` in chat to set **runtime-only** config overrides (memory, not disk).
 `/debug` is disabled by default; enable with `commands.debug: true`.
-This is handy when you need to toggle obscure settings without editing `hyperbot.json`.
+This is handy when you need to toggle obscure settings without editing `ancient-claw.json`.
 
 Examples:
 
 ```
 /debug show
-/debug set messages.responsePrefix="[hyperbot]"
+/debug set messages.responsePrefix="[ancient-claw]"
 /debug unset messages.responsePrefix
 /debug reset
 ```
@@ -44,7 +44,7 @@ node scripts/watch-node.mjs gateway --force
 ```
 
 The watcher restarts on build-relevant files under `src/`, extension source files,
-extension `package.json` and `hyperbot.plugin.json` metadata, `tsconfig.json`,
+extension `package.json` and `ancient-claw.plugin.json` metadata, `tsconfig.json`,
 `package.json`, and `tsdown.config.ts`. Extension metadata changes restart the
 gateway without forcing a `tsdown` rebuild; source and config changes still
 rebuild `dist` first.
@@ -57,7 +57,7 @@ each restart.
 Use the dev profile to isolate state and spin up a safe, disposable setup for
 debugging. There are **two** `--dev` flags:
 
-- **Global `--dev` (profile):** isolates state under `~/.hyperbot-dev` and
+- **Global `--dev` (profile):** isolates state under `~/.ancient-claw-dev` and
   defaults the gateway port to `19001` (derived ports shift with it).
 - **`gateway --dev`: tells the Gateway to auto-create a default config +
   workspace** when missing (and skip BOOTSTRAP.md).
@@ -66,17 +66,17 @@ Recommended flow (dev profile + dev bootstrap):
 
 ```bash
 pnpm gateway:dev
-OPENCLAW_PROFILE=dev hyperbot tui
+OPENCLAW_PROFILE=dev ancient-claw tui
 ```
 
-If you don’t have a global install yet, run the CLI via `pnpm hyperbot ...`.
+If you don’t have a global install yet, run the CLI via `pnpm ancient-claw ...`.
 
 What this does:
 
 1. **Profile isolation** (global `--dev`)
    - `OPENCLAW_PROFILE=dev`
-   - `OPENCLAW_STATE_DIR=~/.hyperbot-dev`
-   - `OPENCLAW_CONFIG_PATH=~/.hyperbot-dev/hyperbot.json`
+   - `OPENCLAW_STATE_DIR=~/.ancient-claw-dev`
+   - `OPENCLAW_CONFIG_PATH=~/.ancient-claw-dev/ancient-claw.json`
    - `OPENCLAW_GATEWAY_PORT=19001` (browser/canvas shift accordingly)
 
 2. **Dev bootstrap** (`gateway --dev`)
@@ -98,7 +98,7 @@ Note: `--dev` is a **global** profile flag and gets eaten by some runners.
 If you need to spell it out, use the env var form:
 
 ```bash
-OPENCLAW_PROFILE=dev hyperbot gateway --dev --reset
+OPENCLAW_PROFILE=dev ancient-claw gateway --dev --reset
 ```
 
 `--reset` wipes config, credentials, sessions, and the dev workspace (using
@@ -107,12 +107,12 @@ OPENCLAW_PROFILE=dev hyperbot gateway --dev --reset
 Tip: if a non‑dev gateway is already running (launchd/systemd), stop it first:
 
 ```bash
-hyperbot gateway stop
+ancient-claw gateway stop
 ```
 
-## Raw stream logging (HyperBot)
+## Raw stream logging (Ancient Claw)
 
-HyperBot can log the **raw assistant stream** before any filtering/formatting.
+Ancient Claw can log the **raw assistant stream** before any filtering/formatting.
 This is the best way to see whether reasoning is arriving as plain text deltas
 (or as separate thinking blocks).
 
@@ -125,19 +125,19 @@ pnpm gateway:watch --raw-stream
 Optional path override:
 
 ```bash
-pnpm gateway:watch --raw-stream --raw-stream-path ~/.hyperbot/logs/raw-stream.jsonl
+pnpm gateway:watch --raw-stream --raw-stream-path ~/.ancient-claw/logs/raw-stream.jsonl
 ```
 
 Equivalent env vars:
 
 ```bash
 OPENCLAW_RAW_STREAM=1
-OPENCLAW_RAW_STREAM_PATH=~/.hyperbot/logs/raw-stream.jsonl
+OPENCLAW_RAW_STREAM_PATH=~/.ancient-claw/logs/raw-stream.jsonl
 ```
 
 Default file:
 
-`~/.hyperbot/logs/raw-stream.jsonl`
+`~/.ancient-claw/logs/raw-stream.jsonl`
 
 ## Raw chunk logging (pi-mono)
 

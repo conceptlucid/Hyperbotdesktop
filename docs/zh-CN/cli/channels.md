@@ -2,7 +2,7 @@
 read_when:
   - 你想添加/删除渠道账户（WhatsApp/Telegram/Discord/Google Chat/Slack/Mattermost（插件）/Signal/iMessage）
   - 你想检查渠道状态或跟踪渠道日志
-summary: "`hyperbot channels` 的 CLI 参考（账户、状态、登录/登出、日志）"
+summary: "`ancient-claw channels` 的 CLI 参考（账户、状态、登录/登出、日志）"
 title: channels
 x-i18n:
   generated_at: "2026-02-03T07:44:51Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 15
 ---
 
-# `hyperbot channels`
+# `ancient-claw channels`
 
 管理 Gateway 网关上的聊天渠道账户及其运行时状态。
 
@@ -25,43 +25,43 @@ x-i18n:
 ## 常用命令
 
 ```bash
-hyperbot channels list
-hyperbot channels status
-hyperbot channels capabilities
-hyperbot channels capabilities --channel discord --target channel:123
-hyperbot channels resolve --channel slack "#general" "@jane"
-hyperbot channels logs --channel all
+ancient-claw channels list
+ancient-claw channels status
+ancient-claw channels capabilities
+ancient-claw channels capabilities --channel discord --target channel:123
+ancient-claw channels resolve --channel slack "#general" "@jane"
+ancient-claw channels logs --channel all
 ```
 
 ## 添加/删除账户
 
 ```bash
-hyperbot channels add --channel telegram --token <bot-token>
-hyperbot channels remove --channel telegram --delete
+ancient-claw channels add --channel telegram --token <bot-token>
+ancient-claw channels remove --channel telegram --delete
 ```
 
-提示：`hyperbot channels add --help` 显示每个渠道的标志（token、app token、signal-cli 路径等）。
+提示：`ancient-claw channels add --help` 显示每个渠道的标志（token、app token、signal-cli 路径等）。
 
 ## 登录/登出（交互式）
 
 ```bash
-hyperbot channels login --channel whatsapp
-hyperbot channels logout --channel whatsapp
+ancient-claw channels login --channel whatsapp
+ancient-claw channels logout --channel whatsapp
 ```
 
 ## 故障排除
 
-- 运行 `hyperbot status --deep` 进行全面探测。
-- 使用 `hyperbot doctor` 获取引导式修复。
-- `hyperbot channels list` 输出 `Claude: HTTP 403 ... user:profile` → 用量快照需要 `user:profile` 权限范围。使用 `--no-usage`，或提供 claude.ai 会话密钥（`CLAUDE_WEB_SESSION_KEY` / `CLAUDE_WEB_COOKIE`），或通过 Claude Code CLI 重新授权。
+- 运行 `ancient-claw status --deep` 进行全面探测。
+- 使用 `ancient-claw doctor` 获取引导式修复。
+- `ancient-claw channels list` 输出 `Claude: HTTP 403 ... user:profile` → 用量快照需要 `user:profile` 权限范围。使用 `--no-usage`，或提供 claude.ai 会话密钥（`CLAUDE_WEB_SESSION_KEY` / `CLAUDE_WEB_COOKIE`），或通过 Claude Code CLI 重新授权。
 
 ## 能力探测
 
 获取提供商能力提示（可用的 intents/scopes）以及静态功能支持：
 
 ```bash
-hyperbot channels capabilities
-hyperbot channels capabilities --channel discord --target channel:123
+ancient-claw channels capabilities
+ancient-claw channels capabilities --channel discord --target channel:123
 ```
 
 说明：
@@ -75,9 +75,9 @@ hyperbot channels capabilities --channel discord --target channel:123
 使用提供商目录将渠道/用户名称解析为 ID：
 
 ```bash
-hyperbot channels resolve --channel slack "#general" "@jane"
-hyperbot channels resolve --channel discord "My Server/#support" "@someone"
-hyperbot channels resolve --channel matrix "Project Room"
+ancient-claw channels resolve --channel slack "#general" "@jane"
+ancient-claw channels resolve --channel discord "My Server/#support" "@someone"
+ancient-claw channels resolve --channel matrix "Project Room"
 ```
 
 说明：

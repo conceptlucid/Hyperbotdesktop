@@ -3,7 +3,7 @@ read_when:
   - 你想在不创建 cron 作业的情况下入队系统事件
   - 你需要启用或禁用心跳
   - 你想检查系统在线状态条目
-summary: "`hyperbot system` 的 CLI 参考（系统事件、心跳、在线状态）"
+summary: "`ancient-claw system` 的 CLI 参考（系统事件、心跳、在线状态）"
 title: system
 x-i18n:
   generated_at: "2026-02-03T07:45:23Z"
@@ -14,17 +14,17 @@ x-i18n:
   workflow: 15
 ---
 
-# `hyperbot system`
+# `ancient-claw system`
 
 Gateway 网关的系统级辅助工具：入队系统事件、控制心跳和查看在线状态。
 
 ## 常用命令
 
 ```bash
-hyperbot system event --text "Check for urgent follow-ups" --mode now
-hyperbot system heartbeat enable
-hyperbot system heartbeat last
-hyperbot system presence
+ancient-claw system event --text "Check for urgent follow-ups" --mode now
+ancient-claw system heartbeat enable
+ancient-claw system heartbeat last
+ancient-claw system presence
 ```
 
 ## `system event`

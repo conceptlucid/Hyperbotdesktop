@@ -6,31 +6,31 @@ read_when:
 title: "Skills"
 ---
 
-# Skills (HyperBot)
+# Skills (Ancient Claw)
 
-HyperBot uses **[AgentSkills](https://agentskills.io)-compatible** skill folders to teach the agent how to use tools. Each skill is a directory containing a `SKILL.md` with YAML frontmatter and instructions. HyperBot loads **bundled skills** plus optional local overrides, and filters them at load time based on environment, config, and binary presence.
+Ancient Claw uses **[AgentSkills](https://agentskills.io)-compatible** skill folders to teach the agent how to use tools. Each skill is a directory containing a `SKILL.md` with YAML frontmatter and instructions. Ancient Claw loads **bundled skills** plus optional local overrides, and filters them at load time based on environment, config, and binary presence.
 
 ## Locations and precedence
 
 Skills are loaded from **three** places:
 
-1. **Bundled skills**: shipped with the install (npm package or HyperBot.app)
-2. **Managed/local skills**: `~/.hyperbot/skills`
+1. **Bundled skills**: shipped with the install (npm package or Ancient Claw.app)
+2. **Managed/local skills**: `~/.ancient-claw/skills`
 3. **Workspace skills**: `<workspace>/skills`
 
 If a skill name conflicts, precedence is:
 
-`<workspace>/skills` (highest) → `~/.hyperbot/skills` → bundled skills (lowest)
+`<workspace>/skills` (highest) → `~/.ancient-claw/skills` → bundled skills (lowest)
 
 Additionally, you can configure extra skill folders (lowest precedence) via
-`skills.load.extraDirs` in `~/.hyperbot/hyperbot.json`.
+`skills.load.extraDirs` in `~/.ancient-claw/ancient-claw.json`.
 
 ## Per-agent vs shared skills
 
 In **multi-agent** setups, each agent has its own workspace. That means:
 
 - **Per-agent skills** live in `<workspace>/skills` for that agent only.
-- **Shared skills** live in `~/.hyperbot/skills` (managed/local) and are visible
+- **Shared skills** live in `~/.ancient-claw/skills` (managed/local) and are visible
   to **all agents** on the same machine.
 - **Shared folders** can also be added via `skills.load.extraDirs` (lowest
   precedence) if you want a common skills pack used by multiple agents.
@@ -41,16 +41,16 @@ applies: workspace wins, then managed/local, then bundled.
 ## Plugins + skills
 
 Plugins can ship their own skills by listing `skills` directories in
-`hyperbot.plugin.json` (paths relative to the plugin root). Plugin skills load
+`ancient-claw.plugin.json` (paths relative to the plugin root). Plugin skills load
 when the plugin is enabled and participate in the normal skill precedence rules.
-You can gate them via `metadata.hyperbot.requires.config` on the plugin’s config
+You can gate them via `metadata.ancient-claw.requires.config` on the plugin’s config
 entry. See [Plugins](/tools/plugin) for discovery/config and [Tools](/tools) for the
 tool surface those skills teach.
 
 ## ClawHub (install + sync)
 
-ClawHub is the public skills registry for HyperBot. Browse at
-[https://clawhub.com](https://clawhub.com). Use native `hyperbot skills`
+ClawHub is the public skills registry for Ancient Claw. Browse at
+[https://clawhub.com](https://clawhub.com). Use native `ancient-claw skills`
 commands to discover/install/update skills, or the separate `clawhub` CLI when
 you need publish/sync workflows.
 Full guide: [ClawHub](/tools/clawhub).
@@ -58,16 +58,16 @@ Full guide: [ClawHub](/tools/clawhub).
 Common flows:
 
 - Install a skill into your workspace:
-  - `hyperbot skills install <skill-slug>`
+  - `ancient-claw skills install <skill-slug>`
 - Update all installed skills:
-  - `hyperbot skills update --all`
+  - `ancient-claw skills update --all`
 - Sync (scan + publish updates):
   - `clawhub sync --all`
 
-Native `hyperbot skills install` installs into the active workspace `skills/`
+Native `ancient-claw skills install` installs into the active workspace `skills/`
 directory. The separate `clawhub` CLI also installs into `./skills` under your
-current working directory (or falls back to the configured HyperBot workspace).
-HyperBot picks that up as `<workspace>/skills` on the next session.
+current working directory (or falls back to the configured Ancient Claw workspace).
+Ancient Claw picks that up as `<workspace>/skills` on the next session.
 
 ## Security notes
 
@@ -96,7 +96,7 @@ Notes:
 - `metadata` should be a **single-line JSON object**.
 - Use `{baseDir}` in instructions to reference the skill folder path.
 - Optional frontmatter keys:
-  - `homepage` — URL surfaced as “Website” in the macOS Skills UI (also supported via `metadata.hyperbot.homepage`).
+  - `homepage` — URL surfaced as “Website” in the macOS Skills UI (also supported via `metadata.ancient-claw.homepage`).
   - `user-invocable` — `true|false` (default: `true`). When `true`, the skill is exposed as a user slash command.
   - `disable-model-invocation` — `true|false` (default: `false`). When `true`, the skill is excluded from the model prompt (still available via user invocation).
   - `command-dispatch` — `tool` (optional). When set to `tool`, the slash command bypasses the model and dispatches directly to a tool.
@@ -108,7 +108,7 @@ Notes:
 
 ## Gating (load-time filters)
 
-HyperBot **filters skills at load time** using `metadata` (single-line JSON):
+Ancient Claw **filters skills at load time** using `metadata` (single-line JSON):
 
 ```markdown
 ---
@@ -116,7 +116,7 @@ name: image-lab
 description: Generate or edit images via a provider-backed image workflow
 metadata:
   {
-    "hyperbot":
+    "ancient-claw":
       {
         "requires": { "bins": ["uv"], "env": ["GEMINI_API_KEY"], "config": ["browser.enabled"] },
         "primaryEnv": "GEMINI_API_KEY",
@@ -125,7 +125,7 @@ metadata:
 ---
 ```
 
-Fields under `metadata.hyperbot`:
+Fields under `metadata.ancient-claw`:
 
 - `always: true` — always include the skill (skip other gates).
 - `emoji` — optional emoji used by the macOS Skills UI.
@@ -134,7 +134,7 @@ Fields under `metadata.hyperbot`:
 - `requires.bins` — list; each must exist on `PATH`.
 - `requires.anyBins` — list; at least one must exist on `PATH`.
 - `requires.env` — list; env var must exist **or** be provided in config.
-- `requires.config` — list of `hyperbot.json` paths that must be truthy.
+- `requires.config` — list of `ancient-claw.json` paths that must be truthy.
 - `primaryEnv` — env var name associated with `skills.entries.<name>.apiKey`.
 - `install` — optional array of installer specs used by the macOS Skills UI (brew/node/go/uv/download).
 
@@ -156,7 +156,7 @@ name: gemini
 description: Use Gemini CLI for coding assistance and Google search lookups.
 metadata:
   {
-    "hyperbot":
+    "ancient-claw":
       {
         "emoji": "♊️",
         "requires": { "bins": ["gemini"] },
@@ -178,18 +178,18 @@ metadata:
 Notes:
 
 - If multiple installers are listed, the gateway picks a **single** preferred option (brew when available, otherwise node).
-- If all installers are `download`, HyperBot lists each entry so you can see the available artifacts.
+- If all installers are `download`, Ancient Claw lists each entry so you can see the available artifacts.
 - Installer specs can include `os: ["darwin"|"linux"|"win32"]` to filter options by platform.
-- Node installs honor `skills.install.nodeManager` in `hyperbot.json` (default: npm; options: npm/pnpm/yarn/bun).
+- Node installs honor `skills.install.nodeManager` in `ancient-claw.json` (default: npm; options: npm/pnpm/yarn/bun).
   This only affects **skill installs**; the Gateway runtime should still be Node
   (Bun is not recommended for WhatsApp/Telegram).
 - Go installs: if `go` is missing and `brew` is available, the gateway installs Go via Homebrew first and sets `GOBIN` to Homebrew’s `bin` when possible.
-- Download installs: `url` (required), `archive` (`tar.gz` | `tar.bz2` | `zip`), `extract` (default: auto when archive detected), `stripComponents`, `targetDir` (default: `~/.hyperbot/tools/<skillKey>`).
+- Download installs: `url` (required), `archive` (`tar.gz` | `tar.bz2` | `zip`), `extract` (default: auto when archive detected), `stripComponents`, `targetDir` (default: `~/.ancient-claw/tools/<skillKey>`).
 
-If no `metadata.hyperbot` is present, the skill is always eligible (unless
+If no `metadata.ancient-claw` is present, the skill is always eligible (unless
 disabled in config or blocked by `skills.allowBundled` for bundled skills).
 
-## Config overrides (`~/.hyperbot/hyperbot.json`)
+## Config overrides (`~/.ancient-claw/ancient-claw.json`)
 
 Bundled/managed skills can be toggled and supplied with env values:
 
@@ -217,7 +217,7 @@ Bundled/managed skills can be toggled and supplied with env values:
 
 Note: if the skill name contains hyphens, quote the key (JSON5 allows quoted keys).
 
-If you want stock image generation/editing inside HyperBot itself, use the core
+If you want stock image generation/editing inside Ancient Claw itself, use the core
 `image_generate` tool with `agents.defaults.imageGenerationModel` instead of a
 bundled skill. Skill examples here are for custom or third-party workflows.
 
@@ -228,13 +228,13 @@ For native image generation/editing, use `image_generate` with
 key too.
 
 Config keys match the **skill name** by default. If a skill defines
-`metadata.hyperbot.skillKey`, use that key under `skills.entries`.
+`metadata.ancient-claw.skillKey`, use that key under `skills.entries`.
 
 Rules:
 
 - `enabled: false` disables the skill even if it’s bundled/installed.
 - `env`: injected **only if** the variable isn’t already set in the process.
-- `apiKey`: convenience for skills that declare `metadata.hyperbot.primaryEnv`.
+- `apiKey`: convenience for skills that declare `metadata.ancient-claw.primaryEnv`.
   Supports plaintext string or SecretRef object (`{ source, provider, id }`).
 - `config`: optional bag for custom per-skill fields; custom keys must live here.
 - `allowBundled`: optional allowlist for **bundled** skills only. If set, only
@@ -242,7 +242,7 @@ Rules:
 
 ## Environment injection (per agent run)
 
-When an agent run starts, HyperBot:
+When an agent run starts, Ancient Claw:
 
 1. Reads skill metadata.
 2. Applies any `skills.entries.<key>.env` or `skills.entries.<key>.apiKey` to
@@ -254,19 +254,19 @@ This is **scoped to the agent run**, not a global shell environment.
 
 ## Session snapshot (performance)
 
-HyperBot snapshots the eligible skills **when a session starts** and reuses that list for subsequent turns in the same session. Changes to skills or config take effect on the next new session.
+Ancient Claw snapshots the eligible skills **when a session starts** and reuses that list for subsequent turns in the same session. Changes to skills or config take effect on the next new session.
 
 Skills can also refresh mid-session when the skills watcher is enabled or when a new eligible remote node appears (see below). Think of this as a **hot reload**: the refreshed list is picked up on the next agent turn.
 
 ## Remote macOS nodes (Linux gateway)
 
-If the Gateway is running on Linux but a **macOS node** is connected **with `system.run` allowed** (Exec approvals security not set to `deny`), HyperBot can treat macOS-only skills as eligible when the required binaries are present on that node. The agent should execute those skills via the `nodes` tool (typically `nodes.run`).
+If the Gateway is running on Linux but a **macOS node** is connected **with `system.run` allowed** (Exec approvals security not set to `deny`), Ancient Claw can treat macOS-only skills as eligible when the required binaries are present on that node. The agent should execute those skills via the `nodes` tool (typically `nodes.run`).
 
 This relies on the node reporting its command support and on a bin probe via `system.run`. If the macOS node goes offline later, the skills remain visible; invocations may fail until the node reconnects.
 
 ## Skills watcher (auto-refresh)
 
-By default, HyperBot watches skill folders and bumps the skills snapshot when `SKILL.md` files change. Configure this under `skills.load`:
+By default, Ancient Claw watches skill folders and bumps the skills snapshot when `SKILL.md` files change. Configure this under `skills.load`:
 
 ```json5
 {
@@ -281,7 +281,7 @@ By default, HyperBot watches skill folders and bumps the skills snapshot when `S
 
 ## Token impact (skills list)
 
-When skills are eligible, HyperBot injects a compact XML list of available skills into the system prompt (via `formatSkillsForPrompt` in `pi-coding-agent`). The cost is deterministic:
+When skills are eligible, Ancient Claw injects a compact XML list of available skills into the system prompt (via `formatSkillsForPrompt` in `pi-coding-agent`). The cost is deterministic:
 
 - **Base overhead (only when ≥1 skill):** 195 characters.
 - **Per skill:** 97 characters + the length of the XML-escaped `<name>`, `<description>`, and `<location>` values.
@@ -299,8 +299,8 @@ Notes:
 
 ## Managed skills lifecycle
 
-HyperBot ships a baseline set of skills as **bundled skills** as part of the
-install (npm package or HyperBot.app). `~/.hyperbot/skills` exists for local
+Ancient Claw ships a baseline set of skills as **bundled skills** as part of the
+install (npm package or Ancient Claw.app). `~/.ancient-claw/skills` exists for local
 overrides (for example, pinning/patching a skill without changing the bundled
 copy). Workspace skills are user-owned and override both on name conflicts.
 

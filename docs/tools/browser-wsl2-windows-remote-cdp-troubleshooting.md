@@ -1,7 +1,7 @@
 ---
 summary: "Troubleshoot WSL2 Gateway + Windows Chrome remote CDP in layers"
 read_when:
-  - Running HyperBot Gateway in WSL2 while Chrome lives on Windows
+  - Running Ancient Claw Gateway in WSL2 while Chrome lives on Windows
   - Seeing overlapping browser/control-ui errors across WSL2 and Windows
   - Deciding between host-local Chrome MCP and raw remote CDP in split-host setups
 title: "WSL2 + Windows + remote Chrome CDP troubleshooting"
@@ -11,11 +11,11 @@ title: "WSL2 + Windows + remote Chrome CDP troubleshooting"
 
 This guide covers the common split-host setup where:
 
-- HyperBot Gateway runs inside WSL2
+- Ancient Claw Gateway runs inside WSL2
 - Chrome runs on Windows
 - browser control must cross the WSL2/Windows boundary
 
-It also covers the layered failure pattern from [issue #39369](https://github.com/hyperbot/hyperbot/issues/39369): several independent problems can show up at once, which makes the wrong layer look broken first.
+It also covers the layered failure pattern from [issue #39369](https://github.com/ancient-claw/ancient-claw/issues/39369): several independent problems can show up at once, which makes the wrong layer look broken first.
 
 ## Choose the right browser mode first
 
@@ -37,7 +37,7 @@ Use `existing-session` / `user` only when the Gateway itself runs on the same ho
 
 Choose this when:
 
-- HyperBot and Chrome are on the same machine
+- Ancient Claw and Chrome are on the same machine
 - you want the local signed-in browser state
 - you do not need cross-host browser transport
 
@@ -51,7 +51,7 @@ Reference shape:
 - Windows opens the Control UI in a normal browser at `http://127.0.0.1:18789/`
 - Windows Chrome exposes a CDP endpoint on port `9222`
 - WSL2 can reach that Windows CDP endpoint
-- HyperBot points a browser profile at the address that is reachable from WSL2
+- Ancient Claw points a browser profile at the address that is reachable from WSL2
 
 ## Why this setup is confusing
 
@@ -94,7 +94,7 @@ curl http://127.0.0.1:9222/json/version
 curl http://127.0.0.1:9222/json/list
 ```
 
-If this fails on Windows, HyperBot is not the problem yet.
+If this fails on Windows, Ancient Claw is not the problem yet.
 
 ### Layer 2: Verify WSL2 can reach that Windows endpoint
 
@@ -116,11 +116,11 @@ If this fails:
 - the address is wrong for the WSL2 side
 - firewall / port forwarding / local proxying is still missing
 
-Fix that before touching HyperBot config.
+Fix that before touching Ancient Claw config.
 
 ### Layer 3: Configure the correct browser profile
 
-For raw remote CDP, point HyperBot at the address that is reachable from WSL2:
+For raw remote CDP, point Ancient Claw at the address that is reachable from WSL2:
 
 ```json5
 {
@@ -142,7 +142,7 @@ Notes:
 
 - use the WSL2-reachable address, not whatever only works on Windows
 - keep `attachOnly: true` for externally managed browsers
-- test the same URL with `curl` before expecting HyperBot to succeed
+- test the same URL with `curl` before expecting Ancient Claw to succeed
 
 ### Layer 4: Verify the Control UI layer separately
 
@@ -165,14 +165,14 @@ Helpful page:
 From WSL2:
 
 ```bash
-hyperbot browser open https://example.com --browser-profile remote
-hyperbot browser tabs --browser-profile remote
+ancient-claw browser open https://example.com --browser-profile remote
+ancient-claw browser tabs --browser-profile remote
 ```
 
 Good result:
 
 - the tab opens in Windows Chrome
-- `hyperbot browser tabs` returns the target
+- `ancient-claw browser tabs` returns the target
 - later actions (`snapshot`, `screenshot`, `navigate`) work from the same profile
 
 ## Common misleading errors
@@ -196,7 +196,7 @@ Treat each message as a layer-specific clue:
 
 1. Windows: does `curl http://127.0.0.1:9222/json/version` work?
 2. WSL2: does `curl http://WINDOWS_HOST_OR_IP:9222/json/version` work?
-3. HyperBot config: does `browser.profiles.<name>.cdpUrl` use that exact WSL2-reachable address?
+3. Ancient Claw config: does `browser.profiles.<name>.cdpUrl` use that exact WSL2-reachable address?
 4. Control UI: are you opening `http://127.0.0.1:18789/` instead of a LAN IP?
 5. Are you trying to use `existing-session` across WSL2 and Windows instead of raw remote CDP?
 
@@ -208,4 +208,4 @@ When in doubt:
 
 - verify the Windows Chrome endpoint locally first
 - verify the same endpoint from WSL2 second
-- only then debug HyperBot config or Control UI auth
+- only then debug Ancient Claw config or Control UI auth

@@ -1,18 +1,18 @@
 ---
-summary: "Deploy HyperBot Gateway to a Kubernetes cluster with Kustomize"
+summary: "Deploy Ancient Claw Gateway to a Kubernetes cluster with Kustomize"
 read_when:
-  - You want to run HyperBot on a Kubernetes cluster
-  - You want to test HyperBot in a Kubernetes environment
+  - You want to run Ancient Claw on a Kubernetes cluster
+  - You want to test Ancient Claw in a Kubernetes environment
 title: "Kubernetes"
 ---
 
-# HyperBot on Kubernetes
+# Ancient Claw on Kubernetes
 
-A minimal starting point for running HyperBot on Kubernetes — not a production-ready deployment. It covers the core resources and is meant to be adapted to your environment.
+A minimal starting point for running Ancient Claw on Kubernetes — not a production-ready deployment. It covers the core resources and is meant to be adapted to your environment.
 
 ## Why not Helm?
 
-HyperBot is a single container with some config files. The interesting customization is in agent content (markdown files, skills, config overrides), not infrastructure templating. Kustomize handles overlays without the overhead of a Helm chart. If your deployment grows more complex, a Helm chart can be layered on top of these manifests.
+Ancient Claw is a single container with some config files. The interesting customization is in agent content (markdown files, skills, config overrides), not infrastructure templating. Kustomize handles overlays without the overhead of a Helm chart. If your deployment grows more complex, a Helm chart can be layered on top of these manifests.
 
 ## What you need
 
@@ -27,14 +27,14 @@ HyperBot is a single container with some config files. The interesting customiza
 export <PROVIDER>_API_KEY="..."
 ./scripts/k8s/deploy.sh
 
-kubectl port-forward svc/hyperbot 18789:18789 -n hyperbot
+kubectl port-forward svc/ancient-claw 18789:18789 -n ancient-claw
 open http://localhost:18789
 ```
 
 Retrieve the gateway token and paste it into the Control UI:
 
 ```bash
-kubectl get secret hyperbot-secrets -n hyperbot -o jsonpath='{.data.OPENCLAW_GATEWAY_TOKEN}' | base64 -d
+kubectl get secret ancient-claw-secrets -n ancient-claw -o jsonpath='{.data.OPENCLAW_GATEWAY_TOKEN}' | base64 -d
 ```
 
 For local debugging, `./scripts/k8s/deploy.sh --show-token` prints the token after deploy.
@@ -77,19 +77,19 @@ Use `--show-token` with either command if you want the token printed to stdout f
 ### 2) Access the gateway
 
 ```bash
-kubectl port-forward svc/hyperbot 18789:18789 -n hyperbot
+kubectl port-forward svc/ancient-claw 18789:18789 -n ancient-claw
 open http://localhost:18789
 ```
 
 ## What gets deployed
 
 ```
-Namespace: hyperbot (configurable via OPENCLAW_NAMESPACE)
-├── Deployment/hyperbot        # Single pod, init container + gateway
-├── Service/hyperbot           # ClusterIP on port 18789
+Namespace: ancient-claw (configurable via OPENCLAW_NAMESPACE)
+├── Deployment/ancient-claw        # Single pod, init container + gateway
+├── Service/ancient-claw           # ClusterIP on port 18789
 ├── PersistentVolumeClaim      # 10Gi for agent state and config
-├── ConfigMap/hyperbot-config  # hyperbot.json + AGENTS.md
-└── Secret/hyperbot-secrets    # Gateway token + API keys
+├── ConfigMap/ancient-claw-config  # ancient-claw.json + AGENTS.md
+└── Secret/ancient-claw-secrets    # Gateway token + API keys
 ```
 
 ## Customization
@@ -104,7 +104,7 @@ Edit the `AGENTS.md` in `scripts/k8s/manifests/configmap.yaml` and redeploy:
 
 ### Gateway config
 
-Edit `hyperbot.json` in `scripts/k8s/manifests/configmap.yaml`. See [Gateway configuration](/gateway/configuration) for the full reference.
+Edit `ancient-claw.json` in `scripts/k8s/manifests/configmap.yaml`. See [Gateway configuration](/gateway/configuration) for the full reference.
 
 ### Add providers
 
@@ -122,9 +122,9 @@ Existing provider keys stay in the Secret unless you overwrite them.
 Or patch the Secret directly:
 
 ```bash
-kubectl patch secret hyperbot-secrets -n hyperbot \
+kubectl patch secret ancient-claw-secrets -n ancient-claw \
   -p '{"stringData":{"<PROVIDER>_API_KEY":"..."}}'
-kubectl rollout restart deployment/hyperbot -n hyperbot
+kubectl rollout restart deployment/ancient-claw -n ancient-claw
 ```
 
 ### Custom namespace
@@ -138,7 +138,7 @@ OPENCLAW_NAMESPACE=my-namespace ./scripts/k8s/deploy.sh
 Edit the `image` field in `scripts/k8s/manifests/deployment.yaml`:
 
 ```yaml
-image: ghcr.io/hyperbot/hyperbot:latest # or pin to a specific version from https://github.com/hyperbot/hyperbot/releases
+image: ghcr.io/ancient-claw/ancient-claw:latest # or pin to a specific version from https://github.com/ancient-claw/ancient-claw/releases
 ```
 
 ### Expose beyond port-forward
@@ -184,7 +184,7 @@ scripts/k8s/
 ├── create-kind.sh              # Local Kind cluster (auto-detects docker/podman)
 └── manifests/
     ├── kustomization.yaml      # Kustomize base
-    ├── configmap.yaml          # hyperbot.json + AGENTS.md
+    ├── configmap.yaml          # ancient-claw.json + AGENTS.md
     ├── deployment.yaml         # Pod spec with security hardening
     ├── pvc.yaml                # 10Gi persistent storage
     └── service.yaml            # ClusterIP on 18789

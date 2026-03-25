@@ -15,18 +15,18 @@ x-i18n:
 
 # 飞书机器人
 
-飞书（Lark）是企业用于消息沟通与协作的团队聊天平台。此插件通过平台的 WebSocket 事件订阅将 HyperBot 连接到飞书/Lark 机器人，因此无需暴露公共 webhook URL 即可接收消息。
+飞书（Lark）是企业用于消息沟通与协作的团队聊天平台。此插件通过平台的 WebSocket 事件订阅将 Ancient Claw 连接到飞书/Lark 机器人，因此无需暴露公共 webhook URL 即可接收消息。
 
 ---
 
 ## 捆绑插件
 
-飞书随当前的 HyperBot 版本一同捆绑提供，因此无需单独安装插件。
+飞书随当前的 Ancient Claw 版本一同捆绑提供，因此无需单独安装插件。
 
 如果你使用的是较旧版本，或使用了不包含捆绑飞书的自定义安装，请手动安装：
 
 ```bash
-hyperbot plugins install @hyperbot/feishu
+ancient-claw plugins install @ancient-claw/feishu
 ```
 
 ---
@@ -37,38 +37,38 @@ hyperbot plugins install @hyperbot/feishu
 
 ### 方法 1：设置向导（推荐）
 
-如果你刚安装 HyperBot，请运行设置向导：
+如果你刚安装 Ancient Claw，请运行设置向导：
 
 ```bash
-hyperbot onboard
+ancient-claw onboard
 ```
 
 向导会引导你完成以下步骤：
 
 1. 创建飞书应用并收集凭证
-2. 在 HyperBot 中配置应用凭证
+2. 在 Ancient Claw 中配置应用凭证
 3. 启动 Gateway 网关
 
 ✅ **配置完成后**，检查 Gateway 网关状态：
 
-- `hyperbot gateway status`
-- `hyperbot logs --follow`
+- `ancient-claw gateway status`
+- `ancient-claw logs --follow`
 
 ### 方法 2：CLI 设置
 
 如果你已经完成初始安装，可通过 CLI 添加该渠道：
 
 ```bash
-hyperbot channels add
+ancient-claw channels add
 ```
 
 选择 **Feishu**，然后输入 App ID 和 App Secret。
 
 ✅ **配置完成后**，管理 Gateway 网关：
 
-- `hyperbot gateway status`
-- `hyperbot gateway restart`
-- `hyperbot logs --follow`
+- `ancient-claw gateway status`
+- `ancient-claw gateway restart`
+- `ancient-claw logs --follow`
 
 ---
 
@@ -146,8 +146,8 @@ Lark（国际版）租户应使用 [https://open.larksuite.com/app](https://open
 
 ⚠️ **重要：**在设置事件订阅前，请确保：
 
-1. 你已经为飞书运行过 `hyperbot channels add`
-2. Gateway 网关正在运行（`hyperbot gateway status`）
+1. 你已经为飞书运行过 `ancient-claw channels add`
+2. Gateway 网关正在运行（`ancient-claw gateway status`）
 
 在 **Event Subscription** 中：
 
@@ -166,19 +166,19 @@ Lark（国际版）租户应使用 [https://open.larksuite.com/app](https://open
 
 ---
 
-## 第 2 步：配置 HyperBot
+## 第 2 步：配置 Ancient Claw
 
 ### 使用向导配置（推荐）
 
 ```bash
-hyperbot channels add
+ancient-claw channels add
 ```
 
 选择 **Feishu**，然后粘贴你的 App ID 和 App Secret。
 
 ### 通过配置文件进行配置
 
-编辑 `~/.hyperbot/hyperbot.json`：
+编辑 `~/.ancient-claw/ancient-claw.json`：
 
 ```json5
 {
@@ -275,7 +275,7 @@ export FEISHU_APP_SECRET="xxx"
 ### 1. 启动 Gateway 网关
 
 ```bash
-hyperbot gateway
+ancient-claw gateway
 ```
 
 ### 2. 发送测试消息
@@ -287,7 +287,7 @@ hyperbot gateway
 默认情况下，机器人会回复一个配对码。批准它：
 
 ```bash
-hyperbot pairing approve feishu <CODE>
+ancient-claw pairing approve feishu <CODE>
 ```
 
 批准后，你就可以正常聊天了。
@@ -311,8 +311,8 @@ hyperbot pairing approve feishu <CODE>
 - **批准配对**：
 
   ```bash
-  hyperbot pairing list feishu
-  hyperbot pairing approve feishu <CODE>
+  ancient-claw pairing list feishu
+  ancient-claw pairing approve feishu <CODE>
   ```
 
 - **Allowlist 模式**：设置 `channels.feishu.allowFrom`，填入允许的 Open ID
@@ -407,7 +407,7 @@ hyperbot pairing approve feishu <CODE>
 **方法 1（推荐）**
 
 1. 启动 Gateway 网关并在群里 @ 提及机器人
-2. 运行 `hyperbot logs --follow` 并查找 `chat_id`
+2. 运行 `ancient-claw logs --follow` 并查找 `chat_id`
 
 **方法 2**
 
@@ -420,14 +420,14 @@ hyperbot pairing approve feishu <CODE>
 **方法 1（推荐）**
 
 1. 启动 Gateway 网关并向机器人发送私信
-2. 运行 `hyperbot logs --follow` 并查找 `open_id`
+2. 运行 `ancient-claw logs --follow` 并查找 `open_id`
 
 **方法 2**
 
 检查配对请求中的用户 Open ID：
 
 ```bash
-hyperbot pairing list feishu
+ancient-claw pairing list feishu
 ```
 
 ---
@@ -446,11 +446,11 @@ hyperbot pairing list feishu
 
 | Command                    | Description                |
 | -------------------------- | -------------------------- |
-| `hyperbot gateway status`  | 显示 Gateway 网关状态      |
-| `hyperbot gateway install` | 安装/启动 Gateway 网关服务 |
-| `hyperbot gateway stop`    | 停止 Gateway 网关服务      |
-| `hyperbot gateway restart` | 重启 Gateway 网关服务      |
-| `hyperbot logs --follow`   | 跟踪 Gateway 网关日志      |
+| `ancient-claw gateway status`  | 显示 Gateway 网关状态      |
+| `ancient-claw gateway install` | 安装/启动 Gateway 网关服务 |
+| `ancient-claw gateway stop`    | 停止 Gateway 网关服务      |
+| `ancient-claw gateway restart` | 重启 Gateway 网关服务      |
+| `ancient-claw logs --follow`   | 跟踪 Gateway 网关日志      |
 
 ---
 
@@ -461,7 +461,7 @@ hyperbot pairing list feishu
 1. 确保机器人已加入群组
 2. 确保你 @ 提及了机器人（默认行为）
 3. 检查 `groupPolicy` 未设置为 `"disabled"`
-4. 检查日志：`hyperbot logs --follow`
+4. 检查日志：`ancient-claw logs --follow`
 
 ### 机器人未接收到消息
 
@@ -469,8 +469,8 @@ hyperbot pairing list feishu
 2. 确保事件订阅包含 `im.message.receive_v1`
 3. 确保已启用**长连接**
 4. 确保应用权限完整
-5. 确保 Gateway 网关正在运行：`hyperbot gateway status`
-6. 检查日志：`hyperbot logs --follow`
+5. 确保 Gateway 网关正在运行：`ancient-claw gateway status`
+6. 检查日志：`ancient-claw logs --follow`
 
 ### App Secret 泄露
 
@@ -562,7 +562,7 @@ hyperbot pairing list feishu
             agent: "codex",
             backend: "acpx",
             mode: "persistent",
-            cwd: "/workspace/hyperbot",
+            cwd: "/workspace/ancient-claw",
           },
         },
       },
@@ -618,12 +618,12 @@ hyperbot pairing list feishu
       {
         id: "clawd-fan",
         workspace: "/home/user/clawd-fan",
-        agentDir: "/home/user/.hyperbot/agents/clawd-fan/agent",
+        agentDir: "/home/user/.ancient-claw/agents/clawd-fan/agent",
       },
       {
         id: "clawd-xi",
         workspace: "/home/user/clawd-xi",
-        agentDir: "/home/user/.hyperbot/agents/clawd-xi/agent",
+        agentDir: "/home/user/.ancient-claw/agents/clawd-xi/agent",
       },
     ],
   },

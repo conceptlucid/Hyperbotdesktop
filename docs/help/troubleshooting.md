@@ -1,7 +1,7 @@
 ---
-summary: "Symptom first troubleshooting hub for HyperBot"
+summary: "Symptom first troubleshooting hub for Ancient Claw"
 read_when:
-  - HyperBot is not working and you need the fastest path to a fix
+  - Ancient Claw is not working and you need the fastest path to a fix
   - You want a triage flow before diving into deep runbooks
 title: "General Troubleshooting"
 ---
@@ -15,24 +15,24 @@ If you only have 2 minutes, use this page as a triage front door.
 Run this exact ladder in order:
 
 ```bash
-hyperbot status
-hyperbot status --all
-hyperbot gateway probe
-hyperbot gateway status
-hyperbot doctor
-hyperbot channels status --probe
-hyperbot logs --follow
+ancient-claw status
+ancient-claw status --all
+ancient-claw gateway probe
+ancient-claw gateway status
+ancient-claw doctor
+ancient-claw channels status --probe
+ancient-claw logs --follow
 ```
 
 Good output in one line:
 
-- `hyperbot status` → shows configured channels and no obvious auth errors.
-- `hyperbot status --all` → full report is present and shareable.
-- `hyperbot gateway probe` → expected gateway target is reachable (`Reachable: yes`). `RPC: limited - missing scope: operator.read` is degraded diagnostics, not a connect failure.
-- `hyperbot gateway status` → `Runtime: running` and `RPC probe: ok`.
-- `hyperbot doctor` → no blocking config/service errors.
-- `hyperbot channels status --probe` → channels report `connected` or `ready`.
-- `hyperbot logs --follow` → steady activity, no repeating fatal errors.
+- `ancient-claw status` → shows configured channels and no obvious auth errors.
+- `ancient-claw status --all` → full report is present and shareable.
+- `ancient-claw gateway probe` → expected gateway target is reachable (`Reachable: yes`). `RPC: limited - missing scope: operator.read` is degraded diagnostics, not a connect failure.
+- `ancient-claw gateway status` → `Runtime: running` and `RPC probe: ok`.
+- `ancient-claw doctor` → no blocking config/service errors.
+- `ancient-claw channels status --probe` → channels report `connected` or `ready`.
+- `ancient-claw logs --follow` → steady activity, no repeating fatal errors.
 
 ## Anthropic long context 429
 
@@ -40,24 +40,24 @@ If you see:
 `HTTP 429: rate_limit_error: Extra usage is required for long context requests`,
 go to [/gateway/troubleshooting#anthropic-429-extra-usage-required-for-long-context](/gateway/troubleshooting#anthropic-429-extra-usage-required-for-long-context).
 
-## Plugin install fails with missing hyperbot extensions
+## Plugin install fails with missing ancient-claw extensions
 
-If install fails with `package.json missing hyperbot.extensions`, the plugin package
-is using an old shape that HyperBot no longer accepts.
+If install fails with `package.json missing ancient-claw.extensions`, the plugin package
+is using an old shape that Ancient Claw no longer accepts.
 
 Fix in the plugin package:
 
-1. Add `hyperbot.extensions` to `package.json`.
+1. Add `ancient-claw.extensions` to `package.json`.
 2. Point entries at built runtime files (usually `./dist/index.js`).
-3. Republish the plugin and run `hyperbot plugins install <package>` again.
+3. Republish the plugin and run `ancient-claw plugins install <package>` again.
 
 Example:
 
 ```json
 {
-  "name": "@hyperbot/my-plugin",
+  "name": "@ancient-claw/my-plugin",
   "version": "1.2.3",
-  "hyperbot": {
+  "ancient-claw": {
     "extensions": ["./dist/index.js"]
   }
 }
@@ -69,7 +69,7 @@ Reference: [Plugin architecture](/plugins/architecture)
 
 ```mermaid
 flowchart TD
-  A[HyperBot is not working] --> B{What breaks first}
+  A[Ancient Claw is not working] --> B{What breaks first}
   B --> C[No replies]
   B --> D[Dashboard or Control UI will not connect]
   B --> E[Gateway will not start or service not running]
@@ -90,11 +90,11 @@ flowchart TD
 <AccordionGroup>
   <Accordion title="No replies">
     ```bash
-    hyperbot status
-    hyperbot gateway status
-    hyperbot channels status --probe
-    hyperbot pairing list --channel <channel> [--account <id>]
-    hyperbot logs --follow
+    ancient-claw status
+    ancient-claw gateway status
+    ancient-claw channels status --probe
+    ancient-claw pairing list --channel <channel> [--account <id>]
+    ancient-claw logs --follow
     ```
 
     Good output looks like:
@@ -120,16 +120,16 @@ flowchart TD
 
   <Accordion title="Dashboard or Control UI will not connect">
     ```bash
-    hyperbot status
-    hyperbot gateway status
-    hyperbot logs --follow
-    hyperbot doctor
-    hyperbot channels status --probe
+    ancient-claw status
+    ancient-claw gateway status
+    ancient-claw logs --follow
+    ancient-claw doctor
+    ancient-claw channels status --probe
     ```
 
     Good output looks like:
 
-    - `Dashboard: http://...` is shown in `hyperbot gateway status`
+    - `Dashboard: http://...` is shown in `ancient-claw gateway status`
     - `RPC probe: ok`
     - No auth loop in logs
 
@@ -150,11 +150,11 @@ flowchart TD
 
   <Accordion title="Gateway will not start or service installed but not running">
     ```bash
-    hyperbot status
-    hyperbot gateway status
-    hyperbot logs --follow
-    hyperbot doctor
-    hyperbot channels status --probe
+    ancient-claw status
+    ancient-claw gateway status
+    ancient-claw logs --follow
+    ancient-claw doctor
+    ancient-claw channels status --probe
     ```
 
     Good output looks like:
@@ -179,11 +179,11 @@ flowchart TD
 
   <Accordion title="Channel connects but messages do not flow">
     ```bash
-    hyperbot status
-    hyperbot gateway status
-    hyperbot logs --follow
-    hyperbot doctor
-    hyperbot channels status --probe
+    ancient-claw status
+    ancient-claw gateway status
+    ancient-claw logs --follow
+    ancient-claw doctor
+    ancient-claw channels status --probe
     ```
 
     Good output looks like:
@@ -207,12 +207,12 @@ flowchart TD
 
   <Accordion title="Cron or heartbeat did not fire or did not deliver">
     ```bash
-    hyperbot status
-    hyperbot gateway status
-    hyperbot cron status
-    hyperbot cron list
-    hyperbot cron runs --id <jobId> --limit 20
-    hyperbot logs --follow
+    ancient-claw status
+    ancient-claw gateway status
+    ancient-claw cron status
+    ancient-claw cron list
+    ancient-claw cron runs --id <jobId> --limit 20
+    ancient-claw logs --follow
     ```
 
     Good output looks like:
@@ -238,11 +238,11 @@ flowchart TD
 
   <Accordion title="Node is paired but tool fails camera canvas screen exec">
     ```bash
-    hyperbot status
-    hyperbot gateway status
-    hyperbot nodes status
-    hyperbot nodes describe --node <idOrNameOrIp>
-    hyperbot logs --follow
+    ancient-claw status
+    ancient-claw gateway status
+    ancient-claw nodes status
+    ancient-claw nodes describe --node <idOrNameOrIp>
+    ancient-claw logs --follow
     ```
 
     Good output looks like:
@@ -268,17 +268,17 @@ flowchart TD
 
   <Accordion title="Browser tool fails">
     ```bash
-    hyperbot status
-    hyperbot gateway status
-    hyperbot browser status
-    hyperbot logs --follow
-    hyperbot doctor
+    ancient-claw status
+    ancient-claw gateway status
+    ancient-claw browser status
+    ancient-claw logs --follow
+    ancient-claw doctor
     ```
 
     Good output looks like:
 
     - Browser status shows `running: true` and a chosen browser/profile.
-    - `hyperbot` starts, or `user` can see local Chrome tabs.
+    - `ancient-claw` starts, or `user` can see local Chrome tabs.
 
     Common log signatures:
 

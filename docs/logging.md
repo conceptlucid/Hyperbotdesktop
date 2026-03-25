@@ -9,7 +9,7 @@ title: "Logging Overview"
 
 # Logging
 
-HyperBot logs in two places:
+Ancient Claw logs in two places:
 
 - **File logs** (JSON lines) written by the Gateway.
 - **Console output** shown in terminals and the Control UI.
@@ -21,16 +21,16 @@ levels and formats.
 
 By default, the Gateway writes a rolling log file under:
 
-`/tmp/hyperbot/hyperbot-YYYY-MM-DD.log`
+`/tmp/ancient-claw/ancient-claw-YYYY-MM-DD.log`
 
 The date uses the gateway host's local timezone.
 
-You can override this in `~/.hyperbot/hyperbot.json`:
+You can override this in `~/.ancient-claw/ancient-claw.json`:
 
 ```json
 {
   "logging": {
-    "file": "/path/to/hyperbot.log"
+    "file": "/path/to/ancient-claw.log"
   }
 }
 ```
@@ -42,7 +42,7 @@ You can override this in `~/.hyperbot/hyperbot.json`:
 Use the CLI to tail the gateway log file via RPC:
 
 ```bash
-hyperbot logs --follow
+ancient-claw logs --follow
 ```
 
 Output modes:
@@ -63,7 +63,7 @@ In JSON mode, the CLI emits `type`-tagged objects:
 If the Gateway is unreachable, the CLI prints a short hint to run:
 
 ```bash
-hyperbot doctor
+ancient-claw doctor
 ```
 
 ### Control UI (web)
@@ -76,7 +76,7 @@ See [/web/control-ui](/web/control-ui) for how to open it.
 To filter channel activity (WhatsApp/Telegram/etc), use:
 
 ```bash
-hyperbot channels logs --channel whatsapp
+ancient-claw channels logs --channel whatsapp
 ```
 
 ## Log formats
@@ -98,13 +98,13 @@ Console formatting is controlled by `logging.consoleStyle`.
 
 ## Configuring logging
 
-All logging configuration lives under `logging` in `~/.hyperbot/hyperbot.json`.
+All logging configuration lives under `logging` in `~/.ancient-claw/ancient-claw.json`.
 
 ```json
 {
   "logging": {
     "level": "info",
-    "file": "/tmp/hyperbot/hyperbot-YYYY-MM-DD.log",
+    "file": "/tmp/ancient-claw/ancient-claw-YYYY-MM-DD.log",
     "consoleLevel": "info",
     "consoleStyle": "pretty",
     "redactSensitive": "tools",
@@ -118,7 +118,7 @@ All logging configuration lives under `logging` in `~/.hyperbot/hyperbot.json`.
 - `logging.level`: **file logs** (JSONL) level.
 - `logging.consoleLevel`: **console** verbosity level.
 
-You can override both via the **`OPENCLAW_LOG_LEVEL`** environment variable (e.g. `OPENCLAW_LOG_LEVEL=debug`). The env var takes precedence over the config file, so you can raise verbosity for a single run without editing `hyperbot.json`. You can also pass the global CLI option **`--log-level <level>`** (for example, `hyperbot --log-level debug gateway run`), which overrides the environment variable for that command.
+You can override both via the **`OPENCLAW_LOG_LEVEL`** environment variable (e.g. `OPENCLAW_LOG_LEVEL=debug`). The env var takes precedence over the config file, so you can raise verbosity for a single run without editing `ancient-claw.json`. You can also pass the global CLI option **`--log-level <level>`** (for example, `ancient-claw --log-level debug gateway run`), which overrides the environment variable for that command.
 
 `--verbose` only affects console output; it does not change file log levels.
 
@@ -152,7 +152,7 @@ diagnostics + the exporter plugin are enabled.
 
 - **OpenTelemetry (OTel)**: the data model + SDKs for traces, metrics, and logs.
 - **OTLP**: the wire protocol used to export OTel data to a collector/backend.
-- HyperBot exports via **OTLP/HTTP (protobuf)** today.
+- Ancient Claw exports via **OTLP/HTTP (protobuf)** today.
 
 ### Signals exported
 
@@ -242,7 +242,7 @@ works with any OpenTelemetry collector/backend that accepts OTLP/HTTP.
       "enabled": true,
       "endpoint": "http://otel-collector:4318",
       "protocol": "http/protobuf",
-      "serviceName": "hyperbot-gateway",
+      "serviceName": "ancient-claw-gateway",
       "traces": true,
       "metrics": true,
       "logs": true,
@@ -255,7 +255,7 @@ works with any OpenTelemetry collector/backend that accepts OTLP/HTTP.
 
 Notes:
 
-- You can also enable the plugin with `hyperbot plugins enable diagnostics-otel`.
+- You can also enable the plugin with `ancient-claw plugins enable diagnostics-otel`.
 - `protocol` currently supports `http/protobuf` only. `grpc` is ignored.
 - Metrics include token usage, cost, context size, run duration, and message-flow
   counters/histograms (webhooks, queueing, session state, queue depth/wait).
@@ -269,60 +269,60 @@ Notes:
 
 Model usage:
 
-- `hyperbot.tokens` (counter, attrs: `hyperbot.token`, `hyperbot.channel`,
-  `hyperbot.provider`, `hyperbot.model`)
-- `hyperbot.cost.usd` (counter, attrs: `hyperbot.channel`, `hyperbot.provider`,
-  `hyperbot.model`)
-- `hyperbot.run.duration_ms` (histogram, attrs: `hyperbot.channel`,
-  `hyperbot.provider`, `hyperbot.model`)
-- `hyperbot.context.tokens` (histogram, attrs: `hyperbot.context`,
-  `hyperbot.channel`, `hyperbot.provider`, `hyperbot.model`)
+- `ancient-claw.tokens` (counter, attrs: `ancient-claw.token`, `ancient-claw.channel`,
+  `ancient-claw.provider`, `ancient-claw.model`)
+- `ancient-claw.cost.usd` (counter, attrs: `ancient-claw.channel`, `ancient-claw.provider`,
+  `ancient-claw.model`)
+- `ancient-claw.run.duration_ms` (histogram, attrs: `ancient-claw.channel`,
+  `ancient-claw.provider`, `ancient-claw.model`)
+- `ancient-claw.context.tokens` (histogram, attrs: `ancient-claw.context`,
+  `ancient-claw.channel`, `ancient-claw.provider`, `ancient-claw.model`)
 
 Message flow:
 
-- `hyperbot.webhook.received` (counter, attrs: `hyperbot.channel`,
-  `hyperbot.webhook`)
-- `hyperbot.webhook.error` (counter, attrs: `hyperbot.channel`,
-  `hyperbot.webhook`)
-- `hyperbot.webhook.duration_ms` (histogram, attrs: `hyperbot.channel`,
-  `hyperbot.webhook`)
-- `hyperbot.message.queued` (counter, attrs: `hyperbot.channel`,
-  `hyperbot.source`)
-- `hyperbot.message.processed` (counter, attrs: `hyperbot.channel`,
-  `hyperbot.outcome`)
-- `hyperbot.message.duration_ms` (histogram, attrs: `hyperbot.channel`,
-  `hyperbot.outcome`)
+- `ancient-claw.webhook.received` (counter, attrs: `ancient-claw.channel`,
+  `ancient-claw.webhook`)
+- `ancient-claw.webhook.error` (counter, attrs: `ancient-claw.channel`,
+  `ancient-claw.webhook`)
+- `ancient-claw.webhook.duration_ms` (histogram, attrs: `ancient-claw.channel`,
+  `ancient-claw.webhook`)
+- `ancient-claw.message.queued` (counter, attrs: `ancient-claw.channel`,
+  `ancient-claw.source`)
+- `ancient-claw.message.processed` (counter, attrs: `ancient-claw.channel`,
+  `ancient-claw.outcome`)
+- `ancient-claw.message.duration_ms` (histogram, attrs: `ancient-claw.channel`,
+  `ancient-claw.outcome`)
 
 Queues + sessions:
 
-- `hyperbot.queue.lane.enqueue` (counter, attrs: `hyperbot.lane`)
-- `hyperbot.queue.lane.dequeue` (counter, attrs: `hyperbot.lane`)
-- `hyperbot.queue.depth` (histogram, attrs: `hyperbot.lane` or
-  `hyperbot.channel=heartbeat`)
-- `hyperbot.queue.wait_ms` (histogram, attrs: `hyperbot.lane`)
-- `hyperbot.session.state` (counter, attrs: `hyperbot.state`, `hyperbot.reason`)
-- `hyperbot.session.stuck` (counter, attrs: `hyperbot.state`)
-- `hyperbot.session.stuck_age_ms` (histogram, attrs: `hyperbot.state`)
-- `hyperbot.run.attempt` (counter, attrs: `hyperbot.attempt`)
+- `ancient-claw.queue.lane.enqueue` (counter, attrs: `ancient-claw.lane`)
+- `ancient-claw.queue.lane.dequeue` (counter, attrs: `ancient-claw.lane`)
+- `ancient-claw.queue.depth` (histogram, attrs: `ancient-claw.lane` or
+  `ancient-claw.channel=heartbeat`)
+- `ancient-claw.queue.wait_ms` (histogram, attrs: `ancient-claw.lane`)
+- `ancient-claw.session.state` (counter, attrs: `ancient-claw.state`, `ancient-claw.reason`)
+- `ancient-claw.session.stuck` (counter, attrs: `ancient-claw.state`)
+- `ancient-claw.session.stuck_age_ms` (histogram, attrs: `ancient-claw.state`)
+- `ancient-claw.run.attempt` (counter, attrs: `ancient-claw.attempt`)
 
 ### Exported spans (names + key attributes)
 
-- `hyperbot.model.usage`
-  - `hyperbot.channel`, `hyperbot.provider`, `hyperbot.model`
-  - `hyperbot.sessionKey`, `hyperbot.sessionId`
-  - `hyperbot.tokens.*` (input/output/cache_read/cache_write/total)
-- `hyperbot.webhook.processed`
-  - `hyperbot.channel`, `hyperbot.webhook`, `hyperbot.chatId`
-- `hyperbot.webhook.error`
-  - `hyperbot.channel`, `hyperbot.webhook`, `hyperbot.chatId`,
-    `hyperbot.error`
-- `hyperbot.message.processed`
-  - `hyperbot.channel`, `hyperbot.outcome`, `hyperbot.chatId`,
-    `hyperbot.messageId`, `hyperbot.sessionKey`, `hyperbot.sessionId`,
-    `hyperbot.reason`
-- `hyperbot.session.stuck`
-  - `hyperbot.state`, `hyperbot.ageMs`, `hyperbot.queueDepth`,
-    `hyperbot.sessionKey`, `hyperbot.sessionId`
+- `ancient-claw.model.usage`
+  - `ancient-claw.channel`, `ancient-claw.provider`, `ancient-claw.model`
+  - `ancient-claw.sessionKey`, `ancient-claw.sessionId`
+  - `ancient-claw.tokens.*` (input/output/cache_read/cache_write/total)
+- `ancient-claw.webhook.processed`
+  - `ancient-claw.channel`, `ancient-claw.webhook`, `ancient-claw.chatId`
+- `ancient-claw.webhook.error`
+  - `ancient-claw.channel`, `ancient-claw.webhook`, `ancient-claw.chatId`,
+    `ancient-claw.error`
+- `ancient-claw.message.processed`
+  - `ancient-claw.channel`, `ancient-claw.outcome`, `ancient-claw.chatId`,
+    `ancient-claw.messageId`, `ancient-claw.sessionKey`, `ancient-claw.sessionId`,
+    `ancient-claw.reason`
+- `ancient-claw.session.stuck`
+  - `ancient-claw.state`, `ancient-claw.ageMs`, `ancient-claw.queueDepth`,
+    `ancient-claw.sessionKey`, `ancient-claw.sessionId`
 
 ### Sampling + flushing
 
@@ -346,7 +346,7 @@ Queues + sessions:
 
 ## Troubleshooting tips
 
-- **Gateway not reachable?** Run `hyperbot doctor` first.
+- **Gateway not reachable?** Run `ancient-claw doctor` first.
 - **Logs empty?** Check that the Gateway is running and writing to the file path
   in `logging.file`.
 - **Need more detail?** Set `logging.level` to `debug` or `trace` and retry.

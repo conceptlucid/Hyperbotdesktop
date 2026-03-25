@@ -1,7 +1,7 @@
 ---
-summary: "Use Z.AI (GLM models) with HyperBot"
+summary: "Use Z.AI (GLM models) with Ancient Claw"
 read_when:
-  - You want Z.AI / GLM models in HyperBot
+  - You want Z.AI / GLM models in Ancient Claw
   - You need a simple ZAI_API_KEY setup
 title: "Z.AI"
 ---
@@ -9,23 +9,23 @@ title: "Z.AI"
 # Z.AI
 
 Z.AI is the API platform for **GLM** models. It provides REST APIs for GLM and uses API keys
-for authentication. Create your API key in the Z.AI console. HyperBot uses the `zai` provider
+for authentication. Create your API key in the Z.AI console. Ancient Claw uses the `zai` provider
 with a Z.AI API key.
 
 ## CLI setup
 
 ```bash
 # Coding Plan Global, recommended for Coding Plan users
-hyperbot onboard --auth-choice zai-coding-global
+ancient-claw onboard --auth-choice zai-coding-global
 
 # Coding Plan CN (China region), recommended for Coding Plan users
-hyperbot onboard --auth-choice zai-coding-cn
+ancient-claw onboard --auth-choice zai-coding-cn
 
 # General API
-hyperbot onboard --auth-choice zai-global
+ancient-claw onboard --auth-choice zai-global
 
 # General API CN (China region)
-hyperbot onboard --auth-choice zai-cn
+ancient-claw onboard --auth-choice zai-cn
 ```
 
 ## Config snippet

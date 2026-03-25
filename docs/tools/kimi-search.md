@@ -8,7 +8,7 @@ title: "Kimi Search"
 
 # Kimi Search
 
-HyperBot supports Kimi as a `web_search` provider, using Moonshot web search
+Ancient Claw supports Kimi as a `web_search` provider, using Moonshot web search
 to produce AI-synthesized answers with citations.
 
 ## Get an API key
@@ -22,7 +22,7 @@ to produce AI-synthesized answers with citations.
     configure via:
 
     ```bash
-    hyperbot configure --section web
+    ancient-claw configure --section web
     ```
 
   </Step>
@@ -54,7 +54,7 @@ to produce AI-synthesized answers with citations.
 ```
 
 **Environment alternative:** set `KIMI_API_KEY` or `MOONSHOT_API_KEY` in the
-Gateway environment. For a gateway install, put it in `~/.hyperbot/.env`.
+Gateway environment. For a gateway install, put it in `~/.ancient-claw/.env`.
 
 ## How it works
 

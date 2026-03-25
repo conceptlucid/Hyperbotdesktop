@@ -1,5 +1,5 @@
 ---
-summary: "Run multiple HyperBot Gateways on one host (isolation, ports, and profiles)"
+summary: "Run multiple Ancient Claw Gateways on one host (isolation, ports, and profiles)"
 read_when:
   - Running more than one Gateway on the same machine
   - You need isolated config/state/ports per Gateway
@@ -26,19 +26,19 @@ Profiles auto-scope `OPENCLAW_STATE_DIR` + `OPENCLAW_CONFIG_PATH` and suffix ser
 
 ```bash
 # main
-hyperbot --profile main setup
-hyperbot --profile main gateway --port 18789
+ancient-claw --profile main setup
+ancient-claw --profile main gateway --port 18789
 
 # rescue
-hyperbot --profile rescue setup
-hyperbot --profile rescue gateway --port 19001
+ancient-claw --profile rescue setup
+ancient-claw --profile rescue gateway --port 19001
 ```
 
 Per-profile services:
 
 ```bash
-hyperbot --profile main gateway install
-hyperbot --profile rescue gateway install
+ancient-claw --profile main gateway install
+ancient-claw --profile rescue gateway install
 ```
 
 ## Rescue-bot guide
@@ -59,11 +59,11 @@ Port spacing: leave at least 20 ports between base ports so the derived browser/
 ```bash
 # Main bot (existing or fresh, without --profile param)
 # Runs on port 18789 + Chrome CDC/Canvas/... Ports
-hyperbot onboard
-hyperbot gateway install
+ancient-claw onboard
+ancient-claw gateway install
 
 # Rescue bot (isolated profile + ports)
-hyperbot --profile rescue onboard
+ancient-claw --profile rescue onboard
 # Notes:
 # - workspace name will be postfixed with -rescue per default
 # - Port should be at least 18789 + 20 Ports,
@@ -71,7 +71,7 @@ hyperbot --profile rescue onboard
 # - rest of the onboarding is the same as normal
 
 # To install the service (if not happened automatically during setup)
-hyperbot --profile rescue gateway install
+ancient-claw --profile rescue gateway install
 ```
 
 ## Port mapping (derived)
@@ -94,19 +94,19 @@ If you override any of these in config or env, you must keep them unique per ins
 ## Manual env example
 
 ```bash
-OPENCLAW_CONFIG_PATH=~/.hyperbot/main.json \
-OPENCLAW_STATE_DIR=~/.hyperbot-main \
-hyperbot gateway --port 18789
+OPENCLAW_CONFIG_PATH=~/.ancient-claw/main.json \
+OPENCLAW_STATE_DIR=~/.ancient-claw-main \
+ancient-claw gateway --port 18789
 
-OPENCLAW_CONFIG_PATH=~/.hyperbot/rescue.json \
-OPENCLAW_STATE_DIR=~/.hyperbot-rescue \
-hyperbot gateway --port 19001
+OPENCLAW_CONFIG_PATH=~/.ancient-claw/rescue.json \
+OPENCLAW_STATE_DIR=~/.ancient-claw-rescue \
+ancient-claw gateway --port 19001
 ```
 
 ## Quick checks
 
 ```bash
-hyperbot --profile main status
-hyperbot --profile rescue status
-hyperbot --profile rescue browser status
+ancient-claw --profile main status
+ancient-claw --profile rescue status
+ancient-claw --profile rescue browser status
 ```

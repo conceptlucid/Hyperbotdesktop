@@ -15,7 +15,7 @@ x-i18n:
 
 # 发布策略
 
-HyperBot 有三个公开发布渠道：
+Ancient Claw 有三个公开发布渠道：
 
 - stable：带标签的正式发布，发布到 npm `latest`
 - beta：预发布标签，发布到 npm `beta`
@@ -40,9 +40,9 @@ HyperBot 有三个公开发布渠道：
 
 ## 公开参考
 
-- [`.github/workflows/hyperbot-npm-release.yml`](https://github.com/hyperbot/hyperbot/blob/main/.github/workflows/hyperbot-npm-release.yml)
-- [`scripts/hyperbot-npm-release-check.ts`](https://github.com/hyperbot/hyperbot/blob/main/scripts/hyperbot-npm-release-check.ts)
+- [`.github/workflows/ancient-claw-npm-release.yml`](https://github.com/ancient-claw/ancient-claw/blob/main/.github/workflows/ancient-claw-npm-release.yml)
+- [`scripts/ancient-claw-npm-release-check.ts`](https://github.com/ancient-claw/ancient-claw/blob/main/scripts/ancient-claw-npm-release-check.ts)
 
 维护者使用
-[`hyperbot/maintainers/release/README.md`](https://github.com/hyperbot/maintainers/blob/main/release/README.md)
+[`ancient-claw/maintainers/release/README.md`](https://github.com/ancient-claw/maintainers/blob/main/release/README.md)
 中的私有发布文档作为实际操作手册。

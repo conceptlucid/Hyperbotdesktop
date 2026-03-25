@@ -1,5 +1,5 @@
 ---
-summary: "How HyperBot sandboxing works: modes, scopes, workspace access, and images"
+summary: "How Ancient Claw sandboxing works: modes, scopes, workspace access, and images"
 title: Sandboxing
 read_when: "You want a dedicated explanation of sandboxing or need to tune agents.defaults.sandbox."
 status: active
@@ -7,7 +7,7 @@ status: active
 
 # Sandboxing
 
-HyperBot can run **tools inside sandbox backends** to reduce blast radius.
+Ancient Claw can run **tools inside sandbox backends** to reduce blast radius.
 This is **optional** and controlled by configuration (`agents.defaults.sandbox` or
 `agents.list[].sandbox`). If sandboxing is off, tools run on the host.
 The Gateway stays on the host; tool execution runs in an isolated sandbox
@@ -22,10 +22,10 @@ and process access when the model does something dumb.
 - Optional sandboxed browser (`agents.defaults.sandbox.browser`).
   - By default, the sandbox browser auto-starts (ensures CDP is reachable) when the browser tool needs it.
     Configure via `agents.defaults.sandbox.browser.autoStart` and `agents.defaults.sandbox.browser.autoStartTimeoutMs`.
-  - By default, sandbox browser containers use a dedicated Docker network (`hyperbot-sandbox-browser`) instead of the global `bridge` network.
+  - By default, sandbox browser containers use a dedicated Docker network (`ancient-claw-sandbox-browser`) instead of the global `bridge` network.
     Configure with `agents.defaults.sandbox.browser.network`.
   - Optional `agents.defaults.sandbox.browser.cdpSourceRange` restricts container-edge CDP ingress with a CIDR allowlist (for example `172.21.0.1/32`).
-  - noVNC observer access is password-protected by default; HyperBot emits a short-lived token URL that serves a local bootstrap page and opens noVNC with password in URL fragment (not query/header logs).
+  - noVNC observer access is password-protected by default; Ancient Claw emits a short-lived token URL that serves a local bootstrap page and opens noVNC with password in URL fragment (not query/header logs).
   - `agents.defaults.sandbox.browser.allowHostControl` lets sandboxed sessions target the host browser explicitly.
   - Optional allowlists gate `target: "custom"`: `allowedControlUrls`, `allowedControlHosts`, `allowedControlPorts`.
 
@@ -79,7 +79,7 @@ OpenShell-specific config lives under `plugins.entries.openshell.config`.
 
 ### SSH backend
 
-Use `backend: "ssh"` when you want HyperBot to sandbox `exec`, file tools, and media reads on
+Use `backend: "ssh"` when you want Ancient Claw to sandbox `exec`, file tools, and media reads on
 an arbitrary SSH-accessible machine.
 
 ```json5
@@ -93,7 +93,7 @@ an arbitrary SSH-accessible machine.
         workspaceAccess: "rw",
         ssh: {
           target: "user@gateway-host:22",
-          workspaceRoot: "/tmp/hyperbot-sandboxes",
+          workspaceRoot: "/tmp/ancient-claw-sandboxes",
           strictHostKeyChecking: true,
           updateHostKeys: true,
           identityFile: "~/.ssh/id_ed25519",
@@ -112,29 +112,29 @@ an arbitrary SSH-accessible machine.
 
 How it works:
 
-- HyperBot creates a per-scope remote root under `sandbox.ssh.workspaceRoot`.
-- On first use after create or recreate, HyperBot seeds that remote workspace from the local workspace once.
+- Ancient Claw creates a per-scope remote root under `sandbox.ssh.workspaceRoot`.
+- On first use after create or recreate, Ancient Claw seeds that remote workspace from the local workspace once.
 - After that, `exec`, `read`, `write`, `edit`, `apply_patch`, prompt media reads, and inbound media staging run directly against the remote workspace over SSH.
-- HyperBot does not sync remote changes back to the local workspace automatically.
+- Ancient Claw does not sync remote changes back to the local workspace automatically.
 
 Authentication material:
 
 - `identityFile`, `certificateFile`, `knownHostsFile`: use existing local files and pass them through OpenSSH config.
-- `identityData`, `certificateData`, `knownHostsData`: use inline strings or SecretRefs. HyperBot resolves them through the normal secrets runtime snapshot, writes them to temp files with `0600`, and deletes them when the SSH session ends.
+- `identityData`, `certificateData`, `knownHostsData`: use inline strings or SecretRefs. Ancient Claw resolves them through the normal secrets runtime snapshot, writes them to temp files with `0600`, and deletes them when the SSH session ends.
 - If both `*File` and `*Data` are set for the same item, `*Data` wins for that SSH session.
 
 This is a **remote-canonical** model. The remote SSH workspace becomes the real sandbox state after the initial seed.
 
 Important consequences:
 
-- Host-local edits made outside HyperBot after the seed step are not visible remotely until you recreate the sandbox.
-- `hyperbot sandbox recreate` deletes the per-scope remote root and seeds again from local on next use.
+- Host-local edits made outside Ancient Claw after the seed step are not visible remotely until you recreate the sandbox.
+- `ancient-claw sandbox recreate` deletes the per-scope remote root and seeds again from local on next use.
 - Browser sandboxing is not supported on the SSH backend.
 - `sandbox.docker.*` settings do not apply to the SSH backend.
 
 ### OpenShell backend
 
-Use `backend: "openshell"` when you want HyperBot to sandbox tools in an
+Use `backend: "openshell"` when you want Ancient Claw to sandbox tools in an
 OpenShell-managed remote environment. For the full setup guide, configuration
 reference, and workspace mode comparison, see the dedicated
 [OpenShell page](/gateway/openshell).
@@ -161,7 +161,7 @@ workspace mode.
       openshell: {
         enabled: true,
         config: {
-          from: "hyperbot",
+          from: "ancient-claw",
           mode: "remote", // mirror | remote
           remoteWorkspaceDir: "/sandbox",
           remoteAgentWorkspaceDir: "/agent",
@@ -174,12 +174,12 @@ workspace mode.
 
 OpenShell modes:
 
-- `mirror` (default): local workspace stays canonical. HyperBot syncs local files into OpenShell before exec and syncs the remote workspace back after exec.
-- `remote`: OpenShell workspace is canonical after the sandbox is created. HyperBot seeds the remote workspace once from the local workspace, then file tools and exec run directly against the remote sandbox without syncing changes back.
+- `mirror` (default): local workspace stays canonical. Ancient Claw syncs local files into OpenShell before exec and syncs the remote workspace back after exec.
+- `remote`: OpenShell workspace is canonical after the sandbox is created. Ancient Claw seeds the remote workspace once from the local workspace, then file tools and exec run directly against the remote sandbox without syncing changes back.
 
 Remote transport details:
 
-- HyperBot asks OpenShell for sandbox-specific SSH config via `openshell sandbox ssh-config <name>`.
+- Ancient Claw asks OpenShell for sandbox-specific SSH config via `openshell sandbox ssh-config <name>`.
 - Core writes that SSH config to a temp file, opens the SSH session, and reuses the same remote filesystem bridge used by `backend: "ssh"`.
 - In `mirror` mode only the lifecycle differs: sync local to remote before exec, then sync back after exec.
 
@@ -199,13 +199,13 @@ Use `plugins.entries.openshell.config.mode: "mirror"` when you want the **local 
 
 Behavior:
 
-- Before `exec`, HyperBot syncs the local workspace into the OpenShell sandbox.
-- After `exec`, HyperBot syncs the remote workspace back to the local workspace.
+- Before `exec`, Ancient Claw syncs the local workspace into the OpenShell sandbox.
+- After `exec`, Ancient Claw syncs the remote workspace back to the local workspace.
 - File tools still operate through the sandbox bridge, but the local workspace remains the source of truth between turns.
 
 Use this when:
 
-- you edit files locally outside HyperBot and want those changes to show up in the sandbox automatically
+- you edit files locally outside Ancient Claw and want those changes to show up in the sandbox automatically
 - you want the OpenShell sandbox to behave as much like the Docker backend as possible
 - you want the host workspace to reflect sandbox writes after each exec turn
 
@@ -219,15 +219,15 @@ Use `plugins.entries.openshell.config.mode: "remote"` when you want the **OpenSh
 
 Behavior:
 
-- When the sandbox is first created, HyperBot seeds the remote workspace from the local workspace once.
+- When the sandbox is first created, Ancient Claw seeds the remote workspace from the local workspace once.
 - After that, `exec`, `read`, `write`, `edit`, and `apply_patch` operate directly against the remote OpenShell workspace.
-- HyperBot does **not** sync remote changes back into the local workspace after exec.
+- Ancient Claw does **not** sync remote changes back into the local workspace after exec.
 - Prompt-time media reads still work because file and media tools read through the sandbox bridge instead of assuming a local host path.
 - Transport is SSH into the OpenShell sandbox returned by `openshell sandbox ssh-config`.
 
 Important consequences:
 
-- If you edit files on the host outside HyperBot after the seed step, the remote sandbox will **not** see those changes automatically.
+- If you edit files on the host outside Ancient Claw after the seed step, the remote sandbox will **not** see those changes automatically.
 - If the sandbox is recreated, the remote workspace is seeded from the local workspace again.
 - With `scope: "agent"` or `scope: "shared"`, that remote workspace is shared at that same scope.
 
@@ -244,8 +244,8 @@ Choose `remote` if you think of the sandbox as the real workspace.
 
 OpenShell sandboxes are still managed through the normal sandbox lifecycle:
 
-- `hyperbot sandbox list` shows OpenShell runtimes as well as Docker runtimes
-- `hyperbot sandbox recreate` deletes the current runtime and lets HyperBot recreate it on next use
+- `ancient-claw sandbox list` shows OpenShell runtimes as well as Docker runtimes
+- `ancient-claw sandbox recreate` deletes the current runtime and lets Ancient Claw recreate it on next use
 - prune logic is backend-aware too
 
 For `remote` mode, recreate is especially important:
@@ -260,7 +260,7 @@ because the local workspace remains canonical anyway.
 
 `agents.defaults.sandbox.workspaceAccess` controls **what the sandbox can see**:
 
-- `"none"` (default): tools see a sandbox workspace under `~/.hyperbot/sandboxes`.
+- `"none"` (default): tools see a sandbox workspace under `~/.ancient-claw/sandboxes`.
 - `"ro"`: mounts the agent workspace read-only at `/agent` (disables `write`/`edit`/`apply_patch`).
 - `"rw"`: mounts the agent workspace read/write at `/workspace`.
 
@@ -272,7 +272,7 @@ With the OpenShell backend:
 
 Inbound media is copied into the active sandbox workspace (`media/inbound/*`).
 Skills note: the `read` tool is sandbox-rooted. With `workspaceAccess: "none"`,
-HyperBot mirrors eligible skills into the sandbox workspace (`.../skills`) so
+Ancient Claw mirrors eligible skills into the sandbox workspace (`.../skills`) so
 they can be read. With `"rw"`, workspace skills are readable from
 `/workspace/skills`.
 
@@ -317,14 +317,14 @@ Example (read-only source + an extra data directory):
 Security notes:
 
 - Binds bypass the sandbox filesystem: they expose host paths with whatever mode you set (`:ro` or `:rw`).
-- HyperBot blocks dangerous bind sources (for example: `docker.sock`, `/etc`, `/proc`, `/sys`, `/dev`, and parent mounts that would expose them).
+- Ancient Claw blocks dangerous bind sources (for example: `docker.sock`, `/etc`, `/proc`, `/sys`, `/dev`, and parent mounts that would expose them).
 - Sensitive mounts (secrets, SSH keys, service credentials) should be `:ro` unless absolutely required.
 - Combine with `workspaceAccess: "ro"` if you only need read access to the workspace; bind modes stay independent.
 - See [Sandbox vs Tool Policy vs Elevated](/gateway/sandbox-vs-tool-policy-vs-elevated) for how binds interact with tool policy and elevated exec.
 
 ## Images + setup
 
-Default Docker image: `hyperbot-sandbox:bookworm-slim`
+Default Docker image: `ancient-claw-sandbox:bookworm-slim`
 
 Build it once:
 
@@ -345,7 +345,7 @@ scripts/sandbox-common-setup.sh
 ```
 
 Then set `agents.defaults.sandbox.docker.image` to
-`hyperbot-sandbox-common:bookworm-slim`.
+`ancient-claw-sandbox-common:bookworm-slim`.
 
 Sandboxed browser image:
 
@@ -434,7 +434,7 @@ globally or per-agent, sandboxing doesn’t bring it back.
 
 Debugging:
 
-- Use `hyperbot sandbox explain` to inspect effective sandbox mode, tool policy, and fix-it config keys.
+- Use `ancient-claw sandbox explain` to inspect effective sandbox mode, tool policy, and fix-it config keys.
 - See [Sandbox vs Tool Policy vs Elevated](/gateway/sandbox-vs-tool-policy-vs-elevated) for the “why is this blocked?” mental model.
   Keep it locked down.
 

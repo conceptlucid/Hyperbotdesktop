@@ -18,29 +18,29 @@ x-i18n:
 
 ## 概述
 
-HyperBot 可以在隔离的 Docker 容器中运行智能体以确保安全。`sandbox` 命令帮助你管理这些容器，特别是在更新或配置更改后。
+Ancient Claw 可以在隔离的 Docker 容器中运行智能体以确保安全。`sandbox` 命令帮助你管理这些容器，特别是在更新或配置更改后。
 
 ## 命令
 
-### `hyperbot sandbox explain`
+### `ancient-claw sandbox explain`
 
 检查**生效的**沙箱模式/作用域/工作区访问权限、沙箱工具策略和提权门控（附带修复配置的键路径）。
 
 ```bash
-hyperbot sandbox explain
-hyperbot sandbox explain --session agent:main:main
-hyperbot sandbox explain --agent work
-hyperbot sandbox explain --json
+ancient-claw sandbox explain
+ancient-claw sandbox explain --session agent:main:main
+ancient-claw sandbox explain --agent work
+ancient-claw sandbox explain --json
 ```
 
-### `hyperbot sandbox list`
+### `ancient-claw sandbox list`
 
 列出所有沙箱容器及其状态和配置。
 
 ```bash
-hyperbot sandbox list
-hyperbot sandbox list --browser  # List only browser containers
-hyperbot sandbox list --json     # JSON output
+ancient-claw sandbox list
+ancient-claw sandbox list --browser  # List only browser containers
+ancient-claw sandbox list --json     # JSON output
 ```
 
 **输出包括：**
@@ -51,16 +51,16 @@ hyperbot sandbox list --json     # JSON output
 - 空闲时间（自上次使用以来的时间）
 - 关联的会话/智能体
 
-### `hyperbot sandbox recreate`
+### `ancient-claw sandbox recreate`
 
 移除沙箱容器以强制使用更新的镜像/配置重新创建。
 
 ```bash
-hyperbot sandbox recreate --all                # Recreate all containers
-hyperbot sandbox recreate --session main       # Specific session
-hyperbot sandbox recreate --agent mybot        # Specific agent
-hyperbot sandbox recreate --browser            # Only browser containers
-hyperbot sandbox recreate --all --force        # Skip confirmation
+ancient-claw sandbox recreate --all                # Recreate all containers
+ancient-claw sandbox recreate --session main       # Specific session
+ancient-claw sandbox recreate --agent mybot        # Specific agent
+ancient-claw sandbox recreate --browser            # Only browser containers
+ancient-claw sandbox recreate --all --force        # Skip confirmation
 ```
 
 **选项：**
@@ -79,14 +79,14 @@ hyperbot sandbox recreate --all --force        # Skip confirmation
 
 ```bash
 # Pull new image
-docker pull hyperbot-sandbox:latest
-docker tag hyperbot-sandbox:latest hyperbot-sandbox:bookworm-slim
+docker pull ancient-claw-sandbox:latest
+docker tag ancient-claw-sandbox:latest ancient-claw-sandbox:bookworm-slim
 
 # Update config to use new image
 # Edit config: agents.defaults.sandbox.docker.image (or agents.list[].sandbox.docker.image)
 
 # Recreate containers
-hyperbot sandbox recreate --all
+ancient-claw sandbox recreate --all
 ```
 
 ### 更改沙箱配置后
@@ -95,22 +95,22 @@ hyperbot sandbox recreate --all
 # Edit config: agents.defaults.sandbox.* (or agents.list[].sandbox.*)
 
 # Recreate to apply new config
-hyperbot sandbox recreate --all
+ancient-claw sandbox recreate --all
 ```
 
 ### 更改 setupCommand 后
 
 ```bash
-hyperbot sandbox recreate --all
+ancient-claw sandbox recreate --all
 # or just one agent:
-hyperbot sandbox recreate --agent family
+ancient-claw sandbox recreate --agent family
 ```
 
 ### 仅针对特定智能体
 
 ```bash
 # Update only one agent's containers
-hyperbot sandbox recreate --agent alfred
+ancient-claw sandbox recreate --agent alfred
 ```
 
 ## 为什么需要这个？
@@ -121,13 +121,13 @@ hyperbot sandbox recreate --agent alfred
 - 容器仅在空闲 24 小时后才被清理
 - 经常使用的智能体会无限期保持旧容器运行
 
-**解决方案：** 使用 `hyperbot sandbox recreate` 强制移除旧容器。它们会在下次需要时自动使用当前设置重新创建。
+**解决方案：** 使用 `ancient-claw sandbox recreate` 强制移除旧容器。它们会在下次需要时自动使用当前设置重新创建。
 
-提示：优先使用 `hyperbot sandbox recreate` 而不是手动 `docker rm`。它使用 Gateway 网关的容器命名规则，避免在作用域/会话键更改时出现不匹配。
+提示：优先使用 `ancient-claw sandbox recreate` 而不是手动 `docker rm`。它使用 Gateway 网关的容器命名规则，避免在作用域/会话键更改时出现不匹配。
 
 ## 配置
 
-沙箱设置位于 `~/.hyperbot/hyperbot.json` 的 `agents.defaults.sandbox` 下（每个智能体的覆盖设置在 `agents.list[].sandbox` 中）：
+沙箱设置位于 `~/.ancient-claw/ancient-claw.json` 的 `agents.defaults.sandbox` 下（每个智能体的覆盖设置在 `agents.list[].sandbox` 中）：
 
 ```jsonc
 {
@@ -137,8 +137,8 @@ hyperbot sandbox recreate --agent alfred
         "mode": "all", // off, non-main, all
         "scope": "agent", // session, agent, shared
         "docker": {
-          "image": "hyperbot-sandbox:bookworm-slim",
-          "containerPrefix": "hyperbot-sbx-",
+          "image": "ancient-claw-sandbox:bookworm-slim",
+          "containerPrefix": "ancient-claw-sbx-",
           // ... more Docker options
         },
         "prune": {

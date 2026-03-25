@@ -10,7 +10,7 @@ title: "API Usage and Costs"
 # API usage & costs
 
 This doc lists **features that can invoke API keys** and where their costs show up. It focuses on
-HyperBot features that can generate provider usage or paid API calls.
+Ancient Claw features that can generate provider usage or paid API calls.
 
 ## Where costs show up (chat + CLI)
 
@@ -26,14 +26,14 @@ HyperBot features that can generate provider usage or paid API calls.
 
 **CLI usage windows (provider quotas)**
 
-- `hyperbot status --usage` and `hyperbot channels list` show provider **usage windows**
+- `ancient-claw status --usage` and `ancient-claw channels list` show provider **usage windows**
   (quota snapshots, not per-message costs).
 
 See [Token use & costs](/reference/token-use) for details and examples.
 
 ## How keys are discovered
 
-HyperBot can pick up credentials from:
+Ancient Claw can pick up credentials from:
 
 - **Auth profiles** (per-agent, stored in `auth-profiles.json`).
 - **Environment variables** (e.g. `OPENAI_API_KEY`, `BRAVE_API_KEY`, `FIRECRAWL_API_KEY`).
@@ -109,8 +109,8 @@ See [Web tools](/tools/web).
 Some status commands call **provider usage endpoints** to display quota windows or auth health.
 These are typically low-volume calls but still hit provider APIs:
 
-- `hyperbot status --usage`
-- `hyperbot models status --json`
+- `ancient-claw status --usage`
+- `ancient-claw models status --json`
 
 See [Models CLI](/cli/models).
 
@@ -123,7 +123,7 @@ See [Session management + compaction](/reference/session-management-compaction).
 
 ### 8) Model scan / probe
 
-`hyperbot models scan` can probe OpenRouter models and uses `OPENROUTER_API_KEY` when
+`ancient-claw models scan` can probe OpenRouter models and uses `OPENROUTER_API_KEY` when
 probing is enabled.
 
 See [Models CLI](/cli/models).

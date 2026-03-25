@@ -57,7 +57,7 @@ OPENCLAW_DIAGNOSTICS=0
 Flags emit logs into the standard diagnostics log file. By default:
 
 ```
-/tmp/hyperbot/hyperbot-YYYY-MM-DD.log
+/tmp/ancient-claw/ancient-claw-YYYY-MM-DD.log
 ```
 
 If you set `logging.file`, use that path instead. Logs are JSONL (one JSON object per line). Redaction still applies based on `logging.redactSensitive`.
@@ -67,22 +67,22 @@ If you set `logging.file`, use that path instead. Logs are JSONL (one JSON objec
 Pick the latest log file:
 
 ```bash
-ls -t /tmp/hyperbot/hyperbot-*.log | head -n 1
+ls -t /tmp/ancient-claw/ancient-claw-*.log | head -n 1
 ```
 
 Filter for Telegram HTTP diagnostics:
 
 ```bash
-rg "telegram http error" /tmp/hyperbot/hyperbot-*.log
+rg "telegram http error" /tmp/ancient-claw/ancient-claw-*.log
 ```
 
 Or tail while reproducing:
 
 ```bash
-tail -f /tmp/hyperbot/hyperbot-$(date +%F).log | rg "telegram http error"
+tail -f /tmp/ancient-claw/ancient-claw-$(date +%F).log | rg "telegram http error"
 ```
 
-For remote gateways, you can also use `hyperbot logs --follow` (see [/cli/logs](/cli/logs)).
+For remote gateways, you can also use `ancient-claw logs --follow` (see [/cli/logs](/cli/logs)).
 
 ## Notes
 

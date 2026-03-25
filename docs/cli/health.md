@@ -1,18 +1,18 @@
 ---
-summary: "CLI reference for `hyperbot health` (gateway health endpoint via RPC)"
+summary: "CLI reference for `ancient-claw health` (gateway health endpoint via RPC)"
 read_when:
   - You want to quickly check the running Gateway’s health
 title: "health"
 ---
 
-# `hyperbot health`
+# `ancient-claw health`
 
 Fetch health from the running Gateway.
 
 ```bash
-hyperbot health
-hyperbot health --json
-hyperbot health --verbose
+ancient-claw health
+ancient-claw health --json
+ancient-claw health --verbose
 ```
 
 Notes:

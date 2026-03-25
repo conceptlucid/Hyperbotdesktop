@@ -1,5 +1,5 @@
 ---
-summary: "Delegate architecture: running HyperBot as a named agent on behalf of an organization"
+summary: "Delegate architecture: running Ancient Claw as a named agent on behalf of an organization"
 title: Delegate Architecture
 read_when: "You want an agent with its own identity that acts on behalf of humans in an organization."
 status: active
@@ -7,13 +7,13 @@ status: active
 
 # Delegate Architecture
 
-Goal: run HyperBot as a **named delegate** — an agent with its own identity that acts "on behalf of" people in an organization. The agent never impersonates a human. It sends, reads, and schedules under its own account with explicit delegation permissions.
+Goal: run Ancient Claw as a **named delegate** — an agent with its own identity that acts "on behalf of" people in an organization. The agent never impersonates a human. It sends, reads, and schedules under its own account with explicit delegation permissions.
 
 This extends [Multi-Agent Routing](/concepts/multi-agent) from personal use into organizational deployments.
 
 ## What is a delegate?
 
-A **delegate** is an HyperBot agent that:
+A **delegate** is an Ancient Claw agent that:
 
 - Has its **own identity** (email address, display name, calendar).
 - Acts **on behalf of** one or more humans — never pretends to be them.
@@ -24,7 +24,7 @@ The delegate model maps directly to how executive assistants work: they have the
 
 ## Why delegates?
 
-HyperBot's default mode is a **personal assistant** — one human, one agent. Delegates extend this to organizations:
+Ancient Claw's default mode is a **personal assistant** — one human, one agent. Delegates extend this to organizations:
 
 | Personal mode               | Delegate mode                                  |
 | --------------------------- | ---------------------------------------------- |
@@ -36,7 +36,7 @@ HyperBot's default mode is a **personal assistant** — one human, one agent. De
 Delegates solve two problems:
 
 1. **Accountability**: messages sent by the agent are clearly from the agent, not a human.
-2. **Scope control**: the identity provider enforces what the delegate can access, independent of HyperBot's own tool policy.
+2. **Scope control**: the identity provider enforces what the delegate can access, independent of Ancient Claw's own tool policy.
 
 ## Capability tiers
 
@@ -96,7 +96,7 @@ Use per-agent tool policy (v2026.1.6+) to enforce boundaries at the Gateway leve
 ```json5
 {
   id: "delegate",
-  workspace: "~/.hyperbot/workspace-delegate",
+  workspace: "~/.ancient-claw/workspace-delegate",
   tools: {
     allow: ["read", "exec", "message", "cron"],
     deny: ["write", "edit", "apply_patch", "browser", "canvas"],
@@ -111,7 +111,7 @@ For high-security deployments, sandbox the delegate agent so it cannot access th
 ```json5
 {
   id: "delegate",
-  workspace: "~/.hyperbot/workspace-delegate",
+  workspace: "~/.ancient-claw/workspace-delegate",
   sandbox: {
     mode: "all",
     scope: "agent",
@@ -125,11 +125,11 @@ See [Sandboxing](/gateway/sandboxing) and [Multi-Agent Sandbox & Tools](/tools/m
 
 Configure logging before the delegate handles any real data:
 
-- Cron run history: `~/.hyperbot/cron/runs/<jobId>.jsonl`
-- Session transcripts: `~/.hyperbot/agents/delegate/sessions`
+- Cron run history: `~/.ancient-claw/cron/runs/<jobId>.jsonl`
+- Session transcripts: `~/.ancient-claw/agents/delegate/sessions`
 - Identity provider audit logs (Exchange, Google Workspace)
 
-All delegate actions flow through HyperBot's session store. For compliance, ensure these logs are retained and reviewed.
+All delegate actions flow through Ancient Claw's session store. For compliance, ensure these logs are retained and reviewed.
 
 ## Setting up a delegate
 
@@ -140,14 +140,14 @@ With hardening in place, proceed to grant the delegate its identity and permissi
 Use the multi-agent wizard to create an isolated agent for the delegate:
 
 ```bash
-hyperbot agents add delegate
+ancient-claw agents add delegate
 ```
 
 This creates:
 
-- Workspace: `~/.hyperbot/workspace-delegate`
-- State: `~/.hyperbot/agents/delegate/agent`
-- Sessions: `~/.hyperbot/agents/delegate/sessions`
+- Workspace: `~/.ancient-claw/workspace-delegate`
+- State: `~/.ancient-claw/agents/delegate/agent`
+- Sessions: `~/.ancient-claw/agents/delegate/sessions`
 
 Configure the delegate's personality in its workspace files:
 
@@ -208,10 +208,10 @@ Route inbound messages to the delegate agent using [Multi-Agent Routing](/concep
 {
   agents: {
     list: [
-      { id: "main", workspace: "~/.hyperbot/workspace" },
+      { id: "main", workspace: "~/.ancient-claw/workspace" },
       {
         id: "delegate",
-        workspace: "~/.hyperbot/workspace-delegate",
+        workspace: "~/.ancient-claw/workspace-delegate",
         tools: {
           deny: ["browser", "canvas"],
         },
@@ -241,7 +241,7 @@ Copy or create auth profiles for the delegate's `agentDir`:
 
 ```bash
 # Delegate reads from its own auth store
-~/.hyperbot/agents/delegate/agent/auth-profiles.json
+~/.ancient-claw/agents/delegate/agent/auth-profiles.json
 ```
 
 Never share the main agent's `agentDir` with the delegate. See [Multi-Agent Routing](/concepts/multi-agent) for auth isolation details.
@@ -254,12 +254,12 @@ A complete delegate configuration for an organizational assistant that handles e
 {
   agents: {
     list: [
-      { id: "main", default: true, workspace: "~/.hyperbot/workspace" },
+      { id: "main", default: true, workspace: "~/.ancient-claw/workspace" },
       {
         id: "org-assistant",
         name: "[Organization] Assistant",
-        workspace: "~/.hyperbot/workspace-org",
-        agentDir: "~/.hyperbot/agents/org-assistant/agent",
+        workspace: "~/.ancient-claw/workspace-org",
+        agentDir: "~/.ancient-claw/agents/org-assistant/agent",
         identity: { name: "[Organization] Assistant" },
         tools: {
           allow: ["read", "exec", "message", "cron", "sessions_list", "sessions_history"],

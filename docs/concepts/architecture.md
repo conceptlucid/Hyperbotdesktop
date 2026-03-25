@@ -18,8 +18,8 @@ title: "Gateway Architecture"
   declare `role: node` with explicit caps/commands.
 - One Gateway per host; it is the only place that opens a WhatsApp session.
 - The **canvas host** is served by the Gateway HTTP server under:
-  - `/__hyperbot__/canvas/` (agent-editable HTML/CSS/JS)
-  - `/__hyperbot__/a2ui/` (A2UI host)
+  - `/__ancient-claw__/canvas/` (agent-editable HTML/CSS/JS)
+  - `/__ancient-claw__/a2ui/` (A2UI host)
     It uses the same port as the Gateway (default `18789`).
 
 ## Components and flows
@@ -126,7 +126,7 @@ Details: [Gateway protocol](/gateway/protocol), [Pairing](/channels/pairing),
 
 ## Operations snapshot
 
-- Start: `hyperbot gateway` (foreground, logs to stdout).
+- Start: `ancient-claw gateway` (foreground, logs to stdout).
 - Health: `health` over WS (also included in `hello-ok`).
 - Supervision: launchd/systemd for auto‑restart.
 

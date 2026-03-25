@@ -11,7 +11,7 @@ title: "Web"
 The Gateway serves a small **browser Control UI** (Vite + Lit) from the same port as the Gateway WebSocket:
 
 - default: `http://<host>:18789/`
-- optional prefix: set `gateway.controlUi.basePath` (e.g. `/hyperbot`)
+- optional prefix: set `gateway.controlUi.basePath` (e.g. `/ancient-claw`)
 
 Capabilities live in [Control UI](/web/control-ui).
 This page focuses on bind modes, security, and web-facing surfaces.
@@ -29,7 +29,7 @@ You can control it via config:
 ```json5
 {
   gateway: {
-    controlUi: { enabled: true, basePath: "/hyperbot" }, // basePath optional
+    controlUi: { enabled: true, basePath: "/ancient-claw" }, // basePath optional
   },
 }
 ```
@@ -52,7 +52,7 @@ Keep the Gateway on loopback and let Tailscale Serve proxy it:
 Then start the gateway:
 
 ```bash
-hyperbot gateway
+ancient-claw gateway
 ```
 
 Open:
@@ -74,7 +74,7 @@ Open:
 Then start the gateway (token required for non-loopback binds):
 
 ```bash
-hyperbot gateway
+ancient-claw gateway
 ```
 
 Open:

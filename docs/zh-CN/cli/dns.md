@@ -1,8 +1,8 @@
 ---
 read_when:
   - 你想通过 Tailscale + CoreDNS 实现广域设备发现（DNS-SD）
-  - You’re setting up split DNS for a custom discovery domain (example: hyperbot.internal)
-summary: "`hyperbot dns` 的 CLI 参考（广域设备发现辅助工具）"
+  - You’re setting up split DNS for a custom discovery domain (example: ancient-claw.internal)
+summary: "`ancient-claw dns` 的 CLI 参考（广域设备发现辅助工具）"
 title: dns
 x-i18n:
   generated_at: "2026-02-03T07:44:52Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 15
 ---
 
-# `hyperbot dns`
+# `ancient-claw dns`
 
 用于广域设备发现（Tailscale + CoreDNS）的 DNS 辅助工具。目前专注于 macOS + Homebrew CoreDNS。
 
@@ -25,6 +25,6 @@ x-i18n:
 ## 设置
 
 ```bash
-hyperbot dns setup
-hyperbot dns setup --apply
+ancient-claw dns setup
+ancient-claw dns setup --apply
 ```

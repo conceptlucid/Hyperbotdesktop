@@ -1,5 +1,5 @@
 ---
-summary: "Install HyperBot — installer script, npm/pnpm, from source, Docker, and more"
+summary: "Install Ancient Claw — installer script, npm/pnpm, from source, Docker, and more"
 read_when:
   - You need an install method other than the Getting Started quickstart
   - You want to deploy to a cloud platform
@@ -11,17 +11,17 @@ title: "Install"
 
 ## Recommended: installer script
 
-The fastest way to install. It detects your OS, installs Node if needed, installs HyperBot, and launches onboarding.
+The fastest way to install. It detects your OS, installs Node if needed, installs Ancient Claw, and launches onboarding.
 
 <Tabs>
   <Tab title="macOS / Linux / WSL2">
     ```bash
-    curl -fsSL https://hyperbot.ai/install.sh | bash
+    curl -fsSL https://ancient-claw.ai/install.sh | bash
     ```
   </Tab>
   <Tab title="Windows (PowerShell)">
     ```powershell
-    iwr -useb https://hyperbot.ai/install.ps1 | iex
+    iwr -useb https://ancient-claw.ai/install.ps1 | iex
     ```
   </Tab>
 </Tabs>
@@ -31,12 +31,12 @@ To install without running onboarding:
 <Tabs>
   <Tab title="macOS / Linux / WSL2">
     ```bash
-    curl -fsSL https://hyperbot.ai/install.sh | bash -s -- --no-onboard
+    curl -fsSL https://ancient-claw.ai/install.sh | bash -s -- --no-onboard
     ```
   </Tab>
   <Tab title="Windows (PowerShell)">
     ```powershell
-    & ([scriptblock]::Create((iwr -useb https://hyperbot.ai/install.ps1))) -NoOnboard
+    & ([scriptblock]::Create((iwr -useb https://ancient-claw.ai/install.ps1))) -NoOnboard
     ```
   </Tab>
 </Tabs>
@@ -58,15 +58,15 @@ If you already manage Node yourself:
 <Tabs>
   <Tab title="npm">
     ```bash
-    npm install -g hyperbot@latest
-    hyperbot onboard --install-daemon
+    npm install -g ancient-claw@latest
+    ancient-claw onboard --install-daemon
     ```
   </Tab>
   <Tab title="pnpm">
     ```bash
-    pnpm add -g hyperbot@latest
+    pnpm add -g ancient-claw@latest
     pnpm approve-builds -g
-    hyperbot onboard --install-daemon
+    ancient-claw onboard --install-daemon
     ```
 
     <Note>
@@ -80,7 +80,7 @@ If you already manage Node yourself:
   If `sharp` fails due to a globally installed libvips:
 
 ```bash
-SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install -g hyperbot@latest
+SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install -g ancient-claw@latest
 ```
 
 </Accordion>
@@ -90,19 +90,19 @@ SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install -g hyperbot@latest
 For contributors or anyone who wants to run from a local checkout:
 
 ```bash
-git clone https://github.com/hyperbot/hyperbot.git
-cd hyperbot
+git clone https://github.com/ancient-claw/ancient-claw.git
+cd ancient-claw
 pnpm install && pnpm ui:build && pnpm build
 pnpm link --global
-hyperbot onboard --install-daemon
+ancient-claw onboard --install-daemon
 ```
 
-Or skip the link and use `pnpm hyperbot ...` from inside the repo. See [Setup](/start/setup) for full development workflows.
+Or skip the link and use `pnpm ancient-claw ...` from inside the repo. See [Setup](/start/setup) for full development workflows.
 
 ### Install from GitHub main
 
 ```bash
-npm install -g github:hyperbot/hyperbot#main
+npm install -g github:ancient-claw/ancient-claw#main
 ```
 
 ### Containers and package managers
@@ -128,14 +128,14 @@ npm install -g github:hyperbot/hyperbot#main
 ## Verify the install
 
 ```bash
-hyperbot --version      # confirm the CLI is available
-hyperbot doctor         # check for config issues
-hyperbot gateway status # verify the Gateway is running
+ancient-claw --version      # confirm the CLI is available
+ancient-claw doctor         # check for config issues
+ancient-claw gateway status # verify the Gateway is running
 ```
 
 ## Hosting and deployment
 
-Deploy HyperBot on a cloud server or VPS:
+Deploy Ancient Claw on a cloud server or VPS:
 
 <CardGroup cols={3}>
   <Card title="VPS" href="/vps">Any Linux VPS</Card>
@@ -154,19 +154,19 @@ Deploy HyperBot on a cloud server or VPS:
 
 <CardGroup cols={3}>
   <Card title="Updating" href="/install/updating" icon="refresh-cw">
-    Keep HyperBot up to date.
+    Keep Ancient Claw up to date.
   </Card>
   <Card title="Migrating" href="/install/migrating" icon="arrow-right">
     Move to a new machine.
   </Card>
   <Card title="Uninstall" href="/install/uninstall" icon="trash-2">
-    Remove HyperBot completely.
+    Remove Ancient Claw completely.
   </Card>
 </CardGroup>
 
-## Troubleshooting: `hyperbot` not found
+## Troubleshooting: `ancient-claw` not found
 
-If the install succeeded but `hyperbot` is not found in your terminal:
+If the install succeeded but `ancient-claw` is not found in your terminal:
 
 ```bash
 node -v           # Node installed?

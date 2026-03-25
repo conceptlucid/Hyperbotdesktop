@@ -1,7 +1,7 @@
 ---
-summary: "Run HyperBot with SGLang (OpenAI-compatible self-hosted server)"
+summary: "Run Ancient Claw with SGLang (OpenAI-compatible self-hosted server)"
 read_when:
-  - You want to run HyperBot against a local SGLang server
+  - You want to run Ancient Claw against a local SGLang server
   - You want OpenAI-compatible /v1 endpoints with your own models
 title: "SGLang"
 ---
@@ -9,9 +9,9 @@ title: "SGLang"
 # SGLang
 
 SGLang can serve open-source models via an **OpenAI-compatible** HTTP API.
-HyperBot can connect to SGLang using the `openai-completions` API.
+Ancient Claw can connect to SGLang using the `openai-completions` API.
 
-HyperBot can also **auto-discover** available models from SGLang when you opt
+Ancient Claw can also **auto-discover** available models from SGLang when you opt
 in with `SGLANG_API_KEY` (any value works if your server does not enforce auth)
 and you do not define an explicit `models.providers.sglang` entry.
 
@@ -33,7 +33,7 @@ export SGLANG_API_KEY="sglang-local"
 3. Run onboarding and choose `SGLang`, or set a model directly:
 
 ```bash
-hyperbot onboard
+ancient-claw onboard
 ```
 
 ```json5
@@ -49,7 +49,7 @@ hyperbot onboard
 ## Model discovery (implicit provider)
 
 When `SGLANG_API_KEY` is set (or an auth profile exists) and you **do not**
-define `models.providers.sglang`, HyperBot will query:
+define `models.providers.sglang`, Ancient Claw will query:
 
 - `GET http://127.0.0.1:30000/v1/models`
 

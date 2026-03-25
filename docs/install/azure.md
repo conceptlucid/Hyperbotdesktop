@@ -1,22 +1,22 @@
 ---
-summary: "Run HyperBot Gateway 24/7 on an Azure Linux VM with durable state"
+summary: "Run Ancient Claw Gateway 24/7 on an Azure Linux VM with durable state"
 read_when:
-  - You want HyperBot running 24/7 on Azure with Network Security Group hardening
-  - You want a production-grade, always-on HyperBot Gateway on your own Azure Linux VM
+  - You want Ancient Claw running 24/7 on Azure with Network Security Group hardening
+  - You want a production-grade, always-on Ancient Claw Gateway on your own Azure Linux VM
   - You want secure administration with Azure Bastion SSH
 title: "Azure"
 ---
 
-# HyperBot on Azure Linux VM
+# Ancient Claw on Azure Linux VM
 
-This guide sets up an Azure Linux VM with the Azure CLI, applies Network Security Group (NSG) hardening, configures Azure Bastion for SSH access, and installs HyperBot.
+This guide sets up an Azure Linux VM with the Azure CLI, applies Network Security Group (NSG) hardening, configures Azure Bastion for SSH access, and installs Ancient Claw.
 
 ## What you will do
 
 - Create Azure networking (VNet, subnets, NSG) and compute resources with the Azure CLI
 - Apply Network Security Group rules so VM SSH is allowed only from Azure Bastion
 - Use Azure Bastion for SSH access (no public IP on the VM)
-- Install HyperBot with the installer script
+- Install Ancient Claw with the installer script
 - Verify the Gateway
 
 ## What you need
@@ -56,18 +56,18 @@ This guide sets up an Azure Linux VM with the Azure CLI, applies Network Securit
 
   <Step title="Set deployment variables">
     ```bash
-    RG="rg-hyperbot"
+    RG="rg-ancient-claw"
     LOCATION="westus2"
-    VNET_NAME="vnet-hyperbot"
+    VNET_NAME="vnet-ancient-claw"
     VNET_PREFIX="10.40.0.0/16"
-    VM_SUBNET_NAME="snet-hyperbot-vm"
+    VM_SUBNET_NAME="snet-ancient-claw-vm"
     VM_SUBNET_PREFIX="10.40.2.0/24"
     BASTION_SUBNET_PREFIX="10.40.1.0/26"
-    NSG_NAME="nsg-hyperbot-vm"
-    VM_NAME="vm-hyperbot"
-    ADMIN_USERNAME="hyperbot"
-    BASTION_NAME="bas-hyperbot"
-    BASTION_PIP_NAME="pip-hyperbot-bastion"
+    NSG_NAME="nsg-ancient-claw-vm"
+    VM_NAME="vm-ancient-claw"
+    ADMIN_USERNAME="ancient-claw"
+    BASTION_NAME="bas-ancient-claw"
+    BASTION_PIP_NAME="pip-ancient-claw-bastion"
     ```
 
     Adjust names and CIDR ranges to fit your environment. The Bastion subnet must be at least `/26`.
@@ -236,7 +236,7 @@ This guide sets up an Azure Linux VM with the Azure CLI, applies Network Securit
   </Step>
 </Steps>
 
-## Install HyperBot
+## Install Ancient Claw
 
 <Steps>
   <Step title="SSH into the VM through Azure Bastion">
@@ -254,14 +254,14 @@ This guide sets up an Azure Linux VM with the Azure CLI, applies Network Securit
 
   </Step>
 
-  <Step title="Install HyperBot (in the VM shell)">
+  <Step title="Install Ancient Claw (in the VM shell)">
     ```bash
-    curl -fsSL https://hyperbot.ai/install.sh -o /tmp/install.sh
+    curl -fsSL https://ancient-claw.ai/install.sh -o /tmp/install.sh
     bash /tmp/install.sh
     rm -f /tmp/install.sh
     ```
 
-    The installer installs Node LTS and dependencies if not already present, installs HyperBot, and launches the onboarding wizard. See [Install](/install) for details.
+    The installer installs Node LTS and dependencies if not already present, installs Ancient Claw, and launches the onboarding wizard. See [Install](/install) for details.
 
   </Step>
 
@@ -269,10 +269,10 @@ This guide sets up an Azure Linux VM with the Azure CLI, applies Network Securit
     After onboarding completes:
 
     ```bash
-    hyperbot gateway status
+    ancient-claw gateway status
     ```
 
-    Most enterprise Azure teams already have GitHub Copilot licenses. If that is your case, we recommend choosing the GitHub Copilot provider in the HyperBot onboarding wizard. See [GitHub Copilot provider](/providers/github-copilot).
+    Most enterprise Azure teams already have GitHub Copilot licenses. If that is your case, we recommend choosing the GitHub Copilot provider in the Ancient Claw onboarding wizard. See [GitHub Copilot provider](/providers/github-copilot).
 
   </Step>
 </Steps>
@@ -283,7 +283,7 @@ Azure Bastion Standard SKU runs approximately **\$140/month** and the VM (Standa
 
 To reduce costs:
 
-- **Deallocate the VM** when not in use (stops compute billing; disk charges remain). The HyperBot Gateway will not be reachable while the VM is deallocated — restart it when you need it live again:
+- **Deallocate the VM** when not in use (stops compute billing; disk charges remain). The Ancient Claw Gateway will not be reachable while the VM is deallocated — restart it when you need it live again:
 
   ```bash
   az vm deallocate -g "${RG}" -n "${VM_NAME}"
@@ -308,4 +308,4 @@ This removes the resource group and everything inside it (VM, VNet, NSG, Bastion
 - Set up messaging channels: [Channels](/channels)
 - Pair local devices as nodes: [Nodes](/nodes)
 - Configure the Gateway: [Gateway configuration](/gateway/configuration)
-- For more details on HyperBot Azure deployment with the GitHub Copilot model provider: [HyperBot on Azure with GitHub Copilot](https://github.com/johnsonshi/hyperbot-azure-github-copilot)
+- For more details on Ancient Claw Azure deployment with the GitHub Copilot model provider: [Ancient Claw on Azure with GitHub Copilot](https://github.com/johnsonshi/ancient-claw-azure-github-copilot)

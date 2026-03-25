@@ -1,4 +1,4 @@
-# HyperBot macOS app (dev + signing)
+# Ancient Claw macOS app (dev + signing)
 
 ## Quick dev run
 
@@ -20,7 +20,7 @@ scripts/restart-mac.sh --sign      # force code signing (requires cert)
 scripts/package-mac-app.sh
 ```
 
-Creates `dist/HyperBot.app` and signs it via `scripts/codesign-mac-app.sh`.
+Creates `dist/Ancient Claw.app` and signs it via `scripts/codesign-mac-app.sh`.
 
 ## Signing behavior
 

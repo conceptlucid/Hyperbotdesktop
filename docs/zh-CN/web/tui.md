@@ -20,13 +20,13 @@ x-i18n:
 1. 启动 Gateway 网关。
 
 ```bash
-hyperbot gateway
+ancient-claw gateway
 ```
 
 2. 打开 TUI。
 
 ```bash
-hyperbot tui
+ancient-claw tui
 ```
 
 3. 输入消息并按 Enter。
@@ -34,7 +34,7 @@ hyperbot tui
 远程 Gateway 网关：
 
 ```bash
-hyperbot tui --url ws://<host>:<port> --token <gateway-token>
+ancient-claw tui --url ws://<host>:<port> --token <gateway-token>
 ```
 
 如果你的 Gateway 网关使用密码认证，请使用 `--password`。
@@ -65,7 +65,7 @@ hyperbot tui --url ws://<host>:<port> --token <gateway-token>
 - 开启投递：
   - `/deliver on`
   - 或设置面板
-  - 或使用 `hyperbot tui --deliver` 启动
+  - 或使用 `ancient-claw tui --deliver` 启动
 
 ## 选择器 + 覆盖层
 
@@ -154,13 +154,13 @@ hyperbot tui --url ws://<host>:<port> --token <gateway-token>
 发送消息后没有输出：
 
 - 在 TUI 中运行 `/status` 以确认 Gateway 网关已连接且处于空闲/忙碌状态。
-- 检查 Gateway 网关日志：`hyperbot logs --follow`。
-- 确认智能体可以运行：`hyperbot status` 和 `hyperbot models status`。
+- 检查 Gateway 网关日志：`ancient-claw logs --follow`。
+- 确认智能体可以运行：`ancient-claw status` 和 `ancient-claw models status`。
 - 如果你期望消息出现在聊天渠道中，请启用投递（`/deliver on` 或 `--deliver`）。
 - `--history-limit <n>`：要加载的历史条目数（默认 200）
 
 ## 故障排除
 
 - `disconnected`：确保 Gateway 网关正在运行且你的 `--url/--token/--password` 正确。
-- 选择器中没有智能体：检查 `hyperbot agents list` 和你的路由配置。
+- 选择器中没有智能体：检查 `ancient-claw agents list` 和你的路由配置。
 - 会话选择器为空：你可能处于全局范围或还没有会话。

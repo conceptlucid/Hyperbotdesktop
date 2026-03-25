@@ -1,15 +1,15 @@
 ---
-summary: "CLI reference for `hyperbot browser` (profiles, tabs, actions, Chrome MCP, and CDP)"
+summary: "CLI reference for `ancient-claw browser` (profiles, tabs, actions, Chrome MCP, and CDP)"
 read_when:
-  - You use `hyperbot browser` and want examples for common tasks
+  - You use `ancient-claw browser` and want examples for common tasks
   - You want to control a browser running on another machine via a node host
   - You want to attach to your local signed-in Chrome via Chrome MCP
 title: "browser"
 ---
 
-# `hyperbot browser`
+# `ancient-claw browser`
 
-Manage HyperBot’s browser control server and run browser actions (tabs, snapshots, screenshots, navigation, clicks, typing).
+Manage Ancient Claw’s browser control server and run browser actions (tabs, snapshots, screenshots, navigation, clicks, typing).
 
 Related:
 
@@ -26,40 +26,40 @@ Related:
 ## Quick start (local)
 
 ```bash
-hyperbot browser profiles
-hyperbot browser --browser-profile hyperbot start
-hyperbot browser --browser-profile hyperbot open https://example.com
-hyperbot browser --browser-profile hyperbot snapshot
+ancient-claw browser profiles
+ancient-claw browser --browser-profile ancient-claw start
+ancient-claw browser --browser-profile ancient-claw open https://example.com
+ancient-claw browser --browser-profile ancient-claw snapshot
 ```
 
 ## Profiles
 
 Profiles are named browser routing configs. In practice:
 
-- `hyperbot`: launches or attaches to a dedicated HyperBot-managed Chrome instance (isolated user data dir).
+- `ancient-claw`: launches or attaches to a dedicated Ancient Claw-managed Chrome instance (isolated user data dir).
 - `user`: controls your existing signed-in Chrome session via Chrome DevTools MCP.
 - custom CDP profiles: point at a local or remote CDP endpoint.
 
 ```bash
-hyperbot browser profiles
-hyperbot browser create-profile --name work --color "#FF5A36"
-hyperbot browser create-profile --name chrome-live --driver existing-session
-hyperbot browser delete-profile --name work
+ancient-claw browser profiles
+ancient-claw browser create-profile --name work --color "#FF5A36"
+ancient-claw browser create-profile --name chrome-live --driver existing-session
+ancient-claw browser delete-profile --name work
 ```
 
 Use a specific profile:
 
 ```bash
-hyperbot browser --browser-profile work tabs
+ancient-claw browser --browser-profile work tabs
 ```
 
 ## Tabs
 
 ```bash
-hyperbot browser tabs
-hyperbot browser open https://docs.hyperbot.ai
-hyperbot browser focus <targetId>
-hyperbot browser close <targetId>
+ancient-claw browser tabs
+ancient-claw browser open https://docs.ancient-claw.ai
+ancient-claw browser focus <targetId>
+ancient-claw browser close <targetId>
 ```
 
 ## Snapshot / screenshot / actions
@@ -67,21 +67,21 @@ hyperbot browser close <targetId>
 Snapshot:
 
 ```bash
-hyperbot browser snapshot
+ancient-claw browser snapshot
 ```
 
 Screenshot:
 
 ```bash
-hyperbot browser screenshot
+ancient-claw browser screenshot
 ```
 
 Navigate/click/type (ref-based UI automation):
 
 ```bash
-hyperbot browser navigate https://example.com
-hyperbot browser click <ref>
-hyperbot browser type <ref> "hello"
+ancient-claw browser navigate https://example.com
+ancient-claw browser click <ref>
+ancient-claw browser type <ref> "hello"
 ```
 
 ## Existing Chrome via MCP
@@ -89,10 +89,10 @@ hyperbot browser type <ref> "hello"
 Use the built-in `user` profile, or create your own `existing-session` profile:
 
 ```bash
-hyperbot browser --browser-profile user tabs
-hyperbot browser create-profile --name chrome-live --driver existing-session
-hyperbot browser create-profile --name brave-live --driver existing-session --user-data-dir "~/Library/Application Support/BraveSoftware/Brave-Browser"
-hyperbot browser --browser-profile chrome-live tabs
+ancient-claw browser --browser-profile user tabs
+ancient-claw browser create-profile --name chrome-live --driver existing-session
+ancient-claw browser create-profile --name brave-live --driver existing-session --user-data-dir "~/Library/Application Support/BraveSoftware/Brave-Browser"
+ancient-claw browser --browser-profile chrome-live tabs
 ```
 
 This path is host-only. For Docker, headless servers, Browserless, or other remote setups, use a CDP profile instead.

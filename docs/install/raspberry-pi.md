@@ -1,15 +1,15 @@
 ---
-summary: "Host HyperBot on a Raspberry Pi for always-on self-hosting"
+summary: "Host Ancient Claw on a Raspberry Pi for always-on self-hosting"
 read_when:
-  - Setting up HyperBot on a Raspberry Pi
-  - Running HyperBot on ARM devices
+  - Setting up Ancient Claw on a Raspberry Pi
+  - Running Ancient Claw on ARM devices
   - Building a cheap always-on personal AI
 title: "Raspberry Pi"
 ---
 
 # Raspberry Pi
 
-Run a persistent, always-on HyperBot Gateway on a Raspberry Pi. Since the Pi is just the gateway (models run in the cloud via API), even a modest Pi handles the workload well.
+Run a persistent, always-on Ancient Claw Gateway on a Raspberry Pi. Since the Pi is just the gateway (models run in the cloud via API), even a modest Pi handles the workload well.
 
 ## Prerequisites
 
@@ -77,15 +77,15 @@ Run a persistent, always-on HyperBot Gateway on a Raspberry Pi. Since the Pi is 
 
   </Step>
 
-  <Step title="Install HyperBot">
+  <Step title="Install Ancient Claw">
     ```bash
-    curl -fsSL https://hyperbot.ai/install.sh | bash
+    curl -fsSL https://ancient-claw.ai/install.sh | bash
     ```
   </Step>
 
   <Step title="Run onboarding">
     ```bash
-    hyperbot onboard --install-daemon
+    ancient-claw onboard --install-daemon
     ```
 
     Follow the wizard. API keys are recommended over OAuth for headless devices. Telegram is the easiest channel to start with.
@@ -94,9 +94,9 @@ Run a persistent, always-on HyperBot Gateway on a Raspberry Pi. Since the Pi is 
 
   <Step title="Verify">
     ```bash
-    hyperbot status
-    sudo systemctl status hyperbot
-    journalctl -u hyperbot -f
+    ancient-claw status
+    sudo systemctl status ancient-claw
+    journalctl -u ancient-claw -f
     ```
   </Step>
 
@@ -104,7 +104,7 @@ Run a persistent, always-on HyperBot Gateway on a Raspberry Pi. Since the Pi is 
     On your computer, get a dashboard URL from the Pi:
 
     ```bash
-    ssh user@gateway-host 'hyperbot dashboard --no-open'
+    ssh user@gateway-host 'ancient-claw dashboard --no-open'
     ```
 
     Then create an SSH tunnel in another terminal:
@@ -125,9 +125,9 @@ Run a persistent, always-on HyperBot Gateway on a Raspberry Pi. Since the Pi is 
 **Enable module compile cache** -- Speeds up repeated CLI invocations on lower-power Pi hosts:
 
 ```bash
-grep -q 'NODE_COMPILE_CACHE=/var/tmp/hyperbot-compile-cache' ~/.bashrc || cat >> ~/.bashrc <<'EOF' # pragma: allowlist secret
-export NODE_COMPILE_CACHE=/var/tmp/hyperbot-compile-cache
-mkdir -p /var/tmp/hyperbot-compile-cache
+grep -q 'NODE_COMPILE_CACHE=/var/tmp/ancient-claw-compile-cache' ~/.bashrc || cat >> ~/.bashrc <<'EOF' # pragma: allowlist secret
+export NODE_COMPILE_CACHE=/var/tmp/ancient-claw-compile-cache
+mkdir -p /var/tmp/ancient-claw-compile-cache
 export OPENCLAW_NO_RESPAWN=1
 EOF
 source ~/.bashrc
@@ -146,7 +146,7 @@ sudo systemctl disable bluetooth
 
 **Slow performance** -- Use a USB SSD instead of an SD card. Check for CPU throttling with `vcgencmd get_throttled` (should return `0x0`).
 
-**Service will not start** -- Check logs with `journalctl -u hyperbot --no-pager -n 100` and run `hyperbot doctor --non-interactive`.
+**Service will not start** -- Check logs with `journalctl -u ancient-claw --no-pager -n 100` and run `ancient-claw doctor --non-interactive`.
 
 **ARM binary issues** -- If a skill fails with "exec format error", check whether the binary has an ARM64 build. Verify architecture with `uname -m` (should show `aarch64`).
 
@@ -156,4 +156,4 @@ sudo systemctl disable bluetooth
 
 - [Channels](/channels) -- connect Telegram, WhatsApp, Discord, and more
 - [Gateway configuration](/gateway/configuration) -- all config options
-- [Updating](/install/updating) -- keep HyperBot up to date
+- [Updating](/install/updating) -- keep Ancient Claw up to date

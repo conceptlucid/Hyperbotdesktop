@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `hyperbot memory` (status/index/search)"
+summary: "CLI reference for `ancient-claw memory` (status/index/search)"
 read_when:
   - You want to index or search semantic memory
   - You’re debugging memory availability or indexing
 title: "memory"
 ---
 
-# `hyperbot memory`
+# `ancient-claw memory`
 
 Manage semantic memory indexing and search.
 Provided by the active memory plugin (default: `memory-core`; set `plugins.slots.memory = "none"` to disable).
@@ -19,16 +19,16 @@ Related:
 ## Examples
 
 ```bash
-hyperbot memory status
-hyperbot memory status --deep
-hyperbot memory index --force
-hyperbot memory search "meeting notes"
-hyperbot memory search --query "deployment" --max-results 20
-hyperbot memory status --json
-hyperbot memory status --deep --index
-hyperbot memory status --deep --index --verbose
-hyperbot memory status --agent main
-hyperbot memory index --agent main --verbose
+ancient-claw memory status
+ancient-claw memory status --deep
+ancient-claw memory index --force
+ancient-claw memory search "meeting notes"
+ancient-claw memory search --query "deployment" --max-results 20
+ancient-claw memory status --json
+ancient-claw memory status --deep --index
+ancient-claw memory status --deep --index --verbose
+ancient-claw memory status --agent main
+ancient-claw memory index --agent main --verbose
 ```
 
 ## Options

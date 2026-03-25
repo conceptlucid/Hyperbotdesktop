@@ -1,11 +1,11 @@
 ---
-summary: "CLI reference for `hyperbot agent` (send one agent turn via the Gateway)"
+summary: "CLI reference for `ancient-claw agent` (send one agent turn via the Gateway)"
 read_when:
   - You want to run one agent turn from scripts (optionally deliver reply)
 title: "agent"
 ---
 
-# `hyperbot agent`
+# `ancient-claw agent`
 
 Run an agent turn via the Gateway (use `--local` for embedded).
 Use `--agent <id>` to target a configured agent directly.
@@ -17,13 +17,13 @@ Related:
 ## Examples
 
 ```bash
-hyperbot agent --to +15555550123 --message "status update" --deliver
-hyperbot agent --agent ops --message "Summarize logs"
-hyperbot agent --session-id 1234 --message "Summarize inbox" --thinking medium
-hyperbot agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"
+ancient-claw agent --to +15555550123 --message "status update" --deliver
+ancient-claw agent --agent ops --message "Summarize logs"
+ancient-claw agent --session-id 1234 --message "Summarize inbox" --thinking medium
+ancient-claw agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"
 ```
 
 ## Notes
 
 - When this command triggers `models.json` regeneration, SecretRef-managed provider credentials are persisted as non-secret markers (for example env var names, `secretref-env:ENV_VAR_NAME`, or `secretref-managed`), not resolved secret plaintext.
-- Marker writes are source-authoritative: HyperBot persists markers from the active source config snapshot, not from resolved runtime secret values.
+- Marker writes are source-authoritative: Ancient Claw persists markers from the active source config snapshot, not from resolved runtime secret values.

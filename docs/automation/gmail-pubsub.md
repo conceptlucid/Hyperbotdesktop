@@ -1,20 +1,20 @@
 ---
-summary: "Gmail Pub/Sub push wired into HyperBot webhooks via gogcli"
+summary: "Gmail Pub/Sub push wired into Ancient Claw webhooks via gogcli"
 read_when:
-  - Wiring Gmail inbox triggers to HyperBot
+  - Wiring Gmail inbox triggers to Ancient Claw
   - Setting up Pub/Sub push for agent wake
 title: "Gmail PubSub"
 ---
 
-# Gmail Pub/Sub -> HyperBot
+# Gmail Pub/Sub -> Ancient Claw
 
-Goal: Gmail watch -> Pub/Sub push -> `gog gmail watch serve` -> HyperBot webhook.
+Goal: Gmail watch -> Pub/Sub push -> `gog gmail watch serve` -> Ancient Claw webhook.
 
 ## Prereqs
 
 - `gcloud` installed and logged in ([install guide](https://docs.cloud.google.com/sdk/docs/install-sdk)).
 - `gog` (gogcli) installed and authorized for the Gmail account ([gogcli.sh](https://gogcli.sh/)).
-- HyperBot hooks enabled (see [Webhooks](/automation/webhook)).
+- Ancient Claw hooks enabled (see [Webhooks](/automation/webhook)).
 - `tailscale` logged in ([tailscale.com](https://tailscale.com/)). Supported setup uses Tailscale Funnel for the public HTTPS endpoint.
   Other tunnel services can work, but are DIY/unsupported and require manual wiring.
   Right now, Tailscale is what we support.
@@ -88,24 +88,24 @@ Notes:
   To disable (dangerous), set `hooks.gmail.allowUnsafeExternalContent: true`.
 
 To customize payload handling further, add `hooks.mappings` or a JS/TS transform module
-under `~/.hyperbot/hooks/transforms` (see [Webhooks](/automation/webhook)).
+under `~/.ancient-claw/hooks/transforms` (see [Webhooks](/automation/webhook)).
 
 ## Wizard (recommended)
 
-Use the HyperBot helper to wire everything together (installs deps on macOS via brew):
+Use the Ancient Claw helper to wire everything together (installs deps on macOS via brew):
 
 ```bash
-hyperbot webhooks gmail setup \
-  --account hyperbot@gmail.com
+ancient-claw webhooks gmail setup \
+  --account ancient-claw@gmail.com
 ```
 
 Defaults:
 
 - Uses Tailscale Funnel for the public push endpoint.
-- Writes `hooks.gmail` config for `hyperbot webhooks gmail run`.
+- Writes `hooks.gmail` config for `ancient-claw webhooks gmail run`.
 - Enables the Gmail hook preset (`hooks.presets: ["gmail"]`).
 
-Path note: when `tailscale.mode` is enabled, HyperBot automatically sets
+Path note: when `tailscale.mode` is enabled, Ancient Claw automatically sets
 `hooks.gmail.serve.path` to `/` and keeps the public path at
 `hooks.gmail.tailscale.path` (default `/gmail-pubsub`) because Tailscale
 strips the set-path prefix before proxying.
@@ -129,7 +129,7 @@ Gateway auto-start (recommended):
 Manual daemon (starts `gog gmail watch serve` + auto-renew):
 
 ```bash
-hyperbot webhooks gmail run
+ancient-claw webhooks gmail run
 ```
 
 ## One-time setup
@@ -167,7 +167,7 @@ gcloud pubsub topics add-iam-policy-binding gog-gmail-watch \
 
 ```bash
 gog gmail watch start \
-  --account hyperbot@gmail.com \
+  --account ancient-claw@gmail.com \
   --label INBOX \
   --topic projects/<project-id>/topics/gog-gmail-watch
 ```
@@ -180,7 +180,7 @@ Local example (shared token auth):
 
 ```bash
 gog gmail watch serve \
-  --account hyperbot@gmail.com \
+  --account ancient-claw@gmail.com \
   --bind 127.0.0.1 \
   --port 8788 \
   --path /gmail-pubsub \
@@ -194,10 +194,10 @@ gog gmail watch serve \
 Notes:
 
 - `--token` protects the push endpoint (`x-gog-token` or `?token=`).
-- `--hook-url` points to HyperBot `/hooks/gmail` (mapped; isolated run + summary to main).
-- `--include-body` and `--max-bytes` control the body snippet sent to HyperBot.
+- `--hook-url` points to Ancient Claw `/hooks/gmail` (mapped; isolated run + summary to main).
+- `--include-body` and `--max-bytes` control the body snippet sent to Ancient Claw.
 
-Recommended: `hyperbot webhooks gmail run` wraps the same flow and auto-renews the watch.
+Recommended: `ancient-claw webhooks gmail run` wraps the same flow and auto-renews the watch.
 
 ## Expose the handler (advanced, unsupported)
 
@@ -228,8 +228,8 @@ Send a message to the watched inbox:
 
 ```bash
 gog gmail send \
-  --account hyperbot@gmail.com \
-  --to hyperbot@gmail.com \
+  --account ancient-claw@gmail.com \
+  --to ancient-claw@gmail.com \
   --subject "watch test" \
   --body "ping"
 ```
@@ -237,8 +237,8 @@ gog gmail send \
 Check watch state and history:
 
 ```bash
-gog gmail watch status --account hyperbot@gmail.com
-gog gmail history --account hyperbot@gmail.com --since <historyId>
+gog gmail watch status --account ancient-claw@gmail.com
+gog gmail history --account ancient-claw@gmail.com --since <historyId>
 ```
 
 ## Troubleshooting
@@ -250,7 +250,7 @@ gog gmail history --account hyperbot@gmail.com --since <historyId>
 ## Cleanup
 
 ```bash
-gog gmail watch stop --account hyperbot@gmail.com
+gog gmail watch stop --account ancient-claw@gmail.com
 gcloud pubsub subscriptions delete gog-gmail-watch-push
 gcloud pubsub topics delete gog-gmail-watch
 ```

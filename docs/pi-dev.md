@@ -8,7 +8,7 @@ read_when:
 
 # Pi Development Workflow
 
-This guide summarizes a sane workflow for working on the pi integration in HyperBot.
+This guide summarizes a sane workflow for working on the pi integration in Ancient Claw.
 
 ## Type Checking and Linting
 
@@ -53,7 +53,7 @@ Recommended flow:
 - Run the gateway in dev mode:
   - `pnpm gateway:dev`
 - Trigger the agent directly:
-  - `pnpm hyperbot agent --message "Hello" --thinking low`
+  - `pnpm ancient-claw agent --message "Hello" --thinking low`
 - Use the TUI for interactive debugging:
   - `pnpm tui`
 
@@ -61,11 +61,11 @@ For tool call behavior, prompt for a `read` or `exec` action so you can see tool
 
 ## Clean Slate Reset
 
-State lives under the HyperBot state directory. Default is `~/.hyperbot`. If `OPENCLAW_STATE_DIR` is set, use that directory instead.
+State lives under the Ancient Claw state directory. Default is `~/.ancient-claw`. If `OPENCLAW_STATE_DIR` is set, use that directory instead.
 
 To reset everything:
 
-- `hyperbot.json` for config
+- `ancient-claw.json` for config
 - `credentials/` for auth profiles and tokens
 - `agents/<agentId>/sessions/` for agent session history
 - `agents/<agentId>/sessions.json` for the session index

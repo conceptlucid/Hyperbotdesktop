@@ -11,9 +11,9 @@ title: "ACP Agents"
 
 # ACP agents
 
-[Agent Client Protocol (ACP)](https://agentclientprotocol.com/) sessions let HyperBot run external coding harnesses (for example Pi, Claude Code, Codex, OpenCode, and Gemini CLI) through an ACP backend plugin.
+[Agent Client Protocol (ACP)](https://agentclientprotocol.com/) sessions let Ancient Claw run external coding harnesses (for example Pi, Claude Code, Codex, OpenCode, and Gemini CLI) through an ACP backend plugin.
 
-If you ask HyperBot in plain language to "run this in Codex" or "start Claude Code in a thread", HyperBot should route that request to the ACP runtime (not the native sub-agent runtime).
+If you ask Ancient Claw in plain language to "run this in Codex" or "start Claude Code in a thread", Ancient Claw should route that request to the ACP runtime (not the native sub-agent runtime).
 
 ## Fast operator flow
 
@@ -42,7 +42,7 @@ Examples of natural requests:
 - "Run this as a one-shot Claude Code ACP session and summarize the result."
 - "Use Gemini CLI for this task in a thread, then keep follow-ups in that same thread."
 
-What HyperBot should do:
+What Ancient Claw should do:
 
 1. Pick `runtime: "acp"`.
 2. Resolve the requested harness target (`agentId`, for example `codex`).
@@ -51,11 +51,11 @@ What HyperBot should do:
 
 ## ACP versus sub-agents
 
-Use ACP when you want an external harness runtime. Use sub-agents when you want HyperBot-native delegated runs.
+Use ACP when you want an external harness runtime. Use sub-agents when you want Ancient Claw-native delegated runs.
 
 | Area          | ACP session                           | Sub-agent run                      |
 | ------------- | ------------------------------------- | ---------------------------------- |
-| Runtime       | ACP backend plugin (for example acpx) | HyperBot native sub-agent runtime  |
+| Runtime       | ACP backend plugin (for example acpx) | Ancient Claw native sub-agent runtime  |
 | Session key   | `agent:<agentId>:acp:<uuid>`          | `agent:<agentId>:subagent:<uuid>`  |
 | Main commands | `/acp ...`                            | `/subagents ...`                   |
 | Spawn tool    | `sessions_spawn` with `runtime:"acp"` | `sessions_spawn` (default runtime) |
@@ -66,12 +66,12 @@ See also [Sub-agents](/tools/subagents).
 
 When thread bindings are enabled for a channel adapter, ACP sessions can be bound to threads:
 
-- HyperBot binds a thread to a target ACP session.
+- Ancient Claw binds a thread to a target ACP session.
 - Follow-up messages in that thread route to the bound ACP session.
 - ACP output is delivered back to the same thread.
 - Unfocus/close/archive/idle-timeout or max-age expiry removes the binding.
 
-Thread binding support is adapter-specific. If the active channel adapter does not support thread bindings, HyperBot returns a clear unsupported/unavailable message.
+Thread binding support is adapter-specific. If the active channel adapter does not support thread bindings, Ancient Claw returns a clear unsupported/unavailable message.
 
 Required feature flags for thread-bound ACP:
 
@@ -99,7 +99,7 @@ For non-ephemeral workflows, configure persistent ACP bindings in top-level `bin
 - `bindings[].match` identifies the target conversation:
   - Discord channel or thread: `match.channel="discord"` + `match.peer.id="<channelOrThreadId>"`
   - Telegram forum topic: `match.channel="telegram"` + `match.peer.id="<chatId>:topic:<topicId>"`
-- `bindings[].agentId` is the owning HyperBot agent id.
+- `bindings[].agentId` is the owning Ancient Claw agent id.
 - Optional ACP overrides live under `bindings[].acp`:
   - `mode` (`persistent` or `oneshot`)
   - `label`
@@ -136,7 +136,7 @@ Example:
             agent: "codex",
             backend: "acpx",
             mode: "persistent",
-            cwd: "/workspace/hyperbot",
+            cwd: "/workspace/ancient-claw",
           },
         },
       },
@@ -204,7 +204,7 @@ Example:
 
 Behavior:
 
-- HyperBot ensures the configured ACP session exists before use.
+- Ancient Claw ensures the configured ACP session exists before use.
 - Messages in that channel or topic route to the configured ACP session.
 - In bound conversations, `/new` and `/reset` reset the same ACP session key in place.
 - Temporary runtime bindings (for example created by thread-focus flows) still apply where present.
@@ -228,7 +228,7 @@ Use `runtime: "acp"` to start an ACP session from an agent turn or tool call.
 Notes:
 
 - `runtime` defaults to `subagent`, so set `runtime: "acp"` explicitly for ACP sessions.
-- If `agentId` is omitted, HyperBot uses `acp.defaultAgent` when configured.
+- If `agentId` is omitted, Ancient Claw uses `acp.defaultAgent` when configured.
 - `mode: "session"` requires `thread: true` to keep a persistent bound conversation.
 
 Interface details:
@@ -239,7 +239,7 @@ Interface details:
 - `thread` (optional, default `false`): request thread binding flow where supported.
 - `mode` (optional): `run` (one-shot) or `session` (persistent).
   - default is `run`
-  - if `thread: true` and mode omitted, HyperBot may default to persistent behavior per runtime path
+  - if `thread: true` and mode omitted, Ancient Claw may default to persistent behavior per runtime path
   - `mode: "session"` requires `thread: true`
 - `cwd` (optional): requested runtime working directory (validated by backend/runtime policy).
 - `label` (optional): operator-facing label used in session/banner text.
@@ -269,7 +269,7 @@ Common use cases:
 Notes:
 
 - `resumeSessionId` requires `runtime: "acp"` — returns an error if used with the sub-agent runtime.
-- `resumeSessionId` restores the upstream ACP conversation history; `thread` and `mode` still apply normally to the new HyperBot session you are creating, so `mode: "session"` still requires `thread: true`.
+- `resumeSessionId` restores the upstream ACP conversation history; `thread` and `mode` still apply normally to the new Ancient Claw session you are creating, so `mode: "session"` still requires `thread: true`.
 - The target agent must support `session/load` (Codex and Claude Code do).
 - If the session ID isn't found, the spawn fails with a clear error — no silent fallback to a new session.
 
@@ -315,7 +315,7 @@ Notes:
 
 ## Sandbox compatibility
 
-ACP sessions currently run on the host runtime, not inside the HyperBot sandbox.
+ACP sessions currently run on the host runtime, not inside the Ancient Claw sandbox.
 
 Current limitations:
 
@@ -358,7 +358,7 @@ Resolution order:
 2. Current thread binding (if this conversation/thread is bound to an ACP session)
 3. Current requester session fallback
 
-If no target resolves, HyperBot returns a clear error (`Unable to resolve session target: ...`).
+If no target resolves, Ancient Claw returns a clear error (`Unable to resolve session target: ...`).
 
 ## Spawn thread modes
 
@@ -399,7 +399,7 @@ Available command family:
 
 `/acp status` shows the effective runtime options and, when available, both runtime-level and backend-level session identifiers.
 
-Some controls depend on backend capabilities. If a backend does not support a control, HyperBot returns a clear unsupported-control error.
+Some controls depend on backend capabilities. If a backend does not support a control, Ancient Claw returns a clear unsupported-control error.
 
 ## ACP command cookbook
 
@@ -448,9 +448,9 @@ Current acpx built-in harness aliases:
 - `gemini`
 - `kimi`
 
-When HyperBot uses the acpx backend, prefer these values for `agentId` unless your acpx config defines custom agent aliases.
+When Ancient Claw uses the acpx backend, prefer these values for `agentId` unless your acpx config defines custom agent aliases.
 
-Direct acpx CLI usage can also target arbitrary adapters via `--agent <command>`, but that raw escape hatch is an acpx CLI feature (not the normal HyperBot `agentId` path).
+Direct acpx CLI usage can also target arbitrary adapters via `--agent <command>`, but that raw escape hatch is an acpx CLI feature (not the normal Ancient Claw `agentId` path).
 
 ## Required config
 
@@ -510,14 +510,14 @@ See [Configuration Reference](/gateway/configuration-reference).
 Install and enable plugin:
 
 ```bash
-hyperbot plugins install acpx
-hyperbot config set plugins.entries.acpx.enabled true
+ancient-claw plugins install acpx
+ancient-claw config set plugins.entries.acpx.enabled true
 ```
 
 Local workspace install during development:
 
 ```bash
-hyperbot plugins install ./extensions/acpx
+ancient-claw plugins install ./extensions/acpx
 ```
 
 Then verify backend health:
@@ -558,10 +558,10 @@ You can override command/version in plugin config:
 Notes:
 
 - `command` accepts an absolute path, relative path, or command name (`acpx`).
-- Relative paths resolve from HyperBot workspace directory.
+- Relative paths resolve from Ancient Claw workspace directory.
 - `expectedVersion: "any"` disables strict version matching.
 - When `command` points to a custom binary/path, plugin-local auto-install is disabled.
-- HyperBot startup remains non-blocking while the backend health check runs.
+- Ancient Claw startup remains non-blocking while the backend health check runs.
 
 See [Plugins](/tools/plugin).
 
@@ -593,13 +593,13 @@ Controls what happens when a permission prompt would be shown but no interactive
 Set via plugin config:
 
 ```bash
-hyperbot config set plugins.entries.acpx.config.permissionMode approve-all
-hyperbot config set plugins.entries.acpx.config.nonInteractivePermissions fail
+ancient-claw config set plugins.entries.acpx.config.permissionMode approve-all
+ancient-claw config set plugins.entries.acpx.config.nonInteractivePermissions fail
 ```
 
 Restart the gateway after changing these values.
 
-> **Important:** HyperBot currently defaults to `permissionMode=approve-reads` and `nonInteractivePermissions=fail`. In non-interactive ACP sessions, any write or exec that triggers a permission prompt can fail with `AcpRuntimeError: Permission prompt unavailable in non-interactive mode`.
+> **Important:** Ancient Claw currently defaults to `permissionMode=approve-reads` and `nonInteractivePermissions=fail`. In non-interactive ACP sessions, any write or exec that triggers a permission prompt can fail with `AcpRuntimeError: Permission prompt unavailable in non-interactive mode`.
 >
 > If you need to restrict permissions, set `nonInteractivePermissions` to `deny` so sessions degrade gracefully instead of crashing.
 

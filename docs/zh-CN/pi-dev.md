@@ -11,7 +11,7 @@ x-i18n:
 
 # Pi 开发工作流程
 
-本指南总结了在 HyperBot 中开发 Pi 集成的合理工作流程。
+本指南总结了在 Ancient Claw 中开发 Pi 集成的合理工作流程。
 
 ## 类型检查和代码检查
 
@@ -50,7 +50,7 @@ scripts/pi/run-tests.sh --live
 - 以开发模式运行 Gateway 网关：
   - `pnpm gateway:dev`
 - 直接触发智能体：
-  - `pnpm hyperbot agent --message "Hello" --thinking low`
+  - `pnpm ancient-claw agent --message "Hello" --thinking low`
 - 使用 TUI 进行交互式调试：
   - `pnpm tui`
 
@@ -58,11 +58,11 @@ scripts/pi/run-tests.sh --live
 
 ## 完全重置
 
-状态存储在 HyperBot 状态目录下。默认为 `~/.hyperbot`。如果设置了 `OPENCLAW_STATE_DIR`，则使用该目录。
+状态存储在 Ancient Claw 状态目录下。默认为 `~/.ancient-claw`。如果设置了 `OPENCLAW_STATE_DIR`，则使用该目录。
 
 要重置所有内容：
 
-- `hyperbot.json` 用于配置
+- `ancient-claw.json` 用于配置
 - `credentials/` 用于认证配置文件和 token
 - `agents/<agentId>/sessions/` 用于智能体会话历史
 - `agents/<agentId>/sessions.json` 用于会话索引
@@ -73,5 +73,5 @@ scripts/pi/run-tests.sh --live
 
 ## 参考资料
 
-- https://docs.hyperbot.ai/testing
-- https://docs.hyperbot.ai/start/getting-started
+- https://docs.ancient-claw.ai/testing
+- https://docs.ancient-claw.ai/start/getting-started

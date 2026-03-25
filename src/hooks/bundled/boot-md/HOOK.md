@@ -1,15 +1,15 @@
 ---
 name: boot-md
 description: "Run BOOT.md on gateway startup"
-homepage: https://docs.hyperbot.ai/automation/hooks#boot-md
+homepage: https://docs.ancient-claw.ai/automation/hooks#boot-md
 metadata:
   {
-    "hyperbot":
+    "ancient-claw":
       {
         "emoji": "🚀",
         "events": ["gateway:startup"],
         "requires": { "config": ["workspace.dir"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with HyperBot" }],
+        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with Ancient Claw" }],
       },
   }
 ---

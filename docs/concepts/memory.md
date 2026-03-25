@@ -1,6 +1,6 @@
 ---
 title: "Memory"
-summary: "How HyperBot memory works (workspace files + automatic memory flush)"
+summary: "How Ancient Claw memory works (workspace files + automatic memory flush)"
 read_when:
   - You want the memory file layout and workflow
   - You want to tune the automatic pre-compaction memory flush
@@ -8,7 +8,7 @@ read_when:
 
 # Memory
 
-HyperBot memory is **plain Markdown in the agent workspace**. The files are the
+Ancient Claw memory is **plain Markdown in the agent workspace**. The files are the
 source of truth; the model only "remembers" what gets written to disk.
 
 Memory search tools are provided by the active memory plugin (default:
@@ -23,15 +23,15 @@ The default workspace layout uses two memory layers:
   - Read today + yesterday at session start.
 - `MEMORY.md` (optional)
   - Curated long-term memory.
-  - If both `MEMORY.md` and `memory.md` exist at the workspace root, HyperBot loads both (deduplicated by realpath so symlinks pointing to the same file are not injected twice).
+  - If both `MEMORY.md` and `memory.md` exist at the workspace root, Ancient Claw loads both (deduplicated by realpath so symlinks pointing to the same file are not injected twice).
   - **Only load in the main, private session** (never in group contexts).
 
 These files live under the workspace (`agents.defaults.workspace`, default
-`~/.hyperbot/workspace`). See [Agent workspace](/concepts/agent-workspace) for the full layout.
+`~/.ancient-claw/workspace`). See [Agent workspace](/concepts/agent-workspace) for the full layout.
 
 ## Memory tools
 
-HyperBot exposes two agent-facing tools for these Markdown files:
+Ancient Claw exposes two agent-facing tools for these Markdown files:
 
 - `memory_search` -- semantic recall over indexed snippets.
 - `memory_get` -- targeted read of a specific Markdown file/line range.
@@ -52,7 +52,7 @@ tool call in try/catch logic.
 
 ## Automatic memory flush (pre-compaction ping)
 
-When a session is **close to auto-compaction**, HyperBot triggers a **silent,
+When a session is **close to auto-compaction**, Ancient Claw triggers a **silent,
 agentic turn** that reminds the model to write durable memory **before** the
 context is compacted. The default prompts explicitly say the model _may reply_,
 but usually `NO_REPLY` is the correct response so the user never sees this turn.
@@ -92,7 +92,7 @@ For the full compaction lifecycle, see
 
 ## Vector memory search
 
-HyperBot can build a small vector index over `MEMORY.md` and `memory/*.md` so
+Ancient Claw can build a small vector index over `MEMORY.md` and `memory/*.md` so
 semantic queries can find related notes even when wording differs. Hybrid search
 (BM25 + vector) is available for combining semantic matching with exact keyword
 lookups.

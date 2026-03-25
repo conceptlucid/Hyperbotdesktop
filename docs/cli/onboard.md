@@ -1,11 +1,11 @@
 ---
-summary: "CLI reference for `hyperbot onboard` (interactive onboarding)"
+summary: "CLI reference for `ancient-claw onboard` (interactive onboarding)"
 read_when:
   - You want guided setup for gateway, workspace, auth, channels, and skills
 title: "onboard"
 ---
 
-# `hyperbot onboard`
+# `ancient-claw onboard`
 
 Interactive onboarding for local or remote Gateway setup.
 
@@ -20,10 +20,10 @@ Interactive onboarding for local or remote Gateway setup.
 ## Examples
 
 ```bash
-hyperbot onboard
-hyperbot onboard --flow quickstart
-hyperbot onboard --flow manual
-hyperbot onboard --mode remote --remote-url wss://gateway-host:18789
+ancient-claw onboard
+ancient-claw onboard --flow quickstart
+ancient-claw onboard --flow manual
+ancient-claw onboard --mode remote --remote-url wss://gateway-host:18789
 ```
 
 For plaintext private-network `ws://` targets (trusted networks only), set
@@ -32,7 +32,7 @@ For plaintext private-network `ws://` targets (trusted networks only), set
 Non-interactive custom provider:
 
 ```bash
-hyperbot onboard --non-interactive \
+ancient-claw onboard --non-interactive \
   --auth-choice custom-api-key \
   --custom-base-url "https://llm.example.com/v1" \
   --custom-model-id "foo-large" \
@@ -46,7 +46,7 @@ hyperbot onboard --non-interactive \
 Non-interactive Ollama:
 
 ```bash
-hyperbot onboard --non-interactive \
+ancient-claw onboard --non-interactive \
   --auth-choice ollama \
   --custom-base-url "http://ollama-host:11434" \
   --custom-model-id "qwen3.5:27b" \
@@ -58,7 +58,7 @@ hyperbot onboard --non-interactive \
 Store provider keys as refs instead of plaintext:
 
 ```bash
-hyperbot onboard --non-interactive \
+ancient-claw onboard --non-interactive \
   --auth-choice openai-api-key \
   --secret-input-mode ref \
   --accept-risk
@@ -87,7 +87,7 @@ Example:
 
 ```bash
 export OPENCLAW_GATEWAY_TOKEN="your-token"
-hyperbot onboard --non-interactive \
+ancient-claw onboard --non-interactive \
   --mode local \
   --auth-choice skip \
   --gateway-auth token \
@@ -98,7 +98,7 @@ hyperbot onboard --non-interactive \
 Non-interactive local gateway health:
 
 - Unless you pass `--skip-health`, onboarding waits for a reachable local gateway before it exits successfully.
-- `--install-daemon` starts the managed gateway install path first. Without it, you must already have a local gateway running, for example `hyperbot gateway run`.
+- `--install-daemon` starts the managed gateway install path first. Without it, you must already have a local gateway running, for example `ancient-claw gateway run`.
 - If you only want config/workspace/bootstrap writes in automation, use `--skip-health`.
 - On native Windows, `--install-daemon` tries Scheduled Tasks first and falls back to a per-user Startup-folder login item if task creation is denied.
 
@@ -118,7 +118,7 @@ If you specifically want the GLM Coding Plan endpoints, pick `zai-coding-global`
 
 ```bash
 # Promptless endpoint selection
-hyperbot onboard --non-interactive \
+ancient-claw onboard --non-interactive \
   --auth-choice zai-coding-global \
   --zai-api-key "$ZAI_API_KEY"
 
@@ -131,7 +131,7 @@ hyperbot onboard --non-interactive \
 Non-interactive Mistral example:
 
 ```bash
-hyperbot onboard --non-interactive \
+ancient-claw onboard --non-interactive \
   --auth-choice mistral-api-key \
   --mistral-api-key "$MISTRAL_API_KEY"
 ```
@@ -141,15 +141,15 @@ Flow notes:
 - `quickstart`: minimal prompts, auto-generates a gateway token.
 - `manual`: full prompts for port/bind/auth (alias of `advanced`).
 - Local onboarding DM scope behavior: [CLI Setup Reference](/start/wizard-cli-reference#outputs-and-internals).
-- Fastest first chat: `hyperbot dashboard` (Control UI, no channel setup).
+- Fastest first chat: `ancient-claw dashboard` (Control UI, no channel setup).
 - Custom Provider: connect any OpenAI or Anthropic compatible endpoint,
   including hosted providers not listed. Use Unknown to auto-detect.
 
 ## Common follow-up commands
 
 ```bash
-hyperbot configure
-hyperbot agents add <name>
+ancient-claw configure
+ancient-claw agents add <name>
 ```
 
 <Note>

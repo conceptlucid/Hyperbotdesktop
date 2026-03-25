@@ -1,7 +1,7 @@
 ---
 summary: "Windows support: native and WSL2 install paths, daemon, and current caveats"
 read_when:
-  - Installing HyperBot on Windows
+  - Installing Ancient Claw on Windows
   - Choosing between native Windows and WSL2
   - Looking for Windows companion app status
 title: "Windows"
@@ -9,7 +9,7 @@ title: "Windows"
 
 # Windows
 
-HyperBot supports both **native Windows** and **WSL2**. WSL2 is the more
+Ancient Claw supports both **native Windows** and **WSL2**. WSL2 is the more
 stable path and recommended for the full experience — the CLI, Gateway, and
 tooling run inside Linux with full compatibility. Native Windows works for
 core CLI and Gateway use, with some caveats noted below.
@@ -29,33 +29,33 @@ Native Windows CLI flows are improving, but WSL2 is still the recommended path.
 What works well on native Windows today:
 
 - website installer via `install.ps1`
-- local CLI use such as `hyperbot --version`, `hyperbot doctor`, and `hyperbot plugins list --json`
+- local CLI use such as `ancient-claw --version`, `ancient-claw doctor`, and `ancient-claw plugins list --json`
 - embedded local-agent/provider smoke such as:
 
 ```powershell
-hyperbot agent --local --agent main --thinking low -m "Reply with exactly WINDOWS-HATCH-OK."
+ancient-claw agent --local --agent main --thinking low -m "Reply with exactly WINDOWS-HATCH-OK."
 ```
 
 Current caveats:
 
-- `hyperbot onboard --non-interactive` still expects a reachable local gateway unless you pass `--skip-health`
-- `hyperbot onboard --non-interactive --install-daemon` and `hyperbot gateway install` try Windows Scheduled Tasks first
-- if Scheduled Task creation is denied, HyperBot falls back to a per-user Startup-folder login item and starts the gateway immediately
-- if `schtasks` itself wedges or stops responding, HyperBot now aborts that path quickly and falls back instead of hanging forever
+- `ancient-claw onboard --non-interactive` still expects a reachable local gateway unless you pass `--skip-health`
+- `ancient-claw onboard --non-interactive --install-daemon` and `ancient-claw gateway install` try Windows Scheduled Tasks first
+- if Scheduled Task creation is denied, Ancient Claw falls back to a per-user Startup-folder login item and starts the gateway immediately
+- if `schtasks` itself wedges or stops responding, Ancient Claw now aborts that path quickly and falls back instead of hanging forever
 - Scheduled Tasks are still preferred when available because they provide better supervisor status
 
 If you want the native CLI only, without gateway service install, use one of these:
 
 ```powershell
-hyperbot onboard --non-interactive --skip-health
-hyperbot gateway run
+ancient-claw onboard --non-interactive --skip-health
+ancient-claw gateway run
 ```
 
 If you do want managed startup on native Windows:
 
 ```powershell
-hyperbot gateway install
-hyperbot gateway status --json
+ancient-claw gateway install
+ancient-claw gateway status --json
 ```
 
 If Scheduled Task creation is blocked, the fallback service mode still auto-starts after login through the current user's Startup folder.
@@ -70,19 +70,19 @@ If Scheduled Task creation is blocked, the fallback service mode still auto-star
 Inside WSL2:
 
 ```
-hyperbot onboard --install-daemon
+ancient-claw onboard --install-daemon
 ```
 
 Or:
 
 ```
-hyperbot gateway install
+ancient-claw gateway install
 ```
 
 Or:
 
 ```
-hyperbot configure
+ancient-claw configure
 ```
 
 Select **Gateway service** when prompted.
@@ -90,7 +90,7 @@ Select **Gateway service** when prompted.
 Repair/migrate:
 
 ```
-hyperbot doctor
+ancient-claw doctor
 ```
 
 ## Gateway auto-start before Windows login
@@ -106,12 +106,12 @@ Inside WSL:
 sudo loginctl enable-linger "$(whoami)"
 ```
 
-### 2) Install the HyperBot gateway user service
+### 2) Install the Ancient Claw gateway user service
 
 Inside WSL:
 
 ```bash
-hyperbot gateway install
+ancient-claw gateway install
 ```
 
 ### 3) Start WSL automatically at Windows boot
@@ -133,8 +133,8 @@ wsl --list --verbose
 After a reboot (before Windows sign-in), check from WSL:
 
 ```bash
-systemctl --user is-enabled hyperbot-gateway
-systemctl --user status hyperbot-gateway --no-pager
+systemctl --user is-enabled ancient-claw-gateway
+systemctl --user status ancient-claw-gateway --no-pager
 ```
 
 ## Advanced: expose WSL services over LAN (portproxy)
@@ -177,7 +177,7 @@ Notes:
 
 - SSH from another machine targets the **Windows host IP** (example: `ssh user@windows-host -p 2222`).
 - Remote nodes must point at a **reachable** Gateway URL (not `127.0.0.1`); use
-  `hyperbot status --all` to confirm.
+  `ancient-claw status --all` to confirm.
 - Use `listenaddress=0.0.0.0` for LAN access; `127.0.0.1` keeps it local only.
 - If you want this automatic, register a Scheduled Task to run the refresh
   step at login.
@@ -220,17 +220,17 @@ Re-open Ubuntu, then verify:
 systemctl --user status
 ```
 
-### 3) Install HyperBot (inside WSL)
+### 3) Install Ancient Claw (inside WSL)
 
 Follow the Linux Getting Started flow inside WSL:
 
 ```bash
-git clone https://github.com/hyperbot/hyperbot.git
-cd hyperbot
+git clone https://github.com/ancient-claw/ancient-claw.git
+cd ancient-claw
 pnpm install
 pnpm ui:build # auto-installs UI deps on first run
 pnpm build
-hyperbot onboard
+ancient-claw onboard
 ```
 
 Full guide: [Getting Started](/start/getting-started)

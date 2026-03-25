@@ -1,7 +1,7 @@
 ---
-summary: "Shared Docker VM runtime steps for long-lived HyperBot Gateway hosts"
+summary: "Shared Docker VM runtime steps for long-lived Ancient Claw Gateway hosts"
 read_when:
-  - You are deploying HyperBot on a cloud VM with Docker
+  - You are deploying Ancient Claw on a cloud VM with Docker
   - You need the shared binary bake, persistence, and update flow
 title: "Docker VM Runtime"
 ---
@@ -79,7 +79,7 @@ The download URLs above are for x86_64 (amd64). For ARM-based VMs (e.g. Hetzner 
 
 ```bash
 docker compose build
-docker compose up -d hyperbot-gateway
+docker compose up -d ancient-claw-gateway
 ```
 
 If build fails with `Killed` or `exit code 137` during `pnpm install --frozen-lockfile`, the VM is out of memory.
@@ -88,9 +88,9 @@ Use a larger machine class before retrying.
 Verify binaries:
 
 ```bash
-docker compose exec hyperbot-gateway which gog
-docker compose exec hyperbot-gateway which goplaces
-docker compose exec hyperbot-gateway which wacli
+docker compose exec ancient-claw-gateway which gog
+docker compose exec ancient-claw-gateway which goplaces
+docker compose exec ancient-claw-gateway which wacli
 ```
 
 Expected output:
@@ -104,7 +104,7 @@ Expected output:
 Verify Gateway:
 
 ```bash
-docker compose logs -f hyperbot-gateway
+docker compose logs -f ancient-claw-gateway
 ```
 
 Expected output:
@@ -115,17 +115,17 @@ Expected output:
 
 ## What persists where
 
-HyperBot runs in Docker, but Docker is not the source of truth.
+Ancient Claw runs in Docker, but Docker is not the source of truth.
 All long-lived state must survive restarts, rebuilds, and reboots.
 
 | Component           | Location                          | Persistence mechanism  | Notes                            |
 | ------------------- | --------------------------------- | ---------------------- | -------------------------------- |
-| Gateway config      | `/home/node/.hyperbot/`           | Host volume mount      | Includes `hyperbot.json`, tokens |
-| Model auth profiles | `/home/node/.hyperbot/`           | Host volume mount      | OAuth tokens, API keys           |
-| Skill configs       | `/home/node/.hyperbot/skills/`    | Host volume mount      | Skill-level state                |
-| Agent workspace     | `/home/node/.hyperbot/workspace/` | Host volume mount      | Code and agent artifacts         |
-| WhatsApp session    | `/home/node/.hyperbot/`           | Host volume mount      | Preserves QR login               |
-| Gmail keyring       | `/home/node/.hyperbot/`           | Host volume + password | Requires `GOG_KEYRING_PASSWORD`  |
+| Gateway config      | `/home/node/.ancient-claw/`           | Host volume mount      | Includes `ancient-claw.json`, tokens |
+| Model auth profiles | `/home/node/.ancient-claw/`           | Host volume mount      | OAuth tokens, API keys           |
+| Skill configs       | `/home/node/.ancient-claw/skills/`    | Host volume mount      | Skill-level state                |
+| Agent workspace     | `/home/node/.ancient-claw/workspace/` | Host volume mount      | Code and agent artifacts         |
+| WhatsApp session    | `/home/node/.ancient-claw/`           | Host volume mount      | Preserves QR login               |
+| Gmail keyring       | `/home/node/.ancient-claw/`           | Host volume + password | Requires `GOG_KEYRING_PASSWORD`  |
 | External binaries   | `/usr/local/bin/`                 | Docker image           | Must be baked at build time      |
 | Node runtime        | Container filesystem              | Docker image           | Rebuilt every image build        |
 | OS packages         | Container filesystem              | Docker image           | Do not install at runtime        |
@@ -133,7 +133,7 @@ All long-lived state must survive restarts, rebuilds, and reboots.
 
 ## Updates
 
-To update HyperBot on the VM:
+To update Ancient Claw on the VM:
 
 ```bash
 git pull

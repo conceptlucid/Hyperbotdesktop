@@ -1,6 +1,6 @@
-# HyperBot iOS (Super Alpha)
+# Ancient Claw iOS (Super Alpha)
 
-This iPhone app is super-alpha and internal-use only. It connects to an HyperBot Gateway as a `role: node`.
+This iPhone app is super-alpha and internal-use only. It connects to an Ancient Claw Gateway as a `role: node`.
 
 ## Distribution Status
 
@@ -29,11 +29,11 @@ pnpm install
 ./scripts/ios-configure-signing.sh
 cd apps/ios
 xcodegen generate
-open HyperBot.xcodeproj
+open Ancient Claw.xcodeproj
 ```
 
 3. In Xcode:
-   - Scheme: `HyperBot`
+   - Scheme: `Ancient Claw`
    - Destination: connected iPhone (recommended for real behavior)
    - Build configuration: `Debug`
    - Run (`Product` -> `Run`)
@@ -61,8 +61,8 @@ Prereqs:
 Release behavior:
 
 - Local development keeps using unique per-developer bundle IDs from `scripts/ios-configure-signing.sh`.
-- Beta release uses canonical `ai.hyperbot.client*` bundle IDs through a temporary generated xcconfig in `apps/ios/build/BetaRelease.xcconfig`.
-- Beta release also switches the app to `HyperBotPushTransport=relay`, `HyperBotPushDistribution=official`, and `HyperBotPushAPNsEnvironment=production`.
+- Beta release uses canonical `ai.ancient-claw.client*` bundle IDs through a temporary generated xcconfig in `apps/ios/build/BetaRelease.xcconfig`.
+- Beta release also switches the app to `Ancient ClawPushTransport=relay`, `Ancient ClawPushDistribution=official`, and `Ancient ClawPushAPNsEnvironment=production`.
 - The beta flow does not modify `apps/ios/.local-signing.xcconfig` or `apps/ios/LocalSigning.xcconfig`.
 - Root `package.json.version` is the only version source for iOS.
 - A root version like `2026.3.22-beta.1` becomes:
@@ -95,12 +95,12 @@ pnpm ios:beta -- --build-number 7
 ## APNs Expectations For Local/Manual Builds
 
 - The app calls `registerForRemoteNotifications()` at launch.
-- `apps/ios/Sources/HyperBot.entitlements` sets `aps-environment` to `development`.
+- `apps/ios/Sources/Ancient Claw.entitlements` sets `aps-environment` to `development`.
 - APNs token registration to gateway happens only after gateway connection (`push.apns.register`).
-- Local/manual builds default to `HyperBotPushTransport=direct` and `HyperBotPushDistribution=local`.
+- Local/manual builds default to `Ancient ClawPushTransport=direct` and `Ancient ClawPushDistribution=local`.
 - Your selected team/profile must support Push Notifications for the app bundle ID you are signing.
 - If push capability or provisioning is wrong, APNs registration fails at runtime (check Xcode logs for `APNs registration failed`).
-- Debug builds default to `HyperBotPushAPNsEnvironment=sandbox`; Release builds default to `production`.
+- Debug builds default to `Ancient ClawPushAPNsEnvironment=sandbox`; Release builds default to `production`.
 
 ## APNs Expectations For Official Builds
 
@@ -110,7 +110,7 @@ pnpm ios:beta -- --build-number 7
 - The app persists the relay handle metadata locally so reconnects can republish the gateway registration without re-registering on every connect.
 - If the relay base URL changes in a later build, the app refreshes the relay registration instead of reusing the old relay origin.
 - Relay mode requires a reachable relay base URL and uses App Attest plus the app receipt during registration.
-- Gateway-side relay sending is configured through `gateway.push.apns.relay.baseUrl` in `hyperbot.json`. `OPENCLAW_APNS_RELAY_BASE_URL` remains a temporary env override only.
+- Gateway-side relay sending is configured through `gateway.push.apns.relay.baseUrl` in `ancient-claw.json`. `OPENCLAW_APNS_RELAY_BASE_URL` remains a temporary env override only.
 
 ## Official Build Relay Trust Model
 
@@ -132,7 +132,7 @@ pnpm ios:beta -- --build-number 7
   - Production APNs credentials and raw official-build APNs tokens stay in the relay deployment,
     not on the gateway.
 
-This exists to keep the hosted relay limited to genuine HyperBot official builds and to ensure a
+This exists to keep the hosted relay limited to genuine Ancient Claw official builds and to ensure a
 gateway can only send pushes for iOS devices that paired with that gateway.
 
 ## What Works Now (Concrete)
@@ -209,7 +209,7 @@ Automatic wake/reconnect hardening:
 5. If network path is unclear:
    - switch to manual host/port + TLS in Gateway Advanced settings
 6. In Xcode console, filter for subsystem/category signals:
-   - `ai.hyperbot.ios`
+   - `ai.ancient-claw.ios`
    - `GatewayDiag`
    - `APNs registration failed`
 7. Validate background expectations:

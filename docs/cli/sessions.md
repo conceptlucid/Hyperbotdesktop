@@ -1,20 +1,20 @@
 ---
-summary: "CLI reference for `hyperbot sessions` (list stored sessions + usage)"
+summary: "CLI reference for `ancient-claw sessions` (list stored sessions + usage)"
 read_when:
   - You want to list stored sessions and see recent activity
 title: "sessions"
 ---
 
-# `hyperbot sessions`
+# `ancient-claw sessions`
 
 List stored conversation sessions.
 
 ```bash
-hyperbot sessions
-hyperbot sessions --agent work
-hyperbot sessions --all-agents
-hyperbot sessions --active 120
-hyperbot sessions --json
+ancient-claw sessions
+ancient-claw sessions --agent work
+ancient-claw sessions --all-agents
+ancient-claw sessions --active 120
+ancient-claw sessions --json
 ```
 
 Scope selection:
@@ -24,7 +24,7 @@ Scope selection:
 - `--all-agents`: aggregate all configured agent stores
 - `--store <path>`: explicit store path (cannot be combined with `--agent` or `--all-agents`)
 
-`hyperbot sessions --all-agents` reads configured agent stores. Gateway and ACP
+`ancient-claw sessions --all-agents` reads configured agent stores. Gateway and ACP
 session discovery are broader: they also include disk-only stores found under
 the default `agents/` root or a templated `session.store` root. Those
 discovered stores must resolve to regular `sessions.json` files inside the
@@ -32,14 +32,14 @@ agent root; symlinks and out-of-root paths are skipped.
 
 JSON examples:
 
-`hyperbot sessions --all-agents --json`:
+`ancient-claw sessions --all-agents --json`:
 
 ```json
 {
   "path": null,
   "stores": [
-    { "agentId": "main", "path": "/home/user/.hyperbot/agents/main/sessions/sessions.json" },
-    { "agentId": "work", "path": "/home/user/.hyperbot/agents/work/sessions/sessions.json" }
+    { "agentId": "main", "path": "/home/user/.ancient-claw/agents/main/sessions/sessions.json" },
+    { "agentId": "work", "path": "/home/user/.ancient-claw/agents/work/sessions/sessions.json" }
   ],
   "allAgents": true,
   "count": 2,
@@ -56,17 +56,17 @@ JSON examples:
 Run maintenance now (instead of waiting for the next write cycle):
 
 ```bash
-hyperbot sessions cleanup --dry-run
-hyperbot sessions cleanup --agent work --dry-run
-hyperbot sessions cleanup --all-agents --dry-run
-hyperbot sessions cleanup --enforce
-hyperbot sessions cleanup --enforce --active-key "agent:main:telegram:direct:123"
-hyperbot sessions cleanup --json
+ancient-claw sessions cleanup --dry-run
+ancient-claw sessions cleanup --agent work --dry-run
+ancient-claw sessions cleanup --all-agents --dry-run
+ancient-claw sessions cleanup --enforce
+ancient-claw sessions cleanup --enforce --active-key "agent:main:telegram:direct:123"
+ancient-claw sessions cleanup --json
 ```
 
-`hyperbot sessions cleanup` uses `session.maintenance` settings from config:
+`ancient-claw sessions cleanup` uses `session.maintenance` settings from config:
 
-- Scope note: `hyperbot sessions cleanup` maintains session stores/transcripts only. It does not prune cron run logs (`cron/runs/<jobId>.jsonl`), which are managed by `cron.runLog.maxBytes` and `cron.runLog.keepLines` in [Cron configuration](/automation/cron-jobs#configuration) and explained in [Cron maintenance](/automation/cron-jobs#maintenance).
+- Scope note: `ancient-claw sessions cleanup` maintains session stores/transcripts only. It does not prune cron run logs (`cron/runs/<jobId>.jsonl`), which are managed by `cron.runLog.maxBytes` and `cron.runLog.keepLines` in [Cron configuration](/automation/cron-jobs#configuration) and explained in [Cron maintenance](/automation/cron-jobs#maintenance).
 
 - `--dry-run`: preview how many entries would be pruned/capped without writing.
   - In text mode, dry-run prints a per-session action table (`Action`, `Key`, `Age`, `Model`, `Flags`) so you can see what would be kept vs removed.
@@ -77,7 +77,7 @@ hyperbot sessions cleanup --json
 - `--store <path>`: run against a specific `sessions.json` file.
 - `--json`: print a JSON summary. With `--all-agents`, output includes one summary per store.
 
-`hyperbot sessions cleanup --all-agents --dry-run --json`:
+`ancient-claw sessions cleanup --all-agents --dry-run --json`:
 
 ```json
 {
@@ -87,7 +87,7 @@ hyperbot sessions cleanup --json
   "stores": [
     {
       "agentId": "main",
-      "storePath": "/home/user/.hyperbot/agents/main/sessions/sessions.json",
+      "storePath": "/home/user/.ancient-claw/agents/main/sessions/sessions.json",
       "beforeCount": 120,
       "afterCount": 80,
       "pruned": 40,
@@ -95,7 +95,7 @@ hyperbot sessions cleanup --json
     },
     {
       "agentId": "work",
-      "storePath": "/home/user/.hyperbot/agents/work/sessions/sessions.json",
+      "storePath": "/home/user/.ancient-claw/agents/work/sessions/sessions.json",
       "beforeCount": 18,
       "afterCount": 18,
       "pruned": 0,

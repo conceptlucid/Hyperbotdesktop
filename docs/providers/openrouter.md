@@ -1,8 +1,8 @@
 ---
-summary: "Use OpenRouter's unified API to access many models in HyperBot"
+summary: "Use OpenRouter's unified API to access many models in Ancient Claw"
 read_when:
   - You want a single API key for many LLMs
-  - You want to run models via OpenRouter in HyperBot
+  - You want to run models via OpenRouter in Ancient Claw
 title: "OpenRouter"
 ---
 
@@ -14,7 +14,7 @@ endpoint and API key. It is OpenAI-compatible, so most OpenAI SDKs work by switc
 ## CLI setup
 
 ```bash
-hyperbot onboard --auth-choice apiKey --token-provider openrouter --token "$OPENROUTER_API_KEY"
+ancient-claw onboard --auth-choice apiKey --token-provider openrouter --token "$OPENROUTER_API_KEY"
 ```
 
 ## Config snippet

@@ -11,17 +11,17 @@ Status: production-ready via WhatsApp Web (Baileys). Gateway owns linked session
 
 ## Install (on demand)
 
-- Onboarding (`hyperbot onboard`) and `hyperbot channels add --channel whatsapp`
+- Onboarding (`ancient-claw onboard`) and `ancient-claw channels add --channel whatsapp`
   prompt to install the WhatsApp plugin the first time you select it.
-- `hyperbot channels login --channel whatsapp` also offers the install flow when
+- `ancient-claw channels login --channel whatsapp` also offers the install flow when
   the plugin is not present yet.
 - Dev channel + git checkout: defaults to the local plugin path.
-- Stable/Beta: defaults to the npm package `@hyperbot/whatsapp`.
+- Stable/Beta: defaults to the npm package `@ancient-claw/whatsapp`.
 
 Manual install stays available:
 
 ```bash
-hyperbot plugins install @hyperbot/whatsapp
+ancient-claw plugins install @ancient-claw/whatsapp
 ```
 
 <CardGroup cols={3}>
@@ -59,13 +59,13 @@ hyperbot plugins install @hyperbot/whatsapp
   <Step title="Link WhatsApp (QR)">
 
 ```bash
-hyperbot channels login --channel whatsapp
+ancient-claw channels login --channel whatsapp
 ```
 
     For a specific account:
 
 ```bash
-hyperbot channels login --channel whatsapp --account work
+ancient-claw channels login --channel whatsapp --account work
 ```
 
   </Step>
@@ -73,7 +73,7 @@ hyperbot channels login --channel whatsapp --account work
   <Step title="Start the gateway">
 
 ```bash
-hyperbot gateway
+ancient-claw gateway
 ```
 
   </Step>
@@ -81,8 +81,8 @@ hyperbot gateway
   <Step title="Approve first pairing request (if using pairing mode)">
 
 ```bash
-hyperbot pairing list whatsapp
-hyperbot pairing approve whatsapp <CODE>
+ancient-claw pairing list whatsapp
+ancient-claw pairing approve whatsapp <CODE>
 ```
 
     Pairing requests expire after 1 hour. Pending requests are capped at 3 per channel.
@@ -91,7 +91,7 @@ hyperbot pairing approve whatsapp <CODE>
 </Steps>
 
 <Note>
-HyperBot recommends running WhatsApp on a separate number when possible. (The channel metadata and setup flow are optimized for that setup, but personal-number setups are also supported.)
+Ancient Claw recommends running WhatsApp on a separate number when possible. (The channel metadata and setup flow are optimized for that setup, but personal-number setups are also supported.)
 </Note>
 
 ## Deployment patterns
@@ -100,7 +100,7 @@ HyperBot recommends running WhatsApp on a separate number when possible. (The ch
   <Accordion title="Dedicated number (recommended)">
     This is the cleanest operational mode:
 
-    - separate WhatsApp identity for HyperBot
+    - separate WhatsApp identity for Ancient Claw
     - clearer DM allowlists and routing boundaries
     - lower chance of self-chat confusion
 
@@ -131,7 +131,7 @@ HyperBot recommends running WhatsApp on a separate number when possible. (The ch
   </Accordion>
 
   <Accordion title="WhatsApp Web-only channel scope">
-    The messaging platform channel is WhatsApp Web-based (`Baileys`) in current HyperBot channel architecture.
+    The messaging platform channel is WhatsApp Web-based (`Baileys`) in current Ancient Claw channel architecture.
 
     There is no separate Twilio WhatsApp messaging channel in the built-in chat-channel registry.
 
@@ -220,7 +220,7 @@ When the linked self number is also present in `allowFrom`, WhatsApp self-chat s
 
 - skip read receipts for self-chat turns
 - ignore mention-JID auto-trigger behavior that would otherwise ping yourself
-- if `messages.responsePrefix` is unset, self-chat replies default to `[{identity.name}]` or `[hyperbot]`
+- if `messages.responsePrefix` is unset, self-chat replies default to `[{identity.name}]` or `[ancient-claw]`
 
 ## Message normalization and context
 
@@ -365,13 +365,13 @@ Behavior notes:
   </Accordion>
 
   <Accordion title="Credential paths and legacy compatibility">
-    - current auth path: `~/.hyperbot/credentials/whatsapp/<accountId>/creds.json`
+    - current auth path: `~/.ancient-claw/credentials/whatsapp/<accountId>/creds.json`
     - backup file: `creds.json.bak`
-    - legacy default auth in `~/.hyperbot/credentials/` is still recognized/migrated for default-account flows
+    - legacy default auth in `~/.ancient-claw/credentials/` is still recognized/migrated for default-account flows
   </Accordion>
 
   <Accordion title="Logout behavior">
-    `hyperbot channels logout --channel whatsapp [--account <id>]` clears WhatsApp auth state for that account.
+    `ancient-claw channels logout --channel whatsapp [--account <id>]` clears WhatsApp auth state for that account.
 
     In legacy auth directories, `oauth.json` is preserved while Baileys auth files are removed.
 
@@ -395,8 +395,8 @@ Behavior notes:
     Fix:
 
     ```bash
-    hyperbot channels login --channel whatsapp
-    hyperbot channels status
+    ancient-claw channels login --channel whatsapp
+    ancient-claw channels status
     ```
 
   </Accordion>
@@ -407,8 +407,8 @@ Behavior notes:
     Fix:
 
     ```bash
-    hyperbot doctor
-    hyperbot logs --follow
+    ancient-claw doctor
+    ancient-claw logs --follow
     ```
 
     If needed, re-link with `channels login`.
@@ -429,7 +429,7 @@ Behavior notes:
     - `groupAllowFrom` / `allowFrom`
     - `groups` allowlist entries
     - mention gating (`requireMention` + mention patterns)
-    - duplicate keys in `hyperbot.json` (JSON5): later entries override earlier ones, so keep a single `groupPolicy` per scope
+    - duplicate keys in `ancient-claw.json` (JSON5): later entries override earlier ones, so keep a single `groupPolicy` per scope
 
   </Accordion>
 

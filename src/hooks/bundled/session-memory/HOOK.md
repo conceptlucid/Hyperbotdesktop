@@ -1,15 +1,15 @@
 ---
 name: session-memory
 description: "Save session context to memory when /new or /reset command is issued"
-homepage: https://docs.hyperbot.ai/automation/hooks#session-memory
+homepage: https://docs.ancient-claw.ai/automation/hooks#session-memory
 metadata:
   {
-    "hyperbot":
+    "ancient-claw":
       {
         "emoji": "💾",
         "events": ["command:new", "command:reset"],
         "requires": { "config": ["workspace.dir"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with HyperBot" }],
+        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with Ancient Claw" }],
       },
   }
 ---
@@ -81,7 +81,7 @@ Example configuration:
 
 The hook automatically:
 
-- Uses your workspace directory (`~/.hyperbot/workspace` by default)
+- Uses your workspace directory (`~/.ancient-claw/workspace` by default)
 - Uses your configured LLM for slug generation
 - Falls back to timestamp slugs if LLM is unavailable
 
@@ -90,7 +90,7 @@ The hook automatically:
 To disable this hook:
 
 ```bash
-hyperbot hooks disable session-memory
+ancient-claw hooks disable session-memory
 ```
 
 Or remove it from your config:

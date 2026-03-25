@@ -9,8 +9,8 @@ title: "Text-to-Speech"
 
 # Text-to-speech (TTS)
 
-HyperBot can convert outbound replies into audio using ElevenLabs, Microsoft, or OpenAI.
-It works anywhere HyperBot can send audio.
+Ancient Claw can convert outbound replies into audio using ElevenLabs, Microsoft, or OpenAI.
+It works anywhere Ancient Claw can send audio.
 
 ## Supported services
 
@@ -39,7 +39,7 @@ If you want OpenAI or ElevenLabs:
 - `OPENAI_API_KEY`
 
 Microsoft speech does **not** require an API key. If no API keys are found,
-HyperBot defaults to Microsoft (unless disabled via
+Ancient Claw defaults to Microsoft (unless disabled via
 `messages.tts.microsoft.enabled=false` or `messages.tts.edge.enabled=false`).
 
 If multiple providers are configured, the selected provider is used first and the others are fallback options.
@@ -65,7 +65,7 @@ when no OpenAI or ElevenLabs API keys are available.
 
 ## Config
 
-TTS config lives under `messages.tts` in `hyperbot.json`.
+TTS config lives under `messages.tts` in `ancient-claw.json`.
 Full schema is in [Gateway configuration](/gateway/configuration).
 
 ### Minimal config (enable + provider)
@@ -164,7 +164,7 @@ Full schema is in [Gateway configuration](/gateway/configuration).
       auto: "always",
       maxTextLength: 4000,
       timeoutMs: 30000,
-      prefsPath: "~/.hyperbot/settings/tts.json",
+      prefsPath: "~/.ancient-claw/settings/tts.json",
     },
   },
 }
@@ -208,7 +208,7 @@ Then run:
 - `enabled`: legacy toggle (doctor migrates this to `auto`).
 - `mode`: `"final"` (default) or `"all"` (includes tool/block replies).
 - `provider`: speech provider id such as `"elevenlabs"`, `"microsoft"`, or `"openai"` (fallback is automatic).
-- If `provider` is **unset**, HyperBot prefers `openai` (if key), then `elevenlabs` (if key),
+- If `provider` is **unset**, Ancient Claw prefers `openai` (if key), then `elevenlabs` (if key),
   otherwise `microsoft`.
 - Legacy `provider: "edge"` still works and is normalized to `microsoft`.
 - `summaryModel`: optional cheap model for auto-summary; defaults to `agents.defaults.model.primary`.
@@ -305,7 +305,7 @@ Optional allowlist (enable provider switching while keeping other knobs configur
 ## Per-user preferences
 
 Slash commands write local overrides to `prefsPath` (default:
-`~/.hyperbot/settings/tts.json`, override with `OPENCLAW_TTS_PREFS` or
+`~/.ancient-claw/settings/tts.json`, override with `OPENCLAW_TTS_PREFS` or
 `messages.tts.prefsPath`).
 
 Stored fields:
@@ -328,13 +328,13 @@ These override `messages.tts.*` for that host.
   - Output format values follow Microsoft Speech output formats (including Ogg/WebM Opus).
   - Telegram `sendVoice` accepts OGG/MP3/M4A; use OpenAI/ElevenLabs if you need
     guaranteed Opus voice messages.
-  - If the configured Microsoft output format fails, HyperBot retries with MP3.
+  - If the configured Microsoft output format fails, Ancient Claw retries with MP3.
 
 OpenAI/ElevenLabs output formats are fixed per channel (see above).
 
 ## Auto-TTS behavior
 
-When enabled, HyperBot:
+When enabled, Ancient Claw:
 
 - skips TTS if the reply already contains media or a `MEDIA:` directive.
 - skips very short replies (< 10 chars).
@@ -365,7 +365,7 @@ Reply -> TTS enabled?
 There is a single command: `/tts`.
 See [Slash commands](/tools/slash-commands) for enablement details.
 
-Discord note: `/tts` is a built-in Discord command, so HyperBot registers
+Discord note: `/tts` is a built-in Discord command, so Ancient Claw registers
 `/voice` as the native command there. Text `/tts ...` still works.
 
 ```
@@ -377,7 +377,7 @@ Discord note: `/tts` is a built-in Discord command, so HyperBot registers
 /tts provider openai
 /tts limit 2000
 /tts summary off
-/tts audio Hello from HyperBot
+/tts audio Hello from Ancient Claw
 ```
 
 Notes:

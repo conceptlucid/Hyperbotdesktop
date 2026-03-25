@@ -1,5 +1,5 @@
 ---
-summary: "Overview of HyperBot onboarding options and flows"
+summary: "Overview of Ancient Claw onboarding options and flows"
 read_when:
   - Choosing an onboarding path
   - Setting up a new environment
@@ -9,7 +9,7 @@ sidebarTitle: "Onboarding Overview"
 
 # Onboarding Overview
 
-HyperBot has two onboarding paths. Both configure auth, the Gateway, and
+Ancient Claw has two onboarding paths. Both configure auth, the Gateway, and
 optional channels — they just differ in how you interact with the setup.
 
 ## Which path should I use?
@@ -20,7 +20,7 @@ optional channels — they just differ in how you interact with the setup.
 | **Interface**  | Terminal wizard                        | Guided UI in the app      |
 | **Best for**   | Servers, headless, full control        | Desktop Mac, visual setup |
 | **Automation** | `--non-interactive` for scripts        | Manual only               |
-| **Command**    | `hyperbot onboard`                     | Launch the app            |
+| **Command**    | `ancient-claw onboard`                     | Launch the app            |
 
 Most users should start with **CLI onboarding** — it works everywhere and gives
 you the most control.
@@ -40,17 +40,17 @@ Regardless of which path you choose, onboarding sets up:
 Run in any terminal:
 
 ```bash
-hyperbot onboard
+ancient-claw onboard
 ```
 
 Add `--install-daemon` to also install the background service in one step.
 
 Full reference: [Onboarding (CLI)](/start/wizard)
-CLI command docs: [`hyperbot onboard`](/cli/onboard)
+CLI command docs: [`ancient-claw onboard`](/cli/onboard)
 
 ## macOS app onboarding
 
-Open the HyperBot app. The first-run wizard walks you through the same steps
+Open the Ancient Claw app. The first-run wizard walks you through the same steps
 with a visual interface.
 
 Full reference: [Onboarding (macOS App)](/start/onboarding)

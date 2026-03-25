@@ -2,14 +2,14 @@
 title: "Groq"
 summary: "Groq setup (auth + model selection)"
 read_when:
-  - You want to use Groq with HyperBot
+  - You want to use Groq with Ancient Claw
   - You need the API key env var or CLI auth choice
 ---
 
 # Groq
 
 [Groq](https://groq.com) provides ultra-fast inference on open-source models
-(Llama, Gemma, Mistral, and more) using custom LPU hardware. HyperBot connects
+(Llama, Gemma, Mistral, and more) using custom LPU hardware. Ancient Claw connects
 to Groq through its OpenAI-compatible API.
 
 - Provider: `groq`
@@ -54,7 +54,7 @@ export GROQ_API_KEY="gsk_..."
 ## Audio transcription
 
 Groq also provides fast Whisper-based audio transcription. When configured as a
-media-understanding provider, HyperBot uses Groq's `whisper-large-v3-turbo`
+media-understanding provider, Ancient Claw uses Groq's `whisper-large-v3-turbo`
 model to transcribe voice messages.
 
 ```json5
@@ -72,12 +72,12 @@ model to transcribe voice messages.
 ## Environment note
 
 If the Gateway runs as a daemon (launchd/systemd), make sure `GROQ_API_KEY` is
-available to that process (for example, in `~/.hyperbot/.env` or via
+available to that process (for example, in `~/.ancient-claw/.env` or via
 `env.shellEnv`).
 
 ## Available models
 
-Groq's model catalog changes frequently. Run `hyperbot models list | grep groq`
+Groq's model catalog changes frequently. Run `ancient-claw models list | grep groq`
 to see currently available models, or check
 [console.groq.com/docs/models](https://console.groq.com/docs/models).
 

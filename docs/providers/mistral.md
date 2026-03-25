@@ -1,23 +1,23 @@
 ---
-summary: "Use Mistral models and Voxtral transcription with HyperBot"
+summary: "Use Mistral models and Voxtral transcription with Ancient Claw"
 read_when:
-  - You want to use Mistral models in HyperBot
+  - You want to use Mistral models in Ancient Claw
   - You need Mistral API key onboarding and model refs
 title: "Mistral"
 ---
 
 # Mistral
 
-HyperBot supports Mistral for both text/image model routing (`mistral/...`) and
+Ancient Claw supports Mistral for both text/image model routing (`mistral/...`) and
 audio transcription via Voxtral in media understanding.
 Mistral can also be used for memory embeddings (`memorySearch.provider = "mistral"`).
 
 ## CLI setup
 
 ```bash
-hyperbot onboard --auth-choice mistral-api-key
+ancient-claw onboard --auth-choice mistral-api-key
 # or non-interactive
-hyperbot onboard --mistral-api-key "$MISTRAL_API_KEY"
+ancient-claw onboard --mistral-api-key "$MISTRAL_API_KEY"
 ```
 
 ## Config snippet (LLM provider)

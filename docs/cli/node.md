@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `hyperbot node` (headless node host)"
+summary: "CLI reference for `ancient-claw node` (headless node host)"
 read_when:
   - Running the headless node host
   - Pairing a non-macOS node for system.run
 title: "node"
 ---
 
-# `hyperbot node`
+# `ancient-claw node`
 
 Run a **headless node host** that connects to the Gateway WebSocket and exposes
 `system.run` / `system.which` on this machine.
@@ -51,7 +51,7 @@ Disable it on the node if needed:
 ## Run (foreground)
 
 ```bash
-hyperbot node run --host <gateway-host> --port 18789
+ancient-claw node run --host <gateway-host> --port 18789
 ```
 
 Options:
@@ -65,7 +65,7 @@ Options:
 
 ## Gateway auth for node host
 
-`hyperbot node run` and `hyperbot node install` resolve gateway auth from config/env (no `--token`/`--password` flags on node commands):
+`ancient-claw node run` and `ancient-claw node install` resolve gateway auth from config/env (no `--token`/`--password` flags on node commands):
 
 - `OPENCLAW_GATEWAY_TOKEN` / `OPENCLAW_GATEWAY_PASSWORD` are checked first.
 - Then local config fallback: `gateway.auth.token` / `gateway.auth.password`.
@@ -79,7 +79,7 @@ Options:
 Install a headless node host as a user service.
 
 ```bash
-hyperbot node install --host <gateway-host> --port 18789
+ancient-claw node install --host <gateway-host> --port 18789
 ```
 
 Options:
@@ -96,13 +96,13 @@ Options:
 Manage the service:
 
 ```bash
-hyperbot node status
-hyperbot node stop
-hyperbot node restart
-hyperbot node uninstall
+ancient-claw node status
+ancient-claw node stop
+ancient-claw node restart
+ancient-claw node uninstall
 ```
 
-Use `hyperbot node run` for a foreground node host (no service).
+Use `ancient-claw node run` for a foreground node host (no service).
 
 Service commands accept `--json` for machine-readable output.
 
@@ -112,21 +112,21 @@ The first connection creates a pending device pairing request (`role: node`) on 
 Approve it via:
 
 ```bash
-hyperbot devices list
-hyperbot devices approve <requestId>
+ancient-claw devices list
+ancient-claw devices approve <requestId>
 ```
 
 If the node retries pairing with changed auth details (role/scopes/public key),
 the previous pending request is superseded and a new `requestId` is created.
-Run `hyperbot devices list` again before approval.
+Run `ancient-claw devices list` again before approval.
 
 The node host stores its node id, token, display name, and gateway connection info in
-`~/.hyperbot/node.json`.
+`~/.ancient-claw/node.json`.
 
 ## Exec approvals
 
 `system.run` is gated by local exec approvals:
 
-- `~/.hyperbot/exec-approvals.json`
+- `~/.ancient-claw/exec-approvals.json`
 - [Exec approvals](/tools/exec-approvals)
-- `hyperbot approvals --node <id|name|ip>` (edit from the Gateway)
+- `ancient-claw approvals --node <id|name|ip>` (edit from the Gateway)

@@ -1,5 +1,5 @@
 ---
-summary: "How HyperBot rotates auth profiles and falls back across models"
+summary: "How Ancient Claw rotates auth profiles and falls back across models"
 read_when:
   - Diagnosing auth profile rotation, cooldowns, or model fallback behavior
   - Updating failover rules for auth profiles or models
@@ -8,7 +8,7 @@ title: "Model Failover"
 
 # Model failover
 
-HyperBot handles failures in two stages:
+Ancient Claw handles failures in two stages:
 
 1. **Auth profile rotation** within the current provider.
 2. **Model fallback** to the next model in `agents.defaults.model.fallbacks`.
@@ -17,11 +17,11 @@ This doc explains the runtime rules and the data that backs them.
 
 ## Auth storage (keys + OAuth)
 
-HyperBot uses **auth profiles** for both API keys and OAuth tokens.
+Ancient Claw uses **auth profiles** for both API keys and OAuth tokens.
 
-- Secrets live in `~/.hyperbot/agents/<agentId>/agent/auth-profiles.json` (legacy: `~/.hyperbot/agent/auth-profiles.json`).
+- Secrets live in `~/.ancient-claw/agents/<agentId>/agent/auth-profiles.json` (legacy: `~/.ancient-claw/agent/auth-profiles.json`).
 - Config `auth.profiles` / `auth.order` are **metadata + routing only** (no secrets).
-- Legacy import-only OAuth file: `~/.hyperbot/credentials/oauth.json` (imported into `auth-profiles.json` on first use).
+- Legacy import-only OAuth file: `~/.ancient-claw/credentials/oauth.json` (imported into `auth-profiles.json` on first use).
 
 More detail: [/concepts/oauth](/concepts/oauth)
 
@@ -37,17 +37,17 @@ OAuth logins create distinct profiles so multiple accounts can coexist.
 - Default: `provider:default` when no email is available.
 - OAuth with email: `provider:<email>` (for example `google-antigravity:user@gmail.com`).
 
-Profiles live in `~/.hyperbot/agents/<agentId>/agent/auth-profiles.json` under `profiles`.
+Profiles live in `~/.ancient-claw/agents/<agentId>/agent/auth-profiles.json` under `profiles`.
 
 ## Rotation order
 
-When a provider has multiple profiles, HyperBot chooses an order like this:
+When a provider has multiple profiles, Ancient Claw chooses an order like this:
 
 1. **Explicit config**: `auth.order[provider]` (if set).
 2. **Configured profiles**: `auth.profiles` filtered by provider.
 3. **Stored profiles**: entries in `auth-profiles.json` for the provider.
 
-If no explicit order is configured, HyperBot uses a round‑robin order:
+If no explicit order is configured, Ancient Claw uses a round‑robin order:
 
 - **Primary key:** profile type (**OAuth before API keys**).
 - **Secondary key:** `usageStats.lastUsed` (oldest first, within each type).
@@ -55,7 +55,7 @@ If no explicit order is configured, HyperBot uses a round‑robin order:
 
 ### Session stickiness (cache-friendly)
 
-HyperBot **pins the chosen auth profile per session** to keep provider caches warm.
+Ancient Claw **pins the chosen auth profile per session** to keep provider caches warm.
 It does **not** rotate on every request. The pinned profile is reused until:
 
 - the session is reset (`/new` / `/reset`)
@@ -66,9 +66,9 @@ Manual selection via `/model …@<profileId>` sets a **user override** for that 
 and is not auto‑rotated until a new session starts.
 
 Auto‑pinned profiles (selected by the session router) are treated as a **preference**:
-they are tried first, but HyperBot may rotate to another profile on rate limits/timeouts.
+they are tried first, but Ancient Claw may rotate to another profile on rate limits/timeouts.
 User‑pinned profiles stay locked to that profile; if it fails and model fallbacks
-are configured, HyperBot moves to the next model instead of switching profiles.
+are configured, Ancient Claw moves to the next model instead of switching profiles.
 
 ### Why OAuth can "look lost"
 
@@ -80,7 +80,7 @@ If you have both an OAuth profile and an API key profile for the same provider, 
 ## Cooldowns
 
 When a profile fails due to auth/rate‑limit errors (or a timeout that looks
-like rate limiting), HyperBot marks it in cooldown and moves to the next profile.
+like rate limiting), Ancient Claw marks it in cooldown and moves to the next profile.
 Format/invalid‑request errors (for example Cloud Code Assist tool call ID
 validation failures) are treated as failover‑worthy and use the same cooldowns.
 OpenAI-compatible stop-reason errors such as `Unhandled stop reason: error`,
@@ -110,7 +110,7 @@ State is stored in `auth-profiles.json` under `usageStats`:
 
 ## Billing disables
 
-Billing/credit failures (for example “insufficient credits” / “credit balance too low”) are treated as failover‑worthy, but they’re usually not transient. Instead of a short cooldown, HyperBot marks the profile as **disabled** (with a longer backoff) and rotates to the next profile/provider.
+Billing/credit failures (for example “insufficient credits” / “credit balance too low”) are treated as failover‑worthy, but they’re usually not transient. Instead of a short cooldown, Ancient Claw marks the profile as **disabled** (with a longer backoff) and rotates to the next profile/provider.
 
 State is stored in `auth-profiles.json`:
 
@@ -132,7 +132,7 @@ Defaults:
 
 ## Model fallback
 
-If all profiles for a provider fail, HyperBot moves to the next model in
+If all profiles for a provider fail, Ancient Claw moves to the next model in
 `agents.defaults.model.fallbacks`. This applies to auth failures, rate limits, and
 timeouts that exhausted profile rotation (other errors do not advance fallback).
 

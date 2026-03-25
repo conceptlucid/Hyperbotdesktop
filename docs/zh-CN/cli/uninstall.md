@@ -2,7 +2,7 @@
 read_when:
   - 你想移除 Gateway 网关服务和/或本地状态
   - 你想先进行试运行
-summary: "`hyperbot uninstall` 的 CLI 参考（移除 Gateway 网关服务 + 本地数据）"
+summary: "`ancient-claw uninstall` 的 CLI 参考（移除 Gateway 网关服务 + 本地数据）"
 title: uninstall
 x-i18n:
   generated_at: "2026-02-03T10:04:23Z"
@@ -13,12 +13,12 @@ x-i18n:
   workflow: 15
 ---
 
-# `hyperbot uninstall`
+# `ancient-claw uninstall`
 
 卸载 Gateway 网关服务 + 本地数据（CLI 保留）。
 
 ```bash
-hyperbot uninstall
-hyperbot uninstall --all --yes
-hyperbot uninstall --dry-run
+ancient-claw uninstall
+ancient-claw uninstall --all --yes
+ancient-claw uninstall --dry-run
 ```

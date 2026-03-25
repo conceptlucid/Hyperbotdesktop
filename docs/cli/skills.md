@@ -1,5 +1,5 @@
 ---
-summary: "CLI reference for `hyperbot skills` (search/install/update/list/info/check)"
+summary: "CLI reference for `ancient-claw skills` (search/install/update/list/info/check)"
 read_when:
   - You want to see which skills are available and ready to run
   - You want to search, install, or update skills from ClawHub
@@ -7,7 +7,7 @@ read_when:
 title: "skills"
 ---
 
-# `hyperbot skills`
+# `ancient-claw skills`
 
 Inspect local skills and install/update skills from ClawHub.
 
@@ -20,15 +20,15 @@ Related:
 ## Commands
 
 ```bash
-hyperbot skills search "calendar"
-hyperbot skills install <slug>
-hyperbot skills install <slug> --version <version>
-hyperbot skills update <slug>
-hyperbot skills update --all
-hyperbot skills list
-hyperbot skills list --eligible
-hyperbot skills info <name>
-hyperbot skills check
+ancient-claw skills search "calendar"
+ancient-claw skills install <slug>
+ancient-claw skills install <slug> --version <version>
+ancient-claw skills update <slug>
+ancient-claw skills update --all
+ancient-claw skills list
+ancient-claw skills list --eligible
+ancient-claw skills info <name>
+ancient-claw skills check
 ```
 
 `search`/`install`/`update` use ClawHub directly and install into the active

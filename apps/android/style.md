@@ -1,4 +1,4 @@
-# HyperBot Android UI Style Guide
+# Ancient Claw Android UI Style Guide
 
 Scope: all native Android UI in `apps/android` (Jetpack Compose).
 Goal: one coherent visual system across onboarding, settings, and future screens.
@@ -104,10 +104,10 @@ Hard rule: avoid ultra-thin weights on light backgrounds.
 
 ## 11. Source Of Truth
 
-- `app/src/main/java/ai/hyperbot/android/ui/HyperBotTheme.kt`
-- `app/src/main/java/ai/hyperbot/android/ui/OnboardingFlow.kt`
-- `app/src/main/java/ai/hyperbot/android/ui/RootScreen.kt`
-- `app/src/main/java/ai/hyperbot/android/ui/SettingsSheet.kt`
-- `app/src/main/java/ai/hyperbot/android/MainViewModel.kt`
+- `app/src/main/java/ai/ancient-claw/android/ui/Ancient ClawTheme.kt`
+- `app/src/main/java/ai/ancient-claw/android/ui/OnboardingFlow.kt`
+- `app/src/main/java/ai/ancient-claw/android/ui/RootScreen.kt`
+- `app/src/main/java/ai/ancient-claw/android/ui/SettingsSheet.kt`
+- `app/src/main/java/ai/ancient-claw/android/MainViewModel.kt`
 
 If style and implementation diverge, update both in the same change.

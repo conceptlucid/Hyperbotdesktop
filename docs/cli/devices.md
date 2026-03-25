@@ -1,86 +1,86 @@
 ---
-summary: "CLI reference for `hyperbot devices` (device pairing + token rotation/revocation)"
+summary: "CLI reference for `ancient-claw devices` (device pairing + token rotation/revocation)"
 read_when:
   - You are approving device pairing requests
   - You need to rotate or revoke device tokens
 title: "devices"
 ---
 
-# `hyperbot devices`
+# `ancient-claw devices`
 
 Manage device pairing requests and device-scoped tokens.
 
 ## Commands
 
-### `hyperbot devices list`
+### `ancient-claw devices list`
 
 List pending pairing requests and paired devices.
 
 ```
-hyperbot devices list
-hyperbot devices list --json
+ancient-claw devices list
+ancient-claw devices list --json
 ```
 
 Pending request output includes the requested role and scopes so approvals can
 be reviewed before you approve.
 
-### `hyperbot devices remove <deviceId>`
+### `ancient-claw devices remove <deviceId>`
 
 Remove one paired device entry.
 
 ```
-hyperbot devices remove <deviceId>
-hyperbot devices remove <deviceId> --json
+ancient-claw devices remove <deviceId>
+ancient-claw devices remove <deviceId> --json
 ```
 
-### `hyperbot devices clear --yes [--pending]`
+### `ancient-claw devices clear --yes [--pending]`
 
 Clear paired devices in bulk.
 
 ```
-hyperbot devices clear --yes
-hyperbot devices clear --yes --pending
-hyperbot devices clear --yes --pending --json
+ancient-claw devices clear --yes
+ancient-claw devices clear --yes --pending
+ancient-claw devices clear --yes --pending --json
 ```
 
-### `hyperbot devices approve [requestId] [--latest]`
+### `ancient-claw devices approve [requestId] [--latest]`
 
-Approve a pending device pairing request. If `requestId` is omitted, HyperBot
+Approve a pending device pairing request. If `requestId` is omitted, Ancient Claw
 automatically approves the most recent pending request.
 
 Note: if a device retries pairing with changed auth details (role/scopes/public
-key), HyperBot supersedes the previous pending entry and issues a new
-`requestId`. Run `hyperbot devices list` right before approval to use the
+key), Ancient Claw supersedes the previous pending entry and issues a new
+`requestId`. Run `ancient-claw devices list` right before approval to use the
 current ID.
 
 ```
-hyperbot devices approve
-hyperbot devices approve <requestId>
-hyperbot devices approve --latest
+ancient-claw devices approve
+ancient-claw devices approve <requestId>
+ancient-claw devices approve --latest
 ```
 
-### `hyperbot devices reject <requestId>`
+### `ancient-claw devices reject <requestId>`
 
 Reject a pending device pairing request.
 
 ```
-hyperbot devices reject <requestId>
+ancient-claw devices reject <requestId>
 ```
 
-### `hyperbot devices rotate --device <id> --role <role> [--scope <scope...>]`
+### `ancient-claw devices rotate --device <id> --role <role> [--scope <scope...>]`
 
 Rotate a device token for a specific role (optionally updating scopes).
 
 ```
-hyperbot devices rotate --device <deviceId> --role operator --scope operator.read --scope operator.write
+ancient-claw devices rotate --device <deviceId> --role operator --scope operator.read --scope operator.write
 ```
 
-### `hyperbot devices revoke --device <id> --role <role>`
+### `ancient-claw devices revoke --device <id> --role <role>`
 
 Revoke a device token for a specific role.
 
 ```
-hyperbot devices revoke --device <deviceId> --role node
+ancient-claw devices revoke --device <deviceId> --role node
 ```
 
 ## Common options
@@ -108,27 +108,27 @@ Use this when Control UI or other clients keep failing with `AUTH_TOKEN_MISMATCH
 1. Confirm current gateway token source:
 
 ```bash
-hyperbot config get gateway.auth.token
+ancient-claw config get gateway.auth.token
 ```
 
 2. List paired devices and identify the affected device id:
 
 ```bash
-hyperbot devices list
+ancient-claw devices list
 ```
 
 3. Rotate operator token for the affected device:
 
 ```bash
-hyperbot devices rotate --device <deviceId> --role operator
+ancient-claw devices rotate --device <deviceId> --role operator
 ```
 
 4. If rotation is not enough, remove stale pairing and approve again:
 
 ```bash
-hyperbot devices remove <deviceId>
-hyperbot devices list
-hyperbot devices approve <requestId>
+ancient-claw devices remove <deviceId>
+ancient-claw devices list
+ancient-claw devices approve <requestId>
 ```
 
 5. Retry client connection with the current shared token/password.

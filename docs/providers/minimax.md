@@ -1,14 +1,14 @@
 ---
-summary: "Use MiniMax models in HyperBot"
+summary: "Use MiniMax models in Ancient Claw"
 read_when:
-  - You want MiniMax models in HyperBot
+  - You want MiniMax models in Ancient Claw
   - You need MiniMax setup guidance
 title: "MiniMax"
 ---
 
 # MiniMax
 
-HyperBot's MiniMax provider defaults to **MiniMax M2.7** and keeps
+Ancient Claw's MiniMax provider defaults to **MiniMax M2.7** and keeps
 **MiniMax M2.5** in the catalog for compatibility.
 
 ## Model lineup
@@ -28,9 +28,9 @@ HyperBot's MiniMax provider defaults to **MiniMax M2.7** and keeps
 Enable the bundled OAuth plugin and authenticate:
 
 ```bash
-hyperbot plugins enable minimax  # skip if already loaded.
-hyperbot gateway restart  # restart if gateway is already running
-hyperbot onboard --auth-choice minimax-portal
+ancient-claw plugins enable minimax  # skip if already loaded.
+ancient-claw gateway restart  # restart if gateway is already running
+ancient-claw onboard --auth-choice minimax-portal
 ```
 
 You will be prompted to select an endpoint:
@@ -38,7 +38,7 @@ You will be prompted to select an endpoint:
 - **Global** - International users (`api.minimax.io`)
 - **CN** - Users in China (`api.minimaxi.com`)
 
-See [MiniMax plugin README](https://github.com/hyperbot/hyperbot/tree/main/extensions/minimax) for details.
+See [MiniMax plugin README](https://github.com/ancient-claw/ancient-claw/tree/main/extensions/minimax) for details.
 
 ### MiniMax M2.7 (API key)
 
@@ -46,7 +46,7 @@ See [MiniMax plugin README](https://github.com/hyperbot/hyperbot/tree/main/exten
 
 Configure via CLI:
 
-- Run `hyperbot configure`
+- Run `ancient-claw configure`
 - Select **Model/auth**
 - Choose a **MiniMax** auth option
 
@@ -134,7 +134,7 @@ Example below uses Opus as a concrete primary; swap to your preferred latest-gen
 We have seen strong results with MiniMax M2.5 on powerful hardware (e.g. a
 desktop/server) using LM Studio's local server.
 
-Configure manually via `hyperbot.json`:
+Configure manually via `ancient-claw.json`:
 
 ```json5
 {
@@ -168,11 +168,11 @@ Configure manually via `hyperbot.json`:
 }
 ```
 
-## Configure via `hyperbot configure`
+## Configure via `ancient-claw configure`
 
 Use the interactive config wizard to set MiniMax without editing JSON:
 
-1. Run `hyperbot configure`.
+1. Run `ancient-claw configure`.
 2. Select **Model/auth**.
 3. Choose a **MiniMax** auth option.
 4. Pick your default model when prompted.
@@ -195,7 +195,7 @@ Use the interactive config wizard to set MiniMax without editing JSON:
 - Update pricing values in `models.json` if you need exact cost tracking.
 - Referral link for MiniMax Coding Plan (10% off): [https://platform.minimax.io/subscribe/coding-plan?code=DbXJTRClnb&source=link](https://platform.minimax.io/subscribe/coding-plan?code=DbXJTRClnb&source=link)
 - See [/concepts/model-providers](/concepts/model-providers) for provider rules.
-- Use `hyperbot models list` and `hyperbot models set minimax/MiniMax-M2.7` to switch.
+- Use `ancient-claw models list` and `ancient-claw models set minimax/MiniMax-M2.7` to switch.
 
 ## Troubleshooting
 
@@ -206,7 +206,7 @@ and no MiniMax auth profile/env key found). A fix for this detection is in
 **2026.1.12**. Fix by:
 
 - Upgrading to **2026.1.12** (or run from source `main`), then restarting the gateway.
-- Running `hyperbot configure` and selecting a **MiniMax** auth option, or
+- Running `ancient-claw configure` and selecting a **MiniMax** auth option, or
 - Adding the `models.providers.minimax` block manually, or
 - Setting `MINIMAX_API_KEY` (or a MiniMax auth profile) so the provider can be injected.
 
@@ -220,5 +220,5 @@ Make sure the model id is **case‑sensitive**:
 Then recheck with:
 
 ```bash
-hyperbot models list
+ancient-claw models list
 ```

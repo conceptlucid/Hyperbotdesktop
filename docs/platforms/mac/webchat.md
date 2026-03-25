@@ -21,10 +21,10 @@ agent (with a session switcher for other sessions).
 - Auto‑open for testing:
 
   ```bash
-  dist/HyperBot.app/Contents/MacOS/HyperBot --webchat
+  dist/Ancient Claw.app/Contents/MacOS/Ancient Claw --webchat
   ```
 
-- Logs: `./scripts/clawlog.sh` (subsystem `ai.hyperbot`, category `WebChatSwiftUI`).
+- Logs: `./scripts/clawlog.sh` (subsystem `ai.ancient-claw`, category `WebChatSwiftUI`).
 
 ## How it is wired
 

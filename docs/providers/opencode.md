@@ -1,5 +1,5 @@
 ---
-summary: "Use OpenCode Zen and Go catalogs with HyperBot"
+summary: "Use OpenCode Zen and Go catalogs with Ancient Claw"
 read_when:
   - You want OpenCode-hosted model access
   - You want to pick between the Zen and Go catalogs
@@ -8,12 +8,12 @@ title: "OpenCode"
 
 # OpenCode
 
-OpenCode exposes two hosted catalogs in HyperBot:
+OpenCode exposes two hosted catalogs in Ancient Claw:
 
 - `opencode/...` for the **Zen** catalog
 - `opencode-go/...` for the **Go** catalog
 
-Both catalogs use the same OpenCode API key. HyperBot keeps the runtime provider ids
+Both catalogs use the same OpenCode API key. Ancient Claw keeps the runtime provider ids
 split so upstream per-model routing stays correct, but onboarding and docs treat them
 as one OpenCode setup.
 
@@ -22,15 +22,15 @@ as one OpenCode setup.
 ### Zen catalog
 
 ```bash
-hyperbot onboard --auth-choice opencode-zen
-hyperbot onboard --opencode-zen-api-key "$OPENCODE_API_KEY"
+ancient-claw onboard --auth-choice opencode-zen
+ancient-claw onboard --opencode-zen-api-key "$OPENCODE_API_KEY"
 ```
 
 ### Go catalog
 
 ```bash
-hyperbot onboard --auth-choice opencode-go
-hyperbot onboard --opencode-go-api-key "$OPENCODE_API_KEY"
+ancient-claw onboard --auth-choice opencode-go
+ancient-claw onboard --opencode-go-api-key "$OPENCODE_API_KEY"
 ```
 
 ## Config snippet

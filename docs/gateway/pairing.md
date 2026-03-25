@@ -37,11 +37,11 @@ Pending requests expire automatically after **5 minutes**.
 ## CLI workflow (headless friendly)
 
 ```bash
-hyperbot nodes pending
-hyperbot nodes approve <requestId>
-hyperbot nodes reject <requestId>
-hyperbot nodes status
-hyperbot nodes rename --node <id|name|ip> --name "Living Room iPad"
+ancient-claw nodes pending
+ancient-claw nodes approve <requestId>
+ancient-claw nodes reject <requestId>
+ancient-claw nodes status
+ancient-claw nodes rename --node <id|name|ip> --name "Living Room iPad"
 ```
 
 `nodes status` shows paired/connected nodes and their capabilities.
@@ -80,10 +80,10 @@ If silent approval fails, it falls back to the normal “Approve/Reject” promp
 
 ## Storage (local, private)
 
-Pairing state is stored under the Gateway state directory (default `~/.hyperbot`):
+Pairing state is stored under the Gateway state directory (default `~/.ancient-claw`):
 
-- `~/.hyperbot/nodes/paired.json`
-- `~/.hyperbot/nodes/pending.json`
+- `~/.ancient-claw/nodes/paired.json`
+- `~/.ancient-claw/nodes/pending.json`
 
 If you override `OPENCLAW_STATE_DIR`, the `nodes/` folder moves with it.
 

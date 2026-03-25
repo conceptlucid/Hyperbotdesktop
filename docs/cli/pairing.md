@@ -1,11 +1,11 @@
 ---
-summary: "CLI reference for `hyperbot pairing` (approve/list pairing requests)"
+summary: "CLI reference for `ancient-claw pairing` (approve/list pairing requests)"
 read_when:
   - You’re using pairing-mode DMs and need to approve senders
 title: "pairing"
 ---
 
-# `hyperbot pairing`
+# `ancient-claw pairing`
 
 Approve or inspect DM pairing requests (for channels that support pairing).
 
@@ -16,12 +16,12 @@ Related:
 ## Commands
 
 ```bash
-hyperbot pairing list telegram
-hyperbot pairing list --channel telegram --account work
-hyperbot pairing list telegram --json
+ancient-claw pairing list telegram
+ancient-claw pairing list --channel telegram --account work
+ancient-claw pairing list telegram --json
 
-hyperbot pairing approve telegram <code>
-hyperbot pairing approve --channel telegram --account work <code> --notify
+ancient-claw pairing approve telegram <code>
+ancient-claw pairing approve --channel telegram --account work <code> --notify
 ```
 
 ## Notes

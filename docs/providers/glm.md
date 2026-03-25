@@ -1,30 +1,30 @@
 ---
-summary: "GLM model family overview + how to use it in HyperBot"
+summary: "GLM model family overview + how to use it in Ancient Claw"
 read_when:
-  - You want GLM models in HyperBot
+  - You want GLM models in Ancient Claw
   - You need the model naming convention and setup
 title: "GLM Models"
 ---
 
 # GLM models
 
-GLM is a **model family** (not a company) available through the Z.AI platform. In HyperBot, GLM
+GLM is a **model family** (not a company) available through the Z.AI platform. In Ancient Claw, GLM
 models are accessed via the `zai` provider and model IDs like `zai/glm-5`.
 
 ## CLI setup
 
 ```bash
 # Coding Plan Global, recommended for Coding Plan users
-hyperbot onboard --auth-choice zai-coding-global
+ancient-claw onboard --auth-choice zai-coding-global
 
 # Coding Plan CN (China region), recommended for Coding Plan users
-hyperbot onboard --auth-choice zai-coding-cn
+ancient-claw onboard --auth-choice zai-coding-cn
 
 # General API
-hyperbot onboard --auth-choice zai-global
+ancient-claw onboard --auth-choice zai-global
 
 # General API CN (China region)
-hyperbot onboard --auth-choice zai-cn
+ancient-claw onboard --auth-choice zai-cn
 ```
 
 ## Config snippet

@@ -1,16 +1,16 @@
 ---
-summary: "HyperBot on DigitalOcean (simple paid VPS option)"
+summary: "Ancient Claw on DigitalOcean (simple paid VPS option)"
 read_when:
-  - Setting up HyperBot on DigitalOcean
-  - Looking for cheap VPS hosting for HyperBot
+  - Setting up Ancient Claw on DigitalOcean
+  - Looking for cheap VPS hosting for Ancient Claw
 title: "DigitalOcean (Platform)"
 ---
 
-# HyperBot on DigitalOcean
+# Ancient Claw on DigitalOcean
 
 ## Goal
 
-Run a persistent HyperBot Gateway on DigitalOcean for **$6/month** (or $4/mo with reserved pricing).
+Run a persistent Ancient Claw Gateway on DigitalOcean for **$6/month** (or $4/mo with reserved pricing).
 
 If you want a $0/month option and don’t mind ARM + provider-specific setup, see the [Oracle Cloud guide](/platforms/oracle).
 
@@ -60,7 +60,7 @@ Use a clean base image (Ubuntu 24.04 LTS). Avoid third-party Marketplace 1-click
 ssh root@YOUR_DROPLET_IP
 ```
 
-## 3) Install HyperBot
+## 3) Install Ancient Claw
 
 ```bash
 # Update system
@@ -70,17 +70,17 @@ apt update && apt upgrade -y
 curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
 apt install -y nodejs
 
-# Install HyperBot
-curl -fsSL https://hyperbot.ai/install.sh | bash
+# Install Ancient Claw
+curl -fsSL https://ancient-claw.ai/install.sh | bash
 
 # Verify
-hyperbot --version
+ancient-claw --version
 ```
 
 ## 4) Run Onboarding
 
 ```bash
-hyperbot onboard --install-daemon
+ancient-claw onboard --install-daemon
 ```
 
 The wizard will walk you through:
@@ -94,13 +94,13 @@ The wizard will walk you through:
 
 ```bash
 # Check status
-hyperbot status
+ancient-claw status
 
 # Check service
-systemctl --user status hyperbot-gateway.service
+systemctl --user status ancient-claw-gateway.service
 
 # View logs
-journalctl --user -u hyperbot-gateway.service -f
+journalctl --user -u ancient-claw-gateway.service -f
 ```
 
 ## 6) Access the Dashboard
@@ -124,8 +124,8 @@ curl -fsSL https://tailscale.com/install.sh | sh
 tailscale up
 
 # Configure Gateway to use Tailscale Serve
-hyperbot config set gateway.tailscale.mode serve
-hyperbot gateway restart
+ancient-claw config set gateway.tailscale.mode serve
+ancient-claw gateway restart
 ```
 
 Open: `https://<magicdns>/`
@@ -138,8 +138,8 @@ Notes:
 **Option C: Tailnet bind (no Serve)**
 
 ```bash
-hyperbot config set gateway.bind tailnet
-hyperbot gateway restart
+ancient-claw config set gateway.bind tailnet
+ancient-claw gateway restart
 ```
 
 Open: `http://<tailscale-ip>:18789` (token required).
@@ -149,14 +149,14 @@ Open: `http://<tailscale-ip>:18789` (token required).
 ### Telegram
 
 ```bash
-hyperbot pairing list telegram
-hyperbot pairing approve telegram <CODE>
+ancient-claw pairing list telegram
+ancient-claw pairing approve telegram <CODE>
 ```
 
 ### WhatsApp
 
 ```bash
-hyperbot channels login whatsapp
+ancient-claw channels login whatsapp
 # Scan QR code
 ```
 
@@ -198,13 +198,13 @@ htop
 
 All state lives in:
 
-- `~/.hyperbot/` — config, credentials, session data
-- `~/.hyperbot/workspace/` — workspace (SOUL.md, memory, etc.)
+- `~/.ancient-claw/` — config, credentials, session data
+- `~/.ancient-claw/workspace/` — workspace (SOUL.md, memory, etc.)
 
 These survive reboots. Back them up periodically:
 
 ```bash
-tar -czvf hyperbot-backup.tar.gz ~/.hyperbot ~/.hyperbot/workspace
+tar -czvf ancient-claw-backup.tar.gz ~/.ancient-claw ~/.ancient-claw/workspace
 ```
 
 ---
@@ -234,9 +234,9 @@ For the full setup guide, see [Oracle Cloud](/platforms/oracle). For signup tips
 ### Gateway will not start
 
 ```bash
-hyperbot gateway status
-hyperbot doctor --non-interactive
-journalctl -u hyperbot --no-pager -n 50
+ancient-claw gateway status
+ancient-claw doctor --non-interactive
+journalctl -u ancient-claw --no-pager -n 50
 ```
 
 ### Port already in use

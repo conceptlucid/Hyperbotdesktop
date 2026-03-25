@@ -30,11 +30,11 @@ Use this page for day-1 startup and day-2 operations of the Gateway service.
   <Step title="Start the Gateway">
 
 ```bash
-hyperbot gateway --port 18789
+ancient-claw gateway --port 18789
 # debug/trace mirrored to stdio
-hyperbot gateway --port 18789 --verbose
+ancient-claw gateway --port 18789 --verbose
 # force-kill listener on selected port, then start
-hyperbot gateway --force
+ancient-claw gateway --force
 ```
 
   </Step>
@@ -42,9 +42,9 @@ hyperbot gateway --force
   <Step title="Verify service health">
 
 ```bash
-hyperbot gateway status
-hyperbot status
-hyperbot logs --follow
+ancient-claw gateway status
+ancient-claw status
+ancient-claw logs --follow
 ```
 
 Healthy baseline: `Runtime: running` and `RPC probe: ok`.
@@ -54,7 +54,7 @@ Healthy baseline: `Runtime: running` and `RPC probe: ok`.
   <Step title="Validate channel readiness">
 
 ```bash
-hyperbot channels status --probe
+ancient-claw channels status --probe
 ```
 
   </Step>
@@ -77,7 +77,7 @@ Default mode is `gateway.reload.mode="hybrid"`.
 
 ## OpenAI-compatible endpoints
 
-HyperBot’s highest-leverage compatibility surface is now:
+Ancient Claw’s highest-leverage compatibility surface is now:
 
 - `GET /v1/models`
 - `GET /v1/models/{id}`
@@ -93,9 +93,9 @@ Why this set matters:
 
 Planning note:
 
-- `/v1/models` is agent-first: it returns `hyperbot`, `hyperbot/default`, and `hyperbot/<agentId>`.
-- `hyperbot/default` is the stable alias that always maps to the configured default agent.
-- Use `x-hyperbot-model` when you want a backend provider/model override; otherwise the selected agent's normal model and embedding setup stays in control.
+- `/v1/models` is agent-first: it returns `ancient-claw`, `ancient-claw/default`, and `ancient-claw/<agentId>`.
+- `ancient-claw/default` is the stable alias that always maps to the configured default agent.
+- Use `x-ancient-claw-model` when you want a backend provider/model override; otherwise the selected agent's normal model and embedding setup stays in control.
 
 All of these run on the main Gateway port and use the same trusted operator auth boundary as the rest of the Gateway HTTP API.
 
@@ -118,15 +118,15 @@ All of these run on the main Gateway port and use the same trusted operator auth
 ## Operator command set
 
 ```bash
-hyperbot gateway status
-hyperbot gateway status --deep
-hyperbot gateway status --json
-hyperbot gateway install
-hyperbot gateway restart
-hyperbot gateway stop
-hyperbot secrets reload
-hyperbot logs --follow
-hyperbot doctor
+ancient-claw gateway status
+ancient-claw gateway status --deep
+ancient-claw gateway status --json
+ancient-claw gateway install
+ancient-claw gateway restart
+ancient-claw gateway stop
+ancient-claw secrets reload
+ancient-claw logs --follow
+ancient-claw doctor
 ```
 
 ## Remote access
@@ -154,22 +154,22 @@ Use supervised runs for production-like reliability.
   <Tab title="macOS (launchd)">
 
 ```bash
-hyperbot gateway install
-hyperbot gateway status
-hyperbot gateway restart
-hyperbot gateway stop
+ancient-claw gateway install
+ancient-claw gateway status
+ancient-claw gateway restart
+ancient-claw gateway stop
 ```
 
-LaunchAgent labels are `ai.hyperbot.gateway` (default) or `ai.hyperbot.<profile>` (named profile). `hyperbot doctor` audits and repairs service config drift.
+LaunchAgent labels are `ai.ancient-claw.gateway` (default) or `ai.ancient-claw.<profile>` (named profile). `ancient-claw doctor` audits and repairs service config drift.
 
   </Tab>
 
   <Tab title="Linux (systemd user)">
 
 ```bash
-hyperbot gateway install
-systemctl --user enable --now hyperbot-gateway[-<profile>].service
-hyperbot gateway status
+ancient-claw gateway install
+systemctl --user enable --now ancient-claw-gateway[-<profile>].service
+ancient-claw gateway status
 ```
 
 For persistence after logout, enable lingering:
@@ -186,7 +186,7 @@ Use a system unit for multi-user/always-on hosts.
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable --now hyperbot-gateway[-<profile>].service
+sudo systemctl enable --now ancient-claw-gateway[-<profile>].service
 ```
 
   </Tab>
@@ -207,8 +207,8 @@ Checklist per instance:
 Example:
 
 ```bash
-OPENCLAW_CONFIG_PATH=~/.hyperbot/a.json OPENCLAW_STATE_DIR=~/.hyperbot-a hyperbot gateway --port 19001
-OPENCLAW_CONFIG_PATH=~/.hyperbot/b.json OPENCLAW_STATE_DIR=~/.hyperbot-b hyperbot gateway --port 19002
+OPENCLAW_CONFIG_PATH=~/.ancient-claw/a.json OPENCLAW_STATE_DIR=~/.ancient-claw-a ancient-claw gateway --port 19001
+OPENCLAW_CONFIG_PATH=~/.ancient-claw/b.json OPENCLAW_STATE_DIR=~/.ancient-claw-b ancient-claw gateway --port 19002
 ```
 
 See: [Multiple gateways](/gateway/multiple-gateways).
@@ -216,9 +216,9 @@ See: [Multiple gateways](/gateway/multiple-gateways).
 ### Dev profile quick path
 
 ```bash
-hyperbot --dev setup
-hyperbot --dev gateway --allow-unconfigured
-hyperbot --dev status
+ancient-claw --dev setup
+ancient-claw --dev gateway --allow-unconfigured
+ancient-claw --dev status
 ```
 
 Defaults include isolated state/config and base gateway port `19001`.
@@ -247,9 +247,9 @@ See full protocol docs: [Gateway Protocol](/gateway/protocol).
 ### Readiness
 
 ```bash
-hyperbot gateway status
-hyperbot channels status --probe
-hyperbot health
+ancient-claw gateway status
+ancient-claw channels status --probe
+ancient-claw health
 ```
 
 ### Gap recovery

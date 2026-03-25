@@ -45,7 +45,7 @@ x-i18n:
 
 ## 配置
 
-在 `~/.hyperbot/hyperbot.json` 中按提供商设置重试策略：
+在 `~/.ancient-claw/ancient-claw.json` 中按提供商设置重试策略：
 
 ```json5
 {

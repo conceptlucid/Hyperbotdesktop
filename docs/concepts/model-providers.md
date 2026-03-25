@@ -15,9 +15,9 @@ For model selection rules, see [/concepts/models](/concepts/models).
 
 - Model refs use `provider/model` (example: `opencode/claude-opus-4-6`).
 - If you set `agents.defaults.models`, it becomes the allowlist.
-- CLI helpers: `hyperbot onboard`, `hyperbot models list`, `hyperbot models set <provider/model>`.
+- CLI helpers: `ancient-claw onboard`, `ancient-claw models list`, `ancient-claw models set <provider/model>`.
 - Provider plugins can inject model catalogs via `registerProvider({ catalog })`;
-  HyperBot merges that output into `models.providers` before writing
+  Ancient Claw merges that output into `models.providers` before writing
   `models.json`.
 - Provider manifests can declare `providerAuthEnvVars` so generic env-based
   auth probes do not need to load plugin runtime. The remaining core env-var
@@ -39,13 +39,13 @@ For model selection rules, see [/concepts/models](/concepts/models).
 
 ## Plugin-owned provider behavior
 
-Provider plugins can now own most provider-specific logic while HyperBot keeps
+Provider plugins can now own most provider-specific logic while Ancient Claw keeps
 the generic inference loop.
 
 Typical split:
 
 - `auth[].run` / `auth[].runNonInteractive`: provider owns onboarding/login
-  flows for `hyperbot onboard`, `hyperbot models auth`, and headless setup
+  flows for `ancient-claw onboard`, `ancient-claw models auth`, and headless setup
 - `wizard.setup` / `wizard.modelPicker`: provider owns auth-choice labels,
   legacy aliases, onboarding allowlist hints, and setup entries in onboarding/model pickers
 - `catalog`: provider appears in `models.providers`
@@ -114,7 +114,7 @@ Current bundled examples:
 The bundled `openai` plugin now owns both provider ids: `openai` and
 `openai-codex`.
 
-That covers providers that still fit HyperBot's normal transports. A provider
+That covers providers that still fit Ancient Claw's normal transports. A provider
 that needs a totally custom request executor is a separate, deeper extension
 surface.
 
@@ -134,7 +134,7 @@ surface.
 
 ## Built-in providers (pi-ai catalog)
 
-HyperBot ships with the pi‑ai catalog. These providers require **no**
+Ancient Claw ships with the pi‑ai catalog. These providers require **no**
 `models.providers` config; just set auth + pick a model.
 
 ### OpenAI
@@ -143,13 +143,13 @@ HyperBot ships with the pi‑ai catalog. These providers require **no**
 - Auth: `OPENAI_API_KEY`
 - Optional rotation: `OPENAI_API_KEYS`, `OPENAI_API_KEY_1`, `OPENAI_API_KEY_2`, plus `OPENCLAW_LIVE_OPENAI_KEY` (single override)
 - Example models: `openai/gpt-5.4`, `openai/gpt-5.4-pro`
-- CLI: `hyperbot onboard --auth-choice openai-api-key`
+- CLI: `ancient-claw onboard --auth-choice openai-api-key`
 - Default transport is `auto` (WebSocket-first, SSE fallback)
 - Override per model via `agents.defaults.models["openai/<model>"].params.transport` (`"sse"`, `"websocket"`, or `"auto"`)
 - OpenAI Responses WebSocket warm-up defaults to enabled via `params.openaiWsWarmup` (`true`/`false`)
 - OpenAI priority processing can be enabled via `agents.defaults.models["openai/<model>"].params.serviceTier`
 - OpenAI fast mode can be enabled per model via `agents.defaults.models["<provider>/<model>"].params.fastMode`
-- `openai/gpt-5.3-codex-spark` is intentionally suppressed in HyperBot because the live OpenAI API rejects it; Spark is treated as Codex-only
+- `openai/gpt-5.3-codex-spark` is intentionally suppressed in Ancient Claw because the live OpenAI API rejects it; Spark is treated as Codex-only
 
 ```json5
 {
@@ -163,8 +163,8 @@ HyperBot ships with the pi‑ai catalog. These providers require **no**
 - Auth: `ANTHROPIC_API_KEY` or `claude setup-token`
 - Optional rotation: `ANTHROPIC_API_KEYS`, `ANTHROPIC_API_KEY_1`, `ANTHROPIC_API_KEY_2`, plus `OPENCLAW_LIVE_ANTHROPIC_KEY` (single override)
 - Example model: `anthropic/claude-opus-4-6`
-- CLI: `hyperbot onboard --auth-choice token` (paste setup-token) or `hyperbot models auth paste-token --provider anthropic`
-- Direct API-key models support the shared `/fast` toggle and `params.fastMode`; HyperBot maps that to Anthropic `service_tier` (`auto` vs `standard_only`)
+- CLI: `ancient-claw onboard --auth-choice token` (paste setup-token) or `ancient-claw models auth paste-token --provider anthropic`
+- Direct API-key models support the shared `/fast` toggle and `params.fastMode`; Ancient Claw maps that to Anthropic `service_tier` (`auto` vs `standard_only`)
 - Policy note: setup-token support is technical compatibility; Anthropic has blocked some subscription usage outside Claude Code in the past. Verify current Anthropic terms and decide based on your risk tolerance.
 - Recommendation: Anthropic API key auth is the safer, recommended path over subscription setup-token auth.
 
@@ -179,12 +179,12 @@ HyperBot ships with the pi‑ai catalog. These providers require **no**
 - Provider: `openai-codex`
 - Auth: OAuth (ChatGPT)
 - Example model: `openai-codex/gpt-5.4`
-- CLI: `hyperbot onboard --auth-choice openai-codex` or `hyperbot models auth login --provider openai-codex`
+- CLI: `ancient-claw onboard --auth-choice openai-codex` or `ancient-claw models auth login --provider openai-codex`
 - Default transport is `auto` (WebSocket-first, SSE fallback)
 - Override per model via `agents.defaults.models["openai-codex/<model>"].params.transport` (`"sse"`, `"websocket"`, or `"auto"`)
 - Shares the same `/fast` toggle and `params.fastMode` config as direct `openai/*`
 - `openai-codex/gpt-5.3-codex-spark` remains available when the Codex OAuth catalog exposes it; entitlement-dependent
-- Policy note: OpenAI Codex OAuth is explicitly supported for external tools/workflows like HyperBot.
+- Policy note: OpenAI Codex OAuth is explicitly supported for external tools/workflows like Ancient Claw.
 
 ```json5
 {
@@ -198,7 +198,7 @@ HyperBot ships with the pi‑ai catalog. These providers require **no**
 - Zen runtime provider: `opencode`
 - Go runtime provider: `opencode-go`
 - Example models: `opencode/claude-opus-4-6`, `opencode-go/kimi-k2.5`
-- CLI: `hyperbot onboard --auth-choice opencode-zen` or `hyperbot onboard --auth-choice opencode-go`
+- CLI: `ancient-claw onboard --auth-choice opencode-zen` or `ancient-claw onboard --auth-choice opencode-go`
 
 ```json5
 {
@@ -212,18 +212,18 @@ HyperBot ships with the pi‑ai catalog. These providers require **no**
 - Auth: `GEMINI_API_KEY`
 - Optional rotation: `GEMINI_API_KEYS`, `GEMINI_API_KEY_1`, `GEMINI_API_KEY_2`, `GOOGLE_API_KEY` fallback, and `OPENCLAW_LIVE_GEMINI_KEY` (single override)
 - Example models: `google/gemini-3.1-pro-preview`, `google/gemini-3-flash-preview`
-- Compatibility: legacy HyperBot config using `google/gemini-3.1-flash-preview` is normalized to `google/gemini-3-flash-preview`
-- CLI: `hyperbot onboard --auth-choice gemini-api-key`
+- Compatibility: legacy Ancient Claw config using `google/gemini-3.1-flash-preview` is normalized to `google/gemini-3-flash-preview`
+- CLI: `ancient-claw onboard --auth-choice gemini-api-key`
 
 ### Google Vertex and Gemini CLI
 
 - Providers: `google-vertex`, `google-gemini-cli`
 - Auth: Vertex uses gcloud ADC; Gemini CLI uses its OAuth flow
-- Caution: Gemini CLI OAuth in HyperBot is an unofficial integration. Some users have reported Google account restrictions after using third-party clients. Review Google terms and use a non-critical account if you choose to proceed.
+- Caution: Gemini CLI OAuth in Ancient Claw is an unofficial integration. Some users have reported Google account restrictions after using third-party clients. Review Google terms and use a non-critical account if you choose to proceed.
 - Gemini CLI OAuth is shipped as part of the bundled `google` plugin.
-  - Enable: `hyperbot plugins enable google`
-  - Login: `hyperbot models auth login --provider google-gemini-cli --set-default`
-  - Note: you do **not** paste a client id or secret into `hyperbot.json`. The CLI login flow stores
+  - Enable: `ancient-claw plugins enable google`
+  - Login: `ancient-claw models auth login --provider google-gemini-cli --set-default`
+  - Note: you do **not** paste a client id or secret into `ancient-claw.json`. The CLI login flow stores
     tokens in auth profiles on the gateway host.
 
 ### Z.AI (GLM)
@@ -231,7 +231,7 @@ HyperBot ships with the pi‑ai catalog. These providers require **no**
 - Provider: `zai`
 - Auth: `ZAI_API_KEY`
 - Example model: `zai/glm-5`
-- CLI: `hyperbot onboard --auth-choice zai-api-key`
+- CLI: `ancient-claw onboard --auth-choice zai-api-key`
   - Aliases: `z.ai/*` and `z-ai/*` normalize to `zai/*`
 
 ### Vercel AI Gateway
@@ -239,14 +239,14 @@ HyperBot ships with the pi‑ai catalog. These providers require **no**
 - Provider: `vercel-ai-gateway`
 - Auth: `AI_GATEWAY_API_KEY`
 - Example model: `vercel-ai-gateway/anthropic/claude-opus-4.6`
-- CLI: `hyperbot onboard --auth-choice ai-gateway-api-key`
+- CLI: `ancient-claw onboard --auth-choice ai-gateway-api-key`
 
 ### Kilo Gateway
 
 - Provider: `kilocode`
 - Auth: `KILOCODE_API_KEY`
 - Example model: `kilocode/anthropic/claude-opus-4.6`
-- CLI: `hyperbot onboard --kilocode-api-key <key>`
+- CLI: `ancient-claw onboard --kilocode-api-key <key>`
 - Base URL: `https://api.kilo.ai/api/gateway/`
 - Expanded built-in catalog includes GLM-5 Free, MiniMax M2.5 Free, GPT-5.2, Gemini 3 Pro Preview, Gemini 3 Flash Preview, Grok Code Fast 1, and Kimi K2.5.
 
@@ -275,13 +275,13 @@ See [/providers/kilocode](/providers/kilocode) for setup details.
 - xAI: `xai` (`XAI_API_KEY`)
 - Mistral: `mistral` (`MISTRAL_API_KEY`)
 - Example model: `mistral/mistral-large-latest`
-- CLI: `hyperbot onboard --auth-choice mistral-api-key`
+- CLI: `ancient-claw onboard --auth-choice mistral-api-key`
 - Groq: `groq` (`GROQ_API_KEY`)
 - Cerebras: `cerebras` (`CEREBRAS_API_KEY`)
   - GLM models on Cerebras use ids `zai-glm-4.7` and `zai-glm-4.6`.
   - OpenAI-compatible base URL: `https://api.cerebras.ai/v1`.
 - GitHub Copilot: `github-copilot` (`COPILOT_GITHUB_TOKEN` / `GH_TOKEN` / `GITHUB_TOKEN`)
-- Hugging Face Inference example model: `huggingface/deepseek-ai/DeepSeek-R1`; CLI: `hyperbot onboard --auth-choice huggingface-api-key`. See [Hugging Face (Inference)](/providers/huggingface).
+- Hugging Face Inference example model: `huggingface/deepseek-ai/DeepSeek-R1`; CLI: `ancient-claw onboard --auth-choice huggingface-api-key`. See [Hugging Face (Inference)](/providers/huggingface).
 
 ## Providers via `models.providers` (custom/base URL)
 
@@ -354,7 +354,7 @@ Qwen provides OAuth access to Qwen Coder + Vision via a device-code flow.
 The bundled provider plugin is enabled by default, so just log in:
 
 ```bash
-hyperbot models auth login --provider qwen-portal --set-default
+ancient-claw models auth login --provider qwen-portal --set-default
 ```
 
 Model refs:
@@ -371,7 +371,7 @@ Volcano Engine (火山引擎) provides access to Doubao and other models in Chin
 - Provider: `volcengine` (coding: `volcengine-plan`)
 - Auth: `VOLCANO_ENGINE_API_KEY`
 - Example model: `volcengine/doubao-seed-1-8-251228`
-- CLI: `hyperbot onboard --auth-choice volcengine-api-key`
+- CLI: `ancient-claw onboard --auth-choice volcengine-api-key`
 
 ```json5
 {
@@ -404,7 +404,7 @@ BytePlus ARK provides access to the same models as Volcano Engine for internatio
 - Provider: `byteplus` (coding: `byteplus-plan`)
 - Auth: `BYTEPLUS_API_KEY`
 - Example model: `byteplus/seed-1-8-251228`
-- CLI: `hyperbot onboard --auth-choice byteplus-api-key`
+- CLI: `ancient-claw onboard --auth-choice byteplus-api-key`
 
 ```json5
 {
@@ -435,7 +435,7 @@ Synthetic provides Anthropic-compatible models behind the `synthetic` provider:
 - Provider: `synthetic`
 - Auth: `SYNTHETIC_API_KEY`
 - Example model: `synthetic/hf:MiniMaxAI/MiniMax-M2.5`
-- CLI: `hyperbot onboard --auth-choice synthetic-api-key`
+- CLI: `ancient-claw onboard --auth-choice synthetic-api-key`
 
 ```json5
 {
@@ -489,7 +489,7 @@ ollama pull llama3.3
 
 Ollama is detected locally at `http://127.0.0.1:11434` when you opt in with
 `OLLAMA_API_KEY`, and the bundled provider plugin adds Ollama directly to
-`hyperbot onboard` and the model picker. See [/providers/ollama](/providers/ollama)
+`ancient-claw onboard` and the model picker. See [/providers/ollama](/providers/ollama)
 for onboarding, cloud/local mode, and custom configuration.
 
 ### vLLM
@@ -585,23 +585,23 @@ Example (OpenAI‑compatible):
 Notes:
 
 - For custom providers, `reasoning`, `input`, `cost`, `contextWindow`, and `maxTokens` are optional.
-  When omitted, HyperBot defaults to:
+  When omitted, Ancient Claw defaults to:
   - `reasoning: false`
   - `input: ["text"]`
   - `cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }`
   - `contextWindow: 200000`
   - `maxTokens: 8192`
 - Recommended: set explicit values that match your proxy/model limits.
-- For `api: "openai-completions"` on non-native endpoints (any non-empty `baseUrl` whose host is not `api.openai.com`), HyperBot forces `compat.supportsDeveloperRole: false` to avoid provider 400 errors for unsupported `developer` roles.
-- If `baseUrl` is empty/omitted, HyperBot keeps the default OpenAI behavior (which resolves to `api.openai.com`).
+- For `api: "openai-completions"` on non-native endpoints (any non-empty `baseUrl` whose host is not `api.openai.com`), Ancient Claw forces `compat.supportsDeveloperRole: false` to avoid provider 400 errors for unsupported `developer` roles.
+- If `baseUrl` is empty/omitted, Ancient Claw keeps the default OpenAI behavior (which resolves to `api.openai.com`).
 - For safety, an explicit `compat.supportsDeveloperRole: true` is still overridden on non-native `openai-completions` endpoints.
 
 ## CLI examples
 
 ```bash
-hyperbot onboard --auth-choice opencode-zen
-hyperbot models set opencode/claude-opus-4-6
-hyperbot models list
+ancient-claw onboard --auth-choice opencode-zen
+ancient-claw models set opencode/claude-opus-4-6
+ancient-claw models list
 ```
 
 See also: [/gateway/configuration](/gateway/configuration) for full configuration examples.

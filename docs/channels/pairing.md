@@ -3,13 +3,13 @@ summary: "Pairing overview: approve who can DM you + which nodes can join"
 read_when:
   - Setting up DM access control
   - Pairing a new iOS/Android node
-  - Reviewing HyperBot security posture
+  - Reviewing Ancient Claw security posture
 title: "Pairing"
 ---
 
 # Pairing
 
-“Pairing” is HyperBot’s explicit **owner approval** step.
+“Pairing” is Ancient Claw’s explicit **owner approval** step.
 It is used in two places:
 
 1. **DM pairing** (who is allowed to talk to the bot)
@@ -32,15 +32,15 @@ Pairing codes:
 ### Approve a sender
 
 ```bash
-hyperbot pairing list telegram
-hyperbot pairing approve telegram <CODE>
+ancient-claw pairing list telegram
+ancient-claw pairing approve telegram <CODE>
 ```
 
 Supported channels: `bluebubbles`, `discord`, `feishu`, `googlechat`, `imessage`, `irc`, `line`, `matrix`, `mattermost`, `msteams`, `nextcloud-talk`, `nostr`, `signal`, `slack`, `synology-chat`, `telegram`, `twitch`, `whatsapp`, `zalo`, `zalouser`.
 
 ### Where the state lives
 
-Stored under `~/.hyperbot/credentials/`:
+Stored under `~/.ancient-claw/credentials/`:
 
 - Pending requests: `<channel>-pairing.json`
 - Approved allowlist store:
@@ -65,7 +65,7 @@ If you use the `device-pair` plugin, you can do first-time device pairing entire
 
 1. In Telegram, message your bot: `/pair`
 2. The bot replies with two messages: an instruction message and a separate **setup code** message (easy to copy/paste in Telegram).
-3. On your phone, open the HyperBot iOS app → Settings → Gateway.
+3. On your phone, open the Ancient Claw iOS app → Settings → Gateway.
 4. Paste the setup code and connect.
 5. Back in Telegram: `/pair pending` (review request IDs, role, and scopes), then approve.
 
@@ -79,9 +79,9 @@ Treat the setup code like a password while it is valid.
 ### Approve a node device
 
 ```bash
-hyperbot devices list
-hyperbot devices approve <requestId>
-hyperbot devices reject <requestId>
+ancient-claw devices list
+ancient-claw devices approve <requestId>
+ancient-claw devices reject <requestId>
 ```
 
 If the same device retries with different auth details (for example different
@@ -90,14 +90,14 @@ role/scopes/public key), the previous pending request is superseded and a new
 
 ### Node pairing state storage
 
-Stored under `~/.hyperbot/devices/`:
+Stored under `~/.ancient-claw/devices/`:
 
 - `pending.json` (short-lived; pending requests expire)
 - `paired.json` (paired devices + tokens)
 
 ### Notes
 
-- The legacy `node.pair.*` API (CLI: `hyperbot nodes pending/approve`) is a
+- The legacy `node.pair.*` API (CLI: `ancient-claw nodes pending/approve`) is a
   separate gateway-owned pairing store. WS nodes still require device pairing.
 
 ## Related docs

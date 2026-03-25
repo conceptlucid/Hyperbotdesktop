@@ -1,5 +1,5 @@
 ---
-summary: "CLI reference for `hyperbot secrets` (reload, audit, configure, apply)"
+summary: "CLI reference for `ancient-claw secrets` (reload, audit, configure, apply)"
 read_when:
   - Re-resolving secret refs at runtime
   - Auditing plaintext residues and unresolved refs
@@ -7,9 +7,9 @@ read_when:
 title: "secrets"
 ---
 
-# `hyperbot secrets`
+# `ancient-claw secrets`
 
-Use `hyperbot secrets` to manage SecretRefs and keep the active runtime snapshot healthy.
+Use `ancient-claw secrets` to manage SecretRefs and keep the active runtime snapshot healthy.
 
 Command roles:
 
@@ -21,12 +21,12 @@ Command roles:
 Recommended operator loop:
 
 ```bash
-hyperbot secrets audit --check
-hyperbot secrets configure
-hyperbot secrets apply --from /tmp/hyperbot-secrets-plan.json --dry-run
-hyperbot secrets apply --from /tmp/hyperbot-secrets-plan.json
-hyperbot secrets audit --check
-hyperbot secrets reload
+ancient-claw secrets audit --check
+ancient-claw secrets configure
+ancient-claw secrets apply --from /tmp/ancient-claw-secrets-plan.json --dry-run
+ancient-claw secrets apply --from /tmp/ancient-claw-secrets-plan.json
+ancient-claw secrets audit --check
+ancient-claw secrets reload
 ```
 
 If your plan includes `exec` SecretRefs/providers, pass `--allow-exec` on both dry-run and write apply commands.
@@ -47,8 +47,8 @@ Related:
 Re-resolve secret refs and atomically swap runtime snapshot.
 
 ```bash
-hyperbot secrets reload
-hyperbot secrets reload --json
+ancient-claw secrets reload
+ancient-claw secrets reload --json
 ```
 
 Notes:
@@ -59,11 +59,11 @@ Notes:
 
 ## Audit
 
-Scan HyperBot state for:
+Scan Ancient Claw state for:
 
 - plaintext secret storage
 - unresolved refs
-- precedence drift (`auth-profiles.json` credentials shadowing `hyperbot.json` refs)
+- precedence drift (`auth-profiles.json` credentials shadowing `ancient-claw.json` refs)
 - generated `agents/*/agent/models.json` residues (provider `apiKey` values and sensitive provider headers)
 - legacy residues (legacy auth store entries, OAuth reminders)
 
@@ -72,10 +72,10 @@ Header residue note:
 - Sensitive provider header detection is name-heuristic based (common auth/credential header names and fragments such as `authorization`, `x-api-key`, `token`, `secret`, `password`, and `credential`).
 
 ```bash
-hyperbot secrets audit
-hyperbot secrets audit --check
-hyperbot secrets audit --json
-hyperbot secrets audit --allow-exec
+ancient-claw secrets audit
+ancient-claw secrets audit --check
+ancient-claw secrets audit --json
+ancient-claw secrets audit --allow-exec
 ```
 
 Exit behavior:
@@ -99,13 +99,13 @@ Report shape highlights:
 Build provider and SecretRef changes interactively, run preflight, and optionally apply:
 
 ```bash
-hyperbot secrets configure
-hyperbot secrets configure --plan-out /tmp/hyperbot-secrets-plan.json
-hyperbot secrets configure --apply --yes
-hyperbot secrets configure --providers-only
-hyperbot secrets configure --skip-provider-setup
-hyperbot secrets configure --agent ops
-hyperbot secrets configure --json
+ancient-claw secrets configure
+ancient-claw secrets configure --plan-out /tmp/ancient-claw-secrets-plan.json
+ancient-claw secrets configure --apply --yes
+ancient-claw secrets configure --providers-only
+ancient-claw secrets configure --skip-provider-setup
+ancient-claw secrets configure --agent ops
+ancient-claw secrets configure --json
 ```
 
 Flow:
@@ -125,7 +125,7 @@ Notes:
 
 - Requires an interactive TTY.
 - You cannot combine `--providers-only` with `--skip-provider-setup`.
-- `configure` targets secret-bearing fields in `hyperbot.json` plus `auth-profiles.json` for the selected agent scope.
+- `configure` targets secret-bearing fields in `ancient-claw.json` plus `auth-profiles.json` for the selected agent scope.
 - `configure` supports creating new `auth-profiles.json` mappings directly in the picker flow.
 - Canonical supported surface: [SecretRef Credential Surface](/reference/secretref-credential-surface).
 - It performs preflight resolution before apply.
@@ -139,18 +139,18 @@ Exec provider safety note:
 
 - Homebrew installs often expose symlinked binaries under `/opt/homebrew/bin/*`.
 - Set `allowSymlinkCommand: true` only when needed for trusted package-manager paths, and pair it with `trustedDirs` (for example `["/opt/homebrew"]`).
-- On Windows, if ACL verification is unavailable for a provider path, HyperBot fails closed. For trusted paths only, set `allowInsecurePath: true` on that provider to bypass path security checks.
+- On Windows, if ACL verification is unavailable for a provider path, Ancient Claw fails closed. For trusted paths only, set `allowInsecurePath: true` on that provider to bypass path security checks.
 
 ## Apply a saved plan
 
 Apply or preflight a plan generated previously:
 
 ```bash
-hyperbot secrets apply --from /tmp/hyperbot-secrets-plan.json
-hyperbot secrets apply --from /tmp/hyperbot-secrets-plan.json --allow-exec
-hyperbot secrets apply --from /tmp/hyperbot-secrets-plan.json --dry-run
-hyperbot secrets apply --from /tmp/hyperbot-secrets-plan.json --dry-run --allow-exec
-hyperbot secrets apply --from /tmp/hyperbot-secrets-plan.json --json
+ancient-claw secrets apply --from /tmp/ancient-claw-secrets-plan.json
+ancient-claw secrets apply --from /tmp/ancient-claw-secrets-plan.json --allow-exec
+ancient-claw secrets apply --from /tmp/ancient-claw-secrets-plan.json --dry-run
+ancient-claw secrets apply --from /tmp/ancient-claw-secrets-plan.json --dry-run --allow-exec
+ancient-claw secrets apply --from /tmp/ancient-claw-secrets-plan.json --json
 ```
 
 Exec behavior:
@@ -166,10 +166,10 @@ Plan contract details (allowed target paths, validation rules, and failure seman
 
 What `apply` may update:
 
-- `hyperbot.json` (SecretRef targets + provider upserts/deletes)
+- `ancient-claw.json` (SecretRef targets + provider upserts/deletes)
 - `auth-profiles.json` (provider-target scrubbing)
 - legacy `auth.json` residues
-- `~/.hyperbot/.env` known secret keys whose values were migrated
+- `~/.ancient-claw/.env` known secret keys whose values were migrated
 
 ## Why no rollback backups
 
@@ -180,9 +180,9 @@ Safety comes from strict preflight + atomic-ish apply with best-effort in-memory
 ## Example
 
 ```bash
-hyperbot secrets audit --check
-hyperbot secrets configure
-hyperbot secrets audit --check
+ancient-claw secrets audit --check
+ancient-claw secrets configure
+ancient-claw secrets audit --check
 ```
 
 If `audit --check` still reports plaintext findings, update the remaining reported target paths and rerun audit.

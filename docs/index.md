@@ -1,22 +1,22 @@
 ---
-summary: "HyperBot is a multi-channel gateway for AI agents that runs on any OS."
+summary: "Ancient Claw is a multi-channel gateway for AI agents that runs on any OS."
 read_when:
-  - Introducing HyperBot to newcomers
-title: "HyperBot"
+  - Introducing Ancient Claw to newcomers
+title: "Ancient Claw"
 ---
 
-# HyperBot 🦞
+# Ancient Claw 🦞
 
 <p align="center">
     <img
-        src="/assets/hyperbot-logo-text-dark.png"
-        alt="HyperBot"
+        src="/assets/ancient-claw-logo-text-dark.png"
+        alt="Ancient Claw"
         width="500"
         class="dark:hidden"
     />
     <img
-        src="/assets/hyperbot-logo-text.png"
-        alt="HyperBot"
+        src="/assets/ancient-claw-logo-text.png"
+        alt="Ancient Claw"
         width="500"
         class="hidden dark:block"
     />
@@ -31,19 +31,19 @@ title: "HyperBot"
 
 <Columns>
   <Card title="Get Started" href="/start/getting-started" icon="rocket">
-    Install HyperBot and bring up the Gateway in minutes.
+    Install Ancient Claw and bring up the Gateway in minutes.
   </Card>
   <Card title="Run Onboarding" href="/start/wizard" icon="sparkles">
-    Guided setup with `hyperbot onboard` and pairing flows.
+    Guided setup with `ancient-claw onboard` and pairing flows.
   </Card>
   <Card title="Open the Control UI" href="/web/control-ui" icon="layout-dashboard">
     Launch the browser dashboard for chat, config, and sessions.
   </Card>
 </Columns>
 
-## What is HyperBot?
+## What is Ancient Claw?
 
-HyperBot is a **self-hosted gateway** that connects your favorite chat apps — WhatsApp, Telegram, Discord, iMessage, and more — to AI coding agents like Pi. You run a single Gateway process on your own machine (or a server), and it becomes the bridge between your messaging apps and an always-available AI assistant.
+Ancient Claw is a **self-hosted gateway** that connects your favorite chat apps — WhatsApp, Telegram, Discord, iMessage, and more — to AI coding agents like Pi. You run a single Gateway process on your own machine (or a server), and it becomes the bridge between your messaging apps and an always-available AI assistant.
 
 **Who is it for?** Developers and power users who want a personal AI assistant they can message from anywhere — without giving up control of their data or relying on a hosted service.
 
@@ -96,21 +96,21 @@ The Gateway is the single source of truth for sessions, routing, and channel con
 ## Quick start
 
 <Steps>
-  <Step title="Install HyperBot">
+  <Step title="Install Ancient Claw">
     ```bash
-    npm install -g hyperbot@latest
+    npm install -g ancient-claw@latest
     ```
   </Step>
   <Step title="Onboard and install the service">
     ```bash
-    hyperbot onboard --install-daemon
+    ancient-claw onboard --install-daemon
     ```
   </Step>
   <Step title="Chat">
     Open the Control UI in your browser and send a message:
 
     ```bash
-    hyperbot dashboard
+    ancient-claw dashboard
     ```
 
     Or connect a channel ([Telegram](/channels/telegram) is fastest) and chat from your phone.
@@ -128,14 +128,14 @@ Open the browser Control UI after the Gateway starts.
 - Remote access: [Web surfaces](/web) and [Tailscale](/gateway/tailscale)
 
 <p align="center">
-  <img src="/whatsapp-hyperbot.jpg" alt="HyperBot" width="420" />
+  <img src="/whatsapp-ancient-claw.jpg" alt="Ancient Claw" width="420" />
 </p>
 
 ## Configuration (optional)
 
-Config lives at `~/.hyperbot/hyperbot.json`.
+Config lives at `~/.ancient-claw/ancient-claw.json`.
 
-- If you **do nothing**, HyperBot uses the bundled Pi binary in RPC mode with per-sender sessions.
+- If you **do nothing**, Ancient Claw uses the bundled Pi binary in RPC mode with per-sender sessions.
 - If you want to lock it down, start with `channels.whatsapp.allowFrom` and (for groups) mention rules.
 
 Example:
@@ -148,7 +148,7 @@ Example:
       groups: { "*": { requireMention: true } },
     },
   },
-  messages: { groupChat: { mentionPatterns: ["@hyperbot"] } },
+  messages: { groupChat: { mentionPatterns: ["@ancient-claw"] } },
 }
 ```
 

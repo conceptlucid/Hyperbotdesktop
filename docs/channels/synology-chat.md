@@ -1,7 +1,7 @@
 ---
-summary: "Synology Chat webhook setup and HyperBot config"
+summary: "Synology Chat webhook setup and Ancient Claw config"
 read_when:
-  - Setting up Synology Chat with HyperBot
+  - Setting up Synology Chat with Ancient Claw
   - Debugging Synology Chat webhook routing
 title: "Synology Chat"
 ---
@@ -19,7 +19,7 @@ Synology Chat is plugin-based and not part of the default core channel install.
 Install from a local checkout:
 
 ```bash
-hyperbot plugins install ./extensions/synology-chat
+ancient-claw plugins install ./extensions/synology-chat
 ```
 
 Details: [Plugins](/tools/plugin)
@@ -27,17 +27,17 @@ Details: [Plugins](/tools/plugin)
 ## Quick setup
 
 1. Install and enable the Synology Chat plugin.
-   - `hyperbot onboard` now shows Synology Chat in the same channel setup list as `hyperbot channels add`.
-   - Non-interactive setup: `hyperbot channels add --channel synology-chat --token <token> --url <incoming-webhook-url>`
+   - `ancient-claw onboard` now shows Synology Chat in the same channel setup list as `ancient-claw channels add`.
+   - Non-interactive setup: `ancient-claw channels add --channel synology-chat --token <token> --url <incoming-webhook-url>`
 2. In Synology Chat integrations:
    - Create an incoming webhook and copy its URL.
    - Create an outgoing webhook with your secret token.
-3. Point the outgoing webhook URL to your HyperBot gateway:
+3. Point the outgoing webhook URL to your Ancient Claw gateway:
    - `https://gateway-host/webhook/synology` by default.
    - Or your custom `channels.synology-chat.webhookPath`.
-4. Finish setup in HyperBot.
-   - Guided: `hyperbot onboard`
-   - Direct: `hyperbot channels add --channel synology-chat --token <token> --url <incoming-webhook-url>`
+4. Finish setup in Ancient Claw.
+   - Guided: `ancient-claw onboard`
+   - Direct: `ancient-claw channels add --channel synology-chat --token <token> --url <incoming-webhook-url>`
 5. Restart gateway and send a DM to the Synology Chat bot.
 
 Minimal config:
@@ -81,8 +81,8 @@ Config values override env vars.
 - `dmPolicy: "disabled"` blocks DMs.
 - Reply recipient binding stays on stable numeric `user_id` by default. `channels.synology-chat.dangerouslyAllowNameMatching: true` is break-glass compatibility mode that re-enables mutable username/nickname lookup for reply delivery.
 - Pairing approvals work with:
-  - `hyperbot pairing list synology-chat`
-  - `hyperbot pairing approve synology-chat <CODE>`
+  - `ancient-claw pairing list synology-chat`
+  - `ancient-claw pairing approve synology-chat <CODE>`
 
 ## Outbound delivery
 
@@ -91,8 +91,8 @@ Use numeric Synology Chat user IDs as targets.
 Examples:
 
 ```bash
-hyperbot message send --channel synology-chat --target 123456 --text "Hello from HyperBot"
-hyperbot message send --channel synology-chat --target synology-chat:123456 --text "Hello again"
+ancient-claw message send --channel synology-chat --target 123456 --text "Hello from Ancient Claw"
+ancient-claw message send --channel synology-chat --target synology-chat:123456 --text "Hello again"
 ```
 
 Media sends are supported by URL-based file delivery.
@@ -103,7 +103,7 @@ Multiple Synology Chat accounts are supported under `channels.synology-chat.acco
 Each account can override token, incoming URL, webhook path, DM policy, and limits.
 Direct-message sessions are isolated per account and user, so the same numeric `user_id`
 on two different Synology accounts does not share transcript state.
-Give each enabled account a distinct `webhookPath`. HyperBot now rejects duplicate exact paths
+Give each enabled account a distinct `webhookPath`. Ancient Claw now rejects duplicate exact paths
 and refuses to start named accounts that only inherit a shared webhook path in multi-account setups.
 If you intentionally need legacy inheritance for a named account, set
 `dangerouslyAllowInheritedWebhookPath: true` on that account or at `channels.synology-chat`,

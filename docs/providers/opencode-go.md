@@ -21,9 +21,9 @@ provider id `opencode-go` so upstream per-model routing stays correct.
 ## CLI setup
 
 ```bash
-hyperbot onboard --auth-choice opencode-go
+ancient-claw onboard --auth-choice opencode-go
 # or non-interactive
-hyperbot onboard --opencode-go-api-key "$OPENCODE_API_KEY"
+ancient-claw onboard --opencode-go-api-key "$OPENCODE_API_KEY"
 ```
 
 ## Config snippet
@@ -37,7 +37,7 @@ hyperbot onboard --opencode-go-api-key "$OPENCODE_API_KEY"
 
 ## Routing behavior
 
-HyperBot handles per-model routing automatically when the model ref uses `opencode-go/...`.
+Ancient Claw handles per-model routing automatically when the model ref uses `opencode-go/...`.
 
 ## Notes
 

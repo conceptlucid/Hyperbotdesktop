@@ -2,30 +2,30 @@
 summary: "Integrated browser control service + action commands"
 read_when:
   - Adding agent-controlled browser automation
-  - Debugging why hyperbot is interfering with your own Chrome
+  - Debugging why ancient-claw is interfering with your own Chrome
   - Implementing browser settings + lifecycle in the macOS app
-title: "Browser (HyperBot-managed)"
+title: "Browser (Ancient Claw-managed)"
 ---
 
-# Browser (hyperbot-managed)
+# Browser (ancient-claw-managed)
 
-HyperBot can run a **dedicated Chrome/Brave/Edge/Chromium profile** that the agent controls.
+Ancient Claw can run a **dedicated Chrome/Brave/Edge/Chromium profile** that the agent controls.
 It is isolated from your personal browser and is managed through a small local
 control service inside the Gateway (loopback only).
 
 Beginner view:
 
 - Think of it as a **separate, agent-only browser**.
-- The `hyperbot` profile does **not** touch your personal browser profile.
+- The `ancient-claw` profile does **not** touch your personal browser profile.
 - The agent can **open tabs, read pages, click, and type** in a safe lane.
 - The built-in `user` profile attaches to your real signed-in Chrome session via Chrome MCP.
 
 ## What you get
 
-- A separate browser profile named **hyperbot** (orange accent by default).
+- A separate browser profile named **ancient-claw** (orange accent by default).
 - Deterministic tab control (list/open/focus/close).
 - Agent actions (click/type/drag/select), snapshots, screenshots, PDFs.
-- Optional multi-profile support (`hyperbot`, `work`, `remote`, ...).
+- Optional multi-profile support (`ancient-claw`, `work`, `remote`, ...).
 
 This browser is **not** your daily driver. It is a safe, isolated surface for
 agent automation and verification.
@@ -33,33 +33,33 @@ agent automation and verification.
 ## Quick start
 
 ```bash
-hyperbot browser --browser-profile hyperbot status
-hyperbot browser --browser-profile hyperbot start
-hyperbot browser --browser-profile hyperbot open https://example.com
-hyperbot browser --browser-profile hyperbot snapshot
+ancient-claw browser --browser-profile ancient-claw status
+ancient-claw browser --browser-profile ancient-claw start
+ancient-claw browser --browser-profile ancient-claw open https://example.com
+ancient-claw browser --browser-profile ancient-claw snapshot
 ```
 
 If you get “Browser disabled”, enable it in config (see below) and restart the
 Gateway.
 
-## Profiles: `hyperbot` vs `user`
+## Profiles: `ancient-claw` vs `user`
 
-- `hyperbot`: managed, isolated browser (no extension required).
+- `ancient-claw`: managed, isolated browser (no extension required).
 - `user`: built-in Chrome MCP attach profile for your **real signed-in Chrome**
   session.
 
 For agent browser tool calls:
 
-- Default: use the isolated `hyperbot` browser.
+- Default: use the isolated `ancient-claw` browser.
 - Prefer `profile="user"` when existing logged-in sessions matter and the user
   is at the computer to click/approve any attach prompt.
 - `profile` is the explicit override when you want a specific browser mode.
 
-Set `browser.defaultProfile: "hyperbot"` if you want managed mode by default.
+Set `browser.defaultProfile: "ancient-claw"` if you want managed mode by default.
 
 ## Configuration
 
-Browser settings live in `~/.hyperbot/hyperbot.json`.
+Browser settings live in `~/.ancient-claw/ancient-claw.json`.
 
 ```json5
 {
@@ -74,14 +74,14 @@ Browser settings live in `~/.hyperbot/hyperbot.json`.
     // cdpUrl: "http://127.0.0.1:18792", // legacy single-profile override
     remoteCdpTimeoutMs: 1500, // remote CDP HTTP timeout (ms)
     remoteCdpHandshakeTimeoutMs: 3000, // remote CDP WebSocket handshake timeout (ms)
-    defaultProfile: "hyperbot",
+    defaultProfile: "ancient-claw",
     color: "#FF4500",
     headless: false,
     noSandbox: false,
     attachOnly: false,
     executablePath: "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
     profiles: {
-      hyperbot: { cdpPort: 18800, color: "#FF4500" },
+      ancient-claw: { cdpPort: 18800, color: "#FF4500" },
       work: { cdpPort: 18801, color: "#0066CC" },
       user: {
         driver: "existing-session",
@@ -115,9 +115,9 @@ Notes:
 - `browser.ssrfPolicy.allowPrivateNetwork` remains supported as a legacy alias for compatibility.
 - `attachOnly: true` means “never launch a local browser; only attach if it is already running.”
 - `color` + per-profile `color` tint the browser UI so you can see which profile is active.
-- Default profile is `hyperbot` (HyperBot-managed standalone browser). Use `defaultProfile: "user"` to opt into the signed-in user browser.
+- Default profile is `ancient-claw` (Ancient Claw-managed standalone browser). Use `defaultProfile: "user"` to opt into the signed-in user browser.
 - Auto-detect order: system default browser if Chromium-based; otherwise Chrome → Brave → Edge → Chromium → Chrome Canary.
-- Local `hyperbot` profiles auto-assign `cdpPort`/`cdpUrl` — set those only for remote CDP.
+- Local `ancient-claw` profiles auto-assign `cdpPort`/`cdpUrl` — set those only for remote CDP.
 - `driver: "existing-session"` uses Chrome DevTools MCP instead of raw CDP. Do
   not set `cdpUrl` for that driver.
 - Set `browser.profiles.<name>.userDataDir` when an existing-session profile
@@ -126,13 +126,13 @@ Notes:
 ## Use Brave (or another Chromium-based browser)
 
 If your **system default** browser is Chromium-based (Chrome/Brave/Edge/etc),
-HyperBot uses it automatically. Set `browser.executablePath` to override
+Ancient Claw uses it automatically. Set `browser.executablePath` to override
 auto-detection:
 
 CLI example:
 
 ```bash
-hyperbot config set browser.executablePath "/usr/bin/google-chrome"
+ancient-claw config set browser.executablePath "/usr/bin/google-chrome"
 ```
 
 ```json5
@@ -163,20 +163,20 @@ hyperbot config set browser.executablePath "/usr/bin/google-chrome"
 - **Local control (default):** the Gateway starts the loopback control service and can launch a local browser.
 - **Remote control (node host):** run a node host on the machine that has the browser; the Gateway proxies browser actions to it.
 - **Remote CDP:** set `browser.profiles.<name>.cdpUrl` (or `browser.cdpUrl`) to
-  attach to a remote Chromium-based browser. In this case, HyperBot will not launch a local browser.
+  attach to a remote Chromium-based browser. In this case, Ancient Claw will not launch a local browser.
 
 Remote CDP URLs can include auth:
 
 - Query tokens (e.g., `https://provider.example?token=<token>`)
 - HTTP Basic auth (e.g., `https://user:pass@provider.example`)
 
-HyperBot preserves the auth when calling `/json/*` endpoints and when connecting
+Ancient Claw preserves the auth when calling `/json/*` endpoints and when connecting
 to the CDP WebSocket. Prefer environment variables or secrets managers for
 tokens instead of committing them to config files.
 
 ## Node browser proxy (zero-config default)
 
-If you run a **node host** on the machine that has your browser, HyperBot can
+If you run a **node host** on the machine that has your browser, Ancient Claw can
 auto-route browser tool calls to that node without any extra browser config.
 This is the default path for remote gateways.
 
@@ -185,7 +185,7 @@ Notes:
 - The node host exposes its local browser control server via a **proxy command**.
 - Profiles come from the node’s own `browser.profiles` config (same as local).
 - `nodeHost.browserProxy.allowProfiles` is optional. Leave it empty for the legacy/default behavior: all configured profiles remain reachable through the proxy, including profile create/delete routes.
-- If you set `nodeHost.browserProxy.allowProfiles`, HyperBot treats it as a least-privilege boundary: only allowlisted profiles can be targeted, and persistent profile create/delete routes are blocked on the proxy surface.
+- If you set `nodeHost.browserProxy.allowProfiles`, Ancient Claw treats it as a least-privilege boundary: only allowlisted profiles can be targeted, and persistent profile create/delete routes are blocked on the proxy surface.
 - Disable if you don’t want it:
   - On the node: `nodeHost.browserProxy.enabled=false`
   - On the gateway: `gateway.nodes.browser.mode="off"`
@@ -193,7 +193,7 @@ Notes:
 ## Browserless (hosted remote CDP)
 
 [Browserless](https://browserless.io) is a hosted Chromium service that exposes
-CDP endpoints over HTTPS. You can point an HyperBot browser profile at a
+CDP endpoints over HTTPS. You can point an Ancient Claw browser profile at a
 Browserless region endpoint and authenticate with your API key.
 
 Example:
@@ -223,11 +223,11 @@ Notes:
 ## Direct WebSocket CDP providers
 
 Some hosted browser services expose a **direct WebSocket** endpoint rather than
-the standard HTTP-based CDP discovery (`/json/version`). HyperBot supports both:
+the standard HTTP-based CDP discovery (`/json/version`). Ancient Claw supports both:
 
-- **HTTP(S) endpoints** (e.g. Browserless) — HyperBot calls `/json/version` to
+- **HTTP(S) endpoints** (e.g. Browserless) — Ancient Claw calls `/json/version` to
   discover the WebSocket debugger URL, then connects.
-- **WebSocket endpoints** (`ws://` / `wss://`) — HyperBot connects directly,
+- **WebSocket endpoints** (`ws://` / `wss://`) — Ancient Claw connects directly,
   skipping `/json/version`. Use this for services like
   [Browserbase](https://www.browserbase.com) or any provider that hands you a
   WebSocket URL.
@@ -272,7 +272,7 @@ Notes:
 Key ideas:
 
 - Browser control is loopback-only; access flows through the Gateway’s auth or node pairing.
-- If browser control is enabled and no auth is configured, HyperBot auto-generates `gateway.auth.token` on startup and persists it to config.
+- If browser control is enabled and no auth is configured, Ancient Claw auto-generates `gateway.auth.token` on startup and persists it to config.
 - Keep the Gateway and any node hosts on a private network (Tailscale); avoid public exposure.
 - Treat remote CDP URLs/tokens as secrets; prefer env vars or a secrets manager.
 
@@ -283,15 +283,15 @@ Remote CDP tips:
 
 ## Profiles (multi-browser)
 
-HyperBot supports multiple named profiles (routing configs). Profiles can be:
+Ancient Claw supports multiple named profiles (routing configs). Profiles can be:
 
-- **hyperbot-managed**: a dedicated Chromium-based browser instance with its own user data directory + CDP port
+- **ancient-claw-managed**: a dedicated Chromium-based browser instance with its own user data directory + CDP port
 - **remote**: an explicit CDP URL (Chromium-based browser running elsewhere)
 - **existing session**: your existing Chrome profile via Chrome DevTools MCP auto-connect
 
 Defaults:
 
-- The `hyperbot` profile is auto-created if missing.
+- The `ancient-claw` profile is auto-created if missing.
 - The `user` profile is built-in for Chrome MCP existing-session attach.
 - Existing-session profiles are opt-in beyond `user`; create them with `--driver existing-session`.
 - Local CDP ports allocate from **18800–18899** by default.
@@ -301,7 +301,7 @@ All control endpoints accept `?profile=<name>`; the CLI uses `--browser-profile`
 
 ## Existing-session via Chrome DevTools MCP
 
-HyperBot can also attach to a running Chromium-based browser profile through the
+Ancient Claw can also attach to a running Chromium-based browser profile through the
 official Chrome DevTools MCP server. This reuses the tabs and login state
 already open in that browser profile.
 
@@ -343,7 +343,7 @@ Then in the matching browser:
 
 1. Open that browser's inspect page for remote debugging.
 2. Enable remote debugging.
-3. Keep the browser running and approve the connection prompt when HyperBot attaches.
+3. Keep the browser running and approve the connection prompt when Ancient Claw attaches.
 
 Common inspect pages:
 
@@ -354,10 +354,10 @@ Common inspect pages:
 Live attach smoke test:
 
 ```bash
-hyperbot browser --browser-profile user start
-hyperbot browser --browser-profile user status
-hyperbot browser --browser-profile user tabs
-hyperbot browser --browser-profile user snapshot --format ai
+ancient-claw browser --browser-profile user start
+ancient-claw browser --browser-profile user status
+ancient-claw browser --browser-profile user tabs
+ancient-claw browser --browser-profile user snapshot --format ai
 ```
 
 What success looks like:
@@ -373,7 +373,7 @@ What to check if attach does not work:
 - the target Chromium-based browser is version `144+`
 - remote debugging is enabled in that browser's inspect page
 - the browser showed and you accepted the attach consent prompt
-- `hyperbot doctor` migrates old extension-based browser config and checks that
+- `ancient-claw doctor` migrates old extension-based browser config and checks that
   Chrome is installed locally for default auto-connect profiles, but it cannot
   enable browser-side remote debugging for you
 
@@ -387,12 +387,12 @@ Agent use:
 
 Notes:
 
-- This path is higher-risk than the isolated `hyperbot` profile because it can
+- This path is higher-risk than the isolated `ancient-claw` profile because it can
   act inside your signed-in browser session.
-- HyperBot does not launch the browser for this driver; it attaches to an
+- Ancient Claw does not launch the browser for this driver; it attaches to an
   existing session only.
-- HyperBot uses the official Chrome DevTools MCP `--autoConnect` flow here. If
-  `userDataDir` is set, HyperBot passes it through to target that explicit
+- Ancient Claw uses the official Chrome DevTools MCP `--autoConnect` flow here. If
+  `userDataDir` is set, Ancient Claw passes it through to target that explicit
   Chromium user data directory.
 - Existing-session screenshots support page captures and `--ref` element
   captures from snapshots, but not CSS `--element` selectors.
@@ -411,7 +411,7 @@ Notes:
 
 ## Browser selection
 
-When launching locally, HyperBot picks the first available:
+When launching locally, Ancient Claw picks the first available:
 
 1. Chrome
 2. Brave
@@ -449,17 +449,17 @@ All endpoints accept `?profile=<name>`.
 If gateway auth is configured, browser HTTP routes require auth too:
 
 - `Authorization: Bearer <gateway token>`
-- `x-hyperbot-password: <gateway password>` or HTTP Basic auth with that password
+- `x-ancient-claw-password: <gateway password>` or HTTP Basic auth with that password
 
 ### Playwright requirement
 
 Some features (navigate/act/AI snapshot/role snapshot, element screenshots, PDF) require
 Playwright. If Playwright isn’t installed, those endpoints return a clear 501
-error. ARIA snapshots and basic screenshots still work for hyperbot-managed Chrome.
+error. ARIA snapshots and basic screenshots still work for ancient-claw-managed Chrome.
 
 If you see `Playwright is not available in this gateway build`, install the full
 Playwright package (not `playwright-core`) and restart the gateway, or reinstall
-HyperBot with browser support.
+Ancient Claw with browser support.
 
 #### Docker Playwright install
 
@@ -467,7 +467,7 @@ If your Gateway runs in Docker, avoid `npx playwright` (npm override conflicts).
 Use the bundled CLI instead:
 
 ```bash
-docker compose run --rm hyperbot-cli \
+docker compose run --rm ancient-claw-cli \
   node /app/node_modules/playwright-core/cli.js install chromium
 ```
 
@@ -495,89 +495,89 @@ All commands also accept `--json` for machine-readable output (stable payloads).
 
 Basics:
 
-- `hyperbot browser status`
-- `hyperbot browser start`
-- `hyperbot browser stop`
-- `hyperbot browser tabs`
-- `hyperbot browser tab`
-- `hyperbot browser tab new`
-- `hyperbot browser tab select 2`
-- `hyperbot browser tab close 2`
-- `hyperbot browser open https://example.com`
-- `hyperbot browser focus abcd1234`
-- `hyperbot browser close abcd1234`
+- `ancient-claw browser status`
+- `ancient-claw browser start`
+- `ancient-claw browser stop`
+- `ancient-claw browser tabs`
+- `ancient-claw browser tab`
+- `ancient-claw browser tab new`
+- `ancient-claw browser tab select 2`
+- `ancient-claw browser tab close 2`
+- `ancient-claw browser open https://example.com`
+- `ancient-claw browser focus abcd1234`
+- `ancient-claw browser close abcd1234`
 
 Inspection:
 
-- `hyperbot browser screenshot`
-- `hyperbot browser screenshot --full-page`
-- `hyperbot browser screenshot --ref 12`
-- `hyperbot browser screenshot --ref e12`
-- `hyperbot browser snapshot`
-- `hyperbot browser snapshot --format aria --limit 200`
-- `hyperbot browser snapshot --interactive --compact --depth 6`
-- `hyperbot browser snapshot --efficient`
-- `hyperbot browser snapshot --labels`
-- `hyperbot browser snapshot --selector "#main" --interactive`
-- `hyperbot browser snapshot --frame "iframe#main" --interactive`
-- `hyperbot browser console --level error`
-- `hyperbot browser errors --clear`
-- `hyperbot browser requests --filter api --clear`
-- `hyperbot browser pdf`
-- `hyperbot browser responsebody "**/api" --max-chars 5000`
+- `ancient-claw browser screenshot`
+- `ancient-claw browser screenshot --full-page`
+- `ancient-claw browser screenshot --ref 12`
+- `ancient-claw browser screenshot --ref e12`
+- `ancient-claw browser snapshot`
+- `ancient-claw browser snapshot --format aria --limit 200`
+- `ancient-claw browser snapshot --interactive --compact --depth 6`
+- `ancient-claw browser snapshot --efficient`
+- `ancient-claw browser snapshot --labels`
+- `ancient-claw browser snapshot --selector "#main" --interactive`
+- `ancient-claw browser snapshot --frame "iframe#main" --interactive`
+- `ancient-claw browser console --level error`
+- `ancient-claw browser errors --clear`
+- `ancient-claw browser requests --filter api --clear`
+- `ancient-claw browser pdf`
+- `ancient-claw browser responsebody "**/api" --max-chars 5000`
 
 Actions:
 
-- `hyperbot browser navigate https://example.com`
-- `hyperbot browser resize 1280 720`
-- `hyperbot browser click 12 --double`
-- `hyperbot browser click e12 --double`
-- `hyperbot browser type 23 "hello" --submit`
-- `hyperbot browser press Enter`
-- `hyperbot browser hover 44`
-- `hyperbot browser scrollintoview e12`
-- `hyperbot browser drag 10 11`
-- `hyperbot browser select 9 OptionA OptionB`
-- `hyperbot browser download e12 report.pdf`
-- `hyperbot browser waitfordownload report.pdf`
-- `hyperbot browser upload /tmp/hyperbot/uploads/file.pdf`
-- `hyperbot browser fill --fields '[{"ref":"1","type":"text","value":"Ada"}]'`
-- `hyperbot browser dialog --accept`
-- `hyperbot browser wait --text "Done"`
-- `hyperbot browser wait "#main" --url "**/dash" --load networkidle --fn "window.ready===true"`
-- `hyperbot browser evaluate --fn '(el) => el.textContent' --ref 7`
-- `hyperbot browser highlight e12`
-- `hyperbot browser trace start`
-- `hyperbot browser trace stop`
+- `ancient-claw browser navigate https://example.com`
+- `ancient-claw browser resize 1280 720`
+- `ancient-claw browser click 12 --double`
+- `ancient-claw browser click e12 --double`
+- `ancient-claw browser type 23 "hello" --submit`
+- `ancient-claw browser press Enter`
+- `ancient-claw browser hover 44`
+- `ancient-claw browser scrollintoview e12`
+- `ancient-claw browser drag 10 11`
+- `ancient-claw browser select 9 OptionA OptionB`
+- `ancient-claw browser download e12 report.pdf`
+- `ancient-claw browser waitfordownload report.pdf`
+- `ancient-claw browser upload /tmp/ancient-claw/uploads/file.pdf`
+- `ancient-claw browser fill --fields '[{"ref":"1","type":"text","value":"Ada"}]'`
+- `ancient-claw browser dialog --accept`
+- `ancient-claw browser wait --text "Done"`
+- `ancient-claw browser wait "#main" --url "**/dash" --load networkidle --fn "window.ready===true"`
+- `ancient-claw browser evaluate --fn '(el) => el.textContent' --ref 7`
+- `ancient-claw browser highlight e12`
+- `ancient-claw browser trace start`
+- `ancient-claw browser trace stop`
 
 State:
 
-- `hyperbot browser cookies`
-- `hyperbot browser cookies set session abc123 --url "https://example.com"`
-- `hyperbot browser cookies clear`
-- `hyperbot browser storage local get`
-- `hyperbot browser storage local set theme dark`
-- `hyperbot browser storage session clear`
-- `hyperbot browser set offline on`
-- `hyperbot browser set headers --headers-json '{"X-Debug":"1"}'`
-- `hyperbot browser set credentials user pass`
-- `hyperbot browser set credentials --clear`
-- `hyperbot browser set geo 37.7749 -122.4194 --origin "https://example.com"`
-- `hyperbot browser set geo --clear`
-- `hyperbot browser set media dark`
-- `hyperbot browser set timezone America/New_York`
-- `hyperbot browser set locale en-US`
-- `hyperbot browser set device "iPhone 14"`
+- `ancient-claw browser cookies`
+- `ancient-claw browser cookies set session abc123 --url "https://example.com"`
+- `ancient-claw browser cookies clear`
+- `ancient-claw browser storage local get`
+- `ancient-claw browser storage local set theme dark`
+- `ancient-claw browser storage session clear`
+- `ancient-claw browser set offline on`
+- `ancient-claw browser set headers --headers-json '{"X-Debug":"1"}'`
+- `ancient-claw browser set credentials user pass`
+- `ancient-claw browser set credentials --clear`
+- `ancient-claw browser set geo 37.7749 -122.4194 --origin "https://example.com"`
+- `ancient-claw browser set geo --clear`
+- `ancient-claw browser set media dark`
+- `ancient-claw browser set timezone America/New_York`
+- `ancient-claw browser set locale en-US`
+- `ancient-claw browser set device "iPhone 14"`
 
 Notes:
 
 - `upload` and `dialog` are **arming** calls; run them before the click/press
   that triggers the chooser/dialog.
-- Download and trace output paths are constrained to HyperBot temp roots:
-  - traces: `/tmp/hyperbot` (fallback: `${os.tmpdir()}/hyperbot`)
-  - downloads: `/tmp/hyperbot/downloads` (fallback: `${os.tmpdir()}/hyperbot/downloads`)
-- Upload paths are constrained to an HyperBot temp uploads root:
-  - uploads: `/tmp/hyperbot/uploads` (fallback: `${os.tmpdir()}/hyperbot/uploads`)
+- Download and trace output paths are constrained to Ancient Claw temp roots:
+  - traces: `/tmp/ancient-claw` (fallback: `${os.tmpdir()}/ancient-claw`)
+  - downloads: `/tmp/ancient-claw/downloads` (fallback: `${os.tmpdir()}/ancient-claw/downloads`)
+- Upload paths are constrained to an Ancient Claw temp uploads root:
+  - uploads: `/tmp/ancient-claw/uploads` (fallback: `${os.tmpdir()}/ancient-claw/uploads`)
 - `upload` can also set file inputs directly via `--input-ref` or `--element`.
 - `snapshot`:
   - `--format ai` (default when Playwright is installed): returns an AI snapshot with numeric refs (`aria-ref="<n>"`).
@@ -593,16 +593,16 @@ Notes:
 
 ## Snapshots and refs
 
-HyperBot supports two “snapshot” styles:
+Ancient Claw supports two “snapshot” styles:
 
-- **AI snapshot (numeric refs)**: `hyperbot browser snapshot` (default; `--format ai`)
+- **AI snapshot (numeric refs)**: `ancient-claw browser snapshot` (default; `--format ai`)
   - Output: a text snapshot that includes numeric refs.
-  - Actions: `hyperbot browser click 12`, `hyperbot browser type 23 "hello"`.
+  - Actions: `ancient-claw browser click 12`, `ancient-claw browser type 23 "hello"`.
   - Internally, the ref is resolved via Playwright’s `aria-ref`.
 
-- **Role snapshot (role refs like `e12`)**: `hyperbot browser snapshot --interactive` (or `--compact`, `--depth`, `--selector`, `--frame`)
+- **Role snapshot (role refs like `e12`)**: `ancient-claw browser snapshot --interactive` (or `--compact`, `--depth`, `--selector`, `--frame`)
   - Output: a role-based list/tree with `[ref=e12]` (and optional `[nth=1]`).
-  - Actions: `hyperbot browser click e12`, `hyperbot browser highlight e12`.
+  - Actions: `ancient-claw browser click e12`, `ancient-claw browser highlight e12`.
   - Internally, the ref is resolved via `getByRole(...)` (plus `nth()` for duplicates).
   - Add `--labels` to include a viewport screenshot with overlayed `e12` labels.
 
@@ -616,18 +616,18 @@ Ref behavior:
 You can wait on more than just time/text:
 
 - Wait for URL (globs supported by Playwright):
-  - `hyperbot browser wait --url "**/dash"`
+  - `ancient-claw browser wait --url "**/dash"`
 - Wait for load state:
-  - `hyperbot browser wait --load networkidle`
+  - `ancient-claw browser wait --load networkidle`
 - Wait for a JS predicate:
-  - `hyperbot browser wait --fn "window.ready===true"`
+  - `ancient-claw browser wait --fn "window.ready===true"`
 - Wait for a selector to become visible:
-  - `hyperbot browser wait "#main"`
+  - `ancient-claw browser wait "#main"`
 
 These can be combined:
 
 ```bash
-hyperbot browser wait "#main" \
+ancient-claw browser wait "#main" \
   --url "**/dash" \
   --load networkidle \
   --fn "window.ready===true" \
@@ -638,16 +638,16 @@ hyperbot browser wait "#main" \
 
 When an action fails (e.g. “not visible”, “strict mode violation”, “covered”):
 
-1. `hyperbot browser snapshot --interactive`
+1. `ancient-claw browser snapshot --interactive`
 2. Use `click <ref>` / `type <ref>` (prefer role refs in interactive mode)
-3. If it still fails: `hyperbot browser highlight <ref>` to see what Playwright is targeting
+3. If it still fails: `ancient-claw browser highlight <ref>` to see what Playwright is targeting
 4. If the page behaves oddly:
-   - `hyperbot browser errors --clear`
-   - `hyperbot browser requests --filter api --clear`
+   - `ancient-claw browser errors --clear`
+   - `ancient-claw browser requests --filter api --clear`
 5. For deep debugging: record a trace:
-   - `hyperbot browser trace start`
+   - `ancient-claw browser trace start`
    - reproduce the issue
-   - `hyperbot browser trace stop` (prints `TRACE:<path>`)
+   - `ancient-claw browser trace stop` (prints `TRACE:<path>`)
 
 ## JSON output
 
@@ -656,10 +656,10 @@ When an action fails (e.g. “not visible”, “strict mode violation”, “co
 Examples:
 
 ```bash
-hyperbot browser status --json
-hyperbot browser snapshot --interactive --json
-hyperbot browser requests --filter api --json
-hyperbot browser cookies --json
+ancient-claw browser status --json
+ancient-claw browser snapshot --interactive --json
+ancient-claw browser requests --filter api --json
+ancient-claw browser cookies --json
 ```
 
 Role snapshots in JSON include `refs` plus a small `stats` block (lines/chars/refs/interactive) so tools can reason about payload size and density.
@@ -682,8 +682,8 @@ These are useful for “make the site behave like X” workflows:
 
 ## Security & privacy
 
-- The hyperbot browser profile may contain logged-in sessions; treat it as sensitive.
-- `browser act kind=evaluate` / `hyperbot browser evaluate` and `wait --fn`
+- The ancient-claw browser profile may contain logged-in sessions; treat it as sensitive.
+- `browser act kind=evaluate` / `ancient-claw browser evaluate` and `wait --fn`
   execute arbitrary JavaScript in the page context. Prompt injection can steer
   this. Disable it with `browser.evaluateEnabled=false` if you do not need it.
 - For logins and anti-bot notes (X/Twitter, etc.), see [Browser login + X/Twitter posting](/tools/browser-login).
@@ -724,7 +724,7 @@ How it maps:
 - `browser act` uses the snapshot `ref` IDs to click/type/drag/select.
 - `browser screenshot` captures pixels (full page or element).
 - `browser` accepts:
-  - `profile` to choose a named browser profile (hyperbot, chrome, or remote CDP).
+  - `profile` to choose a named browser profile (ancient-claw, chrome, or remote CDP).
   - `target` (`sandbox` | `host` | `node`) to select where the browser lives.
   - In sandboxed sessions, `target: "host"` requires `agents.defaults.sandbox.browser.allowHostControl=true`.
   - If `target` is omitted: sandboxed sessions default to `sandbox`, non-sandbox sessions default to `host`.

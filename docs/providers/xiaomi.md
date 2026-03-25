@@ -1,14 +1,14 @@
 ---
-summary: "Use Xiaomi MiMo models with HyperBot"
+summary: "Use Xiaomi MiMo models with Ancient Claw"
 read_when:
-  - You want Xiaomi MiMo models in HyperBot
+  - You want Xiaomi MiMo models in Ancient Claw
   - You need XIAOMI_API_KEY setup
 title: "Xiaomi MiMo"
 ---
 
 # Xiaomi MiMo
 
-Xiaomi MiMo is the API platform for **MiMo** models. HyperBot uses the Xiaomi
+Xiaomi MiMo is the API platform for **MiMo** models. Ancient Claw uses the Xiaomi
 OpenAI-compatible endpoint with API-key authentication. Create your API key in the
 [Xiaomi MiMo console](https://platform.xiaomimimo.com/#/console/api-keys), then configure the
 bundled `xiaomi` provider with that key.
@@ -25,9 +25,9 @@ bundled `xiaomi` provider with that key.
 ## CLI setup
 
 ```bash
-hyperbot onboard --auth-choice xiaomi-api-key
+ancient-claw onboard --auth-choice xiaomi-api-key
 # or non-interactive
-hyperbot onboard --auth-choice xiaomi-api-key --xiaomi-api-key "$XIAOMI_API_KEY"
+ancient-claw onboard --auth-choice xiaomi-api-key --xiaomi-api-key "$XIAOMI_API_KEY"
 ```
 
 ## Config snippet

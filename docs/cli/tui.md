@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `hyperbot tui` (terminal UI connected to the Gateway)"
+summary: "CLI reference for `ancient-claw tui` (terminal UI connected to the Gateway)"
 read_when:
   - You want a terminal UI for the Gateway (remote-friendly)
   - You want to pass url/token/session from scripts
 title: "tui"
 ---
 
-# `hyperbot tui`
+# `ancient-claw tui`
 
 Open the terminal UI connected to the Gateway.
 
@@ -22,9 +22,9 @@ Notes:
 ## Examples
 
 ```bash
-hyperbot tui
-hyperbot tui --url ws://127.0.0.1:18789 --token <token>
-hyperbot tui --session main --deliver
+ancient-claw tui
+ancient-claw tui --url ws://127.0.0.1:18789 --token <token>
+ancient-claw tui --session main --deliver
 # when run inside an agent workspace, infers that agent automatically
-hyperbot tui --session bugfix
+ancient-claw tui --session bugfix
 ```

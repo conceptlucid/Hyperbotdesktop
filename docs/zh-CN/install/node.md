@@ -1,5 +1,5 @@
 ---
-summary: Node.js 安装与配置（HyperBot 版本要求、安装方式与 PATH 排错）
+summary: Node.js 安装与配置（Ancient Claw 版本要求、安装方式与 PATH 排错）
 title: Node.js
 ---
 

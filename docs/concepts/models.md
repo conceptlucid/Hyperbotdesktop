@@ -15,7 +15,7 @@ Quick provider overview + examples: [/concepts/model-providers](/concepts/model-
 
 ## How model selection works
 
-HyperBot selects models in this order:
+Ancient Claw selects models in this order:
 
 1. **Primary** model (`agents.defaults.model.primary` or `agents.defaults.model`).
 2. **Fallbacks** in `agents.defaults.model.fallbacks` (in order).
@@ -24,7 +24,7 @@ HyperBot selects models in this order:
 
 Related:
 
-- `agents.defaults.models` is the allowlist/catalog of models HyperBot can use (plus aliases).
+- `agents.defaults.models` is the allowlist/catalog of models Ancient Claw can use (plus aliases).
 - `agents.defaults.imageModel` is used **only when** the primary model can’t accept images.
 - `agents.defaults.imageGenerationModel` is used by the shared image-generation capability. If omitted, `image_generate` can still infer a provider default from compatible auth-backed image-generation plugins. If you set a specific provider/model, also configure that provider's auth/API key.
 - Per-agent defaults can override `agents.defaults.model` via `agents.list[].model` plus bindings (see [/concepts/multi-agent](/concepts/multi-agent)).
@@ -40,7 +40,7 @@ Related:
 If you don’t want to hand-edit config, run onboarding:
 
 ```bash
-hyperbot onboard
+ancient-claw onboard
 ```
 
 It can set up model + auth for common providers, including **OpenAI Code (Codex)
@@ -64,7 +64,7 @@ Provider configuration examples (including OpenCode) live in
 
 If `agents.defaults.models` is set, it becomes the **allowlist** for `/model` and for
 session overrides. When a user selects a model that isn’t in that allowlist,
-HyperBot returns:
+Ancient Claw returns:
 
 ```
 Model "provider/model" is not allowed. Use /model to list available models.
@@ -111,34 +111,34 @@ Notes:
 - `/model status` is the detailed view (auth candidates and, when configured, provider endpoint `baseUrl` + `api` mode).
 - Model refs are parsed by splitting on the **first** `/`. Use `provider/model` when typing `/model <ref>`.
 - If the model ID itself contains `/` (OpenRouter-style), you must include the provider prefix (example: `/model openrouter/moonshotai/kimi-k2`).
-- If you omit the provider, HyperBot treats the input as an alias or a model for the **default provider** (only works when there is no `/` in the model ID).
+- If you omit the provider, Ancient Claw treats the input as an alias or a model for the **default provider** (only works when there is no `/` in the model ID).
 
 Full command behavior/config: [Slash commands](/tools/slash-commands).
 
 ## CLI commands
 
 ```bash
-hyperbot models list
-hyperbot models status
-hyperbot models set <provider/model>
-hyperbot models set-image <provider/model>
+ancient-claw models list
+ancient-claw models status
+ancient-claw models set <provider/model>
+ancient-claw models set-image <provider/model>
 
-hyperbot models aliases list
-hyperbot models aliases add <alias> <provider/model>
-hyperbot models aliases remove <alias>
+ancient-claw models aliases list
+ancient-claw models aliases add <alias> <provider/model>
+ancient-claw models aliases remove <alias>
 
-hyperbot models fallbacks list
-hyperbot models fallbacks add <provider/model>
-hyperbot models fallbacks remove <provider/model>
-hyperbot models fallbacks clear
+ancient-claw models fallbacks list
+ancient-claw models fallbacks add <provider/model>
+ancient-claw models fallbacks remove <provider/model>
+ancient-claw models fallbacks clear
 
-hyperbot models image-fallbacks list
-hyperbot models image-fallbacks add <provider/model>
-hyperbot models image-fallbacks remove <provider/model>
-hyperbot models image-fallbacks clear
+ancient-claw models image-fallbacks list
+ancient-claw models image-fallbacks add <provider/model>
+ancient-claw models image-fallbacks remove <provider/model>
+ancient-claw models image-fallbacks clear
 ```
 
-`hyperbot models` (no subcommand) is a shortcut for `models status`.
+`ancient-claw models` (no subcommand) is a shortcut for `models status`.
 
 ### `models list`
 
@@ -168,12 +168,12 @@ Example (Anthropic setup-token):
 
 ```bash
 claude setup-token
-hyperbot models status
+ancient-claw models status
 ```
 
 ## Scanning (OpenRouter free models)
 
-`hyperbot models scan` inspects OpenRouter’s **free model catalog** and can
+`ancient-claw models scan` inspects OpenRouter’s **free model catalog** and can
 optionally probe models for tool and image support.
 
 Key flags:
@@ -209,7 +209,7 @@ mode, pass `--yes` to accept defaults.
 ## Models registry (`models.json`)
 
 Custom providers in `models.providers` are written into `models.json` under the
-agent directory (default `~/.hyperbot/agents/<agentId>/agent/models.json`). This file
+agent directory (default `~/.ancient-claw/agents/<agentId>/agent/models.json`). This file
 is merged by default unless `models.mode` is set to `replace`.
 
 Merge mode precedence for matching provider IDs:
@@ -221,5 +221,5 @@ Merge mode precedence for matching provider IDs:
 - Empty or missing agent `apiKey`/`baseUrl` fall back to config `models.providers`.
 - Other provider fields are refreshed from config and normalized catalog data.
 
-Marker persistence is source-authoritative: HyperBot writes markers from the active source config snapshot (pre-resolution), not from resolved runtime secret values.
-This applies whenever HyperBot regenerates `models.json`, including command-driven paths like `hyperbot agent`.
+Marker persistence is source-authoritative: Ancient Claw writes markers from the active source config snapshot (pre-resolution), not from resolved runtime secret values.
+This applies whenever Ancient Claw regenerates `models.json`, including command-driven paths like `ancient-claw agent`.

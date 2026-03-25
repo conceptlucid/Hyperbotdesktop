@@ -9,7 +9,7 @@ title: "DuckDuckGo Search"
 
 # DuckDuckGo Search
 
-HyperBot supports DuckDuckGo as a **key-free** `web_search` provider. No API
+Ancient Claw supports DuckDuckGo as a **key-free** `web_search` provider. No API
 key or account is required.
 
 <Warning>
@@ -25,7 +25,7 @@ No API key needed — just set DuckDuckGo as your provider:
 <Steps>
   <Step title="Configure">
     ```bash
-    hyperbot configure --section web
+    ancient-claw configure --section web
     # Select "duckduckgo" as the provider
     ```
   </Step>

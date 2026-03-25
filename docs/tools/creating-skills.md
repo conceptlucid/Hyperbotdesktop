@@ -20,7 +20,7 @@ For how skills are loaded and prioritized, see [Skills](/tools/skills).
     Skills live in your workspace. Create a new folder:
 
     ```bash
-    mkdir -p ~/.hyperbot/workspace/skills/hello-world
+    mkdir -p ~/.ancient-claw/workspace/skills/hello-world
     ```
 
   </Step>
@@ -51,20 +51,20 @@ For how skills are loaded and prioritized, see [Skills](/tools/skills).
   </Step>
 
   <Step title="Load the skill">
-    Start a new session so HyperBot picks up the skill:
+    Start a new session so Ancient Claw picks up the skill:
 
     ```bash
     # From chat
     /new
 
     # Or restart the gateway
-    hyperbot gateway restart
+    ancient-claw gateway restart
     ```
 
     Verify the skill loaded:
 
     ```bash
-    hyperbot skills list
+    ancient-claw skills list
     ```
 
   </Step>
@@ -73,7 +73,7 @@ For how skills are loaded and prioritized, see [Skills](/tools/skills).
     Send a message that should trigger the skill:
 
     ```bash
-    hyperbot agent --message "give me a greeting"
+    ancient-claw agent --message "give me a greeting"
     ```
 
     Or just chat with the agent and ask for a greeting.
@@ -89,15 +89,15 @@ The YAML frontmatter supports these fields:
 | ----------------------------------- | -------- | ------------------------------------------- |
 | `name`                              | Yes      | Unique identifier (snake_case)              |
 | `description`                       | Yes      | One-line description shown to the agent     |
-| `metadata.hyperbot.os`              | No       | OS filter (`["darwin"]`, `["linux"]`, etc.) |
-| `metadata.hyperbot.requires.bins`   | No       | Required binaries on PATH                   |
-| `metadata.hyperbot.requires.config` | No       | Required config keys                        |
+| `metadata.ancient-claw.os`              | No       | OS filter (`["darwin"]`, `["linux"]`, etc.) |
+| `metadata.ancient-claw.requires.bins`   | No       | Required binaries on PATH                   |
+| `metadata.ancient-claw.requires.config` | No       | Required config keys                        |
 
 ## Best practices
 
 - **Be concise** — instruct the model on _what_ to do, not how to be an AI
 - **Safety first** — if your skill uses `exec`, ensure prompts don't allow arbitrary command injection from untrusted input
-- **Test locally** — use `hyperbot agent --message "..."` to test before sharing
+- **Test locally** — use `ancient-claw agent --message "..."` to test before sharing
 - **Use ClawHub** — browse and contribute skills at [ClawHub](https://clawhub.com)
 
 ## Where skills live
@@ -105,8 +105,8 @@ The YAML frontmatter supports these fields:
 | Location                        | Precedence | Scope                 |
 | ------------------------------- | ---------- | --------------------- |
 | `\<workspace\>/skills/`         | Highest    | Per-agent             |
-| `~/.hyperbot/skills/`           | Medium     | Shared (all agents)   |
-| Bundled (shipped with HyperBot) | Lowest     | Global                |
+| `~/.ancient-claw/skills/`           | Medium     | Shared (all agents)   |
+| Bundled (shipped with Ancient Claw) | Lowest     | Global                |
 | `skills.load.extraDirs`         | Lowest     | Custom shared folders |
 
 ## Related

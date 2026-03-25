@@ -17,26 +17,26 @@ x-i18n:
 
 工作区是智能体的“家”。它是文件工具和工作区上下文所使用的唯一工作目录。请将其保持为私有，并将其视为记忆。
 
-这与存储配置、凭证和会话的 `~/.hyperbot/` 是分开的。
+这与存储配置、凭证和会话的 `~/.ancient-claw/` 是分开的。
 
-**重要：**工作区是**默认 cwd**，而不是硬性沙箱。工具会相对于工作区解析相对路径，但除非启用沙箱隔离，否则绝对路径仍然可以访问主机上的其他位置。如果你需要隔离，请使用 [`agents.defaults.sandbox`](/gateway/sandboxing)（和/或按智能体配置的沙箱）。启用沙箱隔离后，如果 `workspaceAccess` 不是 `"rw"`，工具会在 `~/.hyperbot/sandboxes` 下的沙箱工作区中运行，而不是在你的主机工作区中运行。
+**重要：**工作区是**默认 cwd**，而不是硬性沙箱。工具会相对于工作区解析相对路径，但除非启用沙箱隔离，否则绝对路径仍然可以访问主机上的其他位置。如果你需要隔离，请使用 [`agents.defaults.sandbox`](/gateway/sandboxing)（和/或按智能体配置的沙箱）。启用沙箱隔离后，如果 `workspaceAccess` 不是 `"rw"`，工具会在 `~/.ancient-claw/sandboxes` 下的沙箱工作区中运行，而不是在你的主机工作区中运行。
 
 ## 默认位置
 
-- 默认值：`~/.hyperbot/workspace`
+- 默认值：`~/.ancient-claw/workspace`
 - 如果设置了 `OPENCLAW_PROFILE` 且其值不是 `"default"`，默认值将变为
-  `~/.hyperbot/workspace-<profile>`。
-- 在 `~/.hyperbot/hyperbot.json` 中覆盖：
+  `~/.ancient-claw/workspace-<profile>`。
+- 在 `~/.ancient-claw/ancient-claw.json` 中覆盖：
 
 ```json5
 {
   agent: {
-    workspace: "~/.hyperbot/workspace",
+    workspace: "~/.ancient-claw/workspace",
   },
 }
 ```
 
-`hyperbot onboard`、`hyperbot configure` 或 `hyperbot setup` 会在工作区缺失时创建工作区并植入引导文件。
+`ancient-claw onboard`、`ancient-claw configure` 或 `ancient-claw setup` 会在工作区缺失时创建工作区并植入引导文件。
 沙箱种子复制仅接受工作区内的常规文件；解析到源工作区外部的符号链接/硬链接别名会被忽略。
 
 如果你已经自行管理工作区文件，可以禁用引导文件创建：
@@ -47,17 +47,17 @@ x-i18n:
 
 ## 额外的工作区文件夹
 
-较旧的安装可能创建过 `~/hyperbot`。保留多个工作区目录可能会导致令人困惑的凭证或状态漂移，因为同一时间只有一个工作区处于活动状态。
+较旧的安装可能创建过 `~/ancient-claw`。保留多个工作区目录可能会导致令人困惑的凭证或状态漂移，因为同一时间只有一个工作区处于活动状态。
 
-**建议：**只保留一个活动工作区。如果你不再使用额外的文件夹，请将其归档或移到废纸篓（例如 `trash ~/hyperbot`）。
+**建议：**只保留一个活动工作区。如果你不再使用额外的文件夹，请将其归档或移到废纸篓（例如 `trash ~/ancient-claw`）。
 如果你有意保留多个工作区，请确保
 `agents.defaults.workspace` 指向当前活动的那个。
 
-当 `hyperbot doctor` 检测到额外的工作区目录时，会发出警告。
+当 `ancient-claw doctor` 检测到额外的工作区目录时，会发出警告。
 
 ## 工作区文件映射（每个文件的含义）
 
-以下是 HyperBot 在工作区内预期的标准文件：
+以下是 Ancient Claw 在工作区内预期的标准文件：
 
 - `AGENTS.md`
   - 智能体的操作说明，以及它应如何使用记忆。
@@ -110,17 +110,17 @@ x-i18n:
 - `canvas/`（可选）
   - 用于节点显示的 Canvas UI 文件（例如 `canvas/index.html`）。
 
-如果任何引导文件缺失，HyperBot 会在会话中注入一个“缺失文件”标记并继续执行。注入时，大型引导文件会被截断；可使用 `agents.defaults.bootstrapMaxChars`（默认：20000）和 `agents.defaults.bootstrapTotalMaxChars`（默认：150000）调整限制。
-`hyperbot setup` 可以重新创建缺失的默认文件，而不会覆盖现有文件。
+如果任何引导文件缺失，Ancient Claw 会在会话中注入一个“缺失文件”标记并继续执行。注入时，大型引导文件会被截断；可使用 `agents.defaults.bootstrapMaxChars`（默认：20000）和 `agents.defaults.bootstrapTotalMaxChars`（默认：150000）调整限制。
+`ancient-claw setup` 可以重新创建缺失的默认文件，而不会覆盖现有文件。
 
 ## 不在工作区中的内容
 
-这些内容位于 `~/.hyperbot/` 下，**不应**提交到工作区仓库：
+这些内容位于 `~/.ancient-claw/` 下，**不应**提交到工作区仓库：
 
-- `~/.hyperbot/hyperbot.json`（配置）
-- `~/.hyperbot/credentials/`（OAuth 令牌、API 密钥）
-- `~/.hyperbot/agents/<agentId>/sessions/`（会话记录和元数据）
-- `~/.hyperbot/skills/`（托管 Skills）
+- `~/.ancient-claw/ancient-claw.json`（配置）
+- `~/.ancient-claw/credentials/`（OAuth 令牌、API 密钥）
+- `~/.ancient-claw/agents/<agentId>/sessions/`（会话记录和元数据）
+- `~/.ancient-claw/skills/`（托管 Skills）
 
 如果你需要迁移会话或配置，请单独复制它们，并确保不要将其纳入版本控制。
 
@@ -135,7 +135,7 @@ x-i18n:
 如果已安装 git，全新工作区会自动初始化。如果这个工作区还不是仓库，请运行：
 
 ```bash
-cd ~/.hyperbot/workspace
+cd ~/.ancient-claw/workspace
 git init
 git add AGENTS.md SOUL.md TOOLS.md IDENTITY.md USER.md HEARTBEAT.md memory/
 git commit -m "Add agent workspace"
@@ -160,7 +160,7 @@ git push -u origin main
 
 ```bash
 gh auth login
-gh repo create hyperbot-workspace --private --source . --remote origin --push
+gh repo create ancient-claw-workspace --private --source . --remote origin --push
 ```
 
 选项 C：GitLab Web UI
@@ -190,10 +190,10 @@ git push
 即使在私有仓库中，也应避免在工作区中存储密钥：
 
 - API 密钥、OAuth 令牌、密码或私有凭证。
-- `~/.hyperbot/` 下的任何内容。
+- `~/.ancient-claw/` 下的任何内容。
 - 聊天原始转储或敏感附件。
 
-如果你必须存储敏感引用，请使用占位符，并将真实密钥保存在其他地方（密码管理器、环境变量或 `~/.hyperbot/`）。
+如果你必须存储敏感引用，请使用占位符，并将真实密钥保存在其他地方（密码管理器、环境变量或 `~/.ancient-claw/`）。
 
 建议的 `.gitignore` 起始内容：
 
@@ -207,10 +207,10 @@ git push
 
 ## 将工作区迁移到新机器
 
-1. 将仓库克隆到所需路径（默认是 `~/.hyperbot/workspace`）。
-2. 在 `~/.hyperbot/hyperbot.json` 中将 `agents.defaults.workspace` 设置为该路径。
-3. 运行 `hyperbot setup --workspace <path>` 以植入任何缺失的文件。
-4. 如果你需要会话，请将旧机器上的 `~/.hyperbot/agents/<agentId>/sessions/` 单独复制过来。
+1. 将仓库克隆到所需路径（默认是 `~/.ancient-claw/workspace`）。
+2. 在 `~/.ancient-claw/ancient-claw.json` 中将 `agents.defaults.workspace` 设置为该路径。
+3. 运行 `ancient-claw setup --workspace <path>` 以植入任何缺失的文件。
+4. 如果你需要会话，请将旧机器上的 `~/.ancient-claw/agents/<agentId>/sessions/` 单独复制过来。
 
 ## 高级说明
 

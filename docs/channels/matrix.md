@@ -1,30 +1,30 @@
 ---
 summary: "Matrix support status, setup, and configuration examples"
 read_when:
-  - Setting up Matrix in HyperBot
+  - Setting up Matrix in Ancient Claw
   - Configuring Matrix E2EE and verification
 title: "Matrix"
 ---
 
 # Matrix (plugin)
 
-Matrix is the Matrix channel plugin for HyperBot.
+Matrix is the Matrix channel plugin for Ancient Claw.
 It uses the official `matrix-js-sdk` and supports DMs, rooms, threads, media, reactions, polls, location, and E2EE.
 
 ## Plugin required
 
-Matrix is a plugin and is not bundled with core HyperBot.
+Matrix is a plugin and is not bundled with core Ancient Claw.
 
 Install from npm:
 
 ```bash
-hyperbot plugins install @hyperbot/matrix
+ancient-claw plugins install @ancient-claw/matrix
 ```
 
 Install from a local checkout:
 
 ```bash
-hyperbot plugins install ./extensions/matrix
+ancient-claw plugins install ./extensions/matrix
 ```
 
 See [Plugins](/tools/plugin) for plugin behavior and install rules.
@@ -42,8 +42,8 @@ See [Plugins](/tools/plugin) for plugin behavior and install rules.
 Interactive setup paths:
 
 ```bash
-hyperbot channels add
-hyperbot configure --section channels
+ancient-claw channels add
+ancient-claw configure --section channels
 ```
 
 What the Matrix wizard actually asks for:
@@ -62,7 +62,7 @@ Wizard behavior that matters:
 - DM allowlist prompts accept full `@user:server` values immediately. Display names only work when live directory lookup finds one exact match; otherwise the wizard asks you to retry with a full Matrix ID.
 - Room allowlist prompts accept room IDs and aliases directly. They can also resolve joined-room names live, but unresolved names are only kept as typed during setup and are ignored later by runtime allowlist resolution. Prefer `!room:server` or `#alias:server`.
 - Runtime room/session identity uses the stable Matrix room ID. Room-declared aliases are only used as lookup inputs, not as the long-term session key or stable group identity.
-- To resolve room names before saving them, use `hyperbot channels resolve --channel matrix "Project Room"`.
+- To resolve room names before saving them, use `ancient-claw channels resolve --channel matrix "Project Room"`.
 
 Minimal token-based setup:
 
@@ -89,13 +89,13 @@ Password-based setup (token is cached after login):
       homeserver: "https://matrix.example.org",
       userId: "@bot:example.org",
       password: "replace-me", // pragma: allowlist secret
-      deviceName: "HyperBot Gateway",
+      deviceName: "Ancient Claw Gateway",
     },
   },
 }
 ```
 
-Matrix stores cached credentials in `~/.hyperbot/credentials/matrix/`.
+Matrix stores cached credentials in `~/.ancient-claw/credentials/matrix/`.
 The default account uses `credentials.json`; named accounts use `credentials-<account>.json`.
 
 Environment variable equivalents (used when the config key is not set):
@@ -166,7 +166,7 @@ This is a practical baseline config with DM pairing, room allowlist, and E2EE en
 
 ## Bot to bot rooms
 
-By default, Matrix messages from other configured HyperBot Matrix accounts are ignored.
+By default, Matrix messages from other configured Ancient Claw Matrix accounts are ignored.
 
 Use `allowBots` when you intentionally want inter-agent Matrix traffic:
 
@@ -188,8 +188,8 @@ Use `allowBots` when you intentionally want inter-agent Matrix traffic:
 - `allowBots: true` accepts messages from other configured Matrix bot accounts in allowed rooms and DMs.
 - `allowBots: "mentions"` accepts those messages only when they visibly mention this bot in rooms. DMs are still allowed.
 - `groups.<room>.allowBots` overrides the account-level setting for one room.
-- HyperBot still ignores messages from the same Matrix user ID to avoid self-reply loops.
-- Matrix does not expose a native bot flag here; HyperBot treats "bot-authored" as "sent by another configured Matrix account on this HyperBot gateway".
+- Ancient Claw still ignores messages from the same Matrix user ID to avoid self-reply loops.
+- Matrix does not expose a native bot flag here; Ancient Claw treats "bot-authored" as "sent by another configured Matrix account on this Ancient Claw gateway".
 
 Use strict room allowlists and mention requirements when enabling bot-to-bot traffic in shared rooms.
 
@@ -212,25 +212,25 @@ Enable encryption:
 Check verification status:
 
 ```bash
-hyperbot matrix verify status
+ancient-claw matrix verify status
 ```
 
 Verbose status (full diagnostics):
 
 ```bash
-hyperbot matrix verify status --verbose
+ancient-claw matrix verify status --verbose
 ```
 
 Include the stored recovery key in machine-readable output:
 
 ```bash
-hyperbot matrix verify status --include-recovery-key --json
+ancient-claw matrix verify status --include-recovery-key --json
 ```
 
 Bootstrap cross-signing and verification state:
 
 ```bash
-hyperbot matrix verify bootstrap
+ancient-claw matrix verify bootstrap
 ```
 
 Multi-account support: use `channels.matrix.accounts` with per-account credentials and optional `name`. See [Configuration reference](/gateway/configuration-reference#multi-account-all-channels) for the shared pattern.
@@ -238,55 +238,55 @@ Multi-account support: use `channels.matrix.accounts` with per-account credentia
 Verbose bootstrap diagnostics:
 
 ```bash
-hyperbot matrix verify bootstrap --verbose
+ancient-claw matrix verify bootstrap --verbose
 ```
 
 Force a fresh cross-signing identity reset before bootstrapping:
 
 ```bash
-hyperbot matrix verify bootstrap --force-reset-cross-signing
+ancient-claw matrix verify bootstrap --force-reset-cross-signing
 ```
 
 Verify this device with a recovery key:
 
 ```bash
-hyperbot matrix verify device "<your-recovery-key>"
+ancient-claw matrix verify device "<your-recovery-key>"
 ```
 
 Verbose device verification details:
 
 ```bash
-hyperbot matrix verify device "<your-recovery-key>" --verbose
+ancient-claw matrix verify device "<your-recovery-key>" --verbose
 ```
 
 Check room-key backup health:
 
 ```bash
-hyperbot matrix verify backup status
+ancient-claw matrix verify backup status
 ```
 
 Verbose backup health diagnostics:
 
 ```bash
-hyperbot matrix verify backup status --verbose
+ancient-claw matrix verify backup status --verbose
 ```
 
 Restore room keys from server backup:
 
 ```bash
-hyperbot matrix verify backup restore
+ancient-claw matrix verify backup restore
 ```
 
 Verbose restore diagnostics:
 
 ```bash
-hyperbot matrix verify backup restore --verbose
+ancient-claw matrix verify backup restore --verbose
 ```
 
 Delete the current server backup and create a fresh backup baseline:
 
 ```bash
-hyperbot matrix verify backup reset --yes
+ancient-claw matrix verify backup reset --yes
 ```
 
 All `verify` commands are concise by default (including quiet internal SDK logging) and show detailed diagnostics only with `--verbose`.
@@ -297,28 +297,28 @@ If you configure multiple named accounts, set `channels.matrix.defaultAccount` f
 Use `--account` whenever you want verification or device operations to target a named account explicitly:
 
 ```bash
-hyperbot matrix verify status --account assistant
-hyperbot matrix verify backup restore --account assistant
-hyperbot matrix devices list --account assistant
+ancient-claw matrix verify status --account assistant
+ancient-claw matrix verify backup restore --account assistant
+ancient-claw matrix devices list --account assistant
 ```
 
 When encryption is disabled or unavailable for a named account, Matrix warnings and verification errors point at that account's config key, for example `channels.matrix.accounts.assistant.encryption`.
 
 ### What "verified" means
 
-HyperBot treats this Matrix device as verified only when it is verified by your own cross-signing identity.
-In practice, `hyperbot matrix verify status --verbose` exposes three trust signals:
+Ancient Claw treats this Matrix device as verified only when it is verified by your own cross-signing identity.
+In practice, `ancient-claw matrix verify status --verbose` exposes three trust signals:
 
 - `Locally trusted`: this device is trusted by the current client only
 - `Cross-signing verified`: the SDK reports the device as verified through cross-signing
 - `Signed by owner`: the device is signed by your own self-signing key
 
 `Verified by owner` becomes `yes` only when cross-signing verification or owner-signing is present.
-Local trust by itself is not enough for HyperBot to treat the device as fully verified.
+Local trust by itself is not enough for Ancient Claw to treat the device as fully verified.
 
 ### What bootstrap does
 
-`hyperbot matrix verify bootstrap` is the repair and setup command for encrypted Matrix accounts.
+`ancient-claw matrix verify bootstrap` is the repair and setup command for encrypted Matrix accounts.
 It does all of the following in order:
 
 - bootstraps secret storage, reusing an existing recovery key when possible
@@ -326,11 +326,11 @@ It does all of the following in order:
 - attempts to mark and cross-sign the current device
 - creates a new server-side room-key backup if one does not already exist
 
-If the homeserver requires interactive auth to upload cross-signing keys, HyperBot tries the upload without auth first, then with `m.login.dummy`, then with `m.login.password` when `channels.matrix.password` is configured.
+If the homeserver requires interactive auth to upload cross-signing keys, Ancient Claw tries the upload without auth first, then with `m.login.dummy`, then with `m.login.password` when `channels.matrix.password` is configured.
 
 Use `--force-reset-cross-signing` only when you intentionally want to discard the current cross-signing identity and create a new one.
 
-If you intentionally want to discard the current room-key backup and start a new backup baseline for future messages, use `hyperbot matrix verify backup reset --yes`.
+If you intentionally want to discard the current room-key backup and start a new backup baseline for future messages, use `ancient-claw matrix verify backup reset --yes`.
 Do this only when you accept that unrecoverable old encrypted history will stay unavailable.
 
 ### Fresh backup baseline
@@ -338,9 +338,9 @@ Do this only when you accept that unrecoverable old encrypted history will stay 
 If you want to keep future encrypted messages working and accept losing unrecoverable old history, run these commands in order:
 
 ```bash
-hyperbot matrix verify backup reset --yes
-hyperbot matrix verify backup status --verbose
-hyperbot matrix verify status
+ancient-claw matrix verify backup reset --yes
+ancient-claw matrix verify backup status --verbose
+ancient-claw matrix verify status
 ```
 
 Add `--account <id>` to each command when you want to target a named Matrix account explicitly.
@@ -357,28 +357,28 @@ if you want a shorter or longer retry window.
 Startup also performs a conservative crypto bootstrap pass automatically.
 That pass tries to reuse the current secret storage and cross-signing identity first, and avoids resetting cross-signing unless you run an explicit bootstrap repair flow.
 
-If startup finds broken bootstrap state and `channels.matrix.password` is configured, HyperBot can attempt a stricter repair path.
-If the current device is already owner-signed, HyperBot preserves that identity instead of resetting it automatically.
+If startup finds broken bootstrap state and `channels.matrix.password` is configured, Ancient Claw can attempt a stricter repair path.
+If the current device is already owner-signed, Ancient Claw preserves that identity instead of resetting it automatically.
 
 Upgrading from the previous public Matrix plugin:
 
-- HyperBot automatically reuses the same Matrix account, access token, and device identity when possible.
-- Before any actionable Matrix migration changes run, HyperBot creates or reuses a recovery snapshot under `~/Backups/hyperbot-migrations/`.
-- If you use multiple Matrix accounts, set `channels.matrix.defaultAccount` before upgrading from the old flat-store layout so HyperBot knows which account should receive that shared legacy state.
-- If the previous plugin stored a Matrix room-key backup decryption key locally, startup or `hyperbot doctor --fix` will import it into the new recovery-key flow automatically.
+- Ancient Claw automatically reuses the same Matrix account, access token, and device identity when possible.
+- Before any actionable Matrix migration changes run, Ancient Claw creates or reuses a recovery snapshot under `~/Backups/ancient-claw-migrations/`.
+- If you use multiple Matrix accounts, set `channels.matrix.defaultAccount` before upgrading from the old flat-store layout so Ancient Claw knows which account should receive that shared legacy state.
+- If the previous plugin stored a Matrix room-key backup decryption key locally, startup or `ancient-claw doctor --fix` will import it into the new recovery-key flow automatically.
 - If the Matrix access token changed after migration was prepared, startup now scans sibling token-hash storage roots for pending legacy restore state before giving up on the automatic backup restore.
-- If the Matrix access token changes later for the same account, homeserver, and user, HyperBot now prefers reusing the most complete existing token-hash storage root instead of starting from an empty Matrix state directory.
+- If the Matrix access token changes later for the same account, homeserver, and user, Ancient Claw now prefers reusing the most complete existing token-hash storage root instead of starting from an empty Matrix state directory.
 - On the next gateway start, backed-up room keys are restored automatically into the new crypto store.
-- If the old plugin had local-only room keys that were never backed up, HyperBot will warn clearly. Those keys cannot be exported automatically from the previous rust crypto store, so some old encrypted history may remain unavailable until recovered manually.
+- If the old plugin had local-only room keys that were never backed up, Ancient Claw will warn clearly. Those keys cannot be exported automatically from the previous rust crypto store, so some old encrypted history may remain unavailable until recovered manually.
 - See [Matrix migration](/install/migrating-matrix) for the full upgrade flow, limits, recovery commands, and common migration messages.
 
 Encrypted runtime state is organized under per-account, per-user token-hash roots in
-`~/.hyperbot/matrix/accounts/<account>/<homeserver>__<user>/<token-hash>/`.
+`~/.ancient-claw/matrix/accounts/<account>/<homeserver>__<user>/<token-hash>/`.
 That directory contains the sync store (`bot-storage.json`), crypto store (`crypto/`),
 recovery key file (`recovery-key.json`), IndexedDB snapshot (`crypto-idb-snapshot.json`),
 thread bindings (`thread-bindings.json`), and startup verification state (`startup-verification.json`)
 when those features are in use.
-When the token changes but the account identity stays the same, HyperBot reuses the best existing
+When the token changes but the account identity stays the same, Ancient Claw reuses the best existing
 root for that account/homeserver/user tuple so prior sync state, crypto state, thread bindings,
 and startup verification state remain visible.
 
@@ -387,7 +387,7 @@ and startup verification state remain visible.
 Matrix E2EE in this plugin uses the official `matrix-js-sdk` Rust crypto path in Node.
 That path expects IndexedDB-backed persistence when you want crypto state to survive restarts.
 
-HyperBot currently provides that in Node by:
+Ancient Claw currently provides that in Node by:
 
 - using `fake-indexeddb` as the IndexedDB API shim expected by the SDK
 - restoring the Rust crypto IndexedDB contents from `crypto-idb-snapshot.json` before `initRustCrypto`
@@ -395,11 +395,11 @@ HyperBot currently provides that in Node by:
 
 This is compatibility/storage plumbing, not a custom crypto implementation.
 The snapshot file is sensitive runtime state and is stored with restrictive file permissions.
-Under HyperBot's security model, the gateway host and local HyperBot state directory are already inside the trusted operator boundary, so this is primarily an operational durability concern rather than a separate remote trust boundary.
+Under Ancient Claw's security model, the gateway host and local Ancient Claw state directory are already inside the trusted operator boundary, so this is primarily an operational durability concern rather than a separate remote trust boundary.
 
 Planned improvement:
 
-- add SecretRef support for persistent Matrix key material so recovery keys and related store-encryption secrets can be sourced from HyperBot secrets providers instead of only local files
+- add SecretRef support for persistent Matrix key material so recovery keys and related store-encryption secrets can be sourced from Ancient Claw secrets providers instead of only local files
 
 ## Automatic verification notices
 
@@ -411,42 +411,42 @@ That includes:
 - verification start and completion notices
 - SAS details (emoji and decimal) when available
 
-Incoming verification requests from another Matrix client are tracked and auto-accepted by HyperBot.
-For self-verification flows, HyperBot also starts the SAS flow automatically when emoji verification becomes available and confirms its own side.
-For verification requests from another Matrix user/device, HyperBot auto-accepts the request and then waits for the SAS flow to proceed normally.
+Incoming verification requests from another Matrix client are tracked and auto-accepted by Ancient Claw.
+For self-verification flows, Ancient Claw also starts the SAS flow automatically when emoji verification becomes available and confirms its own side.
+For verification requests from another Matrix user/device, Ancient Claw auto-accepts the request and then waits for the SAS flow to proceed normally.
 You still need to compare the emoji or decimal SAS in your Matrix client and confirm "They match" there to complete the verification.
 
-HyperBot does not auto-accept self-initiated duplicate flows blindly. Startup skips creating a new request when a self-verification request is already pending.
+Ancient Claw does not auto-accept self-initiated duplicate flows blindly. Startup skips creating a new request when a self-verification request is already pending.
 
 Verification protocol/system notices are not forwarded to the agent chat pipeline, so they do not produce `NO_REPLY`.
 
 ### Device hygiene
 
-Old HyperBot-managed Matrix devices can accumulate on the account and make encrypted-room trust harder to reason about.
+Old Ancient Claw-managed Matrix devices can accumulate on the account and make encrypted-room trust harder to reason about.
 List them with:
 
 ```bash
-hyperbot matrix devices list
+ancient-claw matrix devices list
 ```
 
-Remove stale HyperBot-managed devices with:
+Remove stale Ancient Claw-managed devices with:
 
 ```bash
-hyperbot matrix devices prune-stale
+ancient-claw matrix devices prune-stale
 ```
 
 ### Direct Room Repair
 
-If direct-message state gets out of sync, HyperBot can end up with stale `m.direct` mappings that point at old solo rooms instead of the live DM. Inspect the current mapping for a peer with:
+If direct-message state gets out of sync, Ancient Claw can end up with stale `m.direct` mappings that point at old solo rooms instead of the live DM. Inspect the current mapping for a peer with:
 
 ```bash
-hyperbot matrix direct inspect --user-id @alice:example.org
+ancient-claw matrix direct inspect --user-id @alice:example.org
 ```
 
 Repair it with:
 
 ```bash
-hyperbot matrix direct repair --user-id @alice:example.org
+ancient-claw matrix direct repair --user-id @alice:example.org
 ```
 
 Repair keeps the Matrix-specific logic inside the plugin:
@@ -495,7 +495,7 @@ Matrix supports outbound reaction actions, inbound reaction notifications, and i
 - `emoji=""` removes the bot account's own reactions on that event.
 - `remove: true` removes only the specified emoji reaction from the bot account.
 
-Ack reactions use the standard HyperBot resolution order:
+Ack reactions use the standard Ancient Claw resolution order:
 
 - `channels["matrix"].accounts.<accountId>.ackReaction`
 - `channels["matrix"].ackReaction`
@@ -547,11 +547,11 @@ See [Groups](/channels/groups) for mention-gating and allowlist behavior.
 Pairing example for Matrix DMs:
 
 ```bash
-hyperbot pairing list matrix
-hyperbot pairing approve matrix <CODE>
+ancient-claw pairing list matrix
+ancient-claw pairing approve matrix <CODE>
 ```
 
-If an unapproved Matrix user keeps messaging you before approval, HyperBot reuses the same pending pairing code and may send a reminder reply again after a short cooldown instead of minting a new code.
+If an unapproved Matrix user keeps messaging you before approval, Ancient Claw reuses the same pending pairing code and may send a reminder reply again after a short cooldown instead of minting a new code.
 
 See [Pairing](/channels/pairing) for the shared DM pairing flow and storage layout.
 
@@ -585,13 +585,13 @@ See [Pairing](/channels/pairing) for the shared DM pairing flow and storage layo
 ```
 
 Top-level `channels.matrix` values act as defaults for named accounts unless an account overrides them.
-Set `defaultAccount` when you want HyperBot to prefer one named Matrix account for implicit routing, probing, and CLI operations.
+Set `defaultAccount` when you want Ancient Claw to prefer one named Matrix account for implicit routing, probing, and CLI operations.
 If you configure multiple named accounts, set `defaultAccount` or pass `--account <id>` for CLI commands that rely on implicit account selection.
-Pass `--account <id>` to `hyperbot matrix verify ...` and `hyperbot matrix devices ...` when you want to override that implicit selection for one command.
+Pass `--account <id>` to `ancient-claw matrix verify ...` and `ancient-claw matrix devices ...` when you want to override that implicit selection for one command.
 
 ## Private/LAN homeservers
 
-By default, HyperBot blocks private/internal Matrix homeservers for SSRF protection unless you
+By default, Ancient Claw blocks private/internal Matrix homeservers for SSRF protection unless you
 explicitly opt in per account.
 
 If your homeserver runs on localhost, a LAN/Tailscale IP, or an internal hostname, enable
@@ -612,7 +612,7 @@ If your homeserver runs on localhost, a LAN/Tailscale IP, or an internal hostnam
 CLI setup example:
 
 ```bash
-hyperbot matrix account add \
+ancient-claw matrix account add \
   --account ops \
   --homeserver http://matrix-synapse:8008 \
   --allow-private-network \
@@ -624,7 +624,7 @@ This opt-in only allows trusted private/internal targets. Public cleartext homes
 
 ## Target resolution
 
-Matrix accepts these target forms anywhere HyperBot asks you for a room or user target:
+Matrix accepts these target forms anywhere Ancient Claw asks you for a room or user target:
 
 - Users: `@user:server`, `user:@user:server`, or `matrix:user:@user:server`
 - Rooms: `!room:server`, `room:!room:server`, or `matrix:room:!room:server`
@@ -668,7 +668,7 @@ Live directory lookup uses the logged-in Matrix account:
 - `reactionNotifications`: inbound reaction notification mode (`own`, `off`).
 - `mediaMaxMb`: outbound media size cap in MB.
 - `autoJoin`: invite auto-join policy (`always`, `allowlist`, `off`). Default: `off`.
-- `autoJoinAllowlist`: rooms/aliases allowed when `autoJoin` is `allowlist`. Alias entries are resolved to room IDs during invite handling; HyperBot does not trust alias state claimed by the invited room.
+- `autoJoinAllowlist`: rooms/aliases allowed when `autoJoin` is `allowlist`. Alias entries are resolved to room IDs during invite handling; Ancient Claw does not trust alias state claimed by the invited room.
 - `dm`: DM policy block (`enabled`, `policy`, `allowFrom`).
 - `dm.allowFrom` entries should be full Matrix user IDs unless you already resolved them through live directory lookup.
 - `accounts`: named per-account overrides. Top-level `channels.matrix` values act as defaults for these entries.

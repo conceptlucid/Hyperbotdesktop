@@ -8,44 +8,44 @@ title: "Doctor"
 
 # Doctor
 
-`hyperbot doctor` is the repair + migration tool for HyperBot. It fixes stale
+`ancient-claw doctor` is the repair + migration tool for Ancient Claw. It fixes stale
 config/state, checks health, and provides actionable repair steps.
 
 ## Quick start
 
 ```bash
-hyperbot doctor
+ancient-claw doctor
 ```
 
 ### Headless / automation
 
 ```bash
-hyperbot doctor --yes
+ancient-claw doctor --yes
 ```
 
 Accept defaults without prompting (including restart/service/sandbox repair steps when applicable).
 
 ```bash
-hyperbot doctor --repair
+ancient-claw doctor --repair
 ```
 
 Apply recommended repairs without prompting (repairs + restarts where safe).
 
 ```bash
-hyperbot doctor --repair --force
+ancient-claw doctor --repair --force
 ```
 
 Apply aggressive repairs too (overwrites custom supervisor configs).
 
 ```bash
-hyperbot doctor --non-interactive
+ancient-claw doctor --non-interactive
 ```
 
 Run without prompts and only apply safe migrations (config normalization + on-disk state moves). Skips restart/service/sandbox actions that require human confirmation.
 Legacy state migrations run automatically when detected.
 
 ```bash
-hyperbot doctor --deep
+ancient-claw doctor --deep
 ```
 
 Scan system services for extra gateway installs (launchd/systemd/schtasks).
@@ -53,7 +53,7 @@ Scan system services for extra gateway installs (launchd/systemd/schtasks).
 If you want to review changes before writing, open the config file first:
 
 ```bash
-cat ~/.hyperbot/hyperbot.json
+cat ~/.ancient-claw/ancient-claw.json
 ```
 
 ## What it does (summary)
@@ -70,7 +70,7 @@ cat ~/.hyperbot/hyperbot.json
 - State integrity and permissions checks (sessions, transcripts, state dir).
 - Config file permission checks (chmod 600) when running locally.
 - Model auth health: checks OAuth expiry, can refresh expiring tokens, and reports auth-profile cooldown/disabled states.
-- Extra workspace dir detection (`~/hyperbot`).
+- Extra workspace dir detection (`~/ancient-claw`).
 - Sandbox image repair when sandboxing is enabled.
 - Legacy service migration and extra gateway detection.
 - Gateway runtime checks (service installed but not running; cached launchd label).
@@ -100,13 +100,13 @@ schema.
 ### 2) Legacy config key migrations
 
 When the config contains deprecated keys, other commands refuse to run and ask
-you to run `hyperbot doctor`.
+you to run `ancient-claw doctor`.
 
 Doctor will:
 
 - Explain which legacy keys were found.
 - Show the migration it applied.
-- Rewrite `~/.hyperbot/hyperbot.json` with the updated schema.
+- Rewrite `~/.ancient-claw/ancient-claw.json` with the updated schema.
 
 The Gateway also auto-runs doctor migrations on startup when it detects a
 legacy config format, so stale configs are repaired without manual intervention.
@@ -178,22 +178,22 @@ headless flows. Those continue to use raw CDP.
 Doctor can migrate older on-disk layouts into the current structure:
 
 - Sessions store + transcripts:
-  - from `~/.hyperbot/sessions/` to `~/.hyperbot/agents/<agentId>/sessions/`
+  - from `~/.ancient-claw/sessions/` to `~/.ancient-claw/agents/<agentId>/sessions/`
 - Agent dir:
-  - from `~/.hyperbot/agent/` to `~/.hyperbot/agents/<agentId>/agent/`
+  - from `~/.ancient-claw/agent/` to `~/.ancient-claw/agents/<agentId>/agent/`
 - WhatsApp auth state (Baileys):
-  - from legacy `~/.hyperbot/credentials/*.json` (except `oauth.json`)
-  - to `~/.hyperbot/credentials/whatsapp/<accountId>/...` (default account id: `default`)
+  - from legacy `~/.ancient-claw/credentials/*.json` (except `oauth.json`)
+  - to `~/.ancient-claw/credentials/whatsapp/<accountId>/...` (default account id: `default`)
 
 These migrations are best-effort and idempotent; doctor will emit warnings when
 it leaves any legacy folders behind as backups. The Gateway/CLI also auto-migrates
 the legacy sessions + agent dir on startup so history/auth/models land in the
 per-agent path without a manual doctor run. WhatsApp auth is intentionally only
-migrated via `hyperbot doctor`.
+migrated via `ancient-claw doctor`.
 
 ### 3b) Legacy cron store migrations
 
-Doctor also checks the cron job store (`~/.hyperbot/cron/jobs.json` by default,
+Doctor also checks the cron job store (`~/.ancient-claw/cron/jobs.json` by default,
 or `cron.store` when overridden) for old job shapes that the scheduler still
 accepts for compatibility.
 
@@ -234,12 +234,12 @@ Doctor checks:
   transcript files.
 - **Main session “1-line JSONL”**: flags when the main transcript has only one
   line (history is not accumulating).
-- **Multiple state dirs**: warns when multiple `~/.hyperbot` folders exist across
+- **Multiple state dirs**: warns when multiple `~/.ancient-claw` folders exist across
   home directories or when `OPENCLAW_STATE_DIR` points elsewhere (history can
   split between installs).
 - **Remote mode reminder**: if `gateway.mode=remote`, doctor reminds you to run
   it on the remote host (the state lives there).
-- **Config file permissions**: warns if `~/.hyperbot/hyperbot.json` is
+- **Config file permissions**: warns if `~/.ancient-claw/ancient-claw.json` is
   group/world readable and offers to tighten to `600`.
 
 ### 5) Model auth health (OAuth expiry)
@@ -268,9 +268,9 @@ switch to legacy names if the current image is missing.
 ### 8) Gateway service migrations and cleanup hints
 
 Doctor detects legacy gateway services (launchd/systemd/schtasks) and
-offers to remove them and install the HyperBot service using the current gateway
+offers to remove them and install the Ancient Claw service using the current gateway
 port. It can also scan for extra gateway-like services and print cleanup hints.
-Profile-named HyperBot gateway services are considered first-class and are not
+Profile-named Ancient Claw gateway services are considered first-class and are not
 flagged as "extra."
 
 ### 9) Security warnings
@@ -294,13 +294,13 @@ Doctor checks local gateway token auth readiness.
 
 - If token mode needs a token and no token source exists, doctor offers to generate one.
 - If `gateway.auth.token` is SecretRef-managed but unavailable, doctor warns and does not overwrite it with plaintext.
-- `hyperbot doctor --generate-gateway-token` forces generation only when no token SecretRef is configured.
+- `ancient-claw doctor --generate-gateway-token` forces generation only when no token SecretRef is configured.
 
 ### 12b) Read-only SecretRef-aware repairs
 
 Some repair flows need to inspect configured credentials without weakening runtime fail-fast behavior.
 
-- `hyperbot doctor --fix` now uses the same read-only SecretRef summary model as status-family commands for targeted config repairs.
+- `ancient-claw doctor --fix` now uses the same read-only SecretRef summary model as status-family commands for targeted config repairs.
 - Example: Telegram `allowFrom` / `groupAllowFrom` `@username` repair tries to use configured bot credentials when available.
 - If the Telegram bot token is configured via SecretRef but unavailable in the current command path, doctor reports that the credential is configured-but-unavailable and skips auto-resolution instead of crashing or misreporting the token as missing.
 
@@ -323,15 +323,15 @@ rewrite the service file/task to the current defaults.
 
 Notes:
 
-- `hyperbot doctor` prompts before rewriting supervisor config.
-- `hyperbot doctor --yes` accepts the default repair prompts.
-- `hyperbot doctor --repair` applies recommended fixes without prompts.
-- `hyperbot doctor --repair --force` overwrites custom supervisor configs.
+- `ancient-claw doctor` prompts before rewriting supervisor config.
+- `ancient-claw doctor --yes` accepts the default repair prompts.
+- `ancient-claw doctor --repair` applies recommended fixes without prompts.
+- `ancient-claw doctor --repair --force` overwrites custom supervisor configs.
 - If token auth requires a token and `gateway.auth.token` is SecretRef-managed, doctor service install/repair validates the SecretRef but does not persist resolved plaintext token values into supervisor service environment metadata.
 - If token auth requires a token and the configured token SecretRef is unresolved, doctor blocks the install/repair path with actionable guidance.
 - If both `gateway.auth.token` and `gateway.auth.password` are configured and `gateway.auth.mode` is unset, doctor blocks install/repair until mode is set explicitly.
 - For Linux user-systemd units, doctor token drift checks now include both `Environment=` and `EnvironmentFile=` sources when comparing service auth metadata.
-- You can always force a full rewrite via `hyperbot gateway install --force`.
+- You can always force a full rewrite via `ancient-claw gateway install --force`.
 
 ### 16) Gateway runtime + port diagnostics
 

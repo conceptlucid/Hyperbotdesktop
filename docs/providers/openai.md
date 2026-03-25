@@ -1,7 +1,7 @@
 ---
-summary: "Use OpenAI via API keys or Codex subscription in HyperBot"
+summary: "Use OpenAI via API keys or Codex subscription in Ancient Claw"
 read_when:
-  - You want to use OpenAI models in HyperBot
+  - You want to use OpenAI models in Ancient Claw
   - You want Codex subscription auth instead of API keys
 title: "OpenAI"
 ---
@@ -10,7 +10,7 @@ title: "OpenAI"
 
 OpenAI provides developer APIs for GPT models. Codex supports **ChatGPT sign-in** for subscription
 access or **API key** sign-in for usage-based access. Codex cloud requires ChatGPT sign-in.
-OpenAI explicitly supports subscription OAuth usage in external tools/workflows like HyperBot.
+OpenAI explicitly supports subscription OAuth usage in external tools/workflows like Ancient Claw.
 
 ## Option A: OpenAI API key (OpenAI Platform)
 
@@ -20,9 +20,9 @@ Get your API key from the OpenAI dashboard.
 ### CLI setup
 
 ```bash
-hyperbot onboard --auth-choice openai-api-key
+ancient-claw onboard --auth-choice openai-api-key
 # or non-interactive
-hyperbot onboard --openai-api-key "$OPENAI_API_KEY"
+ancient-claw onboard --openai-api-key "$OPENAI_API_KEY"
 ```
 
 ### Config snippet
@@ -35,13 +35,13 @@ hyperbot onboard --openai-api-key "$OPENAI_API_KEY"
 ```
 
 OpenAI's current API model docs list `gpt-5.4` and `gpt-5.4-pro` for direct
-OpenAI API usage. HyperBot forwards both through the `openai/*` Responses path.
-HyperBot intentionally suppresses the stale `openai/gpt-5.3-codex-spark` row,
+OpenAI API usage. Ancient Claw forwards both through the `openai/*` Responses path.
+Ancient Claw intentionally suppresses the stale `openai/gpt-5.3-codex-spark` row,
 because direct OpenAI API calls reject it in live traffic.
 
-HyperBot does **not** expose `openai/gpt-5.3-codex-spark` on the direct OpenAI
+Ancient Claw does **not** expose `openai/gpt-5.3-codex-spark` on the direct OpenAI
 API path. `pi-ai` still ships a built-in row for that model, but live OpenAI API
-requests currently reject it. Spark is treated as Codex-only in HyperBot.
+requests currently reject it. Spark is treated as Codex-only in Ancient Claw.
 
 ## Option B: OpenAI Code (Codex) subscription
 
@@ -52,10 +52,10 @@ Codex cloud requires ChatGPT sign-in, while the Codex CLI supports ChatGPT or AP
 
 ```bash
 # Run Codex OAuth in the wizard
-hyperbot onboard --auth-choice openai-codex
+ancient-claw onboard --auth-choice openai-codex
 
 # Or run OAuth directly
-hyperbot models auth login --provider openai-codex
+ancient-claw models auth login --provider openai-codex
 ```
 
 ### Config snippet (Codex subscription)
@@ -66,24 +66,24 @@ hyperbot models auth login --provider openai-codex
 }
 ```
 
-OpenAI's current Codex docs list `gpt-5.4` as the current Codex model. HyperBot
+OpenAI's current Codex docs list `gpt-5.4` as the current Codex model. Ancient Claw
 maps that to `openai-codex/gpt-5.4` for ChatGPT/Codex OAuth usage.
 
-If your Codex account is entitled to Codex Spark, HyperBot also supports:
+If your Codex account is entitled to Codex Spark, Ancient Claw also supports:
 
 - `openai-codex/gpt-5.3-codex-spark`
 
-HyperBot treats Codex Spark as Codex-only. It does not expose a direct
+Ancient Claw treats Codex Spark as Codex-only. It does not expose a direct
 `openai/gpt-5.3-codex-spark` API-key path.
 
-HyperBot also preserves `openai-codex/gpt-5.3-codex-spark` when `pi-ai`
+Ancient Claw also preserves `openai-codex/gpt-5.3-codex-spark` when `pi-ai`
 discovers it. Treat it as entitlement-dependent and experimental: Codex Spark is
 separate from GPT-5.4 `/fast`, and availability depends on the signed-in Codex /
 ChatGPT account.
 
 ### Transport default
 
-HyperBot uses `pi-ai` for model streaming. For both `openai/*` and
+Ancient Claw uses `pi-ai` for model streaming. For both `openai/*` and
 `openai-codex/*`, default transport is `"auto"` (WebSocket-first, then SSE
 fallback).
 
@@ -93,7 +93,7 @@ You can set `agents.defaults.models.<provider/model>.params.transport`:
 - `"websocket"`: force WebSocket
 - `"auto"`: try WebSocket, then fall back to SSE
 
-For `openai/*` (Responses API), HyperBot also enables WebSocket warm-up by
+For `openai/*` (Responses API), Ancient Claw also enables WebSocket warm-up by
 default (`openaiWsWarmup: true`) when WebSocket transport is used.
 
 Related OpenAI docs:
@@ -120,7 +120,7 @@ Related OpenAI docs:
 
 ### OpenAI WebSocket warm-up
 
-OpenAI docs describe warm-up as optional. HyperBot enables it by default for
+OpenAI docs describe warm-up as optional. Ancient Claw enables it by default for
 `openai/*` to reduce first-turn latency when using WebSocket transport.
 
 ### Disable warm-up
@@ -162,7 +162,7 @@ OpenAI docs describe warm-up as optional. HyperBot enables it by default for
 ### OpenAI priority processing
 
 OpenAI's API exposes priority processing via `service_tier=priority`. In
-HyperBot, set `agents.defaults.models["openai/<model>"].params.serviceTier` to
+Ancient Claw, set `agents.defaults.models["openai/<model>"].params.serviceTier` to
 pass that field through on direct `openai/*` Responses requests.
 
 ```json5
@@ -185,13 +185,13 @@ Supported values are `auto`, `default`, `flex`, and `priority`.
 
 ### OpenAI fast mode
 
-HyperBot exposes a shared fast-mode toggle for both `openai/*` and
+Ancient Claw exposes a shared fast-mode toggle for both `openai/*` and
 `openai-codex/*` sessions:
 
 - Chat/UI: `/fast status|on|off`
 - Config: `agents.defaults.models["<provider>/<model>"].params.fastMode`
 
-When fast mode is enabled, HyperBot applies a low-latency OpenAI profile:
+When fast mode is enabled, Ancient Claw applies a low-latency OpenAI profile:
 
 - `reasoning.effort = "low"` when the payload does not already specify reasoning
 - `text.verbosity = "low"` when the payload does not already specify verbosity
@@ -226,7 +226,7 @@ returns the session to the configured default.
 ### OpenAI Responses server-side compaction
 
 For direct OpenAI Responses models (`openai/*` using `api: "openai-responses"` with
-`baseUrl` on `api.openai.com`), HyperBot now auto-enables OpenAI server-side
+`baseUrl` on `api.openai.com`), Ancient Claw now auto-enables OpenAI server-side
 compaction payload hints:
 
 - Forces `store: true` (unless model compat sets `supportsStore: false`)

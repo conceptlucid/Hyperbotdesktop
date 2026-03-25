@@ -1,6 +1,6 @@
 # Bundled Hooks
 
-This directory contains hooks that ship with HyperBot. These hooks are automatically discovered and can be enabled/disabled via CLI or configuration.
+This directory contains hooks that ship with Ancient Claw. These hooks are automatically discovered and can be enabled/disabled via CLI or configuration.
 
 ## Available Hooks
 
@@ -10,12 +10,12 @@ Automatically saves session context to memory when you issue `/new` or `/reset`.
 
 **Events**: `command:new`, `command:reset`
 **What it does**: Creates a dated memory file with LLM-generated slug based on conversation content.
-**Output**: `<workspace>/memory/YYYY-MM-DD-slug.md` (defaults to `~/.hyperbot/workspace`)
+**Output**: `<workspace>/memory/YYYY-MM-DD-slug.md` (defaults to `~/.ancient-claw/workspace`)
 
 **Enable**:
 
 ```bash
-hyperbot hooks enable session-memory
+ancient-claw hooks enable session-memory
 ```
 
 ### 📎 bootstrap-extra-files
@@ -29,7 +29,7 @@ Injects extra bootstrap files (for example monorepo `AGENTS.md`/`TOOLS.md`) duri
 **Enable**:
 
 ```bash
-hyperbot hooks enable bootstrap-extra-files
+ancient-claw hooks enable bootstrap-extra-files
 ```
 
 ### 📝 command-logger
@@ -38,12 +38,12 @@ Logs all command events to a centralized audit file.
 
 **Events**: `command` (all commands)
 **What it does**: Appends JSONL entries to command log file.
-**Output**: `~/.hyperbot/logs/commands.log`
+**Output**: `~/.ancient-claw/logs/commands.log`
 
 **Enable**:
 
 ```bash
-hyperbot hooks enable command-logger
+ancient-claw hooks enable command-logger
 ```
 
 ### 🚀 boot-md
@@ -57,7 +57,7 @@ Runs `BOOT.md` whenever the gateway starts (after channels start).
 **Enable**:
 
 ```bash
-hyperbot hooks enable boot-md
+ancient-claw hooks enable boot-md
 ```
 
 ## Hook Structure
@@ -81,9 +81,9 @@ session-memory/
 ---
 name: my-hook
 description: "Short description"
-homepage: https://docs.hyperbot.ai/automation/hooks#my-hook
+homepage: https://docs.ancient-claw.ai/automation/hooks#my-hook
 metadata:
-  { "hyperbot": { "emoji": "🔗", "events": ["command:new"], "requires": { "bins": ["node"] } } }
+  { "ancient-claw": { "emoji": "🔗", "events": ["command:new"], "requires": { "bins": ["node"] } } }
 ---
 # Hook Title
 
@@ -107,7 +107,7 @@ Documentation goes here...
 To create your own hooks, place them in:
 
 - **Workspace hooks**: `<workspace>/hooks/` (highest precedence)
-- **Managed hooks**: `~/.hyperbot/hooks/` (shared across workspaces)
+- **Managed hooks**: `~/.ancient-claw/hooks/` (shared across workspaces)
 
 Custom hooks follow the same structure as bundled hooks.
 
@@ -116,31 +116,31 @@ Custom hooks follow the same structure as bundled hooks.
 List all hooks:
 
 ```bash
-hyperbot hooks list
+ancient-claw hooks list
 ```
 
 Show hook details:
 
 ```bash
-hyperbot hooks info session-memory
+ancient-claw hooks info session-memory
 ```
 
 Check hook status:
 
 ```bash
-hyperbot hooks check
+ancient-claw hooks check
 ```
 
 Enable/disable:
 
 ```bash
-hyperbot hooks enable session-memory
-hyperbot hooks disable command-logger
+ancient-claw hooks enable session-memory
+ancient-claw hooks disable command-logger
 ```
 
 ## Configuration
 
-Hooks can be configured in `~/.hyperbot/hyperbot.json`:
+Hooks can be configured in `~/.ancient-claw/ancient-claw.json`:
 
 ```json
 {
@@ -213,11 +213,11 @@ export default myHandler;
 Test your hooks by:
 
 1. Place hook in workspace hooks directory
-2. Restart gateway: `pkill -9 -f 'hyperbot.*gateway' && pnpm hyperbot gateway`
-3. Enable the hook: `hyperbot hooks enable my-hook`
+2. Restart gateway: `pkill -9 -f 'ancient-claw.*gateway' && pnpm ancient-claw gateway`
+3. Enable the hook: `ancient-claw hooks enable my-hook`
 4. Trigger the event (e.g., send `/new` command)
 5. Check gateway logs for hook execution
 
 ## Documentation
 
-Full documentation: https://docs.hyperbot.ai/automation/hooks
+Full documentation: https://docs.ancient-claw.ai/automation/hooks

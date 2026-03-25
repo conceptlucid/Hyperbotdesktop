@@ -1,5 +1,5 @@
 ---
-summary: "Install, configure, and manage HyperBot plugins"
+summary: "Install, configure, and manage Ancient Claw plugins"
 read_when:
   - Installing or configuring plugins
   - Understanding plugin discovery and load rules
@@ -10,34 +10,34 @@ sidebarTitle: "Install and Configure"
 
 # Plugins
 
-Plugins extend HyperBot with new capabilities: channels, model providers, tools,
+Plugins extend Ancient Claw with new capabilities: channels, model providers, tools,
 skills, speech, image generation, and more. Some plugins are **core** (shipped
-with HyperBot), others are **external** (published on npm by the community).
+with Ancient Claw), others are **external** (published on npm by the community).
 
 ## Quick start
 
 <Steps>
   <Step title="See what is loaded">
     ```bash
-    hyperbot plugins list
+    ancient-claw plugins list
     ```
   </Step>
 
   <Step title="Install a plugin">
     ```bash
     # From npm
-    hyperbot plugins install @hyperbot/voice-call
+    ancient-claw plugins install @ancient-claw/voice-call
 
     # From a local directory or archive
-    hyperbot plugins install ./my-plugin
-    hyperbot plugins install ./my-plugin.tgz
+    ancient-claw plugins install ./my-plugin
+    ancient-claw plugins install ./my-plugin.tgz
     ```
 
   </Step>
 
   <Step title="Restart the Gateway">
     ```bash
-    hyperbot gateway restart
+    ancient-claw gateway restart
     ```
 
     Then configure under `plugins.entries.\<id\>.config` in your config file.
@@ -48,7 +48,7 @@ with HyperBot), others are **external** (published on npm by the community).
 If you prefer chat-native control, enable `commands.plugins: true` and use:
 
 ```text
-/plugin install clawhub:@hyperbot/voice-call
+/plugin install clawhub:@ancient-claw/voice-call
 /plugin show voice-call
 /plugin enable voice-call
 ```
@@ -58,14 +58,14 @@ The install path uses the same resolver as the CLI: local path/archive, explicit
 
 ## Plugin types
 
-HyperBot recognizes two plugin formats:
+Ancient Claw recognizes two plugin formats:
 
 | Format     | How it works                                                       | Examples                                               |
 | ---------- | ------------------------------------------------------------------ | ------------------------------------------------------ |
-| **Native** | `hyperbot.plugin.json` + runtime module; executes in-process       | Official plugins, community npm packages               |
-| **Bundle** | Codex/Claude/Cursor-compatible layout; mapped to HyperBot features | `.codex-plugin/`, `.claude-plugin/`, `.cursor-plugin/` |
+| **Native** | `ancient-claw.plugin.json` + runtime module; executes in-process       | Official plugins, community npm packages               |
+| **Bundle** | Codex/Claude/Cursor-compatible layout; mapped to Ancient Claw features | `.codex-plugin/`, `.claude-plugin/`, `.cursor-plugin/` |
 
-Both show up under `hyperbot plugins list`. See [Plugin Bundles](/plugins/bundles) for bundle details.
+Both show up under `ancient-claw plugins list`. See [Plugin Bundles](/plugins/bundles) for bundle details.
 
 If you are writing a native plugin, start with [Building Plugins](/plugins/building-plugins)
 and the [Plugin SDK Overview](/plugins/sdk-overview).
@@ -76,14 +76,14 @@ and the [Plugin SDK Overview](/plugins/sdk-overview).
 
 | Plugin          | Package                | Docs                                 |
 | --------------- | ---------------------- | ------------------------------------ |
-| Matrix          | `@hyperbot/matrix`     | [Matrix](/channels/matrix)           |
-| Microsoft Teams | `@hyperbot/msteams`    | [Microsoft Teams](/channels/msteams) |
-| Nostr           | `@hyperbot/nostr`      | [Nostr](/channels/nostr)             |
-| Voice Call      | `@hyperbot/voice-call` | [Voice Call](/plugins/voice-call)    |
-| Zalo            | `@hyperbot/zalo`       | [Zalo](/channels/zalo)               |
-| Zalo Personal   | `@hyperbot/zalouser`   | [Zalo Personal](/plugins/zalouser)   |
+| Matrix          | `@ancient-claw/matrix`     | [Matrix](/channels/matrix)           |
+| Microsoft Teams | `@ancient-claw/msteams`    | [Microsoft Teams](/channels/msteams) |
+| Nostr           | `@ancient-claw/nostr`      | [Nostr](/channels/nostr)             |
+| Voice Call      | `@ancient-claw/voice-call` | [Voice Call](/plugins/voice-call)    |
+| Zalo            | `@ancient-claw/zalo`       | [Zalo](/channels/zalo)               |
+| Zalo Personal   | `@ancient-claw/zalouser`   | [Zalo Personal](/plugins/zalouser)   |
 
-### Core (shipped with HyperBot)
+### Core (shipped with Ancient Claw)
 
 <AccordionGroup>
   <Accordion title="Model providers (enabled by default)">
@@ -136,7 +136,7 @@ Looking for third-party plugins? See [Community Plugins](/plugins/community).
 | `entries.\<id\>` | Per-plugin toggles + config                               |
 
 Config changes **require a gateway restart**. If the Gateway is running with config
-watch + in-process restart enabled (the default `hyperbot gateway` path), that
+watch + in-process restart enabled (the default `ancient-claw gateway` path), that
 restart is usually performed automatically a moment after the config write lands.
 
 <Accordion title="Plugin states: disabled vs missing vs invalid">
@@ -147,7 +147,7 @@ restart is usually performed automatically a moment after the config write lands
 
 ## Discovery and precedence
 
-HyperBot scans for plugins in this order (first match wins):
+Ancient Claw scans for plugins in this order (first match wins):
 
 <Steps>
   <Step title="Config paths">
@@ -155,15 +155,15 @@ HyperBot scans for plugins in this order (first match wins):
   </Step>
 
   <Step title="Workspace extensions">
-    `\<workspace\>/.hyperbot/extensions/*.ts` and `\<workspace\>/.hyperbot/extensions/*/index.ts`.
+    `\<workspace\>/.ancient-claw/extensions/*.ts` and `\<workspace\>/.ancient-claw/extensions/*/index.ts`.
   </Step>
 
   <Step title="Global extensions">
-    `~/.hyperbot/extensions/*.ts` and `~/.hyperbot/extensions/*/index.ts`.
+    `~/.ancient-claw/extensions/*.ts` and `~/.ancient-claw/extensions/*/index.ts`.
   </Step>
 
   <Step title="Bundled plugins">
-    Shipped with HyperBot. Many are enabled by default (model providers, speech).
+    Shipped with Ancient Claw. Many are enabled by default (model providers, speech).
     Others require explicit enablement.
   </Step>
 </Steps>
@@ -200,24 +200,24 @@ Some categories are exclusive (only one active at a time):
 ## CLI reference
 
 ```bash
-hyperbot plugins list                    # compact inventory
-hyperbot plugins inspect <id>            # deep detail
-hyperbot plugins inspect <id> --json     # machine-readable
-hyperbot plugins status                  # operational summary
-hyperbot plugins doctor                  # diagnostics
+ancient-claw plugins list                    # compact inventory
+ancient-claw plugins inspect <id>            # deep detail
+ancient-claw plugins inspect <id> --json     # machine-readable
+ancient-claw plugins status                  # operational summary
+ancient-claw plugins doctor                  # diagnostics
 
-hyperbot plugins install <package>        # install (ClawHub first, then npm)
-hyperbot plugins install clawhub:<pkg>   # install from ClawHub only
-hyperbot plugins install <path>          # install from local path
-hyperbot plugins install -l <path>       # link (no copy) for dev
-hyperbot plugins update <id>             # update one plugin
-hyperbot plugins update --all            # update all
+ancient-claw plugins install <package>        # install (ClawHub first, then npm)
+ancient-claw plugins install clawhub:<pkg>   # install from ClawHub only
+ancient-claw plugins install <path>          # install from local path
+ancient-claw plugins install -l <path>       # link (no copy) for dev
+ancient-claw plugins update <id>             # update one plugin
+ancient-claw plugins update --all            # update all
 
-hyperbot plugins enable <id>
-hyperbot plugins disable <id>
+ancient-claw plugins enable <id>
+ancient-claw plugins disable <id>
 ```
 
-See [`hyperbot plugins` CLI reference](/cli/plugins) for full details.
+See [`ancient-claw plugins` CLI reference](/cli/plugins) for full details.
 
 ## Plugin API overview
 

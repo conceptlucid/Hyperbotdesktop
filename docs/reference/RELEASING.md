@@ -8,7 +8,7 @@ read_when:
 
 # Release Policy
 
-HyperBot has three public release lanes:
+Ancient Claw has three public release lanes:
 
 - stable: tagged releases that publish to npm `latest`
 - beta: prerelease tags that publish to npm `beta`
@@ -26,7 +26,7 @@ HyperBot has three public release lanes:
 - `latest` means the current stable npm release
 - `beta` means the current prerelease npm release
 - Stable correction releases also publish to npm `latest`
-- Every HyperBot release ships the npm package and macOS app together
+- Every Ancient Claw release ships the npm package and macOS app together
 
 ## Release cadence
 
@@ -40,10 +40,10 @@ HyperBot has three public release lanes:
 - Run `pnpm build` before `pnpm release:check` so the expected `dist/*` release
   artifacts exist for the pack validation step
 - Run `pnpm release:check` before every tagged release
-- Run `RELEASE_TAG=vYYYY.M.D node --import tsx scripts/hyperbot-npm-release-check.ts`
+- Run `RELEASE_TAG=vYYYY.M.D node --import tsx scripts/ancient-claw-npm-release-check.ts`
   (or the matching beta/correction tag) before approval
 - After npm publish, run
-  `node --import tsx scripts/hyperbot-npm-postpublish-verify.ts YYYY.M.D`
+  `node --import tsx scripts/ancient-claw-npm-postpublish-verify.ts YYYY.M.D`
   (or the matching beta/correction version) to verify the published registry
   install path in a fresh temp prefix
 - For stable correction releases like `YYYY.M.D-N`, the post-publish verifier
@@ -62,11 +62,11 @@ HyperBot has three public release lanes:
 
 ## Public references
 
-- [`.github/workflows/hyperbot-npm-release.yml`](https://github.com/hyperbot/hyperbot/blob/main/.github/workflows/hyperbot-npm-release.yml)
-- [`scripts/hyperbot-npm-release-check.ts`](https://github.com/hyperbot/hyperbot/blob/main/scripts/hyperbot-npm-release-check.ts)
-- [`scripts/package-mac-dist.sh`](https://github.com/hyperbot/hyperbot/blob/main/scripts/package-mac-dist.sh)
-- [`scripts/make_appcast.sh`](https://github.com/hyperbot/hyperbot/blob/main/scripts/make_appcast.sh)
+- [`.github/workflows/ancient-claw-npm-release.yml`](https://github.com/ancient-claw/ancient-claw/blob/main/.github/workflows/ancient-claw-npm-release.yml)
+- [`scripts/ancient-claw-npm-release-check.ts`](https://github.com/ancient-claw/ancient-claw/blob/main/scripts/ancient-claw-npm-release-check.ts)
+- [`scripts/package-mac-dist.sh`](https://github.com/ancient-claw/ancient-claw/blob/main/scripts/package-mac-dist.sh)
+- [`scripts/make_appcast.sh`](https://github.com/ancient-claw/ancient-claw/blob/main/scripts/make_appcast.sh)
 
 Maintainers use the private release docs in
-[`hyperbot/maintainers/release/README.md`](https://github.com/hyperbot/maintainers/blob/main/release/README.md)
+[`ancient-claw/maintainers/release/README.md`](https://github.com/ancient-claw/maintainers/blob/main/release/README.md)
 for the actual runbook.

@@ -16,14 +16,14 @@ x-i18n:
 
 # オンボーディングウィザード（CLI）
 
-CLIオンボーディングウィザードは、macOS、Linux、Windows（WSL2経由）でHyperBotをセットアップする際の推奨パスです。ローカルGatewayまたはリモートGateway接続に加えて、ワークスペースのデフォルト設定、チャンネル、Skillsを構成します。
+CLIオンボーディングウィザードは、macOS、Linux、Windows（WSL2経由）でAncient Clawをセットアップする際の推奨パスです。ローカルGatewayまたはリモートGateway接続に加えて、ワークスペースのデフォルト設定、チャンネル、Skillsを構成します。
 
 ```bash
-hyperbot onboard
+ancient-claw onboard
 ```
 
 <Info>
-最速で初回チャットを開始する方法：Control UI を開きます（チャンネル設定は不要）。`hyperbot dashboard` を実行してブラウザでチャットできます。ドキュメント：[Dashboard](/web/dashboard)。
+最速で初回チャットを開始する方法：Control UI を開きます（チャンネル設定は不要）。`ancient-claw dashboard` を実行してブラウザでチャットできます。ドキュメント：[Dashboard](/web/dashboard)。
 </Info>
 
 ## クイックスタート vs 詳細設定
@@ -58,8 +58,8 @@ hyperbot onboard
 ## よく使うフォローアップコマンド
 
 ```bash
-hyperbot configure
-hyperbot agents add <name>
+ancient-claw configure
+ancient-claw agents add <name>
 ```
 
 <Note>
@@ -67,11 +67,11 @@ hyperbot agents add <name>
 </Note>
 
 <Tip>
-推奨：エージェントが `web_search` を使用できるように、Brave Search APIキーを設定してください（`web_fetch` はキーなしで動作します）。最も簡単な方法：`hyperbot configure --section web` を実行すると `plugins.entries.brave.config.webSearch.apiKey` に保存されます。旧 `tools.web.search.apiKey` パスは互換用に引き続き読み込まれますが、新しい設定では使用しないでください。ドキュメント：[Webツール](/tools/web)。
+推奨：エージェントが `web_search` を使用できるように、Brave Search APIキーを設定してください（`web_fetch` はキーなしで動作します）。最も簡単な方法：`ancient-claw configure --section web` を実行すると `plugins.entries.brave.config.webSearch.apiKey` に保存されます。旧 `tools.web.search.apiKey` パスは互換用に引き続き読み込まれますが、新しい設定では使用しないでください。ドキュメント：[Webツール](/tools/web)。
 </Tip>
 
 ## 関連ドキュメント
 
-- CLIコマンドリファレンス：[`hyperbot onboard`](/cli/onboard)
+- CLIコマンドリファレンス：[`ancient-claw onboard`](/cli/onboard)
 - macOSアプリのオンボーディング：[オンボーディング](/start/onboarding)
 - エージェント初回起動の手順：[エージェントブートストラップ](/start/bootstrapping)

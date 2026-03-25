@@ -8,7 +8,7 @@ title: "Bonjour Discovery"
 
 # Bonjour / mDNS discovery
 
-HyperBot uses Bonjour (mDNS / DNS‑SD) as a **LAN‑only convenience** to discover
+Ancient Claw uses Bonjour (mDNS / DNS‑SD) as a **LAN‑only convenience** to discover
 an active Gateway (WebSocket endpoint). It is best‑effort and does **not** replace SSH or
 Tailnet-based connectivity.
 
@@ -21,12 +21,12 @@ boundary. You can keep the same discovery UX by switching to **unicast DNS‑SD*
 High‑level steps:
 
 1. Run a DNS server on the gateway host (reachable over Tailnet).
-2. Publish DNS‑SD records for `_hyperbot-gw._tcp` under a dedicated zone
-   (example: `hyperbot.internal.`).
+2. Publish DNS‑SD records for `_ancient-claw-gw._tcp` under a dedicated zone
+   (example: `ancient-claw.internal.`).
 3. Configure Tailscale **split DNS** so your chosen domain resolves via that
    DNS server for clients (including iOS).
 
-HyperBot supports any discovery domain; `hyperbot.internal.` is just an example.
+Ancient Claw supports any discovery domain; `ancient-claw.internal.` is just an example.
 iOS/Android nodes browse both `local.` and your configured wide‑area domain.
 
 ### Gateway config (recommended)
@@ -41,19 +41,19 @@ iOS/Android nodes browse both `local.` and your configured wide‑area domain.
 ### One-time DNS server setup (gateway host)
 
 ```bash
-hyperbot dns setup --apply
+ancient-claw dns setup --apply
 ```
 
 This installs CoreDNS and configures it to:
 
 - listen on port 53 only on the gateway’s Tailscale interfaces
-- serve your chosen domain (example: `hyperbot.internal.`) from `~/.hyperbot/dns/<domain>.db`
+- serve your chosen domain (example: `ancient-claw.internal.`) from `~/.ancient-claw/dns/<domain>.db`
 
 Validate from a tailnet‑connected machine:
 
 ```bash
-dns-sd -B _hyperbot-gw._tcp hyperbot.internal.
-dig @<TAILNET_IPV4> -p 53 _hyperbot-gw._tcp.hyperbot.internal PTR +short
+dns-sd -B _ancient-claw-gw._tcp ancient-claw.internal.
+dig @<TAILNET_IPV4> -p 53 _ancient-claw-gw._tcp.ancient-claw.internal PTR +short
 ```
 
 ### Tailscale DNS settings
@@ -64,7 +64,7 @@ In the Tailscale admin console:
 - Add split DNS so your discovery domain uses that nameserver.
 
 Once clients accept tailnet DNS, iOS nodes can browse
-`_hyperbot-gw._tcp` in your discovery domain without multicast.
+`_ancient-claw-gw._tcp` in your discovery domain without multicast.
 
 ### Gateway listener security (recommended)
 
@@ -73,16 +73,16 @@ access, bind explicitly and keep auth enabled.
 
 For tailnet‑only setups:
 
-- Set `gateway.bind: "tailnet"` in `~/.hyperbot/hyperbot.json`.
+- Set `gateway.bind: "tailnet"` in `~/.ancient-claw/ancient-claw.json`.
 - Restart the Gateway (or restart the macOS menubar app).
 
 ## What advertises
 
-Only the Gateway advertises `_hyperbot-gw._tcp`.
+Only the Gateway advertises `_ancient-claw-gw._tcp`.
 
 ## Service types
 
-- `_hyperbot-gw._tcp` — gateway transport beacon (used by macOS/iOS/Android nodes).
+- `_ancient-claw-gw._tcp` — gateway transport beacon (used by macOS/iOS/Android nodes).
 
 ## TXT keys (non-secret hints)
 
@@ -97,7 +97,7 @@ The Gateway advertises small non‑secret hints to make UI flows convenient:
 - `canvasPort=<port>` (only when the canvas host is enabled; currently the same as `gatewayPort`)
 - `sshPort=<port>` (defaults to 22 when not overridden)
 - `transport=gateway`
-- `cliPath=<path>` (optional; absolute path to a runnable `hyperbot` entrypoint)
+- `cliPath=<path>` (optional; absolute path to a runnable `ancient-claw` entrypoint)
 - `tailnetDns=<magicdns>` (optional hint when Tailnet is available)
 
 Security notes:
@@ -114,13 +114,13 @@ Useful built‑in tools:
 - Browse instances:
 
   ```bash
-  dns-sd -B _hyperbot-gw._tcp local.
+  dns-sd -B _ancient-claw-gw._tcp local.
   ```
 
 - Resolve one instance (replace `<instance>`):
 
   ```bash
-  dns-sd -L "<instance>" _hyperbot-gw._tcp local.
+  dns-sd -L "<instance>" _ancient-claw-gw._tcp local.
   ```
 
 If browsing works but resolving fails, you’re usually hitting a LAN policy or
@@ -137,7 +137,7 @@ The Gateway writes a rolling log file (printed on startup as
 
 ## Debugging on iOS node
 
-The iOS node uses `NWBrowser` to discover `_hyperbot-gw._tcp`.
+The iOS node uses `NWBrowser` to discover `_ancient-claw-gw._tcp`.
 
 To capture logs:
 
@@ -166,7 +166,7 @@ sequences (e.g. spaces become `\032`).
 ## Disabling / configuration
 
 - `OPENCLAW_DISABLE_BONJOUR=1` disables advertising (legacy: `OPENCLAW_DISABLE_BONJOUR`).
-- `gateway.bind` in `~/.hyperbot/hyperbot.json` controls the Gateway bind mode.
+- `gateway.bind` in `~/.ancient-claw/ancient-claw.json` controls the Gateway bind mode.
 - `OPENCLAW_SSH_PORT` overrides the SSH port advertised in TXT (legacy: `OPENCLAW_SSH_PORT`).
 - `OPENCLAW_TAILNET_DNS` publishes a MagicDNS hint in TXT (legacy: `OPENCLAW_TAILNET_DNS`).
 - `OPENCLAW_CLI_PATH` overrides the advertised CLI path (legacy: `OPENCLAW_CLI_PATH`).

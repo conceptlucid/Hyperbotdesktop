@@ -28,9 +28,9 @@ OpenCode Go 是 [OpenCode](/providers/opencode) 中的 Go 目录。
 ## CLI 设置
 
 ```bash
-hyperbot onboard --auth-choice opencode-go
+ancient-claw onboard --auth-choice opencode-go
 # 或非交互式
-hyperbot onboard --opencode-go-api-key "$OPENCODE_API_KEY"
+ancient-claw onboard --opencode-go-api-key "$OPENCODE_API_KEY"
 ```
 
 ## 配置片段
@@ -44,7 +44,7 @@ hyperbot onboard --opencode-go-api-key "$OPENCODE_API_KEY"
 
 ## 路由行为
 
-当模型引用使用 `opencode-go/...` 时，HyperBot 会自动处理按模型路由。
+当模型引用使用 `opencode-go/...` 时，Ancient Claw 会自动处理按模型路由。
 
 ## 说明
 

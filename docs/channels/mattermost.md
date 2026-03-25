@@ -1,5 +1,5 @@
 ---
-summary: "Mattermost bot setup and HyperBot config"
+summary: "Mattermost bot setup and Ancient Claw config"
 read_when:
   - Setting up Mattermost
   - Debugging Mattermost routing
@@ -19,17 +19,17 @@ Mattermost ships as a plugin and is not bundled with the core install.
 Install via CLI (npm registry):
 
 ```bash
-hyperbot plugins install @hyperbot/mattermost
+ancient-claw plugins install @ancient-claw/mattermost
 ```
 
 Local checkout (when running from a git repo):
 
 ```bash
-hyperbot plugins install ./extensions/mattermost
+ancient-claw plugins install ./extensions/mattermost
 ```
 
 If you choose Mattermost during setup and a git checkout is detected,
-HyperBot will offer the local install path automatically.
+Ancient Claw will offer the local install path automatically.
 
 Details: [Plugins](/tools/plugin)
 
@@ -38,7 +38,7 @@ Details: [Plugins](/tools/plugin)
 1. Install the Mattermost plugin.
 2. Create a Mattermost bot account and copy the **bot token**.
 3. Copy the Mattermost **base URL** (e.g., `https://chat.example.com`).
-4. Configure HyperBot and start the gateway.
+4. Configure Ancient Claw and start the gateway.
 
 Minimal config:
 
@@ -57,7 +57,7 @@ Minimal config:
 
 ## Native slash commands
 
-Native slash commands are opt-in. When enabled, HyperBot registers `oc_*` slash commands via
+Native slash commands are opt-in. When enabled, Ancient Claw registers `oc_*` slash commands via
 the Mattermost API and receives callback POSTs on the gateway HTTP server.
 
 ```json5
@@ -79,14 +79,14 @@ the Mattermost API and receives callback POSTs on the gateway HTTP server.
 Notes:
 
 - `native: "auto"` defaults to disabled for Mattermost. Set `native: true` to enable.
-- If `callbackUrl` is omitted, HyperBot derives one from gateway host/port + `callbackPath`.
+- If `callbackUrl` is omitted, Ancient Claw derives one from gateway host/port + `callbackPath`.
 - For multi-account setups, `commands` can be set at the top level or under
   `channels.mattermost.accounts.<id>.commands` (account values override top-level fields).
 - Command callbacks are validated with per-command tokens and fail closed when token checks fail.
 - Reachability requirement: the callback endpoint must be reachable from the Mattermost server.
-  - Do not set `callbackUrl` to `localhost` unless Mattermost runs on the same host/network namespace as HyperBot.
-  - Do not set `callbackUrl` to your Mattermost base URL unless that URL reverse-proxies `/api/channels/mattermost/command` to HyperBot.
-  - A quick check is `curl https://<gateway-host>/api/channels/mattermost/command`; a GET should return `405 Method Not Allowed` from HyperBot, not `404`.
+  - Do not set `callbackUrl` to `localhost` unless Mattermost runs on the same host/network namespace as Ancient Claw.
+  - Do not set `callbackUrl` to your Mattermost base URL unless that URL reverse-proxies `/api/channels/mattermost/command` to Ancient Claw.
+  - A quick check is `curl https://<gateway-host>/api/channels/mattermost/command`; a GET should return `405 Method Not Allowed` from Ancient Claw, not `404`.
 - Mattermost egress allowlist requirement:
   - If your callback targets private/tailnet/internal addresses, set Mattermost
     `ServiceSettings.AllowedUntrustedInternalConnections` to include the callback host/domain.
@@ -162,8 +162,8 @@ Notes:
 
 - Default: `channels.mattermost.dmPolicy = "pairing"` (unknown senders get a pairing code).
 - Approve via:
-  - `hyperbot pairing list mattermost`
-  - `hyperbot pairing approve mattermost <CODE>`
+  - `ancient-claw pairing list mattermost`
+  - `ancient-claw pairing approve mattermost <CODE>`
 - Public DMs: `channels.mattermost.dmPolicy="open"` plus `channels.mattermost.allowFrom=["*"]`.
 
 ## Channels (groups)
@@ -176,7 +176,7 @@ Notes:
 
 ## Targets for outbound delivery
 
-Use these target formats with `hyperbot message send` or cron/webhooks:
+Use these target formats with `ancient-claw message send` or cron/webhooks:
 
 - `channel:<id>` for a channel
 - `user:<id>` for a DM
@@ -184,16 +184,16 @@ Use these target formats with `hyperbot message send` or cron/webhooks:
 
 Bare opaque IDs (like `64ifufp...`) are **ambiguous** in Mattermost (user ID vs channel ID).
 
-HyperBot resolves them **user-first**:
+Ancient Claw resolves them **user-first**:
 
-- If the ID exists as a user (`GET /api/v4/users/<id>` succeeds), HyperBot sends a **DM** by resolving the direct channel via `/api/v4/channels/direct`.
+- If the ID exists as a user (`GET /api/v4/users/<id>` succeeds), Ancient Claw sends a **DM** by resolving the direct channel via `/api/v4/channels/direct`.
 - Otherwise the ID is treated as a **channel ID**.
 
 If you need deterministic behavior, always use the explicit prefixes (`user:<id>` / `channel:<id>`).
 
 ## DM channel retry
 
-When HyperBot sends to a Mattermost DM target and needs to resolve the direct channel first, it
+When Ancient Claw sends to a Mattermost DM target and needs to resolve the direct channel first, it
 retries transient direct-channel creation failures by default.
 
 Use `channels.mattermost.dmChannelRetry` to tune that behavior globally for the Mattermost plugin,
@@ -291,10 +291,10 @@ Config:
   reach the gateway at its bind host directly.
 - In multi-account setups, you can also set the same field under
   `channels.mattermost.accounts.<id>.interactions.callbackBaseUrl`.
-- If `interactions.callbackBaseUrl` is omitted, HyperBot derives the callback URL from
+- If `interactions.callbackBaseUrl` is omitted, Ancient Claw derives the callback URL from
   `gateway.customBindHost` + `gateway.port`, then falls back to `http://localhost:<port>`.
 - Reachability rule: the button callback URL must be reachable from the Mattermost server.
-  `localhost` only works when Mattermost and HyperBot run on the same host/network namespace.
+  `localhost` only works when Mattermost and Ancient Claw run on the same host/network namespace.
 - If your callback target is private/tailnet/internal, add its host/domain to Mattermost
   `ServiceSettings.AllowedUntrustedInternalConnections`.
 
@@ -353,7 +353,7 @@ The gateway verifies button clicks with HMAC-SHA256. External scripts must gener
 that match the gateway's verification logic:
 
 1. Derive the secret from the bot token:
-   `HMAC-SHA256(key="hyperbot-mattermost-interactions", data=botToken)`
+   `HMAC-SHA256(key="ancient-claw-mattermost-interactions", data=botToken)`
 2. Build the context object with all fields **except** `_token`.
 3. Serialize with **sorted keys** and **no spaces** (the gateway uses `JSON.stringify`
    with sorted keys, which produces compact output).
@@ -366,7 +366,7 @@ Python example:
 import hmac, hashlib, json
 
 secret = hmac.new(
-    b"hyperbot-mattermost-interactions",
+    b"ancient-claw-mattermost-interactions",
     bot_token.encode(), hashlib.sha256
 ).hexdigest()
 
@@ -392,7 +392,7 @@ Common HMAC pitfalls:
 
 The Mattermost plugin includes a directory adapter that resolves channel and user names
 via the Mattermost API. This enables `#channel-name` and `@username` targets in
-`hyperbot message send` and cron/webhook deliveries.
+`ancient-claw message send` and cron/webhook deliveries.
 
 No configuration is needed — the adapter uses the bot token from the account config.
 

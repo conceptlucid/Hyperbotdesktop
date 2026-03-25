@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `hyperbot models` (status/list/set/scan, aliases, fallbacks, auth)"
+summary: "CLI reference for `ancient-claw models` (status/list/set/scan, aliases, fallbacks, auth)"
 read_when:
   - You want to change default models or view provider auth status
   - You want to scan available models/providers and debug auth profiles
 title: "models"
 ---
 
-# `hyperbot models`
+# `ancient-claw models`
 
 Model discovery, scanning, and configuration (default model, fallbacks, auth profiles).
 
@@ -18,13 +18,13 @@ Related:
 ## Common commands
 
 ```bash
-hyperbot models status
-hyperbot models list
-hyperbot models set <model-or-alias>
-hyperbot models scan
+ancient-claw models status
+ancient-claw models list
+ancient-claw models set <model-or-alias>
+ancient-claw models scan
 ```
 
-`hyperbot models status` shows the resolved default/fallbacks plus an auth overview.
+`ancient-claw models status` shows the resolved default/fallbacks plus an auth overview.
 When provider usage snapshots are available, the OAuth/token status section includes
 provider usage headers.
 Add `--probe` to run live auth probes against each configured provider profile.
@@ -37,7 +37,7 @@ Notes:
 
 - `models set <model-or-alias>` accepts `provider/model` or an alias.
 - Model refs are parsed by splitting on the **first** `/`. If the model ID includes `/` (OpenRouter-style), include the provider prefix (example: `openrouter/moonshotai/kimi-k2`).
-- If you omit the provider, HyperBot treats the input as an alias or a model for the **default provider** (only works when there is no `/` in the model ID).
+- If you omit the provider, Ancient Claw treats the input as an alias or a model for the **default provider** (only works when there is no `/` in the model ID).
 - `models status` may show `marker(<value>)` in auth output for non-secret placeholders (for example `OPENAI_API_KEY`, `secretref-managed`, `minimax-oauth`, `qwen-oauth`, `ollama-local`) instead of masking them as secrets.
 
 ### `models status`
@@ -58,21 +58,21 @@ Options:
 ## Aliases + fallbacks
 
 ```bash
-hyperbot models aliases list
-hyperbot models fallbacks list
+ancient-claw models aliases list
+ancient-claw models fallbacks list
 ```
 
 ## Auth profiles
 
 ```bash
-hyperbot models auth add
-hyperbot models auth login --provider <id>
-hyperbot models auth setup-token
-hyperbot models auth paste-token
+ancient-claw models auth add
+ancient-claw models auth login --provider <id>
+ancient-claw models auth setup-token
+ancient-claw models auth paste-token
 ```
 
 `models auth login` runs a provider plugin’s auth flow (OAuth/API key). Use
-`hyperbot plugins list` to see which providers are installed.
+`ancient-claw plugins list` to see which providers are installed.
 
 Notes:
 

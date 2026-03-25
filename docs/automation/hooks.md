@@ -8,16 +8,16 @@ title: "Hooks"
 
 # Hooks
 
-Hooks provide an extensible event-driven system for automating actions in response to agent commands and events. Hooks are automatically discovered from directories and can be inspected with `hyperbot hooks`, while hook-pack installation and updates now go through `hyperbot plugins`.
+Hooks provide an extensible event-driven system for automating actions in response to agent commands and events. Hooks are automatically discovered from directories and can be inspected with `ancient-claw hooks`, while hook-pack installation and updates now go through `ancient-claw plugins`.
 
 ## Getting Oriented
 
 Hooks are small scripts that run when something happens. There are two kinds:
 
 - **Hooks** (this page): run inside the Gateway when agent events fire, like `/new`, `/reset`, `/stop`, or lifecycle events.
-- **Webhooks**: external HTTP webhooks that let other systems trigger work in HyperBot. See [Webhook Hooks](/automation/webhook) or use `hyperbot webhooks` for Gmail helper commands.
+- **Webhooks**: external HTTP webhooks that let other systems trigger work in Ancient Claw. See [Webhook Hooks](/automation/webhook) or use `ancient-claw webhooks` for Gmail helper commands.
 
-Hooks can also be bundled inside plugins; see [Plugin hooks](/plugins/architecture#provider-runtime-hooks). `hyperbot hooks list` shows both standalone hooks and plugin-managed hooks.
+Hooks can also be bundled inside plugins; see [Plugin hooks](/plugins/architecture#provider-runtime-hooks). `ancient-claw hooks list` shows both standalone hooks and plugin-managed hooks.
 
 Common uses:
 
@@ -26,7 +26,7 @@ Common uses:
 - Trigger follow-up automation when a session starts or ends
 - Write files into the agent workspace or call external APIs when events fire
 
-If you can write a small TypeScript function, you can write a hook. Managed and bundled hooks are trusted local code. Workspace hooks are discovered automatically, but HyperBot keeps them disabled until you explicitly enable them via the CLI or config.
+If you can write a small TypeScript function, you can write a hook. Managed and bundled hooks are trusted local code. Workspace hooks are discovered automatically, but Ancient Claw keeps them disabled until you explicitly enable them via the CLI or config.
 
 ## Overview
 
@@ -35,58 +35,58 @@ The hooks system allows you to:
 - Save session context to memory when `/new` is issued
 - Log all commands for auditing
 - Trigger custom automations on agent lifecycle events
-- Extend HyperBot's behavior without modifying core code
+- Extend Ancient Claw's behavior without modifying core code
 
 ## Getting Started
 
 ### Bundled Hooks
 
-HyperBot ships with four bundled hooks that are automatically discovered:
+Ancient Claw ships with four bundled hooks that are automatically discovered:
 
-- **💾 session-memory**: Saves session context to your agent workspace (default `~/.hyperbot/workspace/memory/`) when you issue `/new` or `/reset`
+- **💾 session-memory**: Saves session context to your agent workspace (default `~/.ancient-claw/workspace/memory/`) when you issue `/new` or `/reset`
 - **📎 bootstrap-extra-files**: Injects additional workspace bootstrap files from configured glob/path patterns during `agent:bootstrap`
-- **📝 command-logger**: Logs all command events to `~/.hyperbot/logs/commands.log`
+- **📝 command-logger**: Logs all command events to `~/.ancient-claw/logs/commands.log`
 - **🚀 boot-md**: Runs `BOOT.md` when the gateway starts (requires internal hooks enabled)
 
 List available hooks:
 
 ```bash
-hyperbot hooks list
+ancient-claw hooks list
 ```
 
 Enable a hook:
 
 ```bash
-hyperbot hooks enable session-memory
+ancient-claw hooks enable session-memory
 ```
 
 Check hook status:
 
 ```bash
-hyperbot hooks check
+ancient-claw hooks check
 ```
 
 Get detailed information:
 
 ```bash
-hyperbot hooks info session-memory
+ancient-claw hooks info session-memory
 ```
 
 ### Onboarding
 
-During onboarding (`hyperbot onboard`), you'll be prompted to enable recommended hooks. The wizard automatically discovers eligible hooks and presents them for selection.
+During onboarding (`ancient-claw onboard`), you'll be prompted to enable recommended hooks. The wizard automatically discovers eligible hooks and presents them for selection.
 
 ### Trust Boundary
 
-Hooks run inside the Gateway process. Treat bundled hooks, managed hooks, and `hooks.internal.load.extraDirs` as trusted local code. Workspace hooks under `<workspace>/hooks/` are repo-local code, so HyperBot requires an explicit enable step before loading them.
+Hooks run inside the Gateway process. Treat bundled hooks, managed hooks, and `hooks.internal.load.extraDirs` as trusted local code. Workspace hooks under `<workspace>/hooks/` are repo-local code, so Ancient Claw requires an explicit enable step before loading them.
 
 ## Hook Discovery
 
 Hooks are automatically discovered from these directories, in order of increasing override precedence:
 
-1. **Bundled hooks**: shipped with HyperBot; located at `<hyperbot>/dist/hooks/bundled/` for npm installs (or a sibling `hooks/bundled/` for compiled binaries)
+1. **Bundled hooks**: shipped with Ancient Claw; located at `<ancient-claw>/dist/hooks/bundled/` for npm installs (or a sibling `hooks/bundled/` for compiled binaries)
 2. **Plugin hooks**: hooks bundled inside installed plugins (see [Plugin hooks](/plugins/architecture#provider-runtime-hooks))
-3. **Managed hooks**: `~/.hyperbot/hooks/` (user-installed, shared across workspaces; can override bundled and plugin hooks). **Extra hook directories** configured via `hooks.internal.load.extraDirs` are also treated as managed hooks and share the same override precedence.
+3. **Managed hooks**: `~/.ancient-claw/hooks/` (user-installed, shared across workspaces; can override bundled and plugin hooks). **Extra hook directories** configured via `hooks.internal.load.extraDirs` are also treated as managed hooks and share the same override precedence.
 4. **Workspace hooks**: `<workspace>/hooks/` (per-agent, disabled by default until explicitly enabled; cannot override hooks from other sources)
 
 Workspace hooks can add new hook names for a repo, but they cannot override bundled, managed, or plugin-provided hooks with the same name.
@@ -103,18 +103,18 @@ my-hook/
 
 ## Hook Packs (npm/archives)
 
-Hook packs are standard npm packages that export one or more hooks via `hyperbot.hooks` in
+Hook packs are standard npm packages that export one or more hooks via `ancient-claw.hooks` in
 `package.json`. Install them with:
 
 ```bash
-hyperbot plugins install <path-or-spec>
+ancient-claw plugins install <path-or-spec>
 ```
 
 Npm specs are registry-only (package name + optional exact version or dist-tag).
 Git/URL/file specs and semver ranges are rejected.
 
 Bare specs and `@latest` stay on the stable track. If npm resolves either of
-those to a prerelease, HyperBot stops and asks you to opt in explicitly with a
+those to a prerelease, Ancient Claw stops and asks you to opt in explicitly with a
 prerelease tag such as `@beta`/`@rc` or an exact prerelease version.
 
 Example `package.json`:
@@ -123,18 +123,18 @@ Example `package.json`:
 {
   "name": "@acme/my-hooks",
   "version": "0.1.0",
-  "hyperbot": {
+  "ancient-claw": {
     "hooks": ["./hooks/my-hook", "./hooks/other-hook"]
   }
 }
 ```
 
 Each entry points to a hook directory containing `HOOK.md` and `handler.ts` (or `index.ts`).
-Hook packs can ship dependencies; they will be installed under `~/.hyperbot/hooks/<id>`.
-Each `hyperbot.hooks` entry must stay inside the package directory after symlink
+Hook packs can ship dependencies; they will be installed under `~/.ancient-claw/hooks/<id>`.
+Each `ancient-claw.hooks` entry must stay inside the package directory after symlink
 resolution; entries that escape are rejected.
 
-Security note: `hyperbot plugins install` installs hook-pack dependencies with `npm install --ignore-scripts`
+Security note: `ancient-claw plugins install` installs hook-pack dependencies with `npm install --ignore-scripts`
 (no lifecycle scripts). Keep hook pack dependency trees "pure JS/TS" and avoid packages that rely
 on `postinstall` builds.
 
@@ -148,9 +148,9 @@ The `HOOK.md` file contains metadata in YAML frontmatter plus Markdown documenta
 ---
 name: my-hook
 description: "Short description of what this hook does"
-homepage: https://docs.hyperbot.ai/automation/hooks#my-hook
+homepage: https://docs.ancient-claw.ai/automation/hooks#my-hook
 metadata:
-  { "hyperbot": { "emoji": "🔗", "events": ["command:new"], "requires": { "bins": ["node"] } } }
+  { "ancient-claw": { "emoji": "🔗", "events": ["command:new"], "requires": { "bins": ["node"] } } }
 ---
 
 # My Hook
@@ -174,7 +174,7 @@ No configuration needed.
 
 ### Metadata Fields
 
-The `metadata.hyperbot` object supports:
+The `metadata.ancient-claw` object supports:
 
 - **`emoji`**: Display emoji for CLI (e.g., `"💾"`)
 - **`events`**: Array of events to listen for (e.g., `["command:new", "command:reset"]`)
@@ -231,7 +231,7 @@ Each event includes:
     commandSource?: string,            // e.g., 'whatsapp', 'telegram'
     senderId?: string,
     workspaceDir?: string,
-    cfg?: HyperBotConfig,
+    cfg?: Ancient ClawConfig,
     // Command events (command:stop only):
     sessionId?: string,
     // Agent bootstrap events (agent:bootstrap):
@@ -314,7 +314,7 @@ Session events include rich context about the session and changes:
     sendPolicy?: "allow" | "deny" | null,          // Message send policy
     groupActivation?: "mention" | "always" | null, // Group chat activation
   },
-  cfg: HyperBotConfig            // Current gateway config
+  cfg: Ancient ClawConfig            // Current gateway config
 }
 ```
 
@@ -453,7 +453,7 @@ export default handler;
 
 ### Tool Result Hooks (Plugin API)
 
-These hooks are not event-stream listeners; they let plugins synchronously adjust tool results before HyperBot persists them.
+These hooks are not event-stream listeners; they let plugins synchronously adjust tool results before Ancient Claw persists them.
 
 - **`tool_result_persist`**: transform tool results before they are written to the session transcript. Must be synchronous; return the updated tool result payload or `undefined` to keep it as-is. See [Agent Loop](/concepts/agent-loop).
 
@@ -477,13 +477,13 @@ Planned event types:
 ### 1. Choose Location
 
 - **Workspace hooks** (`<workspace>/hooks/`): Per-agent; can add new hook names but cannot override bundled, managed, or plugin hooks with the same name
-- **Managed hooks** (`~/.hyperbot/hooks/`): Shared across workspaces; can override bundled and plugin hooks
+- **Managed hooks** (`~/.ancient-claw/hooks/`): Shared across workspaces; can override bundled and plugin hooks
 
 ### 2. Create Directory Structure
 
 ```bash
-mkdir -p ~/.hyperbot/hooks/my-hook
-cd ~/.hyperbot/hooks/my-hook
+mkdir -p ~/.ancient-claw/hooks/my-hook
+cd ~/.ancient-claw/hooks/my-hook
 ```
 
 ### 3. Create HOOK.md
@@ -492,7 +492,7 @@ cd ~/.hyperbot/hooks/my-hook
 ---
 name: my-hook
 description: "Does something useful"
-metadata: { "hyperbot": { "emoji": "🎯", "events": ["command:new"] } }
+metadata: { "ancient-claw": { "emoji": "🎯", "events": ["command:new"] } }
 ---
 
 # My Custom Hook
@@ -519,10 +519,10 @@ export default handler;
 
 ```bash
 # Verify hook is discovered
-hyperbot hooks list
+ancient-claw hooks list
 
 # Enable it
-hyperbot hooks enable my-hook
+ancient-claw hooks enable my-hook
 
 # Restart your gateway process (menu bar app restart on macOS, or restart your dev process)
 
@@ -618,46 +618,46 @@ Note: `module` must be a workspace-relative path. Absolute paths and traversal o
 
 ```bash
 # List all hooks
-hyperbot hooks list
+ancient-claw hooks list
 
 # Show only eligible hooks
-hyperbot hooks list --eligible
+ancient-claw hooks list --eligible
 
 # Verbose output (show missing requirements)
-hyperbot hooks list --verbose
+ancient-claw hooks list --verbose
 
 # JSON output
-hyperbot hooks list --json
+ancient-claw hooks list --json
 ```
 
 ### Hook Information
 
 ```bash
 # Show detailed info about a hook
-hyperbot hooks info session-memory
+ancient-claw hooks info session-memory
 
 # JSON output
-hyperbot hooks info session-memory --json
+ancient-claw hooks info session-memory --json
 ```
 
 ### Check Eligibility
 
 ```bash
 # Show eligibility summary
-hyperbot hooks check
+ancient-claw hooks check
 
 # JSON output
-hyperbot hooks check --json
+ancient-claw hooks check --json
 ```
 
 ### Enable/Disable
 
 ```bash
 # Enable a hook
-hyperbot hooks enable session-memory
+ancient-claw hooks enable session-memory
 
 # Disable a hook
-hyperbot hooks disable command-logger
+ancient-claw hooks disable command-logger
 ```
 
 ## Bundled hook reference
@@ -670,7 +670,7 @@ Saves session context to memory when you issue `/new` or `/reset`.
 
 **Requirements**: `workspace.dir` must be configured
 
-**Output**: `<workspace>/memory/YYYY-MM-DD-slug.md` (defaults to `~/.hyperbot/workspace`)
+**Output**: `<workspace>/memory/YYYY-MM-DD-slug.md` (defaults to `~/.ancient-claw/workspace`)
 
 **What it does**:
 
@@ -703,7 +703,7 @@ assistant: Sure! Let's start with the endpoints...
 **Enable**:
 
 ```bash
-hyperbot hooks enable session-memory
+ancient-claw hooks enable session-memory
 ```
 
 ### bootstrap-extra-files
@@ -750,7 +750,7 @@ Injects additional bootstrap files (for example monorepo-local `AGENTS.md` / `TO
 **Enable**:
 
 ```bash
-hyperbot hooks enable bootstrap-extra-files
+ancient-claw hooks enable bootstrap-extra-files
 ```
 
 ### command-logger
@@ -761,7 +761,7 @@ Logs all command events to a centralized audit file.
 
 **Requirements**: None
 
-**Output**: `~/.hyperbot/logs/commands.log`
+**Output**: `~/.ancient-claw/logs/commands.log`
 
 **What it does**:
 
@@ -780,19 +780,19 @@ Logs all command events to a centralized audit file.
 
 ```bash
 # View recent commands
-tail -n 20 ~/.hyperbot/logs/commands.log
+tail -n 20 ~/.ancient-claw/logs/commands.log
 
 # Pretty-print with jq
-cat ~/.hyperbot/logs/commands.log | jq .
+cat ~/.ancient-claw/logs/commands.log | jq .
 
 # Filter by action
-grep '"action":"new"' ~/.hyperbot/logs/commands.log | jq .
+grep '"action":"new"' ~/.ancient-claw/logs/commands.log | jq .
 ```
 
 **Enable**:
 
 ```bash
-hyperbot hooks enable command-logger
+ancient-claw hooks enable command-logger
 ```
 
 ### boot-md
@@ -813,7 +813,7 @@ Internal hooks must be enabled for this to run.
 **Enable**:
 
 ```bash
-hyperbot hooks enable boot-md
+ancient-claw hooks enable boot-md
 ```
 
 ## Best Practices
@@ -870,13 +870,13 @@ const handler: HookHandler = async (event) => {
 Specify exact events in metadata when possible:
 
 ```yaml
-metadata: { "hyperbot": { "events": ["command:new"] } } # Specific
+metadata: { "ancient-claw": { "events": ["command:new"] } } # Specific
 ```
 
 Rather than:
 
 ```yaml
-metadata: { "hyperbot": { "events": ["command"] } } # General - more overhead
+metadata: { "ancient-claw": { "events": ["command"] } } # General - more overhead
 ```
 
 ## Debugging
@@ -897,7 +897,7 @@ Registered hook: boot-md -> gateway:startup
 List all discovered hooks:
 
 ```bash
-hyperbot hooks list --verbose
+ancient-claw hooks list --verbose
 ```
 
 ### Check Registration
@@ -916,7 +916,7 @@ const handler: HookHandler = async (event) => {
 Check why a hook isn't eligible:
 
 ```bash
-hyperbot hooks info my-hook
+ancient-claw hooks info my-hook
 ```
 
 Look for missing requirements in the output.
@@ -932,7 +932,7 @@ Monitor gateway logs to see hook execution:
 ./scripts/clawlog.sh -f
 
 # Other platforms
-tail -f ~/.hyperbot/gateway.log
+tail -f ~/.ancient-claw/gateway.log
 ```
 
 ### Test Hooks Directly
@@ -1014,21 +1014,21 @@ Session reset
 1. Check directory structure:
 
    ```bash
-   ls -la ~/.hyperbot/hooks/my-hook/
+   ls -la ~/.ancient-claw/hooks/my-hook/
    # Should show: HOOK.md, handler.ts
    ```
 
 2. Verify HOOK.md format:
 
    ```bash
-   cat ~/.hyperbot/hooks/my-hook/HOOK.md
+   cat ~/.ancient-claw/hooks/my-hook/HOOK.md
    # Should have YAML frontmatter with name and metadata
    ```
 
 3. List all discovered hooks:
 
    ```bash
-   hyperbot hooks list
+   ancient-claw hooks list
    ```
 
 ### Hook Not Eligible
@@ -1036,7 +1036,7 @@ Session reset
 Check requirements:
 
 ```bash
-hyperbot hooks info my-hook
+ancient-claw hooks info my-hook
 ```
 
 Look for missing:
@@ -1051,7 +1051,7 @@ Look for missing:
 1. Verify hook is enabled:
 
    ```bash
-   hyperbot hooks list
+   ancient-claw hooks list
    # Should show ✓ next to enabled hooks
    ```
 
@@ -1099,8 +1099,8 @@ node -e "import('./path/to/handler.ts').then(console.log)"
 1. Create hook directory:
 
    ```bash
-   mkdir -p ~/.hyperbot/hooks/my-hook
-   mv ./hooks/handlers/my-handler.ts ~/.hyperbot/hooks/my-hook/handler.ts
+   mkdir -p ~/.ancient-claw/hooks/my-hook
+   mv ./hooks/handlers/my-handler.ts ~/.ancient-claw/hooks/my-hook/handler.ts
    ```
 
 2. Create HOOK.md:
@@ -1109,7 +1109,7 @@ node -e "import('./path/to/handler.ts').then(console.log)"
    ---
    name: my-hook
    description: "My custom hook"
-   metadata: { "hyperbot": { "emoji": "🎯", "events": ["command:new"] } }
+   metadata: { "ancient-claw": { "emoji": "🎯", "events": ["command:new"] } }
    ---
 
    # My Hook
@@ -1135,7 +1135,7 @@ node -e "import('./path/to/handler.ts').then(console.log)"
 4. Verify and restart your gateway process:
 
    ```bash
-   hyperbot hooks list
+   ancient-claw hooks list
    # Should show: 🎯 my-hook ✓
    ```
 
@@ -1150,6 +1150,6 @@ node -e "import('./path/to/handler.ts').then(console.log)"
 ## See Also
 
 - [CLI Reference: hooks](/cli/hooks)
-- [Bundled Hooks README](https://github.com/hyperbot/hyperbot/tree/main/src/hooks/bundled)
+- [Bundled Hooks README](https://github.com/ancient-claw/ancient-claw/tree/main/src/hooks/bundled)
 - [Webhook Hooks](/automation/webhook)
 - [Configuration](/gateway/configuration-reference#hooks)

@@ -1,14 +1,14 @@
 ---
-summary: "Host HyperBot on a DigitalOcean Droplet"
+summary: "Host Ancient Claw on a DigitalOcean Droplet"
 read_when:
-  - Setting up HyperBot on DigitalOcean
-  - Looking for a simple paid VPS for HyperBot
+  - Setting up Ancient Claw on DigitalOcean
+  - Looking for a simple paid VPS for Ancient Claw
 title: "DigitalOcean"
 ---
 
 # DigitalOcean
 
-Run a persistent HyperBot Gateway on a DigitalOcean Droplet.
+Run a persistent Ancient Claw Gateway on a DigitalOcean Droplet.
 
 ## Prerequisites
 
@@ -45,16 +45,16 @@ Run a persistent HyperBot Gateway on a DigitalOcean Droplet.
     curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
     apt install -y nodejs
 
-    # Install HyperBot
-    curl -fsSL https://hyperbot.ai/install.sh | bash
-    hyperbot --version
+    # Install Ancient Claw
+    curl -fsSL https://ancient-claw.ai/install.sh | bash
+    ancient-claw --version
     ```
 
   </Step>
 
   <Step title="Run onboarding">
     ```bash
-    hyperbot onboard --install-daemon
+    ancient-claw onboard --install-daemon
     ```
 
     The wizard walks you through model auth, channel setup, gateway token generation, and daemon installation (systemd).
@@ -73,9 +73,9 @@ Run a persistent HyperBot Gateway on a DigitalOcean Droplet.
 
   <Step title="Verify the gateway">
     ```bash
-    hyperbot status
-    systemctl --user status hyperbot-gateway.service
-    journalctl --user -u hyperbot-gateway.service -f
+    ancient-claw status
+    systemctl --user status ancient-claw-gateway.service
+    journalctl --user -u ancient-claw-gateway.service -f
     ```
   </Step>
 
@@ -96,8 +96,8 @@ Run a persistent HyperBot Gateway on a DigitalOcean Droplet.
     ```bash
     curl -fsSL https://tailscale.com/install.sh | sh
     tailscale up
-    hyperbot config set gateway.tailscale.mode serve
-    hyperbot gateway restart
+    ancient-claw config set gateway.tailscale.mode serve
+    ancient-claw gateway restart
     ```
 
     Then open `https://<magicdns>/` from any device on your tailnet.
@@ -105,8 +105,8 @@ Run a persistent HyperBot Gateway on a DigitalOcean Droplet.
     **Option C: Tailnet bind (no Serve)**
 
     ```bash
-    hyperbot config set gateway.bind tailnet
-    hyperbot gateway restart
+    ancient-claw config set gateway.bind tailnet
+    ancient-claw gateway restart
     ```
 
     Then open `http://<tailscale-ip>:18789` (token required).
@@ -116,7 +116,7 @@ Run a persistent HyperBot Gateway on a DigitalOcean Droplet.
 
 ## Troubleshooting
 
-**Gateway will not start** -- Run `hyperbot doctor --non-interactive` and check logs with `journalctl --user -u hyperbot-gateway.service -n 50`.
+**Gateway will not start** -- Run `ancient-claw doctor --non-interactive` and check logs with `journalctl --user -u ancient-claw-gateway.service -n 50`.
 
 **Port already in use** -- Run `lsof -i :18789` to find the process, then stop it.
 
@@ -126,4 +126,4 @@ Run a persistent HyperBot Gateway on a DigitalOcean Droplet.
 
 - [Channels](/channels) -- connect Telegram, WhatsApp, Discord, and more
 - [Gateway configuration](/gateway/configuration) -- all config options
-- [Updating](/install/updating) -- keep HyperBot up to date
+- [Updating](/install/updating) -- keep Ancient Claw up to date

@@ -122,13 +122,13 @@ Text-to-speech synthesis.
 ```typescript
 // Standard TTS
 const clip = await api.runtime.tts.textToSpeech({
-  text: "Hello from HyperBot",
+  text: "Hello from Ancient Claw",
   cfg: api.config,
 });
 
 // Telephony-optimized TTS
 const telephonyClip = await api.runtime.tts.textToSpeechTelephony({
-  text: "Hello from HyperBot",
+  text: "Hello from Ancient Claw",
   cfg: api.config,
 });
 
@@ -203,7 +203,7 @@ const providers = api.runtime.webSearch.listProviders({ config: api.config });
 
 const result = await api.runtime.webSearch.search({
   config: api.config,
-  args: { query: "HyperBot plugin SDK", count: 5 },
+  args: { query: "Ancient Claw plugin SDK", count: 5 },
 });
 ```
 
@@ -302,8 +302,8 @@ Use `createPluginRuntimeStore` to store the runtime reference for use outside
 the `register` callback:
 
 ```typescript
-import { createPluginRuntimeStore } from "hyperbot/plugin-sdk/runtime-store";
-import type { PluginRuntime } from "hyperbot/plugin-sdk/runtime-store";
+import { createPluginRuntimeStore } from "ancient-claw/plugin-sdk/runtime-store";
+import type { PluginRuntime } from "ancient-claw/plugin-sdk/runtime-store";
 
 const store = createPluginRuntimeStore<PluginRuntime>("my-plugin runtime not initialized");
 
@@ -334,7 +334,7 @@ Beyond `api.runtime`, the API object also provides:
 | ------------------------ | ------------------------- | --------------------------------------------------------- |
 | `api.id`                 | `string`                  | Plugin id                                                 |
 | `api.name`               | `string`                  | Plugin display name                                       |
-| `api.config`             | `HyperBotConfig`          | Current config snapshot                                   |
+| `api.config`             | `Ancient ClawConfig`          | Current config snapshot                                   |
 | `api.pluginConfig`       | `Record<string, unknown>` | Plugin-specific config from `plugins.entries.<id>.config` |
 | `api.logger`             | `PluginLogger`            | Scoped logger (`debug`, `info`, `warn`, `error`)          |
 | `api.registrationMode`   | `PluginRegistrationMode`  | `"full"`, `"setup-only"`, or `"setup-runtime"`            |

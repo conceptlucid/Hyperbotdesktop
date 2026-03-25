@@ -1,5 +1,5 @@
 ---
-summary: "When HyperBot shows typing indicators and how to tune them"
+summary: "When Ancient Claw shows typing indicators and how to tune them"
 read_when:
   - Changing typing indicator behavior or defaults
 title: "Typing Indicators"
@@ -13,7 +13,7 @@ to control **how often** it refreshes.
 
 ## Defaults
 
-When `agents.defaults.typingMode` is **unset**, HyperBot keeps the legacy behavior:
+When `agents.defaults.typingMode` is **unset**, Ancient Claw keeps the legacy behavior:
 
 - **Direct chats**: typing starts immediately once the model loop begins.
 - **Group chats with a mention**: typing starts immediately.

@@ -38,7 +38,7 @@ title: "Retry Policy"
 
 ## Configuration
 
-Set retry policy per provider in `~/.hyperbot/hyperbot.json`:
+Set retry policy per provider in `~/.ancient-claw/ancient-claw.json`:
 
 ```json5
 {

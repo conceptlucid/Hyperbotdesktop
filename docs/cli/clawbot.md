@@ -1,21 +1,21 @@
 ---
-summary: "CLI reference for `hyperbot clawbot` (legacy alias namespace)"
+summary: "CLI reference for `ancient-claw clawbot` (legacy alias namespace)"
 read_when:
-  - You maintain older scripts using `hyperbot clawbot ...`
+  - You maintain older scripts using `ancient-claw clawbot ...`
   - You need migration guidance to current commands
 title: "clawbot"
 ---
 
-# `hyperbot clawbot`
+# `ancient-claw clawbot`
 
 Legacy alias namespace kept for backwards compatibility.
 
 Current supported alias:
 
-- `hyperbot clawbot qr` (same behavior as [`hyperbot qr`](/cli/qr))
+- `ancient-claw clawbot qr` (same behavior as [`ancient-claw qr`](/cli/qr))
 
 ## Migration
 
 Prefer modern top-level commands directly:
 
-- `hyperbot clawbot qr` -> `hyperbot qr`
+- `ancient-claw clawbot qr` -> `ancient-claw qr`

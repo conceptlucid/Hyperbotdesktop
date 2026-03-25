@@ -1,20 +1,20 @@
 ---
-summary: "CLI reference for `hyperbot reset` (reset local state/config)"
+summary: "CLI reference for `ancient-claw reset` (reset local state/config)"
 read_when:
   - You want to wipe local state while keeping the CLI installed
   - You want a dry-run of what would be removed
 title: "reset"
 ---
 
-# `hyperbot reset`
+# `ancient-claw reset`
 
 Reset local config/state (keeps the CLI installed).
 
 ```bash
-hyperbot backup create
-hyperbot reset
-hyperbot reset --dry-run
-hyperbot reset --scope config+creds+sessions --yes --non-interactive
+ancient-claw backup create
+ancient-claw reset
+ancient-claw reset --dry-run
+ancient-claw reset --scope config+creds+sessions --yes --non-interactive
 ```
 
-Run `hyperbot backup create` first if you want a restorable snapshot before removing local state.
+Run `ancient-claw backup create` first if you want a restorable snapshot before removing local state.

@@ -1,42 +1,42 @@
 ---
 title: "Default AGENTS.md"
-summary: "Default HyperBot agent instructions and skills roster for the personal assistant setup"
+summary: "Default Ancient Claw agent instructions and skills roster for the personal assistant setup"
 read_when:
-  - Starting a new HyperBot agent session
+  - Starting a new Ancient Claw agent session
   - Enabling or auditing default skills
 ---
 
-# AGENTS.md - HyperBot Personal Assistant (default)
+# AGENTS.md - Ancient Claw Personal Assistant (default)
 
 ## First run (recommended)
 
-HyperBot uses a dedicated workspace directory for the agent. Default: `~/.hyperbot/workspace` (configurable via `agents.defaults.workspace`).
+Ancient Claw uses a dedicated workspace directory for the agent. Default: `~/.ancient-claw/workspace` (configurable via `agents.defaults.workspace`).
 
 1. Create the workspace (if it doesn’t already exist):
 
 ```bash
-mkdir -p ~/.hyperbot/workspace
+mkdir -p ~/.ancient-claw/workspace
 ```
 
 2. Copy the default workspace templates into the workspace:
 
 ```bash
-cp docs/reference/templates/AGENTS.md ~/.hyperbot/workspace/AGENTS.md
-cp docs/reference/templates/SOUL.md ~/.hyperbot/workspace/SOUL.md
-cp docs/reference/templates/TOOLS.md ~/.hyperbot/workspace/TOOLS.md
+cp docs/reference/templates/AGENTS.md ~/.ancient-claw/workspace/AGENTS.md
+cp docs/reference/templates/SOUL.md ~/.ancient-claw/workspace/SOUL.md
+cp docs/reference/templates/TOOLS.md ~/.ancient-claw/workspace/TOOLS.md
 ```
 
 3. Optional: if you want the personal assistant skill roster, replace AGENTS.md with this file:
 
 ```bash
-cp docs/reference/AGENTS.default.md ~/.hyperbot/workspace/AGENTS.md
+cp docs/reference/AGENTS.default.md ~/.ancient-claw/workspace/AGENTS.md
 ```
 
 4. Optional: choose a different workspace by setting `agents.defaults.workspace` (supports `~`):
 
 ```json5
 {
-  agents: { defaults: { workspace: "~/.hyperbot/workspace" } },
+  agents: { defaults: { workspace: "~/.ancient-claw/workspace" } },
 }
 ```
 
@@ -82,17 +82,17 @@ cp docs/reference/AGENTS.default.md ~/.hyperbot/workspace/AGENTS.md
 If you treat this workspace as Clawd’s “memory”, make it a git repo (ideally private) so `AGENTS.md` and your memory files are backed up.
 
 ```bash
-cd ~/.hyperbot/workspace
+cd ~/.ancient-claw/workspace
 git init
 git add AGENTS.md
 git commit -m "Add Clawd workspace"
 # Optional: add a private remote + push
 ```
 
-## What HyperBot Does
+## What Ancient Claw Does
 
 - Runs WhatsApp gateway + Pi coding agent so the assistant can read/write chats, fetch context, and run skills via the host Mac.
-- macOS app manages permissions (screen recording, notifications, microphone) and exposes the `hyperbot` CLI via its bundled binary.
+- macOS app manages permissions (screen recording, notifications, microphone) and exposes the `ancient-claw` CLI via its bundled binary.
 - Direct chats collapse into the agent's `main` session by default; groups stay isolated as `agent:<agentId>:<channel>:group:<id>` (rooms/channels: `agent:<agentId>:<channel>:channel:<id>`); heartbeats keep background tasks alive.
 
 ## Core Skills (enable in Settings → Skills)
@@ -117,10 +117,10 @@ git commit -m "Add Clawd workspace"
 
 ## Usage Notes
 
-- Prefer the `hyperbot` CLI for scripting; mac app handles permissions.
+- Prefer the `ancient-claw` CLI for scripting; mac app handles permissions.
 - Run installs from the Skills tab; it hides the button if a binary is already present.
 - Keep heartbeats enabled so the assistant can schedule reminders, monitor inboxes, and trigger camera captures.
 - Canvas UI runs full-screen with native overlays. Avoid placing critical controls in the top-left/top-right/bottom edges; add explicit gutters in the layout and don’t rely on safe-area insets.
-- For browser-driven verification, use `hyperbot browser` (tabs/status/screenshot) with the HyperBot-managed Chrome profile.
-- For DOM inspection, use `hyperbot browser eval|query|dom|snapshot` (and `--json`/`--out` when you need machine output).
-- For interactions, use `hyperbot browser click|type|hover|drag|select|upload|press|wait|navigate|back|evaluate|run` (click/type require snapshot refs; use `evaluate` for CSS selectors).
+- For browser-driven verification, use `ancient-claw browser` (tabs/status/screenshot) with the Ancient Claw-managed Chrome profile.
+- For DOM inspection, use `ancient-claw browser eval|query|dom|snapshot` (and `--json`/`--out` when you need machine output).
+- For interactions, use `ancient-claw browser click|type|hover|drag|select|upload|press|wait|navigate|back|evaluate|run` (click/type require snapshot refs; use `evaluate` for CSS selectors).

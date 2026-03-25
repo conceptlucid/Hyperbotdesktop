@@ -11,7 +11,7 @@ title: "Agent Workspace"
 The workspace is the agent's home. It is the only working directory used for
 file tools and for workspace context. Keep it private and treat it as memory.
 
-This is separate from `~/.hyperbot/`, which stores config, credentials, and
+This is separate from `~/.ancient-claw/`, which stores config, credentials, and
 sessions.
 
 **Important:** the workspace is the **default cwd**, not a hard sandbox. Tools
@@ -19,24 +19,24 @@ resolve relative paths against the workspace, but absolute paths can still reach
 elsewhere on the host unless sandboxing is enabled. If you need isolation, use
 [`agents.defaults.sandbox`](/gateway/sandboxing) (and/or per‑agent sandbox config).
 When sandboxing is enabled and `workspaceAccess` is not `"rw"`, tools operate
-inside a sandbox workspace under `~/.hyperbot/sandboxes`, not your host workspace.
+inside a sandbox workspace under `~/.ancient-claw/sandboxes`, not your host workspace.
 
 ## Default location
 
-- Default: `~/.hyperbot/workspace`
+- Default: `~/.ancient-claw/workspace`
 - If `OPENCLAW_PROFILE` is set and not `"default"`, the default becomes
-  `~/.hyperbot/workspace-<profile>`.
-- Override in `~/.hyperbot/hyperbot.json`:
+  `~/.ancient-claw/workspace-<profile>`.
+- Override in `~/.ancient-claw/ancient-claw.json`:
 
 ```json5
 {
   agent: {
-    workspace: "~/.hyperbot/workspace",
+    workspace: "~/.ancient-claw/workspace",
   },
 }
 ```
 
-`hyperbot onboard`, `hyperbot configure`, or `hyperbot setup` will create the
+`ancient-claw onboard`, `ancient-claw configure`, or `ancient-claw setup` will create the
 workspace and seed the bootstrap files if they are missing.
 Sandbox seed copies only accept regular in-workspace files; symlink/hardlink
 aliases that resolve outside the source workspace are ignored.
@@ -50,20 +50,20 @@ file creation:
 
 ## Extra workspace folders
 
-Older installs may have created `~/hyperbot`. Keeping multiple workspace
+Older installs may have created `~/ancient-claw`. Keeping multiple workspace
 directories around can cause confusing auth or state drift, because only one
 workspace is active at a time.
 
 **Recommendation:** keep a single active workspace. If you no longer use the
-extra folders, archive or move them to Trash (for example `trash ~/hyperbot`).
+extra folders, archive or move them to Trash (for example `trash ~/ancient-claw`).
 If you intentionally keep multiple workspaces, make sure
 `agents.defaults.workspace` points to the active one.
 
-`hyperbot doctor` warns when it detects extra workspace directories.
+`ancient-claw doctor` warns when it detects extra workspace directories.
 
 ## Workspace file map (what each file means)
 
-These are the standard files HyperBot expects inside the workspace:
+These are the standard files Ancient Claw expects inside the workspace:
 
 - `AGENTS.md`
   - Operating instructions for the agent and how it should use memory.
@@ -116,21 +116,21 @@ See [Memory](/concepts/memory) for the workflow and automatic memory flush.
 - `canvas/` (optional)
   - Canvas UI files for node displays (for example `canvas/index.html`).
 
-If any bootstrap file is missing, HyperBot injects a "missing file" marker into
+If any bootstrap file is missing, Ancient Claw injects a "missing file" marker into
 the session and continues. Large bootstrap files are truncated when injected;
 adjust limits with `agents.defaults.bootstrapMaxChars` (default: 20000) and
 `agents.defaults.bootstrapTotalMaxChars` (default: 150000).
-`hyperbot setup` can recreate missing defaults without overwriting existing
+`ancient-claw setup` can recreate missing defaults without overwriting existing
 files.
 
 ## What is NOT in the workspace
 
-These live under `~/.hyperbot/` and should NOT be committed to the workspace repo:
+These live under `~/.ancient-claw/` and should NOT be committed to the workspace repo:
 
-- `~/.hyperbot/hyperbot.json` (config)
-- `~/.hyperbot/credentials/` (OAuth tokens, API keys)
-- `~/.hyperbot/agents/<agentId>/sessions/` (session transcripts + metadata)
-- `~/.hyperbot/skills/` (managed skills)
+- `~/.ancient-claw/ancient-claw.json` (config)
+- `~/.ancient-claw/credentials/` (OAuth tokens, API keys)
+- `~/.ancient-claw/agents/<agentId>/sessions/` (session transcripts + metadata)
+- `~/.ancient-claw/skills/` (managed skills)
 
 If you need to migrate sessions or config, copy them separately and keep them
 out of version control.
@@ -149,7 +149,7 @@ If git is installed, brand-new workspaces are initialized automatically. If this
 workspace is not already a repo, run:
 
 ```bash
-cd ~/.hyperbot/workspace
+cd ~/.ancient-claw/workspace
 git init
 git add AGENTS.md SOUL.md TOOLS.md IDENTITY.md USER.md HEARTBEAT.md memory/
 git commit -m "Add agent workspace"
@@ -174,7 +174,7 @@ Option B: GitHub CLI (`gh`)
 
 ```bash
 gh auth login
-gh repo create hyperbot-workspace --private --source . --remote origin --push
+gh repo create ancient-claw-workspace --private --source . --remote origin --push
 ```
 
 Option C: GitLab web UI
@@ -204,11 +204,11 @@ git push
 Even in a private repo, avoid storing secrets in the workspace:
 
 - API keys, OAuth tokens, passwords, or private credentials.
-- Anything under `~/.hyperbot/`.
+- Anything under `~/.ancient-claw/`.
 - Raw dumps of chats or sensitive attachments.
 
 If you must store sensitive references, use placeholders and keep the real
-secret elsewhere (password manager, environment variables, or `~/.hyperbot/`).
+secret elsewhere (password manager, environment variables, or `~/.ancient-claw/`).
 
 Suggested `.gitignore` starter:
 
@@ -222,10 +222,10 @@ Suggested `.gitignore` starter:
 
 ## Moving the workspace to a new machine
 
-1. Clone the repo to the desired path (default `~/.hyperbot/workspace`).
-2. Set `agents.defaults.workspace` to that path in `~/.hyperbot/hyperbot.json`.
-3. Run `hyperbot setup --workspace <path>` to seed any missing files.
-4. If you need sessions, copy `~/.hyperbot/agents/<agentId>/sessions/` from the
+1. Clone the repo to the desired path (default `~/.ancient-claw/workspace`).
+2. Set `agents.defaults.workspace` to that path in `~/.ancient-claw/ancient-claw.json`.
+3. Run `ancient-claw setup --workspace <path>` to seed any missing files.
+4. If you need sessions, copy `~/.ancient-claw/agents/<agentId>/sessions/` from the
    old machine separately.
 
 ## Advanced notes

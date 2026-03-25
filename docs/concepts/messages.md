@@ -9,7 +9,7 @@ title: "Messages"
 
 # Messages
 
-This page ties together how HyperBot handles inbound messages, sessions, queueing,
+This page ties together how Ancient Claw handles inbound messages, sessions, queueing,
 streaming, and reasoning visibility.
 
 ## Message flow (high level)
@@ -32,7 +32,7 @@ See [Configuration](/gateway/configuration) for full schema.
 
 ## Inbound dedupe
 
-Channels can redeliver the same message after reconnects. HyperBot keeps a
+Channels can redeliver the same message after reconnects. Ancient Claw keeps a
 short-lived cache keyed by channel/account/peer/session/message id so duplicate
 deliveries do not trigger another agent run.
 
@@ -81,7 +81,7 @@ Details: [Session management](/concepts/session).
 
 ## Inbound bodies and history context
 
-HyperBot separates the **prompt body** from the **command body**:
+Ancient Claw separates the **prompt body** from the **command body**:
 
 - `Body`: prompt text sent to the agent. This may include channel envelopes and
   optional history wrappers.
@@ -136,7 +136,7 @@ Details: [Streaming + chunking](/concepts/streaming).
 
 ## Reasoning visibility and tokens
 
-HyperBot can expose or hide model reasoning:
+Ancient Claw can expose or hide model reasoning:
 
 - `/reasoning on|off|stream` controls visibility.
 - Reasoning content still counts toward token usage when produced by the model.

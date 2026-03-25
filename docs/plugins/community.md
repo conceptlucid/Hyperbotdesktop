@@ -1,37 +1,37 @@
 ---
-summary: "Community-maintained HyperBot plugins: browse, install, and submit your own"
+summary: "Community-maintained Ancient Claw plugins: browse, install, and submit your own"
 read_when:
-  - You want to find third-party HyperBot plugins
+  - You want to find third-party Ancient Claw plugins
   - You want to publish or list your own plugin
 title: "Community Plugins"
 ---
 
 # Community Plugins
 
-Community plugins are third-party packages that extend HyperBot with new
+Community plugins are third-party packages that extend Ancient Claw with new
 channels, tools, providers, or other capabilities. They are built and maintained
 by the community, published on [ClawHub](/tools/clawhub) or npm, and
 installable with a single command.
 
 ```bash
-hyperbot plugins install <package-name>
+ancient-claw plugins install <package-name>
 ```
 
-HyperBot checks ClawHub first and falls back to npm automatically.
+Ancient Claw checks ClawHub first and falls back to npm automatically.
 
 ## Listed plugins
 
 ### Codex App Server Bridge
 
-Independent HyperBot bridge for Codex App Server conversations. Bind a chat to
+Independent Ancient Claw bridge for Codex App Server conversations. Bind a chat to
 a Codex thread, talk to it with plain text, and control it with chat-native
 commands for resume, planning, review, model selection, compaction, and more.
 
-- **npm:** `hyperbot-codex-app-server`
-- **repo:** [github.com/pwrdrvr/hyperbot-codex-app-server](https://github.com/pwrdrvr/hyperbot-codex-app-server)
+- **npm:** `ancient-claw-codex-app-server`
+- **repo:** [github.com/pwrdrvr/ancient-claw-codex-app-server](https://github.com/pwrdrvr/ancient-claw-codex-app-server)
 
 ```bash
-hyperbot plugins install hyperbot-codex-app-server
+ancient-claw plugins install ancient-claw-codex-app-server
 ```
 
 ### DingTalk
@@ -40,15 +40,15 @@ Enterprise robot integration using Stream mode. Supports text, images, and
 file messages via any DingTalk client.
 
 - **npm:** `@largezhou/ddingtalk`
-- **repo:** [github.com/largezhou/hyperbot-dingtalk](https://github.com/largezhou/hyperbot-dingtalk)
+- **repo:** [github.com/largezhou/ancient-claw-dingtalk](https://github.com/largezhou/ancient-claw-dingtalk)
 
 ```bash
-hyperbot plugins install @largezhou/ddingtalk
+ancient-claw plugins install @largezhou/ddingtalk
 ```
 
 ### Lossless Claw (LCM)
 
-Lossless Context Management plugin for HyperBot. DAG-based conversation
+Lossless Context Management plugin for Ancient Claw. DAG-based conversation
 summarization with incremental compaction — preserves full context fidelity
 while reducing token usage.
 
@@ -56,7 +56,7 @@ while reducing token usage.
 - **repo:** [github.com/Martian-Engineering/lossless-claw](https://github.com/Martian-Engineering/lossless-claw)
 
 ```bash
-hyperbot plugins install @martian-engineering/lossless-claw
+ancient-claw plugins install @martian-engineering/lossless-claw
 ```
 
 ### Opik
@@ -64,16 +64,16 @@ hyperbot plugins install @martian-engineering/lossless-claw
 Official plugin that exports agent traces to Opik. Monitor agent behavior,
 cost, tokens, errors, and more.
 
-- **npm:** `@opik/opik-hyperbot`
-- **repo:** [github.com/comet-ml/opik-hyperbot](https://github.com/comet-ml/opik-hyperbot)
+- **npm:** `@opik/opik-ancient-claw`
+- **repo:** [github.com/comet-ml/opik-ancient-claw](https://github.com/comet-ml/opik-ancient-claw)
 
 ```bash
-hyperbot plugins install @opik/opik-hyperbot
+ancient-claw plugins install @opik/opik-ancient-claw
 ```
 
 ### QQbot
 
-Connect HyperBot to QQ via the QQ Bot API. Supports private chats, group
+Connect Ancient Claw to QQ via the QQ Bot API. Supports private chats, group
 mentions, channel messages, and rich media including voice, images, videos,
 and files.
 
@@ -81,20 +81,20 @@ and files.
 - **repo:** [github.com/sliverp/qqbot](https://github.com/sliverp/qqbot)
 
 ```bash
-hyperbot plugins install @sliverp/qqbot
+ancient-claw plugins install @sliverp/qqbot
 ```
 
 ### wecom
 
-HyperBot Enterprise WeCom Channel Plugin.
+Ancient Claw Enterprise WeCom Channel Plugin.
 A bot plugin powered by WeCom AI Bot WebSocket persistent connections,
 supports direct messages & group chats, streaming replies, and proactive messaging.
 
-- **npm:** `@wecom/wecom-hyperbot-plugin`
-- **repo:** [github.com/WecomTeam/wecom-hyperbot-plugin](https://github.com/WecomTeam/wecom-hyperbot-plugin)
+- **npm:** `@wecom/wecom-ancient-claw-plugin`
+- **repo:** [github.com/WecomTeam/wecom-ancient-claw-plugin](https://github.com/WecomTeam/wecom-ancient-claw-plugin)
 
 ```bash
-hyperbot plugins install @wecom/wecom-hyperbot-plugin
+ancient-claw plugins install @wecom/wecom-ancient-claw-plugin
 ```
 
 ## Submit your plugin
@@ -103,7 +103,7 @@ We welcome community plugins that are useful, documented, and safe to operate.
 
 <Steps>
   <Step title="Publish to ClawHub or npm">
-    Your plugin must be installable via `hyperbot plugins install \<package-name\>`.
+    Your plugin must be installable via `ancient-claw plugins install \<package-name\>`.
     Publish to [ClawHub](/tools/clawhub) (preferred) or npm.
     See [Building Plugins](/plugins/building-plugins) for the full guide.
 
@@ -131,7 +131,7 @@ We welcome community plugins that are useful, documented, and safe to operate.
 
 | Requirement                 | Why                                           |
 | --------------------------- | --------------------------------------------- |
-| Published on ClawHub or npm | Users need `hyperbot plugins install` to work |
+| Published on ClawHub or npm | Users need `ancient-claw plugins install` to work |
 | Public GitHub repo          | Source review, issue tracking, transparency   |
 | Setup and usage docs        | Users need to know how to configure it        |
 | Active maintenance          | Recent updates or responsive issue handling   |

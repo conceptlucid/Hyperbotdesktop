@@ -39,11 +39,11 @@ x-i18n:
 ## CLI 工作流程（支持无头模式）
 
 ```bash
-hyperbot nodes pending
-hyperbot nodes approve <requestId>
-hyperbot nodes reject <requestId>
-hyperbot nodes status
-hyperbot nodes rename --node <id|name|ip> --name "Living Room iPad"
+ancient-claw nodes pending
+ancient-claw nodes approve <requestId>
+ancient-claw nodes reject <requestId>
+ancient-claw nodes status
+ancient-claw nodes rename --node <id|name|ip> --name "Living Room iPad"
 ```
 
 `nodes status` 显示已配对/已连接的节点及其功能。
@@ -80,10 +80,10 @@ hyperbot nodes rename --node <id|name|ip> --name "Living Room iPad"
 
 ## 存储（本地，私有）
 
-配对状态存储在 Gateway 网关状态目录下（默认 `~/.hyperbot`）：
+配对状态存储在 Gateway 网关状态目录下（默认 `~/.ancient-claw`）：
 
-- `~/.hyperbot/nodes/paired.json`
-- `~/.hyperbot/nodes/pending.json`
+- `~/.ancient-claw/nodes/paired.json`
+- `~/.ancient-claw/nodes/pending.json`
 
 如果你覆盖了 `OPENCLAW_STATE_DIR`，`nodes/` 文件夹会随之移动。
 

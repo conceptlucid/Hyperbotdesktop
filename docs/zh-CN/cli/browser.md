@@ -1,9 +1,9 @@
 ---
 read_when:
-  - 你使用 `hyperbot browser` 并想要常见任务的示例
+  - 你使用 `ancient-claw browser` 并想要常见任务的示例
   - 你想通过 node host 控制在另一台机器上运行的浏览器
   - 你想使用 Chrome 扩展中继（通过工具栏按钮附加/分离）
-summary: "`hyperbot browser` 的 CLI 参考（配置文件、标签页、操作、扩展中继）"
+summary: "`ancient-claw browser` 的 CLI 参考（配置文件、标签页、操作、扩展中继）"
 title: browser
 x-i18n:
   generated_at: "2026-02-03T07:44:49Z"
@@ -14,9 +14,9 @@ x-i18n:
   workflow: 15
 ---
 
-# `hyperbot browser`
+# `ancient-claw browser`
 
-管理 HyperBot 的浏览器控制服务器并运行浏览器操作（标签页、快照、截图、导航、点击、输入）。
+管理 Ancient Claw 的浏览器控制服务器并运行浏览器操作（标签页、快照、截图、导航、点击、输入）。
 
 相关：
 
@@ -34,38 +34,38 @@ x-i18n:
 ## 快速开始（本地）
 
 ```bash
-hyperbot browser --browser-profile chrome tabs
-hyperbot browser --browser-profile hyperbot start
-hyperbot browser --browser-profile hyperbot open https://example.com
-hyperbot browser --browser-profile hyperbot snapshot
+ancient-claw browser --browser-profile chrome tabs
+ancient-claw browser --browser-profile ancient-claw start
+ancient-claw browser --browser-profile ancient-claw open https://example.com
+ancient-claw browser --browser-profile ancient-claw snapshot
 ```
 
 ## 配置文件
 
 配置文件是命名的浏览器路由配置。实际上：
 
-- `hyperbot`：启动/附加到专用的 HyperBot 管理的 Chrome 实例（隔离的用户数据目录）。
+- `ancient-claw`：启动/附加到专用的 Ancient Claw 管理的 Chrome 实例（隔离的用户数据目录）。
 - `chrome`：通过 Chrome 扩展中继控制你现有的 Chrome 标签页。
 
 ```bash
-hyperbot browser profiles
-hyperbot browser create-profile --name work --color "#FF5A36"
-hyperbot browser delete-profile --name work
+ancient-claw browser profiles
+ancient-claw browser create-profile --name work --color "#FF5A36"
+ancient-claw browser delete-profile --name work
 ```
 
 使用特定配置文件：
 
 ```bash
-hyperbot browser --browser-profile work tabs
+ancient-claw browser --browser-profile work tabs
 ```
 
 ## 标签页
 
 ```bash
-hyperbot browser tabs
-hyperbot browser open https://docs.hyperbot.ai
-hyperbot browser focus <targetId>
-hyperbot browser close <targetId>
+ancient-claw browser tabs
+ancient-claw browser open https://docs.ancient-claw.ai
+ancient-claw browser focus <targetId>
+ancient-claw browser close <targetId>
 ```
 
 ## 快照 / 截图 / 操作
@@ -73,21 +73,21 @@ hyperbot browser close <targetId>
 快照：
 
 ```bash
-hyperbot browser snapshot
+ancient-claw browser snapshot
 ```
 
 截图：
 
 ```bash
-hyperbot browser screenshot
+ancient-claw browser screenshot
 ```
 
 导航/点击/输入（基于 ref 的 UI 自动化）：
 
 ```bash
-hyperbot browser navigate https://example.com
-hyperbot browser click <ref>
-hyperbot browser type <ref> "hello"
+ancient-claw browser navigate https://example.com
+ancient-claw browser click <ref>
+ancient-claw browser type <ref> "hello"
 ```
 
 ## Chrome 扩展中继（通过工具栏按钮附加）
@@ -97,8 +97,8 @@ hyperbot browser type <ref> "hello"
 将未打包的扩展安装到稳定路径：
 
 ```bash
-hyperbot browser extension install
-hyperbot browser extension path
+ancient-claw browser extension install
+ancient-claw browser extension path
 ```
 
 然后 Chrome → `chrome://extensions` → 启用"开发者模式" → "加载已解压的扩展程序" → 选择打印的文件夹。

@@ -8,7 +8,7 @@ title: "Grok Search"
 
 # Grok Search
 
-HyperBot supports Grok as a `web_search` provider, using xAI web-grounded
+Ancient Claw supports Grok as a `web_search` provider, using xAI web-grounded
 responses to produce AI-synthesized answers backed by live search results
 with citations.
 
@@ -22,7 +22,7 @@ with citations.
     Set `XAI_API_KEY` in the Gateway environment, or configure via:
 
     ```bash
-    hyperbot configure --section web
+    ancient-claw configure --section web
     ```
 
   </Step>
@@ -54,7 +54,7 @@ with citations.
 ```
 
 **Environment alternative:** set `XAI_API_KEY` in the Gateway environment.
-For a gateway install, put it in `~/.hyperbot/.env`.
+For a gateway install, put it in `~/.ancient-claw/.env`.
 
 ## How it works
 

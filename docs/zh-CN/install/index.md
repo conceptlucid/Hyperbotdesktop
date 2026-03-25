@@ -3,7 +3,7 @@ read_when:
   - 你需要一种不同于“入门指南”快速开始的安装方式
   - 你想部署到云平台
   - 你需要更新、迁移或卸载
-summary: 安装 HyperBot —— 安装脚本、npm/pnpm、从源码、Docker 等
+summary: 安装 Ancient Claw —— 安装脚本、npm/pnpm、从源码、Docker 等
 title: 安装
 x-i18n:
   generated_at: "2026-03-16T06:23:36Z"
@@ -25,17 +25,17 @@ x-i18n:
 - 仅当你从源码构建时需要 `pnpm`
 
 <Note>
-在 Windows 上，我们强烈建议你在 [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) 下运行 HyperBot。
+在 Windows 上，我们强烈建议你在 [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) 下运行 Ancient Claw。
 </Note>
 
 ## 安装方法
 
 <Tip>
-**安装脚本** 是安装 HyperBot 的推荐方式。它会一步完成 Node 检测、安装和新手引导。
+**安装脚本** 是安装 Ancient Claw 的推荐方式。它会一步完成 Node 检测、安装和新手引导。
 </Tip>
 
 <Warning>
-对于 VPS/云主机，尽量避免使用第三方“一键式”市场镜像。优先选择干净的基础 OS 镜像（例如 Ubuntu LTS），然后使用安装脚本自行安装 HyperBot。
+对于 VPS/云主机，尽量避免使用第三方“一键式”市场镜像。优先选择干净的基础 OS 镜像（例如 Ubuntu LTS），然后使用安装脚本自行安装 Ancient Claw。
 </Warning>
 
 <AccordionGroup>
@@ -45,12 +45,12 @@ x-i18n:
     <Tabs>
       <Tab title="macOS / Linux / WSL2">
         ```bash
-        curl -fsSL https://hyperbot.ai/install.sh | bash
+        curl -fsSL https://ancient-claw.ai/install.sh | bash
         ```
       </Tab>
       <Tab title="Windows (PowerShell)">
         ```powershell
-        iwr -useb https://hyperbot.ai/install.ps1 | iex
+        iwr -useb https://ancient-claw.ai/install.ps1 | iex
         ```
       </Tab>
     </Tabs>
@@ -62,12 +62,12 @@ x-i18n:
     <Tabs>
       <Tab title="macOS / Linux / WSL2">
         ```bash
-        curl -fsSL https://hyperbot.ai/install.sh | bash -s -- --no-onboard
+        curl -fsSL https://ancient-claw.ai/install.sh | bash -s -- --no-onboard
         ```
       </Tab>
       <Tab title="Windows (PowerShell)">
         ```powershell
-        & ([scriptblock]::Create((iwr -useb https://hyperbot.ai/install.ps1))) -NoOnboard
+        & ([scriptblock]::Create((iwr -useb https://ancient-claw.ai/install.ps1))) -NoOnboard
         ```
       </Tab>
     </Tabs>
@@ -77,20 +77,20 @@ x-i18n:
   </Accordion>
 
   <Accordion title="npm / pnpm" icon="package">
-    如果你已经自行管理 Node，我们推荐使用 Node 24。出于兼容性考虑，HyperBot 仍支持 Node 22 LTS，目前为 `22.16+`：
+    如果你已经自行管理 Node，我们推荐使用 Node 24。出于兼容性考虑，Ancient Claw 仍支持 Node 22 LTS，目前为 `22.16+`：
 
     <Tabs>
       <Tab title="npm">
         ```bash
-        npm install -g hyperbot@latest
-        hyperbot onboard --install-daemon
+        npm install -g ancient-claw@latest
+        ancient-claw onboard --install-daemon
         ```
 
         <Accordion title="sharp 构建错误？">
           如果你全局安装了 libvips（在 macOS 上通过 Homebrew 很常见），并且 `sharp` 失败，请强制使用预构建二进制文件：
 
           ```bash
-          SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install -g hyperbot@latest
+          SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install -g ancient-claw@latest
           ```
 
           如果你看到 `sharp: Please add node-gyp to your dependencies`，请安装构建工具链（macOS：Xcode CLT + `npm install -g node-gyp`），或者使用上面的环境变量。
@@ -98,9 +98,9 @@ x-i18n:
       </Tab>
       <Tab title="pnpm">
         ```bash
-        pnpm add -g hyperbot@latest
-        pnpm approve-builds -g        # 批准 hyperbot、node-llama-cpp、sharp 等
-        hyperbot onboard --install-daemon
+        pnpm add -g ancient-claw@latest
+        pnpm approve-builds -g        # 批准 ancient-claw、node-llama-cpp、sharp 等
+        ancient-claw onboard --install-daemon
         ```
 
         <Note>
@@ -112,11 +112,11 @@ x-i18n:
     想通过包管理器安装当前 GitHub `main` 分支最新版本？
 
     ```bash
-    npm install -g github:hyperbot/hyperbot#main
+    npm install -g github:ancient-claw/ancient-claw#main
     ```
 
     ```bash
-    pnpm add -g github:hyperbot/hyperbot#main
+    pnpm add -g github:ancient-claw/ancient-claw#main
     ```
 
   </Accordion>
@@ -126,28 +126,28 @@ x-i18n:
 
     <Steps>
       <Step title="克隆并构建">
-        克隆 [HyperBot 仓库](https://github.com/hyperbot/hyperbot) 并构建：
+        克隆 [Ancient Claw 仓库](https://github.com/ancient-claw/ancient-claw) 并构建：
 
         ```bash
-        git clone https://github.com/hyperbot/hyperbot.git
-        cd hyperbot
+        git clone https://github.com/ancient-claw/ancient-claw.git
+        cd ancient-claw
         pnpm install
         pnpm ui:build
         pnpm build
         ```
       </Step>
       <Step title="链接 CLI">
-        让 `hyperbot` 命令在全局可用：
+        让 `ancient-claw` 命令在全局可用：
 
         ```bash
         pnpm link --global
         ```
 
-        或者，你也可以跳过链接，直接在仓库内通过 `pnpm hyperbot ...` 运行命令。
+        或者，你也可以跳过链接，直接在仓库内通过 `pnpm ancient-claw ...` 运行命令。
       </Step>
       <Step title="运行新手引导">
         ```bash
-        hyperbot onboard --install-daemon
+        ancient-claw onboard --install-daemon
         ```
       </Step>
     </Steps>
@@ -182,9 +182,9 @@ x-i18n:
 验证一切是否正常工作：
 
 ```bash
-hyperbot doctor         # 检查配置问题
-hyperbot status         # Gateway 网关状态
-hyperbot dashboard      # 打开浏览器 UI
+ancient-claw doctor         # 检查配置问题
+ancient-claw status         # Gateway 网关状态
+ancient-claw dashboard      # 打开浏览器 UI
 ```
 
 如果你需要自定义运行时路径，请使用：
@@ -195,7 +195,7 @@ hyperbot dashboard      # 打开浏览器 UI
 
 有关优先级和完整细节，请参阅 [Environment vars](/help/environment)。
 
-## 故障排除：找不到 `hyperbot`
+## 故障排除：找不到 `ancient-claw`
 
 <Accordion title="PATH 诊断与修复">
   快速诊断：
@@ -207,7 +207,7 @@ npm prefix -g
 echo "$PATH"
 ```
 
-如果 `$(npm prefix -g)/bin`（macOS/Linux）或 `$(npm prefix -g)`（Windows）**不在**你的 `$PATH` 中，那么你的 shell 就找不到全局 npm 二进制文件（包括 `hyperbot`）。
+如果 `$(npm prefix -g)/bin`（macOS/Linux）或 `$(npm prefix -g)`（Windows）**不在**你的 `$PATH` 中，那么你的 shell 就找不到全局 npm 二进制文件（包括 `ancient-claw`）。
 
 修复方法 —— 将其添加到你的 shell 启动文件（`~/.zshrc` 或 `~/.bashrc`）中：
 
@@ -224,12 +224,12 @@ export PATH="$(npm prefix -g)/bin:$PATH"
 
 <CardGroup cols={3}>
   <Card title="更新" href="/install/updating" icon="refresh-cw">
-    让 HyperBot 保持最新。
+    让 Ancient Claw 保持最新。
   </Card>
   <Card title="迁移" href="/install/migrating" icon="arrow-right">
     迁移到新机器。
   </Card>
   <Card title="卸载" href="/install/uninstall" icon="trash-2">
-    完全移除 HyperBot。
+    完全移除 Ancient Claw。
   </Card>
 </CardGroup>

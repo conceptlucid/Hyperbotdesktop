@@ -1,24 +1,24 @@
 ---
-summary: "CLI reference for `hyperbot completion` (generate/install shell completion scripts)"
+summary: "CLI reference for `ancient-claw completion` (generate/install shell completion scripts)"
 read_when:
   - You want shell completions for zsh/bash/fish/PowerShell
-  - You need to cache completion scripts under HyperBot state
+  - You need to cache completion scripts under Ancient Claw state
 title: "completion"
 ---
 
-# `hyperbot completion`
+# `ancient-claw completion`
 
 Generate shell completion scripts and optionally install them into your shell profile.
 
 ## Usage
 
 ```bash
-hyperbot completion
-hyperbot completion --shell zsh
-hyperbot completion --install
-hyperbot completion --shell fish --install
-hyperbot completion --write-state
-hyperbot completion --shell bash --write-state
+ancient-claw completion
+ancient-claw completion --shell zsh
+ancient-claw completion --install
+ancient-claw completion --shell fish --install
+ancient-claw completion --write-state
+ancient-claw completion --shell bash --write-state
 ```
 
 ## Options
@@ -30,6 +30,6 @@ hyperbot completion --shell bash --write-state
 
 ## Notes
 
-- `--install` writes a small "HyperBot Completion" block into your shell profile and points it at the cached script.
+- `--install` writes a small "Ancient Claw Completion" block into your shell profile and points it at the cached script.
 - Without `--install` or `--write-state`, the command prints the script to stdout.
 - Completion generation eagerly loads command trees so nested subcommands are included.

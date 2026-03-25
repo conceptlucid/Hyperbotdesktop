@@ -1,9 +1,9 @@
-# 🦞 HyperBot — Personal AI Assistant
+# 🦞 Ancient Claw — Personal AI Assistant
 
 <p align="center">
     <picture>
-        <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/hyperbot/hyperbot/main/docs/assets/hyperbot-logo-text-dark.svg">
-        <img src="https://raw.githubusercontent.com/hyperbot/hyperbot/main/docs/assets/hyperbot-logo-text.svg" alt="HyperBot" width="500">
+        <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ancient-claw/ancient-claw/main/docs/assets/ancient-claw-logo-text-dark.svg">
+        <img src="https://raw.githubusercontent.com/ancient-claw/ancient-claw/main/docs/assets/ancient-claw-logo-text.svg" alt="Ancient Claw" width="500">
     </picture>
 </p>
 
@@ -12,23 +12,23 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/hyperbot/hyperbot/actions/workflows/ci.yml?branch=main"><img src="https://img.shields.io/github/actions/workflow/status/hyperbot/hyperbot/ci.yml?branch=main&style=for-the-badge" alt="CI status"></a>
-  <a href="https://github.com/hyperbot/hyperbot/releases"><img src="https://img.shields.io/github/v/release/hyperbot/hyperbot?include_prereleases&style=for-the-badge" alt="GitHub release"></a>
+  <a href="https://github.com/ancient-claw/ancient-claw/actions/workflows/ci.yml?branch=main"><img src="https://img.shields.io/github/actions/workflow/status/ancient-claw/ancient-claw/ci.yml?branch=main&style=for-the-badge" alt="CI status"></a>
+  <a href="https://github.com/ancient-claw/ancient-claw/releases"><img src="https://img.shields.io/github/v/release/ancient-claw/ancient-claw?include_prereleases&style=for-the-badge" alt="GitHub release"></a>
   <a href="https://discord.gg/clawd"><img src="https://img.shields.io/discord/1456350064065904867?label=Discord&logo=discord&logoColor=white&color=5865F2&style=for-the-badge" alt="Discord"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="MIT License"></a>
 </p>
 
-**HyperBot** is a _personal AI assistant_ you run on your own devices.
+**Ancient Claw** is a _personal AI assistant_ you run on your own devices.
 It answers you on the channels you already use (WhatsApp, Telegram, Slack, Discord, Google Chat, Signal, iMessage, BlueBubbles, IRC, Microsoft Teams, Matrix, Feishu, LINE, Mattermost, Nextcloud Talk, Nostr, Synology Chat, Tlon, Twitch, Zalo, Zalo Personal, WebChat). It can speak and listen on macOS/iOS/Android, and can render a live Canvas you control. The Gateway is just the control plane — the product is the assistant.
 
 If you want a personal, single-user assistant that feels local, fast, and always-on, this is it.
 
-[Website](https://hyperbot.ai) · [Docs](https://docs.hyperbot.ai) · [Vision](VISION.md) · [DeepWiki](https://deepwiki.com/hyperbot/hyperbot) · [Getting Started](https://docs.hyperbot.ai/start/getting-started) · [Updating](https://docs.hyperbot.ai/install/updating) · [Showcase](https://docs.hyperbot.ai/start/showcase) · [FAQ](https://docs.hyperbot.ai/help/faq) · [Onboarding](https://docs.hyperbot.ai/start/wizard) · [Nix](https://github.com/hyperbot/nix-hyperbot) · [Docker](https://docs.hyperbot.ai/install/docker) · [Discord](https://discord.gg/clawd)
+[Website](https://ancient-claw.ai) · [Docs](https://docs.ancient-claw.ai) · [Vision](VISION.md) · [DeepWiki](https://deepwiki.com/ancient-claw/ancient-claw) · [Getting Started](https://docs.ancient-claw.ai/start/getting-started) · [Updating](https://docs.ancient-claw.ai/install/updating) · [Showcase](https://docs.ancient-claw.ai/start/showcase) · [FAQ](https://docs.ancient-claw.ai/help/faq) · [Onboarding](https://docs.ancient-claw.ai/start/wizard) · [Nix](https://github.com/ancient-claw/nix-ancient-claw) · [Docker](https://docs.ancient-claw.ai/install/docker) · [Discord](https://discord.gg/clawd)
 
-Preferred setup: run `hyperbot onboard` in your terminal.
-HyperBot Onboard guides you step by step through setting up the gateway, workspace, channels, and skills. It is the recommended CLI setup path and works on **macOS, Linux, and Windows (via WSL2; strongly recommended)**.
+Preferred setup: run `ancient-claw onboard` in your terminal.
+Ancient Claw Onboard guides you step by step through setting up the gateway, workspace, channels, and skills. It is the recommended CLI setup path and works on **macOS, Linux, and Windows (via WSL2; strongly recommended)**.
 Works with npm, pnpm, or bun.
-New install? Start here: [Getting started](https://docs.hyperbot.ai/start/getting-started)
+New install? Start here: [Getting started](https://docs.ancient-claw.ai/start/getting-started)
 
 ## Sponsors
 
@@ -40,45 +40,45 @@ New install? Start here: [Getting started](https://docs.hyperbot.ai/start/gettin
 
 - **[OpenAI](https://openai.com/)** (ChatGPT/Codex)
 
-Model note: while many providers/models are supported, for the best experience and lower prompt-injection risk use the strongest latest-generation model available to you. See [Onboarding](https://docs.hyperbot.ai/start/onboarding).
+Model note: while many providers/models are supported, for the best experience and lower prompt-injection risk use the strongest latest-generation model available to you. See [Onboarding](https://docs.ancient-claw.ai/start/onboarding).
 
 ## Models (selection + auth)
 
-- Models config + CLI: [Models](https://docs.hyperbot.ai/concepts/models)
-- Auth profile rotation (OAuth vs API keys) + fallbacks: [Model failover](https://docs.hyperbot.ai/concepts/model-failover)
+- Models config + CLI: [Models](https://docs.ancient-claw.ai/concepts/models)
+- Auth profile rotation (OAuth vs API keys) + fallbacks: [Model failover](https://docs.ancient-claw.ai/concepts/model-failover)
 
 ## Install (recommended)
 
 Runtime: **Node 24 (recommended) or Node 22.16+**.
 
 ```bash
-npm install -g hyperbot@latest
-# or: pnpm add -g hyperbot@latest
+npm install -g ancient-claw@latest
+# or: pnpm add -g ancient-claw@latest
 
-hyperbot onboard --install-daemon
+ancient-claw onboard --install-daemon
 ```
 
-HyperBot Onboard installs the Gateway daemon (launchd/systemd user service) so it stays running.
+Ancient Claw Onboard installs the Gateway daemon (launchd/systemd user service) so it stays running.
 
 ## Quick start (TL;DR)
 
 Runtime: **Node 24 (recommended) or Node 22.16+**.
 
-Full beginner guide (auth, pairing, channels): [Getting started](https://docs.hyperbot.ai/start/getting-started)
+Full beginner guide (auth, pairing, channels): [Getting started](https://docs.ancient-claw.ai/start/getting-started)
 
 ```bash
-hyperbot onboard --install-daemon
+ancient-claw onboard --install-daemon
 
-hyperbot gateway --port 18789 --verbose
+ancient-claw gateway --port 18789 --verbose
 
 # Send a message
-hyperbot message send --to +1234567890 --message "Hello from HyperBot"
+ancient-claw message send --to +1234567890 --message "Hello from Ancient Claw"
 
 # Talk to the assistant (optionally deliver back to any connected channel: WhatsApp/Telegram/Slack/Discord/Google Chat/Signal/iMessage/BlueBubbles/IRC/Microsoft Teams/Matrix/Feishu/LINE/Mattermost/Nextcloud Talk/Nostr/Synology Chat/Tlon/Twitch/Zalo/Zalo Personal/WebChat)
-hyperbot agent --message "Ship checklist" --thinking high
+ancient-claw agent --message "Ship checklist" --thinking high
 ```
 
-Upgrading? [Updating guide](https://docs.hyperbot.ai/install/updating) (and run `hyperbot doctor`).
+Upgrading? [Updating guide](https://docs.ancient-claw.ai/install/updating) (and run `ancient-claw doctor`).
 
 ## Development channels
 
@@ -86,101 +86,101 @@ Upgrading? [Updating guide](https://docs.hyperbot.ai/install/updating) (and run 
 - **beta**: prerelease tags (`vYYYY.M.D-beta.N`), npm dist-tag `beta` (macOS app may be missing).
 - **dev**: moving head of `main`, npm dist-tag `dev` (when published).
 
-Switch channels (git + npm): `hyperbot update --channel stable|beta|dev`.
-Details: [Development channels](https://docs.hyperbot.ai/install/development-channels).
+Switch channels (git + npm): `ancient-claw update --channel stable|beta|dev`.
+Details: [Development channels](https://docs.ancient-claw.ai/install/development-channels).
 
 ## From source (development)
 
 Prefer `pnpm` for builds from source. Bun is optional for running TypeScript directly.
 
 ```bash
-git clone https://github.com/hyperbot/hyperbot.git
-cd hyperbot
+git clone https://github.com/ancient-claw/ancient-claw.git
+cd ancient-claw
 
 pnpm install
 pnpm ui:build # auto-installs UI deps on first run
 pnpm build
 
-pnpm hyperbot onboard --install-daemon
+pnpm ancient-claw onboard --install-daemon
 
 # Dev loop (auto-reload on source/config changes)
 pnpm gateway:watch
 ```
 
-Note: `pnpm hyperbot ...` runs TypeScript directly (via `tsx`). `pnpm build` produces `dist/` for running via Node / the packaged `hyperbot` binary.
+Note: `pnpm ancient-claw ...` runs TypeScript directly (via `tsx`). `pnpm build` produces `dist/` for running via Node / the packaged `ancient-claw` binary.
 
 ## Security defaults (DM access)
 
-HyperBot connects to real messaging surfaces. Treat inbound DMs as **untrusted input**.
+Ancient Claw connects to real messaging surfaces. Treat inbound DMs as **untrusted input**.
 
-Full security guide: [Security](https://docs.hyperbot.ai/gateway/security)
+Full security guide: [Security](https://docs.ancient-claw.ai/gateway/security)
 
 Default behavior on Telegram/WhatsApp/Signal/iMessage/Microsoft Teams/Discord/Google Chat/Slack:
 
 - **DM pairing** (`dmPolicy="pairing"` / `channels.discord.dmPolicy="pairing"` / `channels.slack.dmPolicy="pairing"`; legacy: `channels.discord.dm.policy`, `channels.slack.dm.policy`): unknown senders receive a short pairing code and the bot does not process their message.
-- Approve with: `hyperbot pairing approve <channel> <code>` (then the sender is added to a local allowlist store).
+- Approve with: `ancient-claw pairing approve <channel> <code>` (then the sender is added to a local allowlist store).
 - Public inbound DMs require an explicit opt-in: set `dmPolicy="open"` and include `"*"` in the channel allowlist (`allowFrom` / `channels.discord.allowFrom` / `channels.slack.allowFrom`; legacy: `channels.discord.dm.allowFrom`, `channels.slack.dm.allowFrom`).
 
-Run `hyperbot doctor` to surface risky/misconfigured DM policies.
+Run `ancient-claw doctor` to surface risky/misconfigured DM policies.
 
 ## Highlights
 
-- **[Local-first Gateway](https://docs.hyperbot.ai/gateway)** — single control plane for sessions, channels, tools, and events.
-- **[Multi-channel inbox](https://docs.hyperbot.ai/channels)** — WhatsApp, Telegram, Slack, Discord, Google Chat, Signal, BlueBubbles (iMessage), iMessage (legacy), IRC, Microsoft Teams, Matrix, Feishu, LINE, Mattermost, Nextcloud Talk, Nostr, Synology Chat, Tlon, Twitch, Zalo, Zalo Personal, WebChat, macOS, iOS/Android.
-- **[Multi-agent routing](https://docs.hyperbot.ai/gateway/configuration)** — route inbound channels/accounts/peers to isolated agents (workspaces + per-agent sessions).
-- **[Voice Wake](https://docs.hyperbot.ai/nodes/voicewake) + [Talk Mode](https://docs.hyperbot.ai/nodes/talk)** — wake words on macOS/iOS and continuous voice on Android (ElevenLabs + system TTS fallback).
-- **[Live Canvas](https://docs.hyperbot.ai/platforms/mac/canvas)** — agent-driven visual workspace with [A2UI](https://docs.hyperbot.ai/platforms/mac/canvas#canvas-a2ui).
-- **[First-class tools](https://docs.hyperbot.ai/tools)** — browser, canvas, nodes, cron, sessions, and Discord/Slack actions.
-- **[Companion apps](https://docs.hyperbot.ai/platforms/macos)** — macOS menu bar app + iOS/Android [nodes](https://docs.hyperbot.ai/nodes).
-- **[Onboarding](https://docs.hyperbot.ai/start/wizard) + [skills](https://docs.hyperbot.ai/tools/skills)** — onboarding-driven setup with bundled/managed/workspace skills.
+- **[Local-first Gateway](https://docs.ancient-claw.ai/gateway)** — single control plane for sessions, channels, tools, and events.
+- **[Multi-channel inbox](https://docs.ancient-claw.ai/channels)** — WhatsApp, Telegram, Slack, Discord, Google Chat, Signal, BlueBubbles (iMessage), iMessage (legacy), IRC, Microsoft Teams, Matrix, Feishu, LINE, Mattermost, Nextcloud Talk, Nostr, Synology Chat, Tlon, Twitch, Zalo, Zalo Personal, WebChat, macOS, iOS/Android.
+- **[Multi-agent routing](https://docs.ancient-claw.ai/gateway/configuration)** — route inbound channels/accounts/peers to isolated agents (workspaces + per-agent sessions).
+- **[Voice Wake](https://docs.ancient-claw.ai/nodes/voicewake) + [Talk Mode](https://docs.ancient-claw.ai/nodes/talk)** — wake words on macOS/iOS and continuous voice on Android (ElevenLabs + system TTS fallback).
+- **[Live Canvas](https://docs.ancient-claw.ai/platforms/mac/canvas)** — agent-driven visual workspace with [A2UI](https://docs.ancient-claw.ai/platforms/mac/canvas#canvas-a2ui).
+- **[First-class tools](https://docs.ancient-claw.ai/tools)** — browser, canvas, nodes, cron, sessions, and Discord/Slack actions.
+- **[Companion apps](https://docs.ancient-claw.ai/platforms/macos)** — macOS menu bar app + iOS/Android [nodes](https://docs.ancient-claw.ai/nodes).
+- **[Onboarding](https://docs.ancient-claw.ai/start/wizard) + [skills](https://docs.ancient-claw.ai/tools/skills)** — onboarding-driven setup with bundled/managed/workspace skills.
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=hyperbot/hyperbot&type=date&legend=top-left)](https://www.star-history.com/#hyperbot/hyperbot&type=date&legend=top-left)
+[![Star History Chart](https://api.star-history.com/svg?repos=ancient-claw/ancient-claw&type=date&legend=top-left)](https://www.star-history.com/#ancient-claw/ancient-claw&type=date&legend=top-left)
 
 ## Everything we built so far
 
 ### Core platform
 
-- [Gateway WS control plane](https://docs.hyperbot.ai/gateway) with sessions, presence, config, cron, webhooks, [Control UI](https://docs.hyperbot.ai/web), and [Canvas host](https://docs.hyperbot.ai/platforms/mac/canvas#canvas-a2ui).
-- [CLI surface](https://docs.hyperbot.ai/tools/agent-send): gateway, agent, send, [onboarding](https://docs.hyperbot.ai/start/wizard), and [doctor](https://docs.hyperbot.ai/gateway/doctor).
-- [Pi agent runtime](https://docs.hyperbot.ai/concepts/agent) in RPC mode with tool streaming and block streaming.
-- [Session model](https://docs.hyperbot.ai/concepts/session): `main` for direct chats, group isolation, activation modes, queue modes, reply-back. Group rules: [Groups](https://docs.hyperbot.ai/channels/groups).
-- [Media pipeline](https://docs.hyperbot.ai/nodes/images): images/audio/video, transcription hooks, size caps, temp file lifecycle. Audio details: [Audio](https://docs.hyperbot.ai/nodes/audio).
+- [Gateway WS control plane](https://docs.ancient-claw.ai/gateway) with sessions, presence, config, cron, webhooks, [Control UI](https://docs.ancient-claw.ai/web), and [Canvas host](https://docs.ancient-claw.ai/platforms/mac/canvas#canvas-a2ui).
+- [CLI surface](https://docs.ancient-claw.ai/tools/agent-send): gateway, agent, send, [onboarding](https://docs.ancient-claw.ai/start/wizard), and [doctor](https://docs.ancient-claw.ai/gateway/doctor).
+- [Pi agent runtime](https://docs.ancient-claw.ai/concepts/agent) in RPC mode with tool streaming and block streaming.
+- [Session model](https://docs.ancient-claw.ai/concepts/session): `main` for direct chats, group isolation, activation modes, queue modes, reply-back. Group rules: [Groups](https://docs.ancient-claw.ai/channels/groups).
+- [Media pipeline](https://docs.ancient-claw.ai/nodes/images): images/audio/video, transcription hooks, size caps, temp file lifecycle. Audio details: [Audio](https://docs.ancient-claw.ai/nodes/audio).
 
 ### Channels
 
-- [Channels](https://docs.hyperbot.ai/channels): [WhatsApp](https://docs.hyperbot.ai/channels/whatsapp) (Baileys), [Telegram](https://docs.hyperbot.ai/channels/telegram) (grammY), [Slack](https://docs.hyperbot.ai/channels/slack) (Bolt), [Discord](https://docs.hyperbot.ai/channels/discord) (discord.js), [Google Chat](https://docs.hyperbot.ai/channels/googlechat) (Chat API), [Signal](https://docs.hyperbot.ai/channels/signal) (signal-cli), [BlueBubbles](https://docs.hyperbot.ai/channels/bluebubbles) (iMessage, recommended), [iMessage](https://docs.hyperbot.ai/channels/imessage) (legacy imsg), [IRC](https://docs.hyperbot.ai/channels/irc), [Microsoft Teams](https://docs.hyperbot.ai/channels/msteams), [Matrix](https://docs.hyperbot.ai/channels/matrix), [Feishu](https://docs.hyperbot.ai/channels/feishu), [LINE](https://docs.hyperbot.ai/channels/line), [Mattermost](https://docs.hyperbot.ai/channels/mattermost), [Nextcloud Talk](https://docs.hyperbot.ai/channels/nextcloud-talk), [Nostr](https://docs.hyperbot.ai/channels/nostr), [Synology Chat](https://docs.hyperbot.ai/channels/synology-chat), [Tlon](https://docs.hyperbot.ai/channels/tlon), [Twitch](https://docs.hyperbot.ai/channels/twitch), [Zalo](https://docs.hyperbot.ai/channels/zalo), [Zalo Personal](https://docs.hyperbot.ai/channels/zalouser), [WebChat](https://docs.hyperbot.ai/web/webchat).
-- [Group routing](https://docs.hyperbot.ai/channels/group-messages): mention gating, reply tags, per-channel chunking and routing. Channel rules: [Channels](https://docs.hyperbot.ai/channels).
+- [Channels](https://docs.ancient-claw.ai/channels): [WhatsApp](https://docs.ancient-claw.ai/channels/whatsapp) (Baileys), [Telegram](https://docs.ancient-claw.ai/channels/telegram) (grammY), [Slack](https://docs.ancient-claw.ai/channels/slack) (Bolt), [Discord](https://docs.ancient-claw.ai/channels/discord) (discord.js), [Google Chat](https://docs.ancient-claw.ai/channels/googlechat) (Chat API), [Signal](https://docs.ancient-claw.ai/channels/signal) (signal-cli), [BlueBubbles](https://docs.ancient-claw.ai/channels/bluebubbles) (iMessage, recommended), [iMessage](https://docs.ancient-claw.ai/channels/imessage) (legacy imsg), [IRC](https://docs.ancient-claw.ai/channels/irc), [Microsoft Teams](https://docs.ancient-claw.ai/channels/msteams), [Matrix](https://docs.ancient-claw.ai/channels/matrix), [Feishu](https://docs.ancient-claw.ai/channels/feishu), [LINE](https://docs.ancient-claw.ai/channels/line), [Mattermost](https://docs.ancient-claw.ai/channels/mattermost), [Nextcloud Talk](https://docs.ancient-claw.ai/channels/nextcloud-talk), [Nostr](https://docs.ancient-claw.ai/channels/nostr), [Synology Chat](https://docs.ancient-claw.ai/channels/synology-chat), [Tlon](https://docs.ancient-claw.ai/channels/tlon), [Twitch](https://docs.ancient-claw.ai/channels/twitch), [Zalo](https://docs.ancient-claw.ai/channels/zalo), [Zalo Personal](https://docs.ancient-claw.ai/channels/zalouser), [WebChat](https://docs.ancient-claw.ai/web/webchat).
+- [Group routing](https://docs.ancient-claw.ai/channels/group-messages): mention gating, reply tags, per-channel chunking and routing. Channel rules: [Channels](https://docs.ancient-claw.ai/channels).
 
 ### Apps + nodes
 
-- [macOS app](https://docs.hyperbot.ai/platforms/macos): menu bar control plane, [Voice Wake](https://docs.hyperbot.ai/nodes/voicewake)/PTT, [Talk Mode](https://docs.hyperbot.ai/nodes/talk) overlay, [WebChat](https://docs.hyperbot.ai/web/webchat), debug tools, [remote gateway](https://docs.hyperbot.ai/gateway/remote) control.
-- [iOS node](https://docs.hyperbot.ai/platforms/ios): [Canvas](https://docs.hyperbot.ai/platforms/mac/canvas), [Voice Wake](https://docs.hyperbot.ai/nodes/voicewake), [Talk Mode](https://docs.hyperbot.ai/nodes/talk), camera, screen recording, Bonjour + device pairing.
-- [Android node](https://docs.hyperbot.ai/platforms/android): Connect tab (setup code/manual), chat sessions, voice tab, [Canvas](https://docs.hyperbot.ai/platforms/mac/canvas), camera/screen recording, and Android device commands (notifications/location/SMS/photos/contacts/calendar/motion/app update).
-- [macOS node mode](https://docs.hyperbot.ai/nodes): system.run/notify + canvas/camera exposure.
+- [macOS app](https://docs.ancient-claw.ai/platforms/macos): menu bar control plane, [Voice Wake](https://docs.ancient-claw.ai/nodes/voicewake)/PTT, [Talk Mode](https://docs.ancient-claw.ai/nodes/talk) overlay, [WebChat](https://docs.ancient-claw.ai/web/webchat), debug tools, [remote gateway](https://docs.ancient-claw.ai/gateway/remote) control.
+- [iOS node](https://docs.ancient-claw.ai/platforms/ios): [Canvas](https://docs.ancient-claw.ai/platforms/mac/canvas), [Voice Wake](https://docs.ancient-claw.ai/nodes/voicewake), [Talk Mode](https://docs.ancient-claw.ai/nodes/talk), camera, screen recording, Bonjour + device pairing.
+- [Android node](https://docs.ancient-claw.ai/platforms/android): Connect tab (setup code/manual), chat sessions, voice tab, [Canvas](https://docs.ancient-claw.ai/platforms/mac/canvas), camera/screen recording, and Android device commands (notifications/location/SMS/photos/contacts/calendar/motion/app update).
+- [macOS node mode](https://docs.ancient-claw.ai/nodes): system.run/notify + canvas/camera exposure.
 
 ### Tools + automation
 
-- [Browser control](https://docs.hyperbot.ai/tools/browser): dedicated hyperbot Chrome/Chromium, snapshots, actions, uploads, profiles.
-- [Canvas](https://docs.hyperbot.ai/platforms/mac/canvas): [A2UI](https://docs.hyperbot.ai/platforms/mac/canvas#canvas-a2ui) push/reset, eval, snapshot.
-- [Nodes](https://docs.hyperbot.ai/nodes): camera snap/clip, screen record, [location.get](https://docs.hyperbot.ai/nodes/location-command), notifications.
-- [Cron + wakeups](https://docs.hyperbot.ai/automation/cron-jobs); [webhooks](https://docs.hyperbot.ai/automation/webhook); [Gmail Pub/Sub](https://docs.hyperbot.ai/automation/gmail-pubsub).
-- [Skills platform](https://docs.hyperbot.ai/tools/skills): bundled, managed, and workspace skills with install gating + UI.
+- [Browser control](https://docs.ancient-claw.ai/tools/browser): dedicated ancient-claw Chrome/Chromium, snapshots, actions, uploads, profiles.
+- [Canvas](https://docs.ancient-claw.ai/platforms/mac/canvas): [A2UI](https://docs.ancient-claw.ai/platforms/mac/canvas#canvas-a2ui) push/reset, eval, snapshot.
+- [Nodes](https://docs.ancient-claw.ai/nodes): camera snap/clip, screen record, [location.get](https://docs.ancient-claw.ai/nodes/location-command), notifications.
+- [Cron + wakeups](https://docs.ancient-claw.ai/automation/cron-jobs); [webhooks](https://docs.ancient-claw.ai/automation/webhook); [Gmail Pub/Sub](https://docs.ancient-claw.ai/automation/gmail-pubsub).
+- [Skills platform](https://docs.ancient-claw.ai/tools/skills): bundled, managed, and workspace skills with install gating + UI.
 
 ### Runtime + safety
 
-- [Channel routing](https://docs.hyperbot.ai/channels/channel-routing), [retry policy](https://docs.hyperbot.ai/concepts/retry), and [streaming/chunking](https://docs.hyperbot.ai/concepts/streaming).
-- [Presence](https://docs.hyperbot.ai/concepts/presence), [typing indicators](https://docs.hyperbot.ai/concepts/typing-indicators), and [usage tracking](https://docs.hyperbot.ai/concepts/usage-tracking).
-- [Models](https://docs.hyperbot.ai/concepts/models), [model failover](https://docs.hyperbot.ai/concepts/model-failover), and [session pruning](https://docs.hyperbot.ai/concepts/session-pruning).
-- [Security](https://docs.hyperbot.ai/gateway/security) and [troubleshooting](https://docs.hyperbot.ai/channels/troubleshooting).
+- [Channel routing](https://docs.ancient-claw.ai/channels/channel-routing), [retry policy](https://docs.ancient-claw.ai/concepts/retry), and [streaming/chunking](https://docs.ancient-claw.ai/concepts/streaming).
+- [Presence](https://docs.ancient-claw.ai/concepts/presence), [typing indicators](https://docs.ancient-claw.ai/concepts/typing-indicators), and [usage tracking](https://docs.ancient-claw.ai/concepts/usage-tracking).
+- [Models](https://docs.ancient-claw.ai/concepts/models), [model failover](https://docs.ancient-claw.ai/concepts/model-failover), and [session pruning](https://docs.ancient-claw.ai/concepts/session-pruning).
+- [Security](https://docs.ancient-claw.ai/gateway/security) and [troubleshooting](https://docs.ancient-claw.ai/channels/troubleshooting).
 
 ### Ops + packaging
 
-- [Control UI](https://docs.hyperbot.ai/web) + [WebChat](https://docs.hyperbot.ai/web/webchat) served directly from the Gateway.
-- [Tailscale Serve/Funnel](https://docs.hyperbot.ai/gateway/tailscale) or [SSH tunnels](https://docs.hyperbot.ai/gateway/remote) with token/password auth.
-- [Nix mode](https://docs.hyperbot.ai/install/nix) for declarative config; [Docker](https://docs.hyperbot.ai/install/docker)-based installs.
-- [Doctor](https://docs.hyperbot.ai/gateway/doctor) migrations, [logging](https://docs.hyperbot.ai/logging).
+- [Control UI](https://docs.ancient-claw.ai/web) + [WebChat](https://docs.ancient-claw.ai/web/webchat) served directly from the Gateway.
+- [Tailscale Serve/Funnel](https://docs.ancient-claw.ai/gateway/tailscale) or [SSH tunnels](https://docs.ancient-claw.ai/gateway/remote) with token/password auth.
+- [Nix mode](https://docs.ancient-claw.ai/install/nix) for declarative config; [Docker](https://docs.ancient-claw.ai/install/docker)-based installs.
+- [Doctor](https://docs.ancient-claw.ai/gateway/doctor) migrations, [logging](https://docs.ancient-claw.ai/logging).
 
 ## How it works (short)
 
@@ -195,7 +195,7 @@ WhatsApp / Telegram / Slack / Discord / Google Chat / Signal / iMessage / BlueBu
 └──────────────┬────────────────┘
                │
                ├─ Pi agent (RPC)
-               ├─ CLI (hyperbot …)
+               ├─ CLI (ancient-claw …)
                ├─ WebChat UI
                ├─ macOS app
                └─ iOS / Android nodes
@@ -203,16 +203,16 @@ WhatsApp / Telegram / Slack / Discord / Google Chat / Signal / iMessage / BlueBu
 
 ## Key subsystems
 
-- **[Gateway WebSocket network](https://docs.hyperbot.ai/concepts/architecture)** — single WS control plane for clients, tools, and events (plus ops: [Gateway runbook](https://docs.hyperbot.ai/gateway)).
-- **[Tailscale exposure](https://docs.hyperbot.ai/gateway/tailscale)** — Serve/Funnel for the Gateway dashboard + WS (remote access: [Remote](https://docs.hyperbot.ai/gateway/remote)).
-- **[Browser control](https://docs.hyperbot.ai/tools/browser)** — hyperbot‑managed Chrome/Chromium with CDP control.
-- **[Canvas + A2UI](https://docs.hyperbot.ai/platforms/mac/canvas)** — agent‑driven visual workspace (A2UI host: [Canvas/A2UI](https://docs.hyperbot.ai/platforms/mac/canvas#canvas-a2ui)).
-- **[Voice Wake](https://docs.hyperbot.ai/nodes/voicewake) + [Talk Mode](https://docs.hyperbot.ai/nodes/talk)** — wake words on macOS/iOS plus continuous voice on Android.
-- **[Nodes](https://docs.hyperbot.ai/nodes)** — Canvas, camera snap/clip, screen record, `location.get`, notifications, plus macOS‑only `system.run`/`system.notify`.
+- **[Gateway WebSocket network](https://docs.ancient-claw.ai/concepts/architecture)** — single WS control plane for clients, tools, and events (plus ops: [Gateway runbook](https://docs.ancient-claw.ai/gateway)).
+- **[Tailscale exposure](https://docs.ancient-claw.ai/gateway/tailscale)** — Serve/Funnel for the Gateway dashboard + WS (remote access: [Remote](https://docs.ancient-claw.ai/gateway/remote)).
+- **[Browser control](https://docs.ancient-claw.ai/tools/browser)** — ancient-claw‑managed Chrome/Chromium with CDP control.
+- **[Canvas + A2UI](https://docs.ancient-claw.ai/platforms/mac/canvas)** — agent‑driven visual workspace (A2UI host: [Canvas/A2UI](https://docs.ancient-claw.ai/platforms/mac/canvas#canvas-a2ui)).
+- **[Voice Wake](https://docs.ancient-claw.ai/nodes/voicewake) + [Talk Mode](https://docs.ancient-claw.ai/nodes/talk)** — wake words on macOS/iOS plus continuous voice on Android.
+- **[Nodes](https://docs.ancient-claw.ai/nodes)** — Canvas, camera snap/clip, screen record, `location.get`, notifications, plus macOS‑only `system.run`/`system.notify`.
 
 ## Tailscale access (Gateway dashboard)
 
-HyperBot can auto-configure Tailscale **Serve** (tailnet-only) or **Funnel** (public) while the Gateway stays bound to loopback. Configure `gateway.tailscale.mode`:
+Ancient Claw can auto-configure Tailscale **Serve** (tailnet-only) or **Funnel** (public) while the Gateway stays bound to loopback. Configure `gateway.tailscale.mode`:
 
 - `off`: no Tailscale automation (default).
 - `serve`: tailnet-only HTTPS via `tailscale serve` (uses Tailscale identity headers by default).
@@ -220,12 +220,12 @@ HyperBot can auto-configure Tailscale **Serve** (tailnet-only) or **Funnel** (pu
 
 Notes:
 
-- `gateway.bind` must stay `loopback` when Serve/Funnel is enabled (HyperBot enforces this).
+- `gateway.bind` must stay `loopback` when Serve/Funnel is enabled (Ancient Claw enforces this).
 - Serve can be forced to require a password by setting `gateway.auth.mode: "password"` or `gateway.auth.allowTailscale: false`.
 - Funnel refuses to start unless `gateway.auth.mode: "password"` is set.
 - Optional: `gateway.tailscale.resetOnExit` to undo Serve/Funnel on shutdown.
 
-Details: [Tailscale guide](https://docs.hyperbot.ai/gateway/tailscale) · [Web surfaces](https://docs.hyperbot.ai/web)
+Details: [Tailscale guide](https://docs.ancient-claw.ai/gateway/tailscale) · [Web surfaces](https://docs.ancient-claw.ai/web)
 
 ## Remote Gateway (Linux is great)
 
@@ -235,7 +235,7 @@ It’s perfectly fine to run the Gateway on a small Linux instance. Clients (mac
 - **Device nodes** run device‑local actions (`system.run`, camera, screen recording, notifications) via `node.invoke`.
   In short: exec runs where the Gateway lives; device actions run where the device lives.
 
-Details: [Remote access](https://docs.hyperbot.ai/gateway/remote) · [Nodes](https://docs.hyperbot.ai/nodes) · [Security](https://docs.hyperbot.ai/gateway/security)
+Details: [Remote access](https://docs.ancient-claw.ai/gateway/remote) · [Nodes](https://docs.ancient-claw.ai/nodes) · [Security](https://docs.ancient-claw.ai/gateway/security)
 
 ## macOS permissions via the Gateway protocol
 
@@ -250,7 +250,7 @@ Elevated bash (host permissions) is separate from macOS TCC:
 - Use `/elevated on|off` to toggle per‑session elevated access when enabled + allowlisted.
 - Gateway persists the per‑session toggle via `sessions.patch` (WS method) alongside `thinkingLevel`, `verboseLevel`, `model`, `sendPolicy`, and `groupActivation`.
 
-Details: [Nodes](https://docs.hyperbot.ai/nodes) · [macOS app](https://docs.hyperbot.ai/platforms/macos) · [Gateway protocol](https://docs.hyperbot.ai/concepts/architecture)
+Details: [Nodes](https://docs.ancient-claw.ai/nodes) · [macOS app](https://docs.ancient-claw.ai/platforms/macos) · [Gateway protocol](https://docs.ancient-claw.ai/concepts/architecture)
 
 ## Agent to Agent (sessions\_\* tools)
 
@@ -259,7 +259,7 @@ Details: [Nodes](https://docs.hyperbot.ai/nodes) · [macOS app](https://docs.hyp
 - `sessions_history` — fetch transcript logs for a session.
 - `sessions_send` — message another session; optional reply‑back ping‑pong + announce step (`REPLY_SKIP`, `ANNOUNCE_SKIP`).
 
-Details: [Session tools](https://docs.hyperbot.ai/concepts/session-tool)
+Details: [Session tools](https://docs.ancient-claw.ai/concepts/session-tool)
 
 ## Skills registry (ClawHub)
 
@@ -286,38 +286,38 @@ The Gateway alone delivers a great experience. All apps are optional and add ext
 
 If you plan to build/run companion apps, follow the platform runbooks below.
 
-### macOS (HyperBot.app) (optional)
+### macOS (Ancient Claw.app) (optional)
 
 - Menu bar control for the Gateway and health.
 - Voice Wake + push-to-talk overlay.
 - WebChat + debug tools.
 - Remote gateway control over SSH.
 
-Note: signed builds required for macOS permissions to stick across rebuilds (see [macOS Permissions](https://docs.hyperbot.ai/platforms/mac/permissions)).
+Note: signed builds required for macOS permissions to stick across rebuilds (see [macOS Permissions](https://docs.ancient-claw.ai/platforms/mac/permissions)).
 
 ### iOS node (optional)
 
 - Pairs as a node over the Gateway WebSocket (device pairing).
 - Voice trigger forwarding + Canvas surface.
-- Controlled via `hyperbot nodes …`.
+- Controlled via `ancient-claw nodes …`.
 
-Runbook: [iOS connect](https://docs.hyperbot.ai/platforms/ios).
+Runbook: [iOS connect](https://docs.ancient-claw.ai/platforms/ios).
 
 ### Android node (optional)
 
-- Pairs as a WS node via device pairing (`hyperbot devices ...`).
+- Pairs as a WS node via device pairing (`ancient-claw devices ...`).
 - Exposes Connect/Chat/Voice tabs plus Canvas, Camera, Screen capture, and Android device command families.
-- Runbook: [Android connect](https://docs.hyperbot.ai/platforms/android).
+- Runbook: [Android connect](https://docs.ancient-claw.ai/platforms/android).
 
 ## Agent workspace + skills
 
-- Workspace root: `~/.hyperbot/workspace` (configurable via `agents.defaults.workspace`).
+- Workspace root: `~/.ancient-claw/workspace` (configurable via `agents.defaults.workspace`).
 - Injected prompt files: `AGENTS.md`, `SOUL.md`, `TOOLS.md`.
-- Skills: `~/.hyperbot/workspace/skills/<skill>/SKILL.md`.
+- Skills: `~/.ancient-claw/workspace/skills/<skill>/SKILL.md`.
 
 ## Configuration
 
-Minimal `~/.hyperbot/hyperbot.json` (model + defaults):
+Minimal `~/.ancient-claw/ancient-claw.json` (model + defaults):
 
 ```json5
 {
@@ -327,7 +327,7 @@ Minimal `~/.hyperbot/hyperbot.json` (model + defaults):
 }
 ```
 
-[Full configuration reference (all keys + examples).](https://docs.hyperbot.ai/gateway/configuration)
+[Full configuration reference (all keys + examples).](https://docs.ancient-claw.ai/gateway/configuration)
 
 ## Security model (important)
 
@@ -335,15 +335,15 @@ Minimal `~/.hyperbot/hyperbot.json` (model + defaults):
 - **Group/channel safety:** set `agents.defaults.sandbox.mode: "non-main"` to run **non‑main sessions** (groups/channels) inside per‑session Docker sandboxes; bash then runs in Docker for those sessions.
 - **Sandbox defaults:** allowlist `bash`, `process`, `read`, `write`, `edit`, `sessions_list`, `sessions_history`, `sessions_send`, `sessions_spawn`; denylist `browser`, `canvas`, `nodes`, `cron`, `discord`, `gateway`.
 
-Details: [Security guide](https://docs.hyperbot.ai/gateway/security) · [Docker + sandboxing](https://docs.hyperbot.ai/install/docker) · [Sandbox config](https://docs.hyperbot.ai/gateway/configuration)
+Details: [Security guide](https://docs.ancient-claw.ai/gateway/security) · [Docker + sandboxing](https://docs.ancient-claw.ai/install/docker) · [Sandbox config](https://docs.ancient-claw.ai/gateway/configuration)
 
-### [WhatsApp](https://docs.hyperbot.ai/channels/whatsapp)
+### [WhatsApp](https://docs.ancient-claw.ai/channels/whatsapp)
 
-- Link the device: `pnpm hyperbot channels login` (stores creds in `~/.hyperbot/credentials`).
+- Link the device: `pnpm ancient-claw channels login` (stores creds in `~/.ancient-claw/credentials`).
 - Allowlist who can talk to the assistant via `channels.whatsapp.allowFrom`.
 - If `channels.whatsapp.groups` is set, it becomes a group allowlist; include `"*"` to allow all.
 
-### [Telegram](https://docs.hyperbot.ai/channels/telegram)
+### [Telegram](https://docs.ancient-claw.ai/channels/telegram)
 
 - Set `TELEGRAM_BOT_TOKEN` or `channels.telegram.botToken` (env wins).
 - Optional: set `channels.telegram.groups` (with `channels.telegram.groups."*".requireMention`); when set, it is a group allowlist (include `"*"` to allow all). Also `channels.telegram.allowFrom` or `channels.telegram.webhookUrl` + `channels.telegram.webhookSecret` as needed.
@@ -358,11 +358,11 @@ Details: [Security guide](https://docs.hyperbot.ai/gateway/security) · [Docker 
 }
 ```
 
-### [Slack](https://docs.hyperbot.ai/channels/slack)
+### [Slack](https://docs.ancient-claw.ai/channels/slack)
 
 - Set `SLACK_BOT_TOKEN` + `SLACK_APP_TOKEN` (or `channels.slack.botToken` + `channels.slack.appToken`).
 
-### [Discord](https://docs.hyperbot.ai/channels/discord)
+### [Discord](https://docs.ancient-claw.ai/channels/discord)
 
 - Set `DISCORD_BOT_TOKEN` or `channels.discord.token`.
 - Optional: set `commands.native`, `commands.text`, or `commands.useAccessGroups`, plus `channels.discord.allowFrom`, `channels.discord.guilds`, or `channels.discord.mediaMaxMb` as needed.
@@ -377,27 +377,27 @@ Details: [Security guide](https://docs.hyperbot.ai/gateway/security) · [Docker 
 }
 ```
 
-### [Signal](https://docs.hyperbot.ai/channels/signal)
+### [Signal](https://docs.ancient-claw.ai/channels/signal)
 
 - Requires `signal-cli` and a `channels.signal` config section.
 
-### [BlueBubbles (iMessage)](https://docs.hyperbot.ai/channels/bluebubbles)
+### [BlueBubbles (iMessage)](https://docs.ancient-claw.ai/channels/bluebubbles)
 
 - **Recommended** iMessage integration.
 - Configure `channels.bluebubbles.serverUrl` + `channels.bluebubbles.password` and a webhook (`channels.bluebubbles.webhookPath`).
 - The BlueBubbles server runs on macOS; the Gateway can run on macOS or elsewhere.
 
-### [iMessage (legacy)](https://docs.hyperbot.ai/channels/imessage)
+### [iMessage (legacy)](https://docs.ancient-claw.ai/channels/imessage)
 
 - Legacy macOS-only integration via `imsg` (Messages must be signed in).
 - If `channels.imessage.groups` is set, it becomes a group allowlist; include `"*"` to allow all.
 
-### [Microsoft Teams](https://docs.hyperbot.ai/channels/msteams)
+### [Microsoft Teams](https://docs.ancient-claw.ai/channels/msteams)
 
 - Configure a Teams app + Bot Framework, then add a `msteams` config section.
 - Allowlist who can talk via `msteams.allowFrom`; group access via `msteams.groupAllowFrom` or `msteams.groupPolicy: "open"`.
 
-### [WebChat](https://docs.hyperbot.ai/web/webchat)
+### [WebChat](https://docs.ancient-claw.ai/web/webchat)
 
 - Uses the Gateway WebSocket; no separate WebChat port/config.
 
@@ -416,79 +416,79 @@ Browser control (optional):
 
 Use these when you’re past the onboarding flow and want the deeper reference.
 
-- [Start with the docs index for navigation and “what’s where.”](https://docs.hyperbot.ai)
-- [Read the architecture overview for the gateway + protocol model.](https://docs.hyperbot.ai/concepts/architecture)
-- [Use the full configuration reference when you need every key and example.](https://docs.hyperbot.ai/gateway/configuration)
-- [Run the Gateway by the book with the operational runbook.](https://docs.hyperbot.ai/gateway)
-- [Learn how the Control UI/Web surfaces work and how to expose them safely.](https://docs.hyperbot.ai/web)
-- [Understand remote access over SSH tunnels or tailnets.](https://docs.hyperbot.ai/gateway/remote)
-- [Follow HyperBot Onboard for a guided setup.](https://docs.hyperbot.ai/start/wizard)
-- [Wire external triggers via the webhook surface.](https://docs.hyperbot.ai/automation/webhook)
-- [Set up Gmail Pub/Sub triggers.](https://docs.hyperbot.ai/automation/gmail-pubsub)
-- [Learn the macOS menu bar companion details.](https://docs.hyperbot.ai/platforms/mac/menu-bar)
-- [Platform guides: Windows (WSL2)](https://docs.hyperbot.ai/platforms/windows), [Linux](https://docs.hyperbot.ai/platforms/linux), [macOS](https://docs.hyperbot.ai/platforms/macos), [iOS](https://docs.hyperbot.ai/platforms/ios), [Android](https://docs.hyperbot.ai/platforms/android)
-- [Debug common failures with the troubleshooting guide.](https://docs.hyperbot.ai/channels/troubleshooting)
-- [Review security guidance before exposing anything.](https://docs.hyperbot.ai/gateway/security)
+- [Start with the docs index for navigation and “what’s where.”](https://docs.ancient-claw.ai)
+- [Read the architecture overview for the gateway + protocol model.](https://docs.ancient-claw.ai/concepts/architecture)
+- [Use the full configuration reference when you need every key and example.](https://docs.ancient-claw.ai/gateway/configuration)
+- [Run the Gateway by the book with the operational runbook.](https://docs.ancient-claw.ai/gateway)
+- [Learn how the Control UI/Web surfaces work and how to expose them safely.](https://docs.ancient-claw.ai/web)
+- [Understand remote access over SSH tunnels or tailnets.](https://docs.ancient-claw.ai/gateway/remote)
+- [Follow Ancient Claw Onboard for a guided setup.](https://docs.ancient-claw.ai/start/wizard)
+- [Wire external triggers via the webhook surface.](https://docs.ancient-claw.ai/automation/webhook)
+- [Set up Gmail Pub/Sub triggers.](https://docs.ancient-claw.ai/automation/gmail-pubsub)
+- [Learn the macOS menu bar companion details.](https://docs.ancient-claw.ai/platforms/mac/menu-bar)
+- [Platform guides: Windows (WSL2)](https://docs.ancient-claw.ai/platforms/windows), [Linux](https://docs.ancient-claw.ai/platforms/linux), [macOS](https://docs.ancient-claw.ai/platforms/macos), [iOS](https://docs.ancient-claw.ai/platforms/ios), [Android](https://docs.ancient-claw.ai/platforms/android)
+- [Debug common failures with the troubleshooting guide.](https://docs.ancient-claw.ai/channels/troubleshooting)
+- [Review security guidance before exposing anything.](https://docs.ancient-claw.ai/gateway/security)
 
 ## Advanced docs (discovery + control)
 
-- [Discovery + transports](https://docs.hyperbot.ai/gateway/discovery)
-- [Bonjour/mDNS](https://docs.hyperbot.ai/gateway/bonjour)
-- [Gateway pairing](https://docs.hyperbot.ai/gateway/pairing)
-- [Remote gateway README](https://docs.hyperbot.ai/gateway/remote-gateway-readme)
-- [Control UI](https://docs.hyperbot.ai/web/control-ui)
-- [Dashboard](https://docs.hyperbot.ai/web/dashboard)
+- [Discovery + transports](https://docs.ancient-claw.ai/gateway/discovery)
+- [Bonjour/mDNS](https://docs.ancient-claw.ai/gateway/bonjour)
+- [Gateway pairing](https://docs.ancient-claw.ai/gateway/pairing)
+- [Remote gateway README](https://docs.ancient-claw.ai/gateway/remote-gateway-readme)
+- [Control UI](https://docs.ancient-claw.ai/web/control-ui)
+- [Dashboard](https://docs.ancient-claw.ai/web/dashboard)
 
 ## Operations & troubleshooting
 
-- [Health checks](https://docs.hyperbot.ai/gateway/health)
-- [Gateway lock](https://docs.hyperbot.ai/gateway/gateway-lock)
-- [Background process](https://docs.hyperbot.ai/gateway/background-process)
-- [Browser troubleshooting (Linux)](https://docs.hyperbot.ai/tools/browser-linux-troubleshooting)
-- [Logging](https://docs.hyperbot.ai/logging)
+- [Health checks](https://docs.ancient-claw.ai/gateway/health)
+- [Gateway lock](https://docs.ancient-claw.ai/gateway/gateway-lock)
+- [Background process](https://docs.ancient-claw.ai/gateway/background-process)
+- [Browser troubleshooting (Linux)](https://docs.ancient-claw.ai/tools/browser-linux-troubleshooting)
+- [Logging](https://docs.ancient-claw.ai/logging)
 
 ## Deep dives
 
-- [Agent loop](https://docs.hyperbot.ai/concepts/agent-loop)
-- [Presence](https://docs.hyperbot.ai/concepts/presence)
-- [TypeBox schemas](https://docs.hyperbot.ai/concepts/typebox)
-- [RPC adapters](https://docs.hyperbot.ai/reference/rpc)
-- [Queue](https://docs.hyperbot.ai/concepts/queue)
+- [Agent loop](https://docs.ancient-claw.ai/concepts/agent-loop)
+- [Presence](https://docs.ancient-claw.ai/concepts/presence)
+- [TypeBox schemas](https://docs.ancient-claw.ai/concepts/typebox)
+- [RPC adapters](https://docs.ancient-claw.ai/reference/rpc)
+- [Queue](https://docs.ancient-claw.ai/concepts/queue)
 
 ## Workspace & skills
 
-- [Skills config](https://docs.hyperbot.ai/tools/skills-config)
-- [Default AGENTS](https://docs.hyperbot.ai/reference/AGENTS.default)
-- [Templates: AGENTS](https://docs.hyperbot.ai/reference/templates/AGENTS)
-- [Templates: BOOTSTRAP](https://docs.hyperbot.ai/reference/templates/BOOTSTRAP)
-- [Templates: IDENTITY](https://docs.hyperbot.ai/reference/templates/IDENTITY)
-- [Templates: SOUL](https://docs.hyperbot.ai/reference/templates/SOUL)
-- [Templates: TOOLS](https://docs.hyperbot.ai/reference/templates/TOOLS)
-- [Templates: USER](https://docs.hyperbot.ai/reference/templates/USER)
+- [Skills config](https://docs.ancient-claw.ai/tools/skills-config)
+- [Default AGENTS](https://docs.ancient-claw.ai/reference/AGENTS.default)
+- [Templates: AGENTS](https://docs.ancient-claw.ai/reference/templates/AGENTS)
+- [Templates: BOOTSTRAP](https://docs.ancient-claw.ai/reference/templates/BOOTSTRAP)
+- [Templates: IDENTITY](https://docs.ancient-claw.ai/reference/templates/IDENTITY)
+- [Templates: SOUL](https://docs.ancient-claw.ai/reference/templates/SOUL)
+- [Templates: TOOLS](https://docs.ancient-claw.ai/reference/templates/TOOLS)
+- [Templates: USER](https://docs.ancient-claw.ai/reference/templates/USER)
 
 ## Platform internals
 
-- [macOS dev setup](https://docs.hyperbot.ai/platforms/mac/dev-setup)
-- [macOS menu bar](https://docs.hyperbot.ai/platforms/mac/menu-bar)
-- [macOS voice wake](https://docs.hyperbot.ai/platforms/mac/voicewake)
-- [iOS node](https://docs.hyperbot.ai/platforms/ios)
-- [Android node](https://docs.hyperbot.ai/platforms/android)
-- [Windows (WSL2)](https://docs.hyperbot.ai/platforms/windows)
-- [Linux app](https://docs.hyperbot.ai/platforms/linux)
+- [macOS dev setup](https://docs.ancient-claw.ai/platforms/mac/dev-setup)
+- [macOS menu bar](https://docs.ancient-claw.ai/platforms/mac/menu-bar)
+- [macOS voice wake](https://docs.ancient-claw.ai/platforms/mac/voicewake)
+- [iOS node](https://docs.ancient-claw.ai/platforms/ios)
+- [Android node](https://docs.ancient-claw.ai/platforms/android)
+- [Windows (WSL2)](https://docs.ancient-claw.ai/platforms/windows)
+- [Linux app](https://docs.ancient-claw.ai/platforms/linux)
 
 ## Email hooks (Gmail)
 
-- [docs.hyperbot.ai/gmail-pubsub](https://docs.hyperbot.ai/automation/gmail-pubsub)
+- [docs.ancient-claw.ai/gmail-pubsub](https://docs.ancient-claw.ai/automation/gmail-pubsub)
 
 ## Molty
 
-HyperBot was built for **Molty**, a space lobster AI assistant. 🦞
+Ancient Claw was built for **Molty**, a space lobster AI assistant. 🦞
 by Peter Steinberger and the community.
 
-- [hyperbot.ai](https://hyperbot.ai)
+- [ancient-claw.ai](https://ancient-claw.ai)
 - [soul.md](https://soul.md)
 - [steipete.me](https://steipete.me)
-- [@hyperbot](https://x.com/hyperbot)
+- [@ancient-claw](https://x.com/ancient-claw)
 
 ## Community
 
@@ -518,7 +518,7 @@ Thanks to all clawtributors:
   <a href="https://github.com/YuzuruS"><img src="https://avatars.githubusercontent.com/u/1485195?v=4&s=48" width="48" height="48" alt="YuzuruS" title="YuzuruS"/></a> <a href="https://github.com/riccardogiorato"><img src="https://avatars.githubusercontent.com/u/4527364?v=4&s=48" width="48" height="48" alt="riccardogiorato" title="riccardogiorato"/></a> <a href="https://github.com/Bridgerz"><img src="https://avatars.githubusercontent.com/u/24499532?v=4&s=48" width="48" height="48" alt="Bridgerz" title="Bridgerz"/></a> <a href="https://github.com/Mrseenz"><img src="https://avatars.githubusercontent.com/u/101962919?v=4&s=48" width="48" height="48" alt="Mrseenz" title="Mrseenz"/></a> <a href="https://github.com/buddyh"><img src="https://avatars.githubusercontent.com/u/31752869?v=4&s=48" width="48" height="48" alt="buddyh" title="buddyh"/></a> <a href="https://github.com/omniwired"><img src="https://avatars.githubusercontent.com/u/322761?v=4&s=48" width="48" height="48" alt="Eng. Juan Combetto" title="Eng. Juan Combetto"/></a> <a href="https://github.com/peschee"><img src="https://avatars.githubusercontent.com/u/63866?v=4&s=48" width="48" height="48" alt="peschee" title="peschee"/></a> <a href="https://github.com/cash-echo-bot"><img src="https://avatars.githubusercontent.com/u/252747386?v=4&s=48" width="48" height="48" alt="cash-echo-bot" title="cash-echo-bot"/></a> <a href="https://github.com/jalehman"><img src="https://avatars.githubusercontent.com/u/550978?v=4&s=48" width="48" height="48" alt="jalehman" title="jalehman"/></a> <a href="https://github.com/zknicker"><img src="https://avatars.githubusercontent.com/u/1164085?v=4&s=48" width="48" height="48" alt="zknicker" title="zknicker"/></a>
   <a href="https://github.com/buerbaumer"><img src="https://avatars.githubusercontent.com/u/44548809?v=4&s=48" width="48" height="48" alt="Harald Buerbaumer" title="Harald Buerbaumer"/></a> <a href="https://github.com/taw0002"><img src="https://avatars.githubusercontent.com/u/42811278?v=4&s=48" width="48" height="48" alt="taw0002" title="taw0002"/></a> <a href="https://github.com/scald"><img src="https://avatars.githubusercontent.com/u/1215913?v=4&s=48" width="48" height="48" alt="scald" title="scald"/></a> <a href="https://github.com/openperf"><img src="https://avatars.githubusercontent.com/u/80630709?v=4&s=48" width="48" height="48" alt="openperf" title="openperf"/></a> <a href="https://github.com/BUGKillerKing"><img src="https://avatars.githubusercontent.com/u/117326392?v=4&s=48" width="48" height="48" alt="BUGKillerKing" title="BUGKillerKing"/></a> <a href="https://github.com/Oceanswave"><img src="https://avatars.githubusercontent.com/u/760674?v=4&s=48" width="48" height="48" alt="Oceanswave" title="Oceanswave"/></a> <a href="https://github.com/patelhiren"><img src="https://avatars.githubusercontent.com/u/172098?v=4&s=48" width="48" height="48" alt="Hiren Patel" title="Hiren Patel"/></a> <a href="https://github.com/kiranjd"><img src="https://avatars.githubusercontent.com/u/25822851?v=4&s=48" width="48" height="48" alt="kiranjd" title="kiranjd"/></a> <a href="https://github.com/antons"><img src="https://avatars.githubusercontent.com/u/129705?v=4&s=48" width="48" height="48" alt="antons" title="antons"/></a> <a href="https://github.com/dan-dr"><img src="https://avatars.githubusercontent.com/u/6669808?v=4&s=48" width="48" height="48" alt="dan-dr" title="dan-dr"/></a>
   <a href="https://github.com/jadilson12"><img src="https://avatars.githubusercontent.com/u/36805474?v=4&s=48" width="48" height="48" alt="jadilson12" title="jadilson12"/></a> <a href="https://github.com/sumleo"><img src="https://avatars.githubusercontent.com/u/29517764?v=4&s=48" width="48" height="48" alt="sumleo" title="sumleo"/></a> <a href="https://github.com/Whoaa512"><img src="https://avatars.githubusercontent.com/u/1581943?v=4&s=48" width="48" height="48" alt="Whoaa512" title="Whoaa512"/></a> <a href="https://github.com/luijoc"><img src="https://avatars.githubusercontent.com/u/96428056?v=4&s=48" width="48" height="48" alt="luijoc" title="luijoc"/></a> <a href="https://github.com/niceysam"><img src="https://avatars.githubusercontent.com/u/256747835?v=4&s=48" width="48" height="48" alt="niceysam" title="niceysam"/></a> <a href="https://github.com/JustYannicc"><img src="https://avatars.githubusercontent.com/u/52761674?v=4&s=48" width="48" height="48" alt="JustYannicc" title="JustYannicc"/></a> <a href="https://github.com/emanuelst"><img src="https://avatars.githubusercontent.com/u/9994339?v=4&s=48" width="48" height="48" alt="emanuelst" title="emanuelst"/></a> <a href="https://github.com/TsekaLuk"><img src="https://avatars.githubusercontent.com/u/79151285?v=4&s=48" width="48" height="48" alt="TsekaLuk" title="TsekaLuk"/></a> <a href="https://github.com/JustasMonkev"><img src="https://avatars.githubusercontent.com/u/59362982?v=4&s=48" width="48" height="48" alt="JustasM" title="JustasM"/></a> <a href="https://github.com/loiie45e"><img src="https://avatars.githubusercontent.com/u/15420100?v=4&s=48" width="48" height="48" alt="loiie45e" title="loiie45e"/></a>
-  <a href="https://github.com/davidguttman"><img src="https://avatars.githubusercontent.com/u/431696?v=4&s=48" width="48" height="48" alt="davidguttman" title="davidguttman"/></a> <a href="https://github.com/natefikru"><img src="https://avatars.githubusercontent.com/u/10344644?v=4&s=48" width="48" height="48" alt="natefikru" title="natefikru"/></a> <a href="https://github.com/dougvk"><img src="https://avatars.githubusercontent.com/u/401660?v=4&s=48" width="48" height="48" alt="dougvk" title="dougvk"/></a> <a href="https://github.com/koala73"><img src="https://avatars.githubusercontent.com/u/996596?v=4&s=48" width="48" height="48" alt="koala73" title="koala73"/></a> <a href="https://github.com/mkbehr"><img src="https://avatars.githubusercontent.com/u/1285?v=4&s=48" width="48" height="48" alt="mkbehr" title="mkbehr"/></a> <a href="https://github.com/zats"><img src="https://avatars.githubusercontent.com/u/2688806?v=4&s=48" width="48" height="48" alt="zats" title="zats"/></a> <a href="https://github.com/simonemacario"><img src="https://avatars.githubusercontent.com/u/2116609?v=4&s=48" width="48" height="48" alt="Simone Macario" title="Simone Macario"/></a> <a href="https://github.com/hyperbot-bot"><img src="https://avatars.githubusercontent.com/u/258178069?v=4&s=48" width="48" height="48" alt="hyperbot-bot" title="hyperbot-bot"/></a> <a href="https://github.com/ENCHIGO"><img src="https://avatars.githubusercontent.com/u/38551565?v=4&s=48" width="48" height="48" alt="ENCHIGO" title="ENCHIGO"/></a> <a href="https://github.com/mteam88"><img src="https://avatars.githubusercontent.com/u/84196639?v=4&s=48" width="48" height="48" alt="mteam88" title="mteam88"/></a>
+  <a href="https://github.com/davidguttman"><img src="https://avatars.githubusercontent.com/u/431696?v=4&s=48" width="48" height="48" alt="davidguttman" title="davidguttman"/></a> <a href="https://github.com/natefikru"><img src="https://avatars.githubusercontent.com/u/10344644?v=4&s=48" width="48" height="48" alt="natefikru" title="natefikru"/></a> <a href="https://github.com/dougvk"><img src="https://avatars.githubusercontent.com/u/401660?v=4&s=48" width="48" height="48" alt="dougvk" title="dougvk"/></a> <a href="https://github.com/koala73"><img src="https://avatars.githubusercontent.com/u/996596?v=4&s=48" width="48" height="48" alt="koala73" title="koala73"/></a> <a href="https://github.com/mkbehr"><img src="https://avatars.githubusercontent.com/u/1285?v=4&s=48" width="48" height="48" alt="mkbehr" title="mkbehr"/></a> <a href="https://github.com/zats"><img src="https://avatars.githubusercontent.com/u/2688806?v=4&s=48" width="48" height="48" alt="zats" title="zats"/></a> <a href="https://github.com/simonemacario"><img src="https://avatars.githubusercontent.com/u/2116609?v=4&s=48" width="48" height="48" alt="Simone Macario" title="Simone Macario"/></a> <a href="https://github.com/ancient-claw-bot"><img src="https://avatars.githubusercontent.com/u/258178069?v=4&s=48" width="48" height="48" alt="ancient-claw-bot" title="ancient-claw-bot"/></a> <a href="https://github.com/ENCHIGO"><img src="https://avatars.githubusercontent.com/u/38551565?v=4&s=48" width="48" height="48" alt="ENCHIGO" title="ENCHIGO"/></a> <a href="https://github.com/mteam88"><img src="https://avatars.githubusercontent.com/u/84196639?v=4&s=48" width="48" height="48" alt="mteam88" title="mteam88"/></a>
   <a href="https://github.com/Blakeshannon"><img src="https://avatars.githubusercontent.com/u/257822860?v=4&s=48" width="48" height="48" alt="Blakeshannon" title="Blakeshannon"/></a> <a href="https://github.com/gabriel-trigo"><img src="https://avatars.githubusercontent.com/u/38991125?v=4&s=48" width="48" height="48" alt="gabriel-trigo" title="gabriel-trigo"/></a> <a href="https://github.com/neist"><img src="https://avatars.githubusercontent.com/u/1029724?v=4&s=48" width="48" height="48" alt="neist" title="neist"/></a> <a href="https://github.com/pejmanjohn"><img src="https://avatars.githubusercontent.com/u/481729?v=4&s=48" width="48" height="48" alt="pejmanjohn" title="pejmanjohn"/></a> <a href="https://github.com/durenzidu"><img src="https://avatars.githubusercontent.com/u/38130340?v=4&s=48" width="48" height="48" alt="durenzidu" title="durenzidu"/></a> <a href="https://github.com/Ryan-Haines"><img src="https://avatars.githubusercontent.com/u/1855752?v=4&s=48" width="48" height="48" alt="Ryan Haines" title="Ryan Haines"/></a> <a href="https://github.com/hclsys"><img src="https://avatars.githubusercontent.com/u/7755017?v=4&s=48" width="48" height="48" alt="hcl" title="hcl"/></a> <a href="https://github.com/xuhao1"><img src="https://avatars.githubusercontent.com/u/5087930?v=4&s=48" width="48" height="48" alt="XuHao" title="XuHao"/></a> <a href="https://github.com/benithors"><img src="https://avatars.githubusercontent.com/u/20652882?v=4&s=48" width="48" height="48" alt="benithors" title="benithors"/></a> <a href="https://github.com/bitfoundry-ai"><img src="https://avatars.githubusercontent.com/u/239082898?v=4&s=48" width="48" height="48" alt="bitfoundry-ai" title="bitfoundry-ai"/></a>
   <a href="https://github.com/HeMuling"><img src="https://avatars.githubusercontent.com/u/74801533?v=4&s=48" width="48" height="48" alt="HeMuling" title="HeMuling"/></a> <a href="https://github.com/markmusson"><img src="https://avatars.githubusercontent.com/u/4801649?v=4&s=48" width="48" height="48" alt="markmusson" title="markmusson"/></a> <a href="https://github.com/ameno-"><img src="https://avatars.githubusercontent.com/u/2416135?v=4&s=48" width="48" height="48" alt="ameno-" title="ameno-"/></a> <a href="https://github.com/battman21"><img src="https://avatars.githubusercontent.com/u/2656916?v=4&s=48" width="48" height="48" alt="battman21" title="battman21"/></a> <a href="https://github.com/BinHPdev"><img src="https://avatars.githubusercontent.com/u/219093083?v=4&s=48" width="48" height="48" alt="BinHPdev" title="BinHPdev"/></a> <a href="https://github.com/dguido"><img src="https://avatars.githubusercontent.com/u/294844?v=4&s=48" width="48" height="48" alt="dguido" title="dguido"/></a> <a href="https://github.com/evalexpr"><img src="https://avatars.githubusercontent.com/u/23485511?v=4&s=48" width="48" height="48" alt="evalexpr" title="evalexpr"/></a> <a href="https://github.com/guirguispierre"><img src="https://avatars.githubusercontent.com/u/22091706?v=4&s=48" width="48" height="48" alt="guirguispierre" title="guirguispierre"/></a> <a href="https://github.com/henrino3"><img src="https://avatars.githubusercontent.com/u/4260288?v=4&s=48" width="48" height="48" alt="henrino3" title="henrino3"/></a> <a href="https://github.com/joeykrug"><img src="https://avatars.githubusercontent.com/u/5925937?v=4&s=48" width="48" height="48" alt="joeykrug" title="joeykrug"/></a>
   <a href="https://github.com/loganprit"><img src="https://avatars.githubusercontent.com/u/72722788?v=4&s=48" width="48" height="48" alt="loganprit" title="loganprit"/></a> <a href="https://github.com/odysseus0"><img src="https://avatars.githubusercontent.com/u/8635094?v=4&s=48" width="48" height="48" alt="odysseus0" title="odysseus0"/></a> <a href="https://github.com/dbachelder"><img src="https://avatars.githubusercontent.com/u/325706?v=4&s=48" width="48" height="48" alt="dbachelder" title="dbachelder"/></a> <a href="https://github.com/divanoli"><img src="https://avatars.githubusercontent.com/u/12023205?v=4&s=48" width="48" height="48" alt="Divanoli Mydeen Pitchai" title="Divanoli Mydeen Pitchai"/></a> <a href="https://github.com/liuxiaopai-ai"><img src="https://avatars.githubusercontent.com/u/73659136?v=4&s=48" width="48" height="48" alt="liuxiaopai-ai" title="liuxiaopai-ai"/></a> <a href="https://github.com/theSamPadilla"><img src="https://avatars.githubusercontent.com/u/35386211?v=4&s=48" width="48" height="48" alt="Sam Padilla" title="Sam Padilla"/></a> <a href="https://github.com/pvtclawn"><img src="https://avatars.githubusercontent.com/u/258811507?v=4&s=48" width="48" height="48" alt="pvtclawn" title="pvtclawn"/></a> <a href="https://github.com/seheepeak"><img src="https://avatars.githubusercontent.com/u/134766597?v=4&s=48" width="48" height="48" alt="seheepeak" title="seheepeak"/></a> <a href="https://github.com/TSavo"><img src="https://avatars.githubusercontent.com/u/877990?v=4&s=48" width="48" height="48" alt="TSavo" title="TSavo"/></a> <a href="https://github.com/nachoiacovino"><img src="https://avatars.githubusercontent.com/u/50103937?v=4&s=48" width="48" height="48" alt="nachoiacovino" title="nachoiacovino"/></a>
@@ -546,7 +546,7 @@ Thanks to all clawtributors:
   <a href="https://github.com/DevSecTim"><img src="https://avatars.githubusercontent.com/u/2226767?v=4&s=48" width="48" height="48" alt="DevSecTim" title="DevSecTim"/></a> <a href="https://github.com/edincampara"><img src="https://avatars.githubusercontent.com/u/142477787?v=4&s=48" width="48" height="48" alt="edincampara" title="edincampara"/></a> <a href="https://github.com/fcatuhe"><img src="https://avatars.githubusercontent.com/u/17382215?v=4&s=48" width="48" height="48" alt="fcatuhe" title="fcatuhe"/></a> <a href="https://github.com/gildo"><img src="https://avatars.githubusercontent.com/u/133645?v=4&s=48" width="48" height="48" alt="gildo" title="gildo"/></a> <a href="https://github.com/itsjaydesu"><img src="https://avatars.githubusercontent.com/u/220390?v=4&s=48" width="48" height="48" alt="itsjaydesu" title="itsjaydesu"/></a> <a href="https://github.com/ivanrvpereira"><img src="https://avatars.githubusercontent.com/u/183991?v=4&s=48" width="48" height="48" alt="ivanrvpereira" title="ivanrvpereira"/></a> <a href="https://github.com/loeclos"><img src="https://avatars.githubusercontent.com/u/116607327?v=4&s=48" width="48" height="48" alt="loeclos" title="loeclos"/></a> <a href="https://github.com/MarvinCui"><img src="https://avatars.githubusercontent.com/u/130876763?v=4&s=48" width="48" height="48" alt="MarvinCui" title="MarvinCui"/></a> <a href="https://github.com/p6l-richard"><img src="https://avatars.githubusercontent.com/u/18185649?v=4&s=48" width="48" height="48" alt="p6l-richard" title="p6l-richard"/></a> <a href="https://github.com/thejhinvirtuoso"><img src="https://avatars.githubusercontent.com/u/258521837?v=4&s=48" width="48" height="48" alt="thejhinvirtuoso" title="thejhinvirtuoso"/></a>
   <a href="https://github.com/yudshj"><img src="https://avatars.githubusercontent.com/u/16971372?v=4&s=48" width="48" height="48" alt="yudshj" title="yudshj"/></a> <a href="https://github.com/Wangnov"><img src="https://avatars.githubusercontent.com/u/48670012?v=4&s=48" width="48" height="48" alt="Wangnov" title="Wangnov"/></a> <a href="https://github.com/JonathanWorks"><img src="https://avatars.githubusercontent.com/u/124476234?v=4&s=48" width="48" height="48" alt="Jonathan Works" title="Jonathan Works"/></a> <a href="https://github.com/yassine20011"><img src="https://avatars.githubusercontent.com/u/59234686?v=4&s=48" width="48" height="48" alt="Yassine Amjad" title="Yassine Amjad"/></a> <a href="https://github.com/djangonavarro220"><img src="https://avatars.githubusercontent.com/u/251162586?v=4&s=48" width="48" height="48" alt="Django Navarro" title="Django Navarro"/></a> <a href="https://github.com/hirefrank"><img src="https://avatars.githubusercontent.com/u/183158?v=4&s=48" width="48" height="48" alt="Frank Harris" title="Frank Harris"/></a> <a href="https://github.com/kennyklee"><img src="https://avatars.githubusercontent.com/u/1432489?v=4&s=48" width="48" height="48" alt="Kenny Lee" title="Kenny Lee"/></a> <a href="https://github.com/ThomsenDrake"><img src="https://avatars.githubusercontent.com/u/120344051?v=4&s=48" width="48" height="48" alt="Drake Thomsen" title="Drake Thomsen"/></a> <a href="https://github.com/wangai-studio"><img src="https://avatars.githubusercontent.com/u/256938352?v=4&s=48" width="48" height="48" alt="wangai-studio" title="wangai-studio"/></a> <a href="https://github.com/AytuncYildizli"><img src="https://avatars.githubusercontent.com/u/47717026?v=4&s=48" width="48" height="48" alt="AytuncYildizli" title="AytuncYildizli"/></a>
   <a href="https://github.com/KnHack"><img src="https://avatars.githubusercontent.com/u/2346724?v=4&s=48" width="48" height="48" alt="Charlie Niño" title="Charlie Niño"/></a> <a href="https://github.com/17jmumford"><img src="https://avatars.githubusercontent.com/u/36290330?v=4&s=48" width="48" height="48" alt="Jeremy Mumford" title="Jeremy Mumford"/></a> <a href="https://github.com/Yeom-JinHo"><img src="https://avatars.githubusercontent.com/u/81306489?v=4&s=48" width="48" height="48" alt="Yeom-JinHo" title="Yeom-JinHo"/></a> <a href="https://github.com/robaxelsen"><img src="https://avatars.githubusercontent.com/u/13132899?v=4&s=48" width="48" height="48" alt="Rob Axelsen" title="Rob Axelsen"/></a> <a href="https://github.com/junjunjunbong"><img src="https://avatars.githubusercontent.com/u/153147718?v=4&s=48" width="48" height="48" alt="junwon" title="junwon"/></a> <a href="https://github.com/prathamdby"><img src="https://avatars.githubusercontent.com/u/134331217?v=4&s=48" width="48" height="48" alt="Pratham Dubey" title="Pratham Dubey"/></a> <a href="https://github.com/amitbiswal007"><img src="https://avatars.githubusercontent.com/u/108086198?v=4&s=48" width="48" height="48" alt="amitbiswal007" title="amitbiswal007"/></a> <a href="https://github.com/Slats24"><img src="https://avatars.githubusercontent.com/u/42514321?v=4&s=48" width="48" height="48" alt="Slats" title="Slats"/></a> <a href="https://github.com/orenyomtov"><img src="https://avatars.githubusercontent.com/u/168856?v=4&s=48" width="48" height="48" alt="Oren" title="Oren"/></a> <a href="https://github.com/parkertoddbrooks"><img src="https://avatars.githubusercontent.com/u/585456?v=4&s=48" width="48" height="48" alt="Parker Todd Brooks" title="Parker Todd Brooks"/></a>
-  <a href="https://github.com/mattqdev"><img src="https://avatars.githubusercontent.com/u/115874885?v=4&s=48" width="48" height="48" alt="MattQ" title="MattQ"/></a> <a href="https://github.com/Milofax"><img src="https://avatars.githubusercontent.com/u/2537423?v=4&s=48" width="48" height="48" alt="Milofax" title="Milofax"/></a> <a href="https://github.com/stevebot-alive"><img src="https://avatars.githubusercontent.com/u/261149299?v=4&s=48" width="48" height="48" alt="Steve (HyperBot)" title="Steve (HyperBot)"/></a> <a href="https://github.com/ZetiMente"><img src="https://avatars.githubusercontent.com/u/76985631?v=4&s=48" width="48" height="48" alt="Matthew" title="Matthew"/></a> <a href="https://github.com/Cassius0924"><img src="https://avatars.githubusercontent.com/u/62874592?v=4&s=48" width="48" height="48" alt="Cassius0924" title="Cassius0924"/></a> <a href="https://github.com/0xbrak"><img src="https://avatars.githubusercontent.com/u/181251288?v=4&s=48" width="48" height="48" alt="0xbrak" title="0xbrak"/></a> <a href="https://github.com/8BlT"><img src="https://avatars.githubusercontent.com/u/162764392?v=4&s=48" width="48" height="48" alt="8BlT" title="8BlT"/></a> <a href="https://github.com/Abdul535"><img src="https://avatars.githubusercontent.com/u/54276938?v=4&s=48" width="48" height="48" alt="Abdul535" title="Abdul535"/></a> <a href="https://github.com/abhaymundhara"><img src="https://avatars.githubusercontent.com/u/62872231?v=4&s=48" width="48" height="48" alt="abhaymundhara" title="abhaymundhara"/></a> <a href="https://github.com/aduk059"><img src="https://avatars.githubusercontent.com/u/257603478?v=4&s=48" width="48" height="48" alt="aduk059" title="aduk059"/></a>
+  <a href="https://github.com/mattqdev"><img src="https://avatars.githubusercontent.com/u/115874885?v=4&s=48" width="48" height="48" alt="MattQ" title="MattQ"/></a> <a href="https://github.com/Milofax"><img src="https://avatars.githubusercontent.com/u/2537423?v=4&s=48" width="48" height="48" alt="Milofax" title="Milofax"/></a> <a href="https://github.com/stevebot-alive"><img src="https://avatars.githubusercontent.com/u/261149299?v=4&s=48" width="48" height="48" alt="Steve (Ancient Claw)" title="Steve (Ancient Claw)"/></a> <a href="https://github.com/ZetiMente"><img src="https://avatars.githubusercontent.com/u/76985631?v=4&s=48" width="48" height="48" alt="Matthew" title="Matthew"/></a> <a href="https://github.com/Cassius0924"><img src="https://avatars.githubusercontent.com/u/62874592?v=4&s=48" width="48" height="48" alt="Cassius0924" title="Cassius0924"/></a> <a href="https://github.com/0xbrak"><img src="https://avatars.githubusercontent.com/u/181251288?v=4&s=48" width="48" height="48" alt="0xbrak" title="0xbrak"/></a> <a href="https://github.com/8BlT"><img src="https://avatars.githubusercontent.com/u/162764392?v=4&s=48" width="48" height="48" alt="8BlT" title="8BlT"/></a> <a href="https://github.com/Abdul535"><img src="https://avatars.githubusercontent.com/u/54276938?v=4&s=48" width="48" height="48" alt="Abdul535" title="Abdul535"/></a> <a href="https://github.com/abhaymundhara"><img src="https://avatars.githubusercontent.com/u/62872231?v=4&s=48" width="48" height="48" alt="abhaymundhara" title="abhaymundhara"/></a> <a href="https://github.com/aduk059"><img src="https://avatars.githubusercontent.com/u/257603478?v=4&s=48" width="48" height="48" alt="aduk059" title="aduk059"/></a>
   <a href="https://github.com/afurm"><img src="https://avatars.githubusercontent.com/u/6375192?v=4&s=48" width="48" height="48" alt="afurm" title="afurm"/></a> <a href="https://github.com/aisling404"><img src="https://avatars.githubusercontent.com/u/211950534?v=4&s=48" width="48" height="48" alt="aisling404" title="aisling404"/></a> <a href="https://github.com/akari-musubi"><img src="https://avatars.githubusercontent.com/u/259925157?v=4&s=48" width="48" height="48" alt="akari-musubi" title="akari-musubi"/></a> <a href="https://github.com/albertlieyingadrian"><img src="https://avatars.githubusercontent.com/u/12984659?v=4&s=48" width="48" height="48" alt="albertlieyingadrian" title="albertlieyingadrian"/></a> <a href="https://github.com/Alex-Alaniz"><img src="https://avatars.githubusercontent.com/u/88956822?v=4&s=48" width="48" height="48" alt="Alex-Alaniz" title="Alex-Alaniz"/></a> <a href="https://github.com/ali-aljufairi"><img src="https://avatars.githubusercontent.com/u/85583841?v=4&s=48" width="48" height="48" alt="ali-aljufairi" title="ali-aljufairi"/></a> <a href="https://github.com/altaywtf"><img src="https://avatars.githubusercontent.com/u/9790196?v=4&s=48" width="48" height="48" alt="altaywtf" title="altaywtf"/></a> <a href="https://github.com/araa47"><img src="https://avatars.githubusercontent.com/u/22760261?v=4&s=48" width="48" height="48" alt="araa47" title="araa47"/></a> <a href="https://github.com/Asleep123"><img src="https://avatars.githubusercontent.com/u/122379135?v=4&s=48" width="48" height="48" alt="Asleep123" title="Asleep123"/></a> <a href="https://github.com/avacadobanana352"><img src="https://avatars.githubusercontent.com/u/263496834?v=4&s=48" width="48" height="48" alt="avacadobanana352" title="avacadobanana352"/></a>
   <a href="https://github.com/barronlroth"><img src="https://avatars.githubusercontent.com/u/5567884?v=4&s=48" width="48" height="48" alt="barronlroth" title="barronlroth"/></a> <a href="https://github.com/bennewton999"><img src="https://avatars.githubusercontent.com/u/458991?v=4&s=48" width="48" height="48" alt="bennewton999" title="bennewton999"/></a> <a href="https://github.com/bguidolim"><img src="https://avatars.githubusercontent.com/u/987360?v=4&s=48" width="48" height="48" alt="bguidolim" title="bguidolim"/></a> <a href="https://github.com/bigwest60"><img src="https://avatars.githubusercontent.com/u/12373979?v=4&s=48" width="48" height="48" alt="bigwest60" title="bigwest60"/></a> <a href="https://github.com/caelum0x"><img src="https://avatars.githubusercontent.com/u/130079063?v=4&s=48" width="48" height="48" alt="caelum0x" title="caelum0x"/></a> <a href="https://github.com/championswimmer"><img src="https://avatars.githubusercontent.com/u/1327050?v=4&s=48" width="48" height="48" alt="championswimmer" title="championswimmer"/></a> <a href="https://github.com/dutifulbob"><img src="https://avatars.githubusercontent.com/u/261991368?v=4&s=48" width="48" height="48" alt="dutifulbob" title="dutifulbob"/></a> <a href="https://github.com/eternauta1337"><img src="https://avatars.githubusercontent.com/u/550409?v=4&s=48" width="48" height="48" alt="eternauta1337" title="eternauta1337"/></a> <a href="https://github.com/foeken"><img src="https://avatars.githubusercontent.com/u/13864?v=4&s=48" width="48" height="48" alt="foeken" title="foeken"/></a> <a href="https://github.com/gittb"><img src="https://avatars.githubusercontent.com/u/8284364?v=4&s=48" width="48" height="48" alt="gittb" title="gittb"/></a>
   <a href="https://github.com/HeimdallStrategy"><img src="https://avatars.githubusercontent.com/u/223014405?v=4&s=48" width="48" height="48" alt="HeimdallStrategy" title="HeimdallStrategy"/></a> <a href="https://github.com/junsuwhy"><img src="https://avatars.githubusercontent.com/u/4645498?v=4&s=48" width="48" height="48" alt="junsuwhy" title="junsuwhy"/></a> <a href="https://github.com/knocte"><img src="https://avatars.githubusercontent.com/u/331303?v=4&s=48" width="48" height="48" alt="knocte" title="knocte"/></a> <a href="https://github.com/MackDing"><img src="https://avatars.githubusercontent.com/u/19878893?v=4&s=48" width="48" height="48" alt="MackDing" title="MackDing"/></a> <a href="https://github.com/nobrainer-tech"><img src="https://avatars.githubusercontent.com/u/445466?v=4&s=48" width="48" height="48" alt="nobrainer-tech" title="nobrainer-tech"/></a> <a href="https://github.com/Noctivoro"><img src="https://avatars.githubusercontent.com/u/183974570?v=4&s=48" width="48" height="48" alt="Noctivoro" title="Noctivoro"/></a> <a href="https://github.com/Raikan10"><img src="https://avatars.githubusercontent.com/u/20675476?v=4&s=48" width="48" height="48" alt="Raikan10" title="Raikan10"/></a> <a href="https://github.com/Swader"><img src="https://avatars.githubusercontent.com/u/1430603?v=4&s=48" width="48" height="48" alt="Swader" title="Swader"/></a> <a href="https://github.com/algal"><img src="https://avatars.githubusercontent.com/u/264412?v=4&s=48" width="48" height="48" alt="Alexis Gallagher" title="Alexis Gallagher"/></a> <a href="https://github.com/alexstyl"><img src="https://avatars.githubusercontent.com/u/1665273?v=4&s=48" width="48" height="48" alt="alexstyl" title="alexstyl"/></a> <a href="https://github.com/ethanpalm"><img src="https://avatars.githubusercontent.com/u/56270045?v=4&s=48" width="48" height="48" alt="Ethan Palm" title="Ethan Palm"/></a>

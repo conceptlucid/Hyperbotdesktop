@@ -1,5 +1,5 @@
 ---
-summary: "Scripted onboarding and agent setup for the HyperBot CLI"
+summary: "Scripted onboarding and agent setup for the Ancient Claw CLI"
 read_when:
   - You are automating onboarding in scripts or CI
   - You need non-interactive examples for specific providers
@@ -9,7 +9,7 @@ sidebarTitle: "CLI automation"
 
 # CLI Automation
 
-Use `--non-interactive` to automate `hyperbot onboard`.
+Use `--non-interactive` to automate `ancient-claw onboard`.
 
 <Note>
 `--json` does not imply non-interactive mode. Use `--non-interactive` (and `--workspace`) for scripts.
@@ -18,7 +18,7 @@ Use `--non-interactive` to automate `hyperbot onboard`.
 ## Baseline non-interactive example
 
 ```bash
-hyperbot onboard --non-interactive \
+ancient-claw onboard --non-interactive \
   --mode local \
   --auth-choice apiKey \
   --anthropic-api-key "$ANTHROPIC_API_KEY" \
@@ -41,7 +41,7 @@ Passing inline key flags without the matching env var now fails fast.
 Example:
 
 ```bash
-hyperbot onboard --non-interactive \
+ancient-claw onboard --non-interactive \
   --mode local \
   --auth-choice openai-api-key \
   --secret-input-mode ref \
@@ -53,7 +53,7 @@ hyperbot onboard --non-interactive \
 <AccordionGroup>
   <Accordion title="Gemini example">
     ```bash
-    hyperbot onboard --non-interactive \
+    ancient-claw onboard --non-interactive \
       --mode local \
       --auth-choice gemini-api-key \
       --gemini-api-key "$GEMINI_API_KEY" \
@@ -63,7 +63,7 @@ hyperbot onboard --non-interactive \
   </Accordion>
   <Accordion title="Z.AI example">
     ```bash
-    hyperbot onboard --non-interactive \
+    ancient-claw onboard --non-interactive \
       --mode local \
       --auth-choice zai-api-key \
       --zai-api-key "$ZAI_API_KEY" \
@@ -73,7 +73,7 @@ hyperbot onboard --non-interactive \
   </Accordion>
   <Accordion title="Vercel AI Gateway example">
     ```bash
-    hyperbot onboard --non-interactive \
+    ancient-claw onboard --non-interactive \
       --mode local \
       --auth-choice ai-gateway-api-key \
       --ai-gateway-api-key "$AI_GATEWAY_API_KEY" \
@@ -83,7 +83,7 @@ hyperbot onboard --non-interactive \
   </Accordion>
   <Accordion title="Cloudflare AI Gateway example">
     ```bash
-    hyperbot onboard --non-interactive \
+    ancient-claw onboard --non-interactive \
       --mode local \
       --auth-choice cloudflare-ai-gateway-api-key \
       --cloudflare-ai-gateway-account-id "your-account-id" \
@@ -95,7 +95,7 @@ hyperbot onboard --non-interactive \
   </Accordion>
   <Accordion title="Moonshot example">
     ```bash
-    hyperbot onboard --non-interactive \
+    ancient-claw onboard --non-interactive \
       --mode local \
       --auth-choice moonshot-api-key \
       --moonshot-api-key "$MOONSHOT_API_KEY" \
@@ -105,7 +105,7 @@ hyperbot onboard --non-interactive \
   </Accordion>
   <Accordion title="Mistral example">
     ```bash
-    hyperbot onboard --non-interactive \
+    ancient-claw onboard --non-interactive \
       --mode local \
       --auth-choice mistral-api-key \
       --mistral-api-key "$MISTRAL_API_KEY" \
@@ -115,7 +115,7 @@ hyperbot onboard --non-interactive \
   </Accordion>
   <Accordion title="Synthetic example">
     ```bash
-    hyperbot onboard --non-interactive \
+    ancient-claw onboard --non-interactive \
       --mode local \
       --auth-choice synthetic-api-key \
       --synthetic-api-key "$SYNTHETIC_API_KEY" \
@@ -125,7 +125,7 @@ hyperbot onboard --non-interactive \
   </Accordion>
   <Accordion title="OpenCode example">
     ```bash
-    hyperbot onboard --non-interactive \
+    ancient-claw onboard --non-interactive \
       --mode local \
       --auth-choice opencode-zen \
       --opencode-zen-api-key "$OPENCODE_API_KEY" \
@@ -136,7 +136,7 @@ hyperbot onboard --non-interactive \
   </Accordion>
   <Accordion title="Ollama example">
     ```bash
-    hyperbot onboard --non-interactive \
+    ancient-claw onboard --non-interactive \
       --mode local \
       --auth-choice ollama \
       --custom-model-id "qwen3.5:27b" \
@@ -147,7 +147,7 @@ hyperbot onboard --non-interactive \
   </Accordion>
   <Accordion title="Custom provider example">
     ```bash
-    hyperbot onboard --non-interactive \
+    ancient-claw onboard --non-interactive \
       --mode local \
       --auth-choice custom-api-key \
       --custom-base-url "https://llm.example.com/v1" \
@@ -165,7 +165,7 @@ hyperbot onboard --non-interactive \
 
     ```bash
     export CUSTOM_API_KEY="your-key"
-    hyperbot onboard --non-interactive \
+    ancient-claw onboard --non-interactive \
       --mode local \
       --auth-choice custom-api-key \
       --custom-base-url "https://llm.example.com/v1" \
@@ -184,12 +184,12 @@ hyperbot onboard --non-interactive \
 
 ## Add another agent
 
-Use `hyperbot agents add <name>` to create a separate agent with its own workspace,
+Use `ancient-claw agents add <name>` to create a separate agent with its own workspace,
 sessions, and auth profiles. Running without `--workspace` launches the wizard.
 
 ```bash
-hyperbot agents add work \
-  --workspace ~/.hyperbot/workspace-work \
+ancient-claw agents add work \
+  --workspace ~/.ancient-claw/workspace-work \
   --model openai/gpt-5.2 \
   --bind whatsapp:biz \
   --non-interactive \
@@ -204,7 +204,7 @@ What it sets:
 
 Notes:
 
-- Default workspaces follow `~/.hyperbot/workspace-<agentId>`.
+- Default workspaces follow `~/.ancient-claw/workspace-<agentId>`.
 - Add `bindings` to route inbound messages (the wizard can do this).
 - Non-interactive flags: `--model`, `--agent-dir`, `--bind`, `--non-interactive`.
 
@@ -212,4 +212,4 @@ Notes:
 
 - Onboarding hub: [Onboarding (CLI)](/start/wizard)
 - Full reference: [CLI Setup Reference](/start/wizard-cli-reference)
-- Command reference: [`hyperbot onboard`](/cli/onboard)
+- Command reference: [`ancient-claw onboard`](/cli/onboard)

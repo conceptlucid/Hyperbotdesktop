@@ -16,18 +16,18 @@ Start at [/help/troubleshooting](/help/troubleshooting) if you want the fast tri
 Run these first, in this order:
 
 ```bash
-hyperbot status
-hyperbot gateway status
-hyperbot logs --follow
-hyperbot doctor
-hyperbot channels status --probe
+ancient-claw status
+ancient-claw gateway status
+ancient-claw logs --follow
+ancient-claw doctor
+ancient-claw channels status --probe
 ```
 
 Expected healthy signals:
 
-- `hyperbot gateway status` shows `Runtime: running` and `RPC probe: ok`.
-- `hyperbot doctor` reports no blocking config/service issues.
-- `hyperbot channels status --probe` shows connected/ready channels.
+- `ancient-claw gateway status` shows `Runtime: running` and `RPC probe: ok`.
+- `ancient-claw doctor` reports no blocking config/service issues.
+- `ancient-claw channels status --probe` shows connected/ready channels.
 
 ## Anthropic 429 extra usage required for long context
 
@@ -35,9 +35,9 @@ Use this when logs/errors include:
 `HTTP 429: rate_limit_error: Extra usage is required for long context requests`.
 
 ```bash
-hyperbot logs --follow
-hyperbot models status
-hyperbot config get agents.defaults.models
+ancient-claw logs --follow
+ancient-claw models status
+ancient-claw config get agents.defaults.models
 ```
 
 Look for:
@@ -63,11 +63,11 @@ Related:
 If channels are up but nothing answers, check routing and policy before reconnecting anything.
 
 ```bash
-hyperbot status
-hyperbot channels status --probe
-hyperbot pairing list --channel <channel> [--account <id>]
-hyperbot config get channels
-hyperbot logs --follow
+ancient-claw status
+ancient-claw channels status --probe
+ancient-claw pairing list --channel <channel> [--account <id>]
+ancient-claw config get channels
+ancient-claw logs --follow
 ```
 
 Look for:
@@ -93,11 +93,11 @@ Related:
 When dashboard/control UI will not connect, validate URL, auth mode, and secure context assumptions.
 
 ```bash
-hyperbot gateway status
-hyperbot status
-hyperbot logs --follow
-hyperbot doctor
-hyperbot gateway status --json
+ancient-claw gateway status
+ancient-claw status
+ancient-claw logs --follow
+ancient-claw doctor
+ancient-claw gateway status --json
 ```
 
 Look for:
@@ -123,17 +123,17 @@ Use `error.details.code` from the failed `connect` response to pick the next act
 
 | Detail code                  | Meaning                                                  | Recommended action                                                                                                                                                   |
 | ---------------------------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `AUTH_TOKEN_MISSING`         | Client did not send a required shared token.             | Paste/set token in the client and retry. For dashboard paths: `hyperbot config get gateway.auth.token` then paste into Control UI settings.                          |
+| `AUTH_TOKEN_MISSING`         | Client did not send a required shared token.             | Paste/set token in the client and retry. For dashboard paths: `ancient-claw config get gateway.auth.token` then paste into Control UI settings.                          |
 | `AUTH_TOKEN_MISMATCH`        | Shared token did not match gateway auth token.           | If `canRetryWithDeviceToken=true`, allow one trusted retry. If still failing, run the [token drift recovery checklist](/cli/devices#token-drift-recovery-checklist). |
 | `AUTH_DEVICE_TOKEN_MISMATCH` | Cached per-device token is stale or revoked.             | Rotate/re-approve device token using [devices CLI](/cli/devices), then reconnect.                                                                                    |
-| `PAIRING_REQUIRED`           | Device identity is known but not approved for this role. | Approve pending request: `hyperbot devices list` then `hyperbot devices approve <requestId>`.                                                                        |
+| `PAIRING_REQUIRED`           | Device identity is known but not approved for this role. | Approve pending request: `ancient-claw devices list` then `ancient-claw devices approve <requestId>`.                                                                        |
 
 Device auth v2 migration check:
 
 ```bash
-hyperbot --version
-hyperbot doctor
-hyperbot gateway status
+ancient-claw --version
+ancient-claw doctor
+ancient-claw gateway status
 ```
 
 If logs show nonce/signature errors, update the connecting client and verify it:
@@ -154,11 +154,11 @@ Related:
 Use this when service is installed but process does not stay up.
 
 ```bash
-hyperbot gateway status
-hyperbot status
-hyperbot logs --follow
-hyperbot doctor
-hyperbot gateway status --deep
+ancient-claw gateway status
+ancient-claw status
+ancient-claw logs --follow
+ancient-claw doctor
+ancient-claw gateway status --deep
 ```
 
 Look for:
@@ -169,7 +169,7 @@ Look for:
 
 Common signatures:
 
-- `Gateway start blocked: set gateway.mode=local` → local gateway mode is not enabled. Fix: set `gateway.mode="local"` in your config (or run `hyperbot configure`). If you are running HyperBot via Podman using the dedicated `hyperbot` user, the config lives at `~hyperbot/.hyperbot/hyperbot.json`.
+- `Gateway start blocked: set gateway.mode=local` → local gateway mode is not enabled. Fix: set `gateway.mode="local"` in your config (or run `ancient-claw configure`). If you are running Ancient Claw via Podman using the dedicated `ancient-claw` user, the config lives at `~ancient-claw/.ancient-claw/ancient-claw.json`.
 - `refusing to bind gateway ... without auth` → non-loopback bind without token/password.
 - `another gateway instance is already listening` / `EADDRINUSE` → port conflict.
 
@@ -184,11 +184,11 @@ Related:
 If channel state is connected but message flow is dead, focus on policy, permissions, and channel specific delivery rules.
 
 ```bash
-hyperbot channels status --probe
-hyperbot pairing list --channel <channel> [--account <id>]
-hyperbot status --deep
-hyperbot logs --follow
-hyperbot config get channels
+ancient-claw channels status --probe
+ancient-claw pairing list --channel <channel> [--account <id>]
+ancient-claw status --deep
+ancient-claw logs --follow
+ancient-claw config get channels
 ```
 
 Look for:
@@ -215,11 +215,11 @@ Related:
 If cron or heartbeat did not run or did not deliver, verify scheduler state first, then delivery target.
 
 ```bash
-hyperbot cron status
-hyperbot cron list
-hyperbot cron runs --id <jobId> --limit 20
-hyperbot system heartbeat last
-hyperbot logs --follow
+ancient-claw cron status
+ancient-claw cron list
+ancient-claw cron runs --id <jobId> --limit 20
+ancient-claw system heartbeat last
+ancient-claw logs --follow
 ```
 
 Look for:
@@ -247,11 +247,11 @@ Related:
 If a node is paired but tools fail, isolate foreground, permission, and approval state.
 
 ```bash
-hyperbot nodes status
-hyperbot nodes describe --node <idOrNameOrIp>
-hyperbot approvals get --node <idOrNameOrIp>
-hyperbot logs --follow
-hyperbot status
+ancient-claw nodes status
+ancient-claw nodes describe --node <idOrNameOrIp>
+ancient-claw approvals get --node <idOrNameOrIp>
+ancient-claw logs --follow
+ancient-claw status
 ```
 
 Look for:
@@ -278,11 +278,11 @@ Related:
 Use this when browser tool actions fail even though the gateway itself is healthy.
 
 ```bash
-hyperbot browser status
-hyperbot browser start --browser-profile hyperbot
-hyperbot browser profiles
-hyperbot logs --follow
-hyperbot doctor
+ancient-claw browser status
+ancient-claw browser start --browser-profile ancient-claw
+ancient-claw browser profiles
+ancient-claw logs --follow
+ancient-claw doctor
 ```
 
 Look for:
@@ -310,10 +310,10 @@ Most post-upgrade breakage is config drift or stricter defaults now being enforc
 ### 1) Auth and URL override behavior changed
 
 ```bash
-hyperbot gateway status
-hyperbot config get gateway.mode
-hyperbot config get gateway.remote.url
-hyperbot config get gateway.auth.mode
+ancient-claw gateway status
+ancient-claw config get gateway.mode
+ancient-claw config get gateway.remote.url
+ancient-claw config get gateway.auth.mode
 ```
 
 What to check:
@@ -329,10 +329,10 @@ Common signatures:
 ### 2) Bind and auth guardrails are stricter
 
 ```bash
-hyperbot config get gateway.bind
-hyperbot config get gateway.auth.token
-hyperbot gateway status
-hyperbot logs --follow
+ancient-claw config get gateway.bind
+ancient-claw config get gateway.auth.token
+ancient-claw gateway status
+ancient-claw logs --follow
 ```
 
 What to check:
@@ -348,10 +348,10 @@ Common signatures:
 ### 3) Pairing and device identity state changed
 
 ```bash
-hyperbot devices list
-hyperbot pairing list --channel <channel> [--account <id>]
-hyperbot logs --follow
-hyperbot doctor
+ancient-claw devices list
+ancient-claw pairing list --channel <channel> [--account <id>]
+ancient-claw logs --follow
+ancient-claw doctor
 ```
 
 What to check:
@@ -367,8 +367,8 @@ Common signatures:
 If the service config and runtime still disagree after checks, reinstall service metadata from the same profile/state directory:
 
 ```bash
-hyperbot gateway install --force
-hyperbot gateway restart
+ancient-claw gateway install --force
+ancient-claw gateway restart
 ```
 
 Related:

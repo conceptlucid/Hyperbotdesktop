@@ -1,26 +1,26 @@
 ---
-summary: "CLI reference for `hyperbot daemon` (legacy alias for gateway service management)"
+summary: "CLI reference for `ancient-claw daemon` (legacy alias for gateway service management)"
 read_when:
-  - You still use `hyperbot daemon ...` in scripts
+  - You still use `ancient-claw daemon ...` in scripts
   - You need service lifecycle commands (install/start/stop/restart/status)
 title: "daemon"
 ---
 
-# `hyperbot daemon`
+# `ancient-claw daemon`
 
 Legacy alias for Gateway service management commands.
 
-`hyperbot daemon ...` maps to the same service control surface as `hyperbot gateway ...` service commands.
+`ancient-claw daemon ...` maps to the same service control surface as `ancient-claw gateway ...` service commands.
 
 ## Usage
 
 ```bash
-hyperbot daemon status
-hyperbot daemon install
-hyperbot daemon start
-hyperbot daemon stop
-hyperbot daemon restart
-hyperbot daemon uninstall
+ancient-claw daemon status
+ancient-claw daemon install
+ancient-claw daemon start
+ancient-claw daemon stop
+ancient-claw daemon restart
+ancient-claw daemon uninstall
 ```
 
 ## Subcommands
@@ -50,4 +50,4 @@ Notes:
 
 ## Prefer
 
-Use [`hyperbot gateway`](/cli/gateway) for current docs and examples.
+Use [`ancient-claw gateway`](/cli/gateway) for current docs and examples.

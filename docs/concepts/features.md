@@ -1,7 +1,7 @@
 ---
-summary: "HyperBot capabilities across channels, routing, media, and UX."
+summary: "Ancient Claw capabilities across channels, routing, media, and UX."
 read_when:
-  - You want a full list of what HyperBot supports
+  - You want a full list of what Ancient Claw supports
 title: "Features"
 ---
 

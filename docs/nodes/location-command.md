@@ -82,17 +82,17 @@ Errors (stable codes):
 ## Background behavior
 
 - Android app denies `location.get` while backgrounded.
-- Keep HyperBot open when requesting location on Android.
+- Keep Ancient Claw open when requesting location on Android.
 - Other node platforms may differ.
 
 ## Model/tooling integration
 
 - Tool surface: `nodes` tool adds `location_get` action (node required).
-- CLI: `hyperbot nodes location get --node <id>`.
+- CLI: `ancient-claw nodes location get --node <id>`.
 - Agent guidelines: only call when user enabled location and understands the scope.
 
 ## UX copy (suggested)
 
 - Off: “Location sharing is disabled.”
-- While Using: “Only when HyperBot is open.”
+- While Using: “Only when Ancient Claw is open.”
 - Precise: “Use precise GPS location. Toggle off to share approximate location.”

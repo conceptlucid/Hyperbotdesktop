@@ -1,19 +1,19 @@
 ---
-summary: "CLI reference for `hyperbot configure` (interactive configuration prompts)"
+summary: "CLI reference for `ancient-claw configure` (interactive configuration prompts)"
 read_when:
   - You want to tweak credentials, devices, or agent defaults interactively
 title: "configure"
 ---
 
-# `hyperbot configure`
+# `ancient-claw configure`
 
 Interactive prompt to set up credentials, devices, and agent defaults.
 
 Note: The **Model** section now includes a multi-select for the
 `agents.defaults.models` allowlist (what shows up in `/model` and the model picker).
 
-Tip: `hyperbot config` without a subcommand opens the same wizard. Use
-`hyperbot config get|set|unset` for non-interactive edits.
+Tip: `ancient-claw config` without a subcommand opens the same wizard. Use
+`ancient-claw config get|set|unset` for non-interactive edits.
 
 Related:
 
@@ -31,6 +31,6 @@ Notes:
 ## Examples
 
 ```bash
-hyperbot configure
-hyperbot configure --section model --section channels
+ancient-claw configure
+ancient-claw configure --section model --section channels
 ```

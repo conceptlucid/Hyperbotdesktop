@@ -47,7 +47,7 @@ Supported keys:
 - `seed`, `normalize`, `lang`, `output_format`, `latency_tier`
 - `once`
 
-## Config (`~/.hyperbot/hyperbot.json`)
+## Config (`~/.ancient-claw/ancient-claw.json`)
 
 ```json5
 {

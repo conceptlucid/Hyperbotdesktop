@@ -8,20 +8,20 @@ title: Feishu
 
 # Feishu bot
 
-Feishu (Lark) is a team chat platform used by companies for messaging and collaboration. This plugin connects HyperBot to a Feishu/Lark bot using the platform’s WebSocket event subscription so messages can be received without exposing a public webhook URL.
+Feishu (Lark) is a team chat platform used by companies for messaging and collaboration. This plugin connects Ancient Claw to a Feishu/Lark bot using the platform’s WebSocket event subscription so messages can be received without exposing a public webhook URL.
 
 ---
 
 ## Bundled plugin
 
-Feishu ships bundled with current HyperBot releases, so no separate plugin install
+Feishu ships bundled with current Ancient Claw releases, so no separate plugin install
 is required.
 
 If you are using an older build or a custom install that does not include bundled
 Feishu, install it manually:
 
 ```bash
-hyperbot plugins install @hyperbot/feishu
+ancient-claw plugins install @ancient-claw/feishu
 ```
 
 ---
@@ -32,38 +32,38 @@ There are two ways to add the Feishu channel:
 
 ### Method 1: onboarding (recommended)
 
-If you just installed HyperBot, run onboarding:
+If you just installed Ancient Claw, run onboarding:
 
 ```bash
-hyperbot onboard
+ancient-claw onboard
 ```
 
 The wizard guides you through:
 
 1. Creating a Feishu app and collecting credentials
-2. Configuring app credentials in HyperBot
+2. Configuring app credentials in Ancient Claw
 3. Starting the gateway
 
 ✅ **After configuration**, check gateway status:
 
-- `hyperbot gateway status`
-- `hyperbot logs --follow`
+- `ancient-claw gateway status`
+- `ancient-claw logs --follow`
 
 ### Method 2: CLI setup
 
 If you already completed initial install, add the channel via CLI:
 
 ```bash
-hyperbot channels add
+ancient-claw channels add
 ```
 
 Choose **Feishu**, then enter the App ID and App Secret.
 
 ✅ **After configuration**, manage the gateway:
 
-- `hyperbot gateway status`
-- `hyperbot gateway restart`
-- `hyperbot logs --follow`
+- `ancient-claw gateway status`
+- `ancient-claw gateway restart`
+- `ancient-claw logs --follow`
 
 ---
 
@@ -141,8 +141,8 @@ In **App Capability** > **Bot**:
 
 ⚠️ **Important:** before setting event subscription, make sure:
 
-1. You already ran `hyperbot channels add` for Feishu
-2. The gateway is running (`hyperbot gateway status`)
+1. You already ran `ancient-claw channels add` for Feishu
+2. The gateway is running (`ancient-claw gateway status`)
 
 In **Event Subscription**:
 
@@ -161,19 +161,19 @@ In **Event Subscription**:
 
 ---
 
-## Step 2: Configure HyperBot
+## Step 2: Configure Ancient Claw
 
 ### Configure with the wizard (recommended)
 
 ```bash
-hyperbot channels add
+ancient-claw channels add
 ```
 
 Choose **Feishu** and paste your App ID + App Secret.
 
 ### Configure via config file
 
-Edit `~/.hyperbot/hyperbot.json`:
+Edit `~/.ancient-claw/ancient-claw.json`:
 
 ```json5
 {
@@ -270,7 +270,7 @@ Set them at top level or per account:
 ### 1. Start the gateway
 
 ```bash
-hyperbot gateway
+ancient-claw gateway
 ```
 
 ### 2. Send a test message
@@ -282,7 +282,7 @@ In Feishu, find your bot and send a message.
 By default, the bot replies with a pairing code. Approve it:
 
 ```bash
-hyperbot pairing approve feishu <CODE>
+ancient-claw pairing approve feishu <CODE>
 ```
 
 After approval, you can chat normally.
@@ -306,8 +306,8 @@ After approval, you can chat normally.
 - **Approve pairing**:
 
   ```bash
-  hyperbot pairing list feishu
-  hyperbot pairing approve feishu <CODE>
+  ancient-claw pairing list feishu
+  ancient-claw pairing approve feishu <CODE>
   ```
 
 - **Allowlist mode**: set `channels.feishu.allowFrom` with allowed Open IDs
@@ -404,7 +404,7 @@ Group IDs look like `oc_xxx`.
 **Method 1 (recommended)**
 
 1. Start the gateway and @mention the bot in the group
-2. Run `hyperbot logs --follow` and look for `chat_id`
+2. Run `ancient-claw logs --follow` and look for `chat_id`
 
 **Method 2**
 
@@ -417,14 +417,14 @@ User IDs look like `ou_xxx`.
 **Method 1 (recommended)**
 
 1. Start the gateway and DM the bot
-2. Run `hyperbot logs --follow` and look for `open_id`
+2. Run `ancient-claw logs --follow` and look for `open_id`
 
 **Method 2**
 
 Check pairing requests for user Open IDs:
 
 ```bash
-hyperbot pairing list feishu
+ancient-claw pairing list feishu
 ```
 
 ---
@@ -443,11 +443,11 @@ hyperbot pairing list feishu
 
 | Command                    | Description                   |
 | -------------------------- | ----------------------------- |
-| `hyperbot gateway status`  | Show gateway status           |
-| `hyperbot gateway install` | Install/start gateway service |
-| `hyperbot gateway stop`    | Stop gateway service          |
-| `hyperbot gateway restart` | Restart gateway service       |
-| `hyperbot logs --follow`   | Tail gateway logs             |
+| `ancient-claw gateway status`  | Show gateway status           |
+| `ancient-claw gateway install` | Install/start gateway service |
+| `ancient-claw gateway stop`    | Stop gateway service          |
+| `ancient-claw gateway restart` | Restart gateway service       |
+| `ancient-claw logs --follow`   | Tail gateway logs             |
 
 ---
 
@@ -458,7 +458,7 @@ hyperbot pairing list feishu
 1. Ensure the bot is added to the group
 2. Ensure you @mention the bot (default behavior)
 3. Check `groupPolicy` is not set to `"disabled"`
-4. Check logs: `hyperbot logs --follow`
+4. Check logs: `ancient-claw logs --follow`
 
 ### Bot does not receive messages
 
@@ -466,8 +466,8 @@ hyperbot pairing list feishu
 2. Ensure event subscription includes `im.message.receive_v1`
 3. Ensure **long connection** is enabled
 4. Ensure app permissions are complete
-5. Ensure the gateway is running: `hyperbot gateway status`
-6. Check logs: `hyperbot logs --follow`
+5. Ensure the gateway is running: `ancient-claw gateway status`
+6. Check logs: `ancient-claw logs --follow`
 
 ### App Secret leak
 
@@ -559,7 +559,7 @@ Use top-level typed ACP bindings to pin a Feishu DM or topic conversation to a p
             agent: "codex",
             backend: "acpx",
             mode: "persistent",
-            cwd: "/workspace/hyperbot",
+            cwd: "/workspace/ancient-claw",
           },
         },
       },
@@ -615,12 +615,12 @@ Use `bindings` to route Feishu DMs or groups to different agents.
       {
         id: "clawd-fan",
         workspace: "/home/user/clawd-fan",
-        agentDir: "/home/user/.hyperbot/agents/clawd-fan/agent",
+        agentDir: "/home/user/.ancient-claw/agents/clawd-fan/agent",
       },
       {
         id: "clawd-xi",
         workspace: "/home/user/clawd-xi",
-        agentDir: "/home/user/.hyperbot/agents/clawd-xi/agent",
+        agentDir: "/home/user/.ancient-claw/agents/clawd-xi/agent",
       },
     ],
   },

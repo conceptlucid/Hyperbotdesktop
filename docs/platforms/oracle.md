@@ -1,19 +1,19 @@
 ---
-summary: "HyperBot on Oracle Cloud (Always Free ARM)"
+summary: "Ancient Claw on Oracle Cloud (Always Free ARM)"
 read_when:
-  - Setting up HyperBot on Oracle Cloud
-  - Looking for low-cost VPS hosting for HyperBot
-  - Want 24/7 HyperBot on a small server
+  - Setting up Ancient Claw on Oracle Cloud
+  - Looking for low-cost VPS hosting for Ancient Claw
+  - Want 24/7 Ancient Claw on a small server
 title: "Oracle Cloud (Platform)"
 ---
 
-# HyperBot on Oracle Cloud (OCI)
+# Ancient Claw on Oracle Cloud (OCI)
 
 ## Goal
 
-Run a persistent HyperBot Gateway on Oracle Cloud's **Always Free** ARM tier.
+Run a persistent Ancient Claw Gateway on Oracle Cloud's **Always Free** ARM tier.
 
-Oracle’s free tier can be a great fit for HyperBot (especially if you already have an OCI account), but it comes with tradeoffs:
+Oracle’s free tier can be a great fit for Ancient Claw (especially if you already have an OCI account), but it comes with tradeoffs:
 
 - ARM architecture (most things work, but some binaries may be x86-only)
 - Capacity and signup can be finicky
@@ -41,7 +41,7 @@ Oracle’s free tier can be a great fit for HyperBot (especially if you already 
 1. Log into [Oracle Cloud Console](https://cloud.oracle.com/)
 2. Navigate to **Compute → Instances → Create Instance**
 3. Configure:
-   - **Name:** `hyperbot`
+   - **Name:** `ancient-claw`
    - **Image:** Ubuntu 24.04 (aarch64)
    - **Shape:** `VM.Standard.A1.Flex` (Ampere ARM)
    - **OCPUs:** 2 (or up to 4)
@@ -70,7 +70,7 @@ sudo apt install -y build-essential
 
 ```bash
 # Set hostname
-sudo hostnamectl set-hostname hyperbot
+sudo hostnamectl set-hostname ancient-claw
 
 # Set password for ubuntu user
 sudo passwd ubuntu
@@ -83,10 +83,10 @@ sudo loginctl enable-linger ubuntu
 
 ```bash
 curl -fsSL https://tailscale.com/install.sh | sh
-sudo tailscale up --ssh --hostname=hyperbot
+sudo tailscale up --ssh --hostname=ancient-claw
 ```
 
-This enables Tailscale SSH, so you can connect via `ssh hyperbot` from any device on your tailnet — no public IP needed.
+This enables Tailscale SSH, so you can connect via `ssh ancient-claw` from any device on your tailnet — no public IP needed.
 
 Verify:
 
@@ -94,12 +94,12 @@ Verify:
 tailscale status
 ```
 
-**From now on, connect via Tailscale:** `ssh ubuntu@hyperbot` (or use the Tailscale IP).
+**From now on, connect via Tailscale:** `ssh ubuntu@ancient-claw` (or use the Tailscale IP).
 
-## 5) Install HyperBot
+## 5) Install Ancient Claw
 
 ```bash
-curl -fsSL https://hyperbot.ai/install.sh | bash
+curl -fsSL https://ancient-claw.ai/install.sh | bash
 source ~/.bashrc
 ```
 
@@ -113,27 +113,27 @@ Use token auth as the default. It’s predictable and avoids needing any “inse
 
 ```bash
 # Keep the Gateway private on the VM
-hyperbot config set gateway.bind loopback
+ancient-claw config set gateway.bind loopback
 
 # Require auth for the Gateway + Control UI
-hyperbot config set gateway.auth.mode token
-hyperbot doctor --generate-gateway-token
+ancient-claw config set gateway.auth.mode token
+ancient-claw doctor --generate-gateway-token
 
 # Expose over Tailscale Serve (HTTPS + tailnet access)
-hyperbot config set gateway.tailscale.mode serve
-hyperbot config set gateway.trustedProxies '["127.0.0.1"]'
+ancient-claw config set gateway.tailscale.mode serve
+ancient-claw config set gateway.trustedProxies '["127.0.0.1"]'
 
-systemctl --user restart hyperbot-gateway
+systemctl --user restart ancient-claw-gateway
 ```
 
 ## 7) Verify
 
 ```bash
 # Check version
-hyperbot --version
+ancient-claw --version
 
 # Check daemon status
-systemctl --user status hyperbot-gateway
+systemctl --user status ancient-claw-gateway
 
 # Check Tailscale Serve
 tailscale serve status
@@ -161,7 +161,7 @@ This blocks SSH on port 22, HTTP, HTTPS, and everything else at the network edge
 From any device on your Tailscale network:
 
 ```
-https://hyperbot.<tailnet-name>.ts.net/
+https://ancient-claw.<tailnet-name>.ts.net/
 ```
 
 Replace `<tailnet-name>` with your tailnet name (visible in `tailscale status`).
@@ -178,7 +178,7 @@ No SSH tunnel needed. Tailscale provides:
 
 With the VCN locked down (only UDP 41641 open) and the Gateway bound to loopback, you get strong defense-in-depth: public traffic is blocked at the network edge, and admin access happens over your tailnet.
 
-This setup often removes the _need_ for extra host-based firewall rules purely to stop Internet-wide SSH brute force — but you should still keep the OS updated, run `hyperbot security audit`, and verify you aren’t accidentally listening on public interfaces.
+This setup often removes the _need_ for extra host-based firewall rules purely to stop Internet-wide SSH brute force — but you should still keep the OS updated, run `ancient-claw security audit`, and verify you aren’t accidentally listening on public interfaces.
 
 ### Already protected
 
@@ -193,8 +193,8 @@ This setup often removes the _need_ for extra host-based firewall rules purely t
 
 ### Still Recommended
 
-- **Credential permissions:** `chmod 700 ~/.hyperbot`
-- **Security audit:** `hyperbot security audit`
+- **Credential permissions:** `chmod 700 ~/.ancient-claw`
+- **Security audit:** `ancient-claw security audit`
 - **System updates:** `sudo apt update && sudo apt upgrade` regularly
 - **Monitor Tailscale:** Review devices in [Tailscale admin console](https://login.tailscale.com/admin)
 
@@ -219,7 +219,7 @@ If Tailscale Serve isn't working, use an SSH tunnel:
 
 ```bash
 # From your local machine (via Tailscale)
-ssh -L 18789:127.0.0.1:18789 ubuntu@hyperbot
+ssh -L 18789:127.0.0.1:18789 ubuntu@ancient-claw
 ```
 
 Then open `http://localhost:18789`.
@@ -243,15 +243,15 @@ Free tier ARM instances are popular. Try:
 sudo tailscale status
 
 # Re-authenticate
-sudo tailscale up --ssh --hostname=hyperbot --reset
+sudo tailscale up --ssh --hostname=ancient-claw --reset
 ```
 
 ### Gateway will not start
 
 ```bash
-hyperbot gateway status
-hyperbot doctor --non-interactive
-journalctl --user -u hyperbot-gateway -n 50
+ancient-claw gateway status
+ancient-claw doctor --non-interactive
+journalctl --user -u ancient-claw-gateway -n 50
 ```
 
 ### Cannot reach Control UI
@@ -264,7 +264,7 @@ tailscale serve status
 curl http://localhost:18789
 
 # Restart if needed
-systemctl --user restart hyperbot-gateway
+systemctl --user restart ancient-claw-gateway
 ```
 
 ### ARM binary issues
@@ -283,13 +283,13 @@ Most npm packages work fine. For binaries, look for `linux-arm64` or `aarch64` r
 
 All state lives in:
 
-- `~/.hyperbot/` — config, credentials, session data
-- `~/.hyperbot/workspace/` — workspace (SOUL.md, memory, artifacts)
+- `~/.ancient-claw/` — config, credentials, session data
+- `~/.ancient-claw/workspace/` — workspace (SOUL.md, memory, artifacts)
 
 Back up periodically:
 
 ```bash
-tar -czvf hyperbot-backup.tar.gz ~/.hyperbot ~/.hyperbot/workspace
+tar -czvf ancient-claw-backup.tar.gz ~/.ancient-claw ~/.ancient-claw/workspace
 ```
 
 ---

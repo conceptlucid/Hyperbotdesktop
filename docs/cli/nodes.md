@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `hyperbot nodes` (list/status/approve/invoke, camera/canvas/screen)"
+summary: "CLI reference for `ancient-claw nodes` (list/status/approve/invoke, camera/canvas/screen)"
 read_when:
   - You’re managing paired nodes (cameras, screen, canvas)
   - You need to approve requests or invoke node commands
 title: "nodes"
 ---
 
-# `hyperbot nodes`
+# `ancient-claw nodes`
 
 Manage paired nodes (devices) and invoke node capabilities.
 
@@ -23,14 +23,14 @@ Common options:
 ## Common commands
 
 ```bash
-hyperbot nodes list
-hyperbot nodes list --connected
-hyperbot nodes list --last-connected 24h
-hyperbot nodes pending
-hyperbot nodes approve <requestId>
-hyperbot nodes status
-hyperbot nodes status --connected
-hyperbot nodes status --last-connected 24h
+ancient-claw nodes list
+ancient-claw nodes list --connected
+ancient-claw nodes list --last-connected 24h
+ancient-claw nodes pending
+ancient-claw nodes approve <requestId>
+ancient-claw nodes status
+ancient-claw nodes status --connected
+ancient-claw nodes status --last-connected 24h
 ```
 
 `nodes list` prints pending/paired tables. Paired rows include the most recent connect age (Last Connect).
@@ -40,10 +40,10 @@ filter to nodes that connected within a duration (e.g. `24h`, `7d`).
 ## Invoke / run
 
 ```bash
-hyperbot nodes invoke --node <id|name|ip> --command <command> --params <json>
-hyperbot nodes run --node <id|name|ip> <command...>
-hyperbot nodes run --raw "git status"
-hyperbot nodes run --agent main --node <id|name|ip> --raw "git status"
+ancient-claw nodes invoke --node <id|name|ip> --command <command> --params <json>
+ancient-claw nodes run --node <id|name|ip> <command...>
+ancient-claw nodes run --raw "git status"
+ancient-claw nodes run --agent main --node <id|name|ip> --raw "git status"
 ```
 
 Invoke flags:
