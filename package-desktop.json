@@ -1,0 +1,22 @@
+{
+  "name": "hyperbot-desktop",
+  "productName": "HyperBot",
+  "version": "1.0.0",
+  "description": "AI assistant for desktop - works on any Mac",
+  "main": "dist/hyperbot.js",
+  "author": "HyperBot Team",
+  "license": "MIT",
+  "scripts": {
+    "build:mac": "npm run build && electron-builder --mac",
+    "package:mac": "electron-builder --mac --x64"
+  },
+  "build": {
+    "appId": "com.hyperbot.desktop",
+    "productName": "HyperBot",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": ["dmg"],
+      "minimumSystemVersion": "10.15"
+    }
+  }
+}

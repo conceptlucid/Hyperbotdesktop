@@ -1,0 +1,68 @@
+{
+  "name": "hyperbot-desktop",
+  "productName": "HyperBot",
+  "version": "1.0.0",
+  "description": "AI assistant for desktop - works on any Mac",
+  "main": "dist/hyperbot.js",
+  "author": "HyperBot Team",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc && node build.js",
+    "build:mac": "npm run build && electron-builder --mac",
+    "build:win": "npm run build && electron-builder --win",
+    "build:linux": "npm run build && electron-builder --linux",
+    "start": "electron .",
+    "package:mac": "electron-builder --mac --x64"
+  },
+  "build": {
+    "appId": "com.hyperbot.desktop",
+    "productName": "HyperBot",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "assets/icon.icns",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        }
+      ],
+      "minimumSystemVersion": "10.15"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Utility"
+    },
+    "win": {
+      "target": ["nsis", "portable"]
+    }
+  },
+  "dependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "typescript": "^5.0.0"
+  }
+}
