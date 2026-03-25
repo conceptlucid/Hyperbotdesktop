@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/chutes-provider",
+  "name": "@hyperbot/chutes-provider",
   "version": "2026.3.22",
   "private": true,
-  "description": "OpenClaw Chutes.ai provider plugin",
+  "description": "HyperBot Chutes.ai provider plugin",
   "type": "module",
-  "openclaw": {
+  "hyperbot": {
     "extensions": [
       "./index.ts"
     ]

@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/cloudflare-ai-gateway-provider",
+  "name": "@hyperbot/cloudflare-ai-gateway-provider",
   "version": "2026.3.22",
   "private": true,
-  "description": "OpenClaw Cloudflare AI Gateway provider plugin",
+  "description": "HyperBot Cloudflare AI Gateway provider plugin",
   "type": "module",
-  "openclaw": {
+  "hyperbot": {
     "extensions": [
       "./index.ts"
     ]

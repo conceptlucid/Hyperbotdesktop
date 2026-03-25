@@ -1,7 +1,7 @@
 {
-  "name": "@openclaw/feishu",
+  "name": "@hyperbot/feishu",
   "version": "2026.3.22",
-  "description": "OpenClaw Feishu/Lark channel plugin (community maintained by @m1heng)",
+  "description": "HyperBot Feishu/Lark channel plugin (community maintained by @m1heng)",
   "type": "module",
   "dependencies": {
     "@larksuiteoapi/node-sdk": "^1.59.0",
@@ -10,17 +10,17 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "hyperbot": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.3.22"
+    "hyperbot": ">=2026.3.22"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "hyperbot": {
       "optional": true
     }
   },
-  "openclaw": {
+  "hyperbot": {
     "extensions": [
       "./index.ts"
     ],
@@ -39,7 +39,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/feishu",
+      "npmSpec": "@hyperbot/feishu",
       "localPath": "extensions/feishu",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.3.22"

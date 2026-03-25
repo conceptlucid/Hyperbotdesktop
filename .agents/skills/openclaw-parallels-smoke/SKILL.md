@@ -1,20 +1,20 @@
 ---
-name: openclaw-parallels-smoke
-description: End-to-end Parallels smoke, upgrade, and rerun workflow for OpenClaw across macOS, Windows, and Linux guests. Use when Codex needs to run, rerun, debug, or interpret VM-based install, onboarding, gateway smoke tests, latest-release-to-main upgrade checks, fresh snapshot retests, or optional Discord roundtrip verification under Parallels.
+name: hyperbot-parallels-smoke
+description: End-to-end Parallels smoke, upgrade, and rerun workflow for HyperBot across macOS, Windows, and Linux guests. Use when Codex needs to run, rerun, debug, or interpret VM-based install, onboarding, gateway smoke tests, latest-release-to-main upgrade checks, fresh snapshot retests, or optional Discord roundtrip verification under Parallels.
 ---
 
-# OpenClaw Parallels Smoke
+# HyperBot Parallels Smoke
 
 Use this skill for Parallels guest workflows and smoke interpretation. Do not load it for normal repo work.
 
 ## Global rules
 
 - Use the snapshot most closely matching the requested fresh baseline.
-- Gateway verification in smoke runs should use `openclaw gateway status --deep --require-rpc` unless the stable version being checked does not support it yet.
+- Gateway verification in smoke runs should use `hyperbot gateway status --deep --require-rpc` unless the stable version being checked does not support it yet.
 - Stable `2026.3.12` pre-upgrade diagnostics may require a plain `gateway status --deep` fallback.
 - Treat `precheck=latest-ref-fail` on that stable pre-upgrade lane as baseline, not automatically a regression.
 - Pass `--json` for machine-readable summaries.
-- Per-phase logs land under `/tmp/openclaw-parallels-*`.
+- Per-phase logs land under `/tmp/hyperbot-parallels-*`.
 - Do not run local and gateway agent turns in parallel on the same fresh workspace or session.
 - For `prlctl exec`, pass the VM name before `--current-user` (`prlctl exec "$VM" --current-user ...`), not the other way around.
 
@@ -26,7 +26,7 @@ Use this skill for Parallels guest workflows and smoke interpretation. Do not lo
 - The aggregate npm-update wrapper must resolve the Linux VM with the same Ubuntu fallback policy as `parallels-linux-smoke.sh` before both fresh and update lanes. On Peter's current host, missing `Ubuntu 24.04.3 ARM64` should fall back to `Ubuntu 25.10`.
 - On Windows same-guest update checks, restart the gateway after the npm upgrade before `gateway status` / `agent`; in-place global npm updates can otherwise leave stale hashed `dist/*` module imports alive in the running service.
 - For Windows same-guest update checks, prefer the done-file/log-drain PowerShell runner pattern over one long-lived `prlctl exec ... powershell -EncodedCommand ...` transport. The guest can finish successfully while the outer `prlctl exec` still hangs.
-- Linux same-guest update verification should also export `HOME=/root`, pass `OPENAI_API_KEY` via `prlctl exec ... /usr/bin/env`, and use `openclaw agent --local`; the fresh Linux baseline does not rely on persisted gateway credentials.
+- Linux same-guest update verification should also export `HOME=/root`, pass `OPENAI_API_KEY` via `prlctl exec ... /usr/bin/env`, and use `hyperbot agent --local`; the fresh Linux baseline does not rely on persisted gateway credentials.
 
 ## CLI invocation footgun
 
@@ -37,9 +37,9 @@ Use this skill for Parallels guest workflows and smoke interpretation. Do not lo
 - Preferred entrypoint: `pnpm test:parallels:macos`
 - Default to the snapshot closest to `macOS 26.3.1 latest`.
 - On Peter's Tahoe VM, `fresh-latest-march-2026` can hang in `prlctl snapshot-switch`; if restore times out there, rerun with `--snapshot-hint 'macOS 26.3.1 latest'` before blaming auth or the harness.
-- The macOS smoke should include a dashboard load phase after gateway health: resolve the tokenized URL with `openclaw dashboard --no-open`, verify the served HTML contains the Control UI title/root shell, then open Safari and require an established localhost TCP connection from Safari to the gateway port.
+- The macOS smoke should include a dashboard load phase after gateway health: resolve the tokenized URL with `hyperbot dashboard --no-open`, verify the served HTML contains the Control UI title/root shell, then open Safari and require an established localhost TCP connection from Safari to the gateway port.
 - `prlctl exec` is fine for deterministic repo commands, but use the guest Terminal or `prlctl enter` when installer parity or shell-sensitive behavior matters.
-- Multi-word `openclaw agent --message ...` checks should go through a guest shell wrapper (`guest_current_user_sh` / `guest_current_user_cli` or `/bin/sh -lc ...`), not raw `prlctl exec ... node openclaw.mjs ...`, or the message can be split into extra argv tokens and Commander reports `too many arguments for 'agent'`.
+- Multi-word `hyperbot agent --message ...` checks should go through a guest shell wrapper (`guest_current_user_sh` / `guest_current_user_cli` or `/bin/sh -lc ...`), not raw `prlctl exec ... node hyperbot.mjs ...`, or the message can be split into extra argv tokens and Commander reports `too many arguments for 'agent'`.
 - On the fresh Tahoe snapshot, `brew` exists but `node` may be missing from PATH in noninteractive exec. Use `/opt/homebrew/bin/node` when needed.
 - Fresh host-served tgz installs should install as guest root with `HOME=/var/root`, then run onboarding as the desktop user via `prlctl exec --current-user`.
 - Root-installed tgz smoke can log plugin blocks for world-writable `extensions/*`; do not treat that as an onboarding or gateway failure unless plugin loading is the task.
@@ -47,11 +47,11 @@ Use this skill for Parallels guest workflows and smoke interpretation. Do not lo
 ## Windows flow
 
 - Preferred entrypoint: `pnpm test:parallels:windows`
-- Use the snapshot closest to `pre-openclaw-native-e2e-2026-03-12`.
+- Use the snapshot closest to `pre-hyperbot-native-e2e-2026-03-12`.
 - Always use `prlctl exec --current-user`; plain `prlctl exec` lands in `NT AUTHORITY\\SYSTEM`.
-- Prefer explicit `npm.cmd` and `openclaw.cmd`.
+- Prefer explicit `npm.cmd` and `hyperbot.cmd`.
 - Use PowerShell only as the transport with `-ExecutionPolicy Bypass`, then call the `.cmd` shims from inside it.
-- Multi-word `openclaw agent --message ...` checks should call `& $openclaw ...` inside PowerShell, not `Start-Process ... -ArgumentList` against `openclaw.cmd`, or Commander can see split argv and throw `too many arguments for 'agent'`.
+- Multi-word `hyperbot agent --message ...` checks should call `& $hyperbot ...` inside PowerShell, not `Start-Process ... -ArgumentList` against `hyperbot.cmd`, or Commander can see split argv and throw `too many arguments for 'agent'`.
 - Windows installer/tgz phases now retry once after guest-ready recheck; keep new Windows smoke steps idempotent so a transport-flake retry is safe.
 - Windows global `npm install -g` phases can stay quiet for a minute or more even when healthy; inspect the phase log before calling it hung, and only treat it as a regression once the retry wrapper or timeout trips.
 - Keep onboarding and status output ASCII-clean in logs; fancy punctuation becomes mojibake in current capture paths.
@@ -76,7 +76,7 @@ Use this skill for Parallels guest workflows and smoke interpretation. Do not lo
   - `--discord-guild-id`
   - `--discord-channel-id`
 - Keep the Discord token only in a host env var.
-- Use installed `openclaw message send/read`, not `node openclaw.mjs message ...`.
+- Use installed `hyperbot message send/read`, not `node hyperbot.mjs message ...`.
 - Set `channels.discord.guilds` as one JSON object, not dotted config paths with snowflakes.
 - Avoid long `prlctl enter` or expect-driven Discord config scripts; prefer `prlctl exec --current-user /bin/sh -lc ...` with short commands.
 - For a narrower macOS-only Discord proof run, the existing `parallels-discord-roundtrip` skill is the deep-dive companion.

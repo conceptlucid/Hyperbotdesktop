@@ -1,24 +1,24 @@
 {
-  "name": "@openclaw/zalo",
+  "name": "@hyperbot/zalo",
   "version": "2026.3.22",
-  "description": "OpenClaw Zalo channel plugin",
+  "description": "HyperBot Zalo channel plugin",
   "type": "module",
   "dependencies": {
     "undici": "7.24.5",
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "hyperbot": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.3.22"
+    "hyperbot": ">=2026.3.22"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "hyperbot": {
       "optional": true
     }
   },
-  "openclaw": {
+  "hyperbot": {
     "extensions": [
       "./index.ts"
     ],
@@ -37,7 +37,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/zalo",
+      "npmSpec": "@hyperbot/zalo",
       "localPath": "extensions/zalo",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.3.22"

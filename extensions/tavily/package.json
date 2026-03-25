@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/tavily-plugin",
+  "name": "@hyperbot/tavily-plugin",
   "version": "2026.3.22",
   "private": true,
-  "description": "OpenClaw Tavily plugin",
+  "description": "HyperBot Tavily plugin",
   "type": "module",
-  "openclaw": {
+  "hyperbot": {
     "extensions": [
       "./index.ts"
     ]

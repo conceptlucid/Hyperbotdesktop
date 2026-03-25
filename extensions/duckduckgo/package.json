@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/duckduckgo-plugin",
+  "name": "@hyperbot/duckduckgo-plugin",
   "version": "2026.3.22",
   "private": true,
-  "description": "OpenClaw DuckDuckGo plugin",
+  "description": "HyperBot DuckDuckGo plugin",
   "type": "module",
-  "openclaw": {
+  "hyperbot": {
     "extensions": [
       "./index.ts"
     ]

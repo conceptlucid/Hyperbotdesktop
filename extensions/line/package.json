@@ -1,21 +1,21 @@
 {
-  "name": "@openclaw/line",
+  "name": "@hyperbot/line",
   "version": "2026.3.22",
   "private": true,
-  "description": "OpenClaw LINE channel plugin",
+  "description": "HyperBot LINE channel plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "hyperbot": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.3.22"
+    "hyperbot": ">=2026.3.22"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "hyperbot": {
       "optional": true
     }
   },
-  "openclaw": {
+  "hyperbot": {
     "extensions": [
       "./index.ts"
     ],
@@ -31,7 +31,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/line",
+      "npmSpec": "@hyperbot/line",
       "localPath": "extensions/line",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.3.22"

@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/nvidia-provider",
+  "name": "@hyperbot/nvidia-provider",
   "version": "2026.3.22",
   "private": true,
-  "description": "OpenClaw NVIDIA provider plugin",
+  "description": "HyperBot NVIDIA provider plugin",
   "type": "module",
-  "openclaw": {
+  "hyperbot": {
     "extensions": [
       "./index.ts"
     ]

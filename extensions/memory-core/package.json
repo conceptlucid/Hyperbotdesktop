@@ -1,21 +1,21 @@
 {
-  "name": "@openclaw/memory-core",
+  "name": "@hyperbot/memory-core",
   "version": "2026.3.22",
   "private": true,
-  "description": "OpenClaw core memory search plugin",
+  "description": "HyperBot core memory search plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "hyperbot": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.3.22"
+    "hyperbot": ">=2026.3.22"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "hyperbot": {
       "optional": true
     }
   },
-  "openclaw": {
+  "hyperbot": {
     "extensions": [
       "./index.ts"
     ]

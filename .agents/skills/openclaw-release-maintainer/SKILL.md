@@ -1,9 +1,9 @@
 ---
-name: openclaw-release-maintainer
-description: Maintainer workflow for OpenClaw releases, prereleases, changelog release notes, and publish validation. Use when Codex needs to prepare or verify stable or beta release steps, align version naming, assemble release notes, check release auth requirements, or validate publish-time commands and artifacts.
+name: hyperbot-release-maintainer
+description: Maintainer workflow for HyperBot releases, prereleases, changelog release notes, and publish validation. Use when Codex needs to prepare or verify stable or beta release steps, align version naming, assemble release notes, check release auth requirements, or validate publish-time commands and artifacts.
 ---
 
-# OpenClaw Release Maintainer
+# HyperBot Release Maintainer
 
 Use this skill for release and publish-time workflow. Keep ordinary development changes and GHSA-specific advisory work outside this skill.
 
@@ -13,7 +13,7 @@ Use this skill for release and publish-time workflow. Keep ordinary development 
 - Ask permission before any npm publish or release step.
 - This skill should be sufficient to drive the normal release flow end-to-end.
 - Use the private maintainer release docs for credentials, recovery steps, and mac signing/notary specifics, and use `docs/reference/RELEASING.md` for public policy.
-- Core `openclaw` publish is manual `workflow_dispatch`; creating or pushing a tag does not publish by itself.
+- Core `hyperbot` publish is manual `workflow_dispatch`; creating or pushing a tag does not publish by itself.
 
 ## Keep release channel naming aligned
 
@@ -30,15 +30,15 @@ Use this skill for release and publish-time workflow. Keep ordinary development 
   - `apps/android/app/build.gradle.kts`
   - `apps/ios/Sources/Info.plist`
   - `apps/ios/Tests/Info.plist`
-  - `apps/macos/Sources/OpenClaw/Resources/Info.plist`
+  - `apps/macos/Sources/HyperBot/Resources/Info.plist`
   - `docs/install/updating.md`
   - Peekaboo Xcode project and plist version fields
 - Before creating a release tag, make every version location above match the version encoded by that tag.
 - For fallback correction tags like `vYYYY.M.D-N`, the repo version locations still stay at `YYYY.M.D`.
 - “Bump version everywhere” means all version locations above except `appcast.xml`.
 - Release signing and notary credentials live outside the repo in the private maintainer docs.
-- Every OpenClaw release ships the npm package and macOS app together.
-- The production Sparkle feed lives at `https://raw.githubusercontent.com/openclaw/openclaw/main/appcast.xml`, and the canonical published file is `appcast.xml` on `main` in the `openclaw` repo.
+- Every HyperBot release ships the npm package and macOS app together.
+- The production Sparkle feed lives at `https://raw.githubusercontent.com/hyperbot/hyperbot/main/appcast.xml`, and the canonical published file is `appcast.xml` on `main` in the `hyperbot` repo.
 - That shared production Sparkle feed is stable-only. Beta mac releases may
   upload assets to the GitHub prerelease, but they must not replace the shared
   `appcast.xml` unless a separate beta feed exists.
@@ -52,7 +52,7 @@ Use this skill for release and publish-time workflow. Keep ordinary development 
 - Changelog entries should be user-facing, not internal release-process notes.
 - When cutting a mac release with a beta GitHub prerelease:
   - tag `vYYYY.M.D-beta.N` from the release commit
-  - create a prerelease titled `openclaw YYYY.M.D-beta.N`
+  - create a prerelease titled `hyperbot YYYY.M.D-beta.N`
   - use release notes from the matching `CHANGELOG.md` version section
   - attach at least the zip and dSYM zip, plus dmg if available
 - Keep the top version entries in `CHANGELOG.md` sorted by impact:
@@ -78,7 +78,7 @@ For a non-root smoke path:
 After npm publish, run:
 
 ```bash
-node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
+node --import tsx scripts/hyperbot-npm-postpublish-verify.ts <published-version>
 ```
 
 - This verifies the published registry install path in a fresh temp prefix.
@@ -88,7 +88,7 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
 
 ## Check all relevant release builds
 
-- Always validate the OpenClaw npm release path before creating the tag.
+- Always validate the HyperBot npm release path before creating the tag.
 - Default release checks:
   - `pnpm check`
   - `pnpm build`
@@ -97,8 +97,8 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
   - `OPENCLAW_INSTALL_SMOKE_SKIP_NONROOT=1 pnpm test:install:smoke`
 - Check all release-related build surfaces touched by the release, not only the npm package.
 - Include mac release readiness in preflight by running the public validation
-  workflow in `openclaw/openclaw` and the real mac preflight in
-  `openclaw/releases-private` for every release.
+  workflow in `hyperbot/hyperbot` and the real mac preflight in
+  `hyperbot/releases-private` for every release.
 - Treat the `appcast.xml` update on `main` as part of mac release readiness, not an optional follow-up.
 - The workflows remain tag-based. The agent is responsible for making sure
   preflight runs complete successfully before any publish run starts.
@@ -114,7 +114,7 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
 
 ## Use the right auth flow
 
-- OpenClaw publish uses GitHub trusted publishing.
+- HyperBot publish uses GitHub trusted publishing.
 - The publish run must be started manually with `workflow_dispatch`.
 - The npm workflow and the private mac publish workflow accept
   `preflight_only=true` to run validation/build/package steps without uploading
@@ -127,11 +127,11 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
   the npm version is already published.
 - Validation-only runs may be dispatched from a branch when you are testing a
   workflow change before merge.
-- `.github/workflows/macos-release.yml` in `openclaw/openclaw` is now a
+- `.github/workflows/macos-release.yml` in `hyperbot/hyperbot` is now a
   public validation-only handoff. It validates the tag/release state and points
   operators to the private repo; it does not build or publish macOS artifacts.
 - Real mac preflight and real mac publish both use
-  `openclaw/releases-private/.github/workflows/openclaw-macos-publish.yml`.
+  `hyperbot/releases-private/.github/workflows/hyperbot-macos-publish.yml`.
 - The private mac workflow runs on GitHub's xlarge macOS runner and uses a
   SwiftPM cache because the Swift build/test/package path is CPU-heavy.
 - Private mac preflight uploads notarized build artifacts as workflow artifacts
@@ -144,13 +144,13 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
   attempts should fail before the protected environment is reached.
 - The release workflows stay tag-based; rely on the documented release sequence
   rather than workflow-level SHA pinning.
-- The `npm-release` environment must be approved by `@openclaw/openclaw-release-managers` before publish continues.
+- The `npm-release` environment must be approved by `@hyperbot/hyperbot-release-managers` before publish continues.
 - Mac publish uses
-  `openclaw/releases-private/.github/workflows/openclaw-macos-publish.yml` for
+  `hyperbot/releases-private/.github/workflows/hyperbot-macos-publish.yml` for
   build, signing, notarization, packaged mac artifact generation, and
   stable-feed `appcast.xml` artifact generation.
 - Real private mac publish uploads the packaged `.zip`, `.dmg`, and
-  `.dSYM.zip` assets to the existing GitHub release in `openclaw/openclaw`
+  `.dSYM.zip` assets to the existing GitHub release in `hyperbot/hyperbot`
   automatically when `OPENCLAW_PUBLIC_REPO_RELEASE_TOKEN` is present in the
   private repo `mac-release` environment.
 - For stable releases, the agent must also download the signed
@@ -162,8 +162,8 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
   plan does not yet support required reviewers there, do not assume the
   environment alone is the approval boundary; rely on private repo access and
   CODEOWNERS until those settings can be enabled.
-- Do not use `NPM_TOKEN` or the plugin OTP flow for OpenClaw releases.
-- `@openclaw/*` plugin publishes use a separate maintainer-only flow.
+- Do not use `NPM_TOKEN` or the plugin OTP flow for HyperBot releases.
+- `@hyperbot/*` plugin publishes use a separate maintainer-only flow.
 - Only publish plugins that already exist on npm; bundled disk-tree-only plugins stay unpublished.
 
 ## Fallback local mac publish
@@ -205,26 +205,26 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
 6. Confirm the target npm version is not already published.
 7. Create and push the git tag.
 8. Create or refresh the matching GitHub release.
-9. Start `.github/workflows/openclaw-npm-release.yml` with `preflight_only=true`
+9. Start `.github/workflows/hyperbot-npm-release.yml` with `preflight_only=true`
    and wait for it to pass.
-10. Start `.github/workflows/macos-release.yml` in `openclaw/openclaw` and wait
+10. Start `.github/workflows/macos-release.yml` in `hyperbot/hyperbot` and wait
     for the public validation-only run to pass.
 11. Start
-    `openclaw/releases-private/.github/workflows/openclaw-macos-publish.yml`
+    `hyperbot/releases-private/.github/workflows/hyperbot-macos-publish.yml`
     with `preflight_only=true` and wait for it to pass.
 12. If any preflight or validation run fails, fix the issue on a new commit,
     delete the tag and matching GitHub release, recreate them from the fixed
     commit, and rerun all relevant preflights from scratch before continuing.
     Never reuse old preflight results after the commit changes.
-13. Start `.github/workflows/openclaw-npm-release.yml` with the same tag for
+13. Start `.github/workflows/hyperbot-npm-release.yml` with the same tag for
     the real publish.
-14. Wait for `npm-release` approval from `@openclaw/openclaw-release-managers`.
+14. Wait for `npm-release` approval from `@hyperbot/hyperbot-release-managers`.
 15. Start
-    `openclaw/releases-private/.github/workflows/openclaw-macos-publish.yml`
+    `hyperbot/releases-private/.github/workflows/hyperbot-macos-publish.yml`
     for the real publish and wait for success.
 16. Verify the successful real private mac run uploaded the `.zip`, `.dmg`,
     and `.dSYM.zip` artifacts to the existing GitHub release in
-    `openclaw/openclaw`.
+    `hyperbot/hyperbot`.
 17. For stable releases, download `macos-appcast-<tag>` from the successful
     private mac run, update `appcast.xml` on `main`, and verify the feed.
 18. For beta releases, publish the mac assets but expect no shared production
@@ -234,4 +234,4 @@ node --import tsx scripts/openclaw-npm-postpublish-verify.ts <published-version>
 
 ## GHSA advisory work
 
-- Use `openclaw-ghsa-maintainer` for GHSA advisory inspection, patch/publish flow, private-fork validation, and GHSA API-specific publish checks.
+- Use `hyperbot-ghsa-maintainer` for GHSA advisory inspection, patch/publish flow, private-fork validation, and GHSA API-specific publish checks.

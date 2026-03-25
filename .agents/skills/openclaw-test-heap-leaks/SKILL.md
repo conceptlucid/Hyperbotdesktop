@@ -1,9 +1,9 @@
 ---
-name: openclaw-test-heap-leaks
-description: Investigate `pnpm test` memory growth, Vitest worker OOMs, and suspicious RSS increases in OpenClaw using the `scripts/test-parallel.mjs` heap snapshot tooling. Use when Codex needs to reproduce test-lane memory growth, collect repeated `.heapsnapshot` files, compare snapshots from the same worker PID, distinguish transformed-module retention from real data leaks, and fix or reduce the impact by patching cleanup logic or isolating hotspot tests.
+name: hyperbot-test-heap-leaks
+description: Investigate `pnpm test` memory growth, Vitest worker OOMs, and suspicious RSS increases in HyperBot using the `scripts/test-parallel.mjs` heap snapshot tooling. Use when Codex needs to reproduce test-lane memory growth, collect repeated `.heapsnapshot` files, compare snapshots from the same worker PID, distinguish transformed-module retention from real data leaks, and fix or reduce the impact by patching cleanup logic or isolating hotspot tests.
 ---
 
-# OpenClaw Test Heap Leaks
+# HyperBot Test Heap Leaks
 
 Use this skill for test-memory investigations. Do not guess from RSS alone when heap snapshots are available.
 
@@ -49,9 +49,9 @@ Use this skill for test-memory investigations. Do not guess from RSS alone when 
 ## Snapshot Comparison
 
 - Direct comparison:
-  - `node .agents/skills/openclaw-test-heap-leaks/scripts/heapsnapshot-delta.mjs before.heapsnapshot after.heapsnapshot`
+  - `node .agents/skills/hyperbot-test-heap-leaks/scripts/heapsnapshot-delta.mjs before.heapsnapshot after.heapsnapshot`
 - Auto-select earliest/latest snapshots per PID within one lane:
-  - `node .agents/skills/openclaw-test-heap-leaks/scripts/heapsnapshot-delta.mjs --lane-dir .tmp/heapsnap/unit-fast`
+  - `node .agents/skills/hyperbot-test-heap-leaks/scripts/heapsnapshot-delta.mjs --lane-dir .tmp/heapsnap/unit-fast`
 - Useful flags:
   - `--top 40`
   - `--min-kb 32`

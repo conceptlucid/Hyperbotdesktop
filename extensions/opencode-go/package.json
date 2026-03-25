@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/opencode-go-provider",
+  "name": "@hyperbot/opencode-go-provider",
   "version": "2026.3.22",
   "private": true,
-  "description": "OpenClaw OpenCode Go provider plugin",
+  "description": "HyperBot OpenCode Go provider plugin",
   "type": "module",
-  "openclaw": {
+  "hyperbot": {
     "extensions": [
       "./index.ts"
     ]

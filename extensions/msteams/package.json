@@ -1,7 +1,7 @@
 {
-  "name": "@openclaw/msteams",
+  "name": "@hyperbot/msteams",
   "version": "2026.3.22",
-  "description": "OpenClaw Microsoft Teams channel plugin",
+  "description": "HyperBot Microsoft Teams channel plugin",
   "type": "module",
   "dependencies": {
     "@microsoft/teams.api": "2.0.5",
@@ -9,17 +9,17 @@
     "express": "^5.2.1"
   },
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "hyperbot": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.3.22"
+    "hyperbot": ">=2026.3.22"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "hyperbot": {
       "optional": true
     }
   },
-  "openclaw": {
+  "hyperbot": {
     "extensions": [
       "./index.ts"
     ],
@@ -37,7 +37,7 @@
       "order": 60
     },
     "install": {
-      "npmSpec": "@openclaw/msteams",
+      "npmSpec": "@hyperbot/msteams",
       "localPath": "extensions/msteams",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.3.22"

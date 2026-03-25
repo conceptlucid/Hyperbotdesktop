@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/sglang-provider",
+  "name": "@hyperbot/sglang-provider",
   "version": "2026.3.22",
   "private": true,
-  "description": "OpenClaw SGLang provider plugin",
+  "description": "HyperBot SGLang provider plugin",
   "type": "module",
-  "openclaw": {
+  "hyperbot": {
     "extensions": [
       "./index.ts"
     ]

@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/groq-provider",
+  "name": "@hyperbot/groq-provider",
   "version": "2026.3.14",
   "private": true,
-  "description": "OpenClaw Groq media-understanding provider",
+  "description": "HyperBot Groq media-understanding provider",
   "type": "module",
-  "openclaw": {
+  "hyperbot": {
     "extensions": [
       "./index.ts"
     ]

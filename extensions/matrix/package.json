@@ -1,7 +1,7 @@
 {
-  "name": "@openclaw/matrix",
+  "name": "@hyperbot/matrix",
   "version": "2026.3.22",
-  "description": "OpenClaw Matrix channel plugin",
+  "description": "HyperBot Matrix channel plugin",
   "type": "module",
   "dependencies": {
     "@matrix-org/matrix-sdk-crypto-nodejs": "^0.4.0",
@@ -12,17 +12,17 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "hyperbot": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.3.22"
+    "hyperbot": ">=2026.3.22"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "hyperbot": {
       "optional": true
     }
   },
-  "openclaw": {
+  "hyperbot": {
     "extensions": [
       "./index.ts"
     ],
@@ -38,7 +38,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/matrix",
+      "npmSpec": "@hyperbot/matrix",
       "localPath": "extensions/matrix",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.3.22"
